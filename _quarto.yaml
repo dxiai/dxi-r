@@ -1,0 +1,48 @@
+project:
+  type: book
+
+book:
+  title: Prinzipien der Datenorganisation mit R
+  author: 
+  - family: Glahn
+    given: Christian  
+  page-navigation: true
+
+  chapters:
+  - index.qmd
+  # - vorwort.qmd
+ 
+  - kapitel/einleitung/kapitel.qmd
+  - kapitel/tool-chain/kapitel.qmd
+
+  - part: "Teil I: Datenquellen"
+    chapters:
+    - kapitel/daten-einlesen/kapitel.qmd
+    - kapitel/datentypen/kapitel.qmd
+    - kapitel/zeichenketten/kapitel.qmd
+    - kapitel/datenstrukturen/kapitel.qmd
+    - kapitel/externe-datenquellen/kapitel.qmd
+ 
+  - part: "Teil II: Mathematik der Daten"
+    chapters:
+    - kapitel/variablen/kapitel.qmd
+    - kapitel/datenströme/kapitel.qmd
+    - kapitel/funktionen/kapitel.qmd
+    - kapitel/boolsche-operationen/kapitel.qmd
+    - kapitel/vektor-operationen/kapitel.qmd
+    - kapitel/matrix-operationen/kapitel.qmd
+  
+  - part: "Teil III: Deskriptive Datenanalyse"
+    chapters:
+    - kapitel/daten-formen/kapitel.qmd
+    - kapitel/daten-beschreiben/kapitel.qmd
+    - kapitel/daten-visualisieren/kapitel.qmd
+    - kapitel/lineare-modelle/kapitel.qmd
+
+format:
+  html:
+    theme: bootstrap
+    toc: true
+    html-math-method: katex
+
+csl: _contrib/apa.csl
