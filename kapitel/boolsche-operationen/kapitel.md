@@ -1,5 +1,5 @@
 ---
-bibliography: references.bib
+# bibliography: references.bib
 
 title: Bool'sche Operationen
 
