@@ -47,3 +47,24 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+**/.DS_Store
+
+_bookdown_files/
+_book
+
+.quarto/
+
+
+/.quarto/
+
+**/kapitel_files/
+**/_book/
+**.tex
+**/figure-latex/
+index.aux
+index.bbl
+index.log
+index.pdf
+index.toc
+index.out
+**/*.rmarkdown
