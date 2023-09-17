@@ -38,7 +38,8 @@ book:
     - kapitel/daten-beschreiben/kapitel.qmd
     - kapitel/daten-visualisieren/kapitel.qmd
     - kapitel/lineare-modelle/kapitel.qmd
-
+    
+  - references.qmd
 format:
   html:
     theme: bootstrap
