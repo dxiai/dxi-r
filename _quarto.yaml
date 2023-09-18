@@ -5,7 +5,7 @@ execute:
   freeze: auto
 
 book:
-  title: Prinzipien der Datenorganisation mit R
+  title: Einführung in die Datenwissenschaft mit R
   author: 
   - family: Glahn
     given: Christian  
