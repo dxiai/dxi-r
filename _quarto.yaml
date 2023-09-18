@@ -15,34 +15,35 @@ book:
   - index.qmd
   # - vorwort.qmd
  
-  - kapitel/einleitung/kapitel.qmd
-  - kapitel/tool-chain/kapitel.qmd
+  - kapitel/einleitung/kapitel.md
+  # - kapitel/tool-chain/kapitel.md
 
   - part: "Teil I: Datenquellen"
     chapters:
-    - kapitel/daten-einlesen/kapitel.qmd
-    - kapitel/datentypen/kapitel.qmd
-    - kapitel/zeichenketten/kapitel.qmd
-    - kapitel/datenstrukturen/kapitel.qmd
-    - kapitel/externe-datenquellen/kapitel.qmd
+    - kapitel/daten-einlesen/kapitel.md
+    - kapitel/datentypen/kapitel.md
+    - kapitel/zeichenketten/kapitel.md
+    - kapitel/datenstrukturen/kapitel.md
+    # - kapitel/externe-datenquellen/kapitel.md
  
   - part: "Teil II: Mathematik der Daten"
     chapters:
-    - kapitel/variablen/kapitel.qmd
-    - kapitel/datenströme/kapitel.qmd
-    - kapitel/funktionen/kapitel.qmd
-    - kapitel/boolsche-operationen/kapitel.qmd
-    - kapitel/vektor-operationen/kapitel.qmd
-    - kapitel/matrix-operationen/kapitel.qmd
+    - kapitel/variablen/kapitel.md
+    - kapitel/datenströme/kapitel.md
+    - kapitel/funktionen/kapitel.md
+    - kapitel/boolsche-operationen/kapitel.md
+    - kapitel/vektor-operationen/kapitel.md
+    - kapitel/matrix-operationen/kapitel.md
   
   - part: "Teil III: Deskriptive Datenanalyse"
     chapters:
-    - kapitel/daten-formen/kapitel.qmd
-    - kapitel/daten-beschreiben/kapitel.qmd
-    - kapitel/daten-visualisieren/kapitel.qmd
-    - kapitel/lineare-modelle/kapitel.qmd
+    - kapitel/daten-formen/kapitel.md
+    - kapitel/daten-beschreiben/kapitel.md
+    - kapitel/daten-visualisieren/kapitel.md
+    - kapitel/lineare-modelle/kapitel.md
     
   - references.qmd
+
 format:
   html:
     theme: bootstrap

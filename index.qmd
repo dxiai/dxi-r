@@ -8,4 +8,4 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 
 2023, Christian Glahn, Zurich, Switzerland
 
-[![](kapitel/01-einleitung/figures/by-nc-sa.png){.unnumbered width=100}](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de)
+[![](kapitel/einleitung/figures/by-nc-sa.png){.unnumbered width=100}](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de)

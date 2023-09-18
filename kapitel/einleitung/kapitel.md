@@ -11,6 +11,5 @@ execute:
 
 ## Motivation und Ausgangslage
 
-## Anwendungen
 
 ## Organisation dieses Buchs
