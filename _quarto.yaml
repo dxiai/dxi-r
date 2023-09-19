@@ -11,6 +11,10 @@ book:
     given: Christian  
   page-navigation: true
 
+  repo-url: https://github.com/dxiai/dxi-r
+  repo-actions: 
+  - issue
+
   chapters:
   - index.qmd
   # - vorwort.qmd
