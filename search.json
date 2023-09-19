@@ -19,5 +19,103 @@
     "title": "1  Einleitung",
     "section": "1.2 Organisation dieses Buchs",
     "text": "1.2 Organisation dieses Buchs"
+  },
+  {
+    "objectID": "kapitel/daten-einlesen/kapitel.html",
+    "href": "kapitel/daten-einlesen/kapitel.html",
+    "title": "2  Daten sammeln",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/datentypen/kapitel.html",
+    "href": "kapitel/datentypen/kapitel.html",
+    "title": "3  Datentypen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/zeichenketten/kapitel.html",
+    "href": "kapitel/zeichenketten/kapitel.html",
+    "title": "4  Zeichenketten",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/datenstrukturen/kapitel.html",
+    "href": "kapitel/datenstrukturen/kapitel.html",
+    "title": "5  Datenstrukturen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/variablen/kapitel.html",
+    "href": "kapitel/variablen/kapitel.html",
+    "title": "6  Variablen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/datenströme/kapitel.html",
+    "href": "kapitel/datenströme/kapitel.html",
+    "title": "7  Datenströme",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/funktionen/kapitel.html",
+    "href": "kapitel/funktionen/kapitel.html",
+    "title": "8  Funktionen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/boolsche-operationen/kapitel.html",
+    "href": "kapitel/boolsche-operationen/kapitel.html",
+    "title": "9  Bool’sche Operationen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/vektor-operationen/kapitel.html",
+    "href": "kapitel/vektor-operationen/kapitel.html",
+    "title": "10  Vektor-Operationen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html",
+    "href": "kapitel/matrix-operationen/kapitel.html",
+    "title": "11  Matrix-Operationen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/daten-formen/kapitel.html",
+    "href": "kapitel/daten-formen/kapitel.html",
+    "title": "12  Daten formen",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/daten-beschreiben/kapitel.html",
+    "href": "kapitel/daten-beschreiben/kapitel.html",
+    "title": "13  Daten beschreiben",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/daten-visualisieren/kapitel.html",
+    "href": "kapitel/daten-visualisieren/kapitel.html",
+    "title": "14  Daten visualisieren",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/lineare-modelle/kapitel.html",
+    "href": "kapitel/lineare-modelle/kapitel.html",
+    "title": "15  Lineare Modelle",
+    "section": "",
+    "text": "Work in Progress"
   }
 ]
