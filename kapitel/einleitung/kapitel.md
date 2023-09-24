@@ -1,14 +1,8 @@
 ---
-# bibliography: references.bib
-
-title: Einleitung
-
-abstract: ""
-
 execute: 
   echo: false
 ---
-
+# Einleitung {sec-chapter-einleitung}
 ::: {.callout-warning}
 ## Work in Progress
 :::

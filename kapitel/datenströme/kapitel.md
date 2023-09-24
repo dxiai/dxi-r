@@ -1,14 +1,12 @@
 ---
 # bibliography: references.bib
 
-title: Datenströme
-
 abstract: ""
 
 execute: 
   echo: false
 ---
-
+# Datenströme {#sec-chapter-datenstroeme}
 
 ::: {.callout-warning}
 ## Work in Progress

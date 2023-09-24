@@ -4,6 +4,15 @@ project:
 execute: 
   freeze: auto
 
+lang: de
+# Change labels that are not properly changed by the language
+crossref:
+#   fig-prefix: Abbildung   # (default is "Figure")
+#   tbl-prefix: Tabelle    # (default is "Table")
+  eq-prefix: Formel # (default is "Equation")
+  prp-title: Satz
+#   sec-prefix: Abschnitt # (default is "Section")
+
 book:
   title: Einführung in die Datenwissenschaft mit R
   author: 
@@ -20,31 +29,39 @@ book:
   # - vorwort.qmd
  
   - kapitel/einleitung/kapitel.md
-  # - kapitel/tool-chain/kapitel.md
-
-  - part: "Teil I: Datenquellen"
+  - kapitel/tool-chain/instalation.md
+  - kapitel/tool-chain/hilfe.md
+ 
+  - part: "Datenquellen"
     chapters:
-    - kapitel/daten-einlesen/kapitel.md
+    # Datendokumente 
+    - kapitel/daten-organisieren/kapitel.md
     - kapitel/datentypen/kapitel.md
-    - kapitel/zeichenketten/kapitel.md
-    - kapitel/datenstrukturen/kapitel.md
+    # - kapitel/datenstrukturen/kapitel.md
+    
+    - kapitel/daten-importieren-exportieren/kapitel.md
+
     # - kapitel/externe-datenquellen/kapitel.md
  
-  - part: "Teil II: Mathematik der Daten"
+  - part: "Mathematik der Daten"
     chapters:
     - kapitel/variablen/kapitel.md
+    - kapitel/zeichenketten/kapitel.md
+    - kapitel/faktoren/kapitel.md
     - kapitel/datenströme/kapitel.md
-    - kapitel/funktionen/kapitel.md
     - kapitel/boolsche-operationen/kapitel.md
     - kapitel/vektor-operationen/kapitel.md
     - kapitel/matrix-operationen/kapitel.md
-  
-  - part: "Teil III: Deskriptive Datenanalyse"
-    chapters:
+    - kapitel/indizieren-gruppieren/kapitel.md
+    - kapitel/daten-kodieren/kapitel.md
     - kapitel/daten-formen/kapitel.md
+
+  - part: "Deskriptive Datenanalyse"
+    chapters:
+   
     - kapitel/daten-beschreiben/kapitel.md
     - kapitel/daten-visualisieren/kapitel.md
-    - kapitel/lineare-modelle/kapitel.md
+    # - kapitel/lineare-modelle/kapitel.md
     
   - references.qmd
 

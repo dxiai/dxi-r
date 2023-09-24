@@ -1,13 +1,10 @@
 ---
-# bibliography: references.bib
-
-title: Variablen
-
 abstract: ""
 
 execute: 
   echo: false
 ---
+# Variablen {#sec-chapter-variablen}
 
 ::: {.callout-warning}
 ## Work in Progress

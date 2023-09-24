@@ -1,14 +1,12 @@
 ---
 # bibliography: references.bib
 
-title: Datentypen
-
 abstract: ""
 
 execute: 
   echo: false
 ---
-
+# Datentypen {#sec-chapter-datentypen}
 
 ::: {.callout-warning}
 ## Work in Progress

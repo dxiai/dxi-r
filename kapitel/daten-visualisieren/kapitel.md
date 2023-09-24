@@ -1,14 +1,12 @@
 ---
 # bibliography: references.bib
 
-title: Daten visualisieren
-
 abstract: ""
 
 execute: 
   echo: false
 ---
-
+# Daten visualisieren {#sec-chapter-daten-visualisieren}
 
 ::: {.callout-warning}
 ## Work in Progress

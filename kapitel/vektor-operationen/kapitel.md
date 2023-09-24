@@ -1,14 +1,10 @@
 ---
-# bibliography: references.bib
-
-title: Vektor-Operationen
-
 abstract: ""
 
 execute: 
   echo: false
 ---
-
+# Vektoroperationen {#sec-chapter-vektoroperationen}
 
 ::: {.callout-warning}
 ## Work in Progress
