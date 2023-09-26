@@ -1,4 +1,4 @@
-# Indizieren und Gruppieren
+# Indizieren und Gruppieren {#sec-chapter-indizieren-gruppieren}
 
 ## Indizieren
 

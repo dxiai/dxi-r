@@ -7,7 +7,7 @@ abstract: ""
 execute: 
   echo: false
 ---
-# Daten sammeln {#sec-chapter-daten-sammeln}
+# Daten importieren und exportieren {#sec-chapter-daten-importieren}
 
 ::: {.callout-warning}
 ## Work in Progress
