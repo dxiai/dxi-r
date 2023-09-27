@@ -136,6 +136,10 @@ R hat keine eigene grafische Benutzeroberfläche und ist auf eine externe Entwic
 - Jupyter Notebooks
 - Visual Studio Code
 
+::: {.callout-note}
+In diesem Buch wird Visual Studio Code für alle Beispiele mit Benutzeroberfläche verwendet. Die Bedienung von RStudio oder JupyterLab unterscheidet für die Arbeit in diesem Buch sich nur marginal von Visual Studio Code.
+:::
+
 Eine R-Entwicklungsumgebung ist unabhängig von der R-Laufzeitumgebung, die die Programmiersprache bereitstellt. Es ist also möglich, R-Programme in der einen Umgebung zu entwickeln und später in einer anderen weiterzubearbeiten und auszuführen.
 
 Die Grundkomponenten einer Entwicklungsumgebung sind immer gleich ([@fig-ide-components]): 
@@ -203,3 +207,9 @@ Weil die `tidyverse`-Bibliothek eine zentrale Bedeutung im R-Umfeld hat, ist es 
 Rscript -e 'install.packages("tidyverse")'
 ```
 :::
+
+Bei der ersten Installation einer Bibliothek fragt R nach einem CRAN-Mirror. Hier sollte ein geografisch nahe Quelle gewählt werden, um die Ladezeiten zu verringern.
+
+Mit Visual Studio Code können R-Bibliotheken auch mit der Arbeitsumgebung installiert werden. Dazu wird die R-Erweiterung geöffnet und im Bereich `Help Pages` die Option `Install CRAN Package` gewählt. Anschliessend wird der gewünschte Bibliotheksname in der interaktiven Suche eingegeben und mit der Eingabetaste ausgewählt (@fig-r-install-tidyverse).
+
+![Installation der `tidyverse`-Bibliothek in Visual Studio Code](figures/r-install-tidyverse.png){#fig-r-install-tidyverse}
