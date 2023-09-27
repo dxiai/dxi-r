@@ -57,7 +57,7 @@ Sie können sich die verfügbaren Vignettes für eine Bibliothek mit der Operati
 
 Wenn Sie das gesuchte Thema gefunden haben, dann können Sie sich die Vignette mit dem folgenden Befehl anzeigen lassen: `vignette(thema, package = bibliotheksname)`
 
-![Index der `dplyr` Anleitungenb](figures/vignette-index-dplyr.png){#fig-dplyr-vignette-index}
+![Index der `dplyr` Anleitungen](figures/vignette-index-dplyr.png){#fig-dplyr-vignette-index}
 
 In Visual Studio Code sind alle Vignettes einer Bibliothek ([@fig-dplyr-vignette-index]) über deren Dokumentationsindex ([@fig-lib-help-index]) erreichbar. Dadurch lassen sich Anleitungen oft leichter finden.
 
