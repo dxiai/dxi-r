@@ -4,7 +4,7 @@ abstract: ""
 execute: 
   echo: false
 ---
-# Variablen {#sec-chapter-variablen}
+# Variablen, Funktionen und Operatoren {#sec-chapter-variablen}
 
 ::: {.callout-warning}
 ## Work in Progress
