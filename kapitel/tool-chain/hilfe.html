@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 1&nbsp; Einleitung</title>
+<title>Einführung in die Datenwissenschaft mit R - 3&nbsp; Hilfe bekommen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../kapitel/tool-chain/installation.html" rel="next">
-<link href="../../index.html" rel="prev">
+<link href="../../kapitel/daten-organisieren/kapitel.html" rel="next">
+<link href="../../kapitel/tool-chain/installation.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/einleitung/kapitel.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/hilfe.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kapitel/einleitung/kapitel.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../kapitel/einleitung/kapitel.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></span></a>
   </div>
 </li>
@@ -122,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kapitel/tool-chain/hilfe.html" class="sidebar-item-text sidebar-link">
+  <a href="../../kapitel/tool-chain/hilfe.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></span></a>
   </div>
 </li>
@@ -265,8 +299,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#motivation-und-ausgangslage" id="toc-motivation-und-ausgangslage" class="nav-link active" data-scroll-target="#motivation-und-ausgangslage"><span class="header-section-number">1.1</span> Motivation und Ausgangslage</a></li>
-  <li><a href="#organisation-dieses-buchs" id="toc-organisation-dieses-buchs" class="nav-link" data-scroll-target="#organisation-dieses-buchs"><span class="header-section-number">1.2</span> Organisation dieses Buchs</a></li>
+  <li><a href="#help" id="toc-help" class="nav-link active" data-scroll-target="#help"><span class="header-section-number">3.1</span> <code>help()</code></a>
+  <ul class="collapse">
+  <li><a href="#aufbau-von-funktionsdokumentationen" id="toc-aufbau-von-funktionsdokumentationen" class="nav-link" data-scroll-target="#aufbau-von-funktionsdokumentationen"><span class="header-section-number">3.1.1</span> Aufbau von Funktionsdokumentationen</a></li>
+  </ul></li>
+  <li><a href="#vignettes" id="toc-vignettes" class="nav-link" data-scroll-target="#vignettes"><span class="header-section-number">3.2</span> Vignettes</a></li>
+  <li><a href="#cheat-sheets" id="toc-cheat-sheets" class="nav-link" data-scroll-target="#cheat-sheets"><span class="header-section-number">3.3</span> Cheat Sheets</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -275,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einleitung</span></h1>
+<h1 class="title"><span id="sec-chapter-hilfe-bekommen" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></span></h1>
 </div>
 
 
@@ -290,24 +328,112 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<p>R-Funktionen sind in der Regel gut dokumentiert. Neben der eigentlichen Funktionsbeschreibung finden sich viele ausführliche Problemlösungsstrategien in Form sog. <em>Vignettes</em>. Zusätzlich finden sich für die <code>tidyverse</code>-Bibliotheken sog. <em>Cheat Sheets</em>, die einen schnellen Überblick über die Kernfunktionen erlauben.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Work in Progress
+Praxis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-
+<p>Nutzen Sie die Dokumentation regelmässig, um die richtigen Funktionen für Ihre Problemstellungen auszusuchen. Die verschiedenen Teile der R-Dokumentation helfen Ihnen die Konzepte und Techniken für die Arbeit mit R zu vertiefen.</p>
 </div>
 </div>
-<section id="motivation-und-ausgangslage" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="motivation-und-ausgangslage"><span class="header-section-number">1.1</span> Motivation und Ausgangslage</h2>
+<section id="help" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="help"><span class="header-section-number">3.1</span> <code>help()</code></h2>
+<p>Die <code>help()</code>-Funktion ist der erste Anlaufpunkt, um mehr über eine Funktion zu erfahren.</p>
+<p>R-Funktionen sind in der Regel sehr ausführlich dokumentiert. Falls Sie Details über die Arbeitsweise einer Funktion erfahren möchten, können Sie die Dokumentation einer Funktion mit der <code>help()</code>-Funktion abrufen. Dazu rufen Sie diese Funktion wie jede andere R-Funktion auf.</p>
+<p>Die <code>help()</code>-Funktion ist Teil von <code>Base R</code> und ist in jeder Umgebung verfügbar.</p>
+<p>Die Funktion erwartet den gewünschten Funktionsnamen. <code>help()</code> kann der Funktionsname direkt oder als Zeichenkette als Parameter übergeben werden. D.h. die beiden folgenden Operationen haben den gleichen Effekt und zeigen die Dokumentation der Funktion <code>read.csv</code> an.</p>
+<div id="exm-hilfe-anzeigen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 3.1 (Hilfe anzeigen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(read.csv)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"read.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Visual Studio Code ist es nicht notwendig, die <code>help()</code>-Funktion aufzurufen, weil die Hilfe direkt in die Arbeitsumgebung integriert ist. In R-Scirpten reicht es, den Mauszeiger über eine Funktion zu bewegen. Visual Studio Code zeigt dann die Hilfe direkt im Editor an (<a href="#fig-inlinehilfe">Abbildung&nbsp;<span>3.1</span></a>). Diese Darstellung wird als <em>Inline-Hilfe</em> bezeichnet.</p>
+<div id="fig-inlinehilfe" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/inlinehilfe-vsc.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;3.1: Inline Anzeige einer R-Funktionsdokumentation in Visual Studio Code</figcaption>
+</figure>
+</div>
+<p>Neben der <em>Inline-Hilfe</em> lassen sich alle Funktionen der installierten R-Bibliotheken auch über den Abschnitt <code>Help Pages</code> der R-Erweiterung zugreifen. Dort findet sich unter dem letzten Punkt <code>Help Topics by Packages</code> die Dokumentation für alle auf dem Computer installierten Bibliotheken. Der erste Unterpunkt für jede Bibliothek ist der Index, der alle Dokumente für eine Bibliothek auflistet (<a href="#fig-lib-help-index">Abbildung&nbsp;<span>3.2</span></a>). Nach dem Installieren einer Bibliothek sollte diese Seite aufgerufen werden, um sich mit der installierten Version vertraut zu machen.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Im Internet finden sich viele Materialien zur Verwendung bestimmter Bibliotheken. Oft beziehen sich diese Materialien auf ältere Versionen der jeweiligen Bibliothek. Damit ist nicht sichergestellt, dass die beschriebenen Techniken der richtigen Vorgehensweise entsprechen. <strong>Deshalb sollte immer die offizielle Dokumentation der installierten Bibliotheken zur Überprüfung der beschriebenen Methoden herangezogen werden.</strong></p>
+</div>
+</div>
+<div id="fig-lib-help-index" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/lib-help-index.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;3.2: Index der Dokumentation für die Bibliothek <code>dplyr</code></figcaption>
+</figure>
+</div>
+<section id="aufbau-von-funktionsdokumentationen" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="aufbau-von-funktionsdokumentationen"><span class="header-section-number">3.1.1</span> Aufbau von Funktionsdokumentationen</h3>
+<p>Die meisten R-Bibliotheken folgen einer Konvention zur systematischen Dokumentation von Funktionen. Jede Funktionsdokumentation besteht aus den folgenden Teilen:</p>
+<ol type="1">
+<li>Beispielen für den Aufruf der Funktion</li>
+<li>Beschreibung aller Funktionsparameter</li>
+<li>Einer detaillierten Funktionsbeschreibung</li>
+<li>Beispielen</li>
+</ol>
+<p>Die Beispiele zeigen typische Aufrufe der jeweiligen Funktion und finden sich <strong>immer</strong> <em>am Ende</em> der Dokumentation. Es lohnt sich häufig zuerst die Beispiele anzusehen und danach die Funktionsdetails zu lesen.</p>
 </section>
-<section id="organisation-dieses-buchs" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="organisation-dieses-buchs"><span class="header-section-number">1.2</span> Organisation dieses Buchs</h2>
+</section>
+<section id="vignettes" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="vignettes"><span class="header-section-number">3.2</span> Vignettes</h2>
+<p>Viele R-Bibliotheken haben komplexe Anwendungen. Diese Anwendungen werden in sogenannten <em>Vignettes</em> beschrieben. Eine <em>Vignette</em> ist eine ausführliche Beschreibung einer Funktion oder des Zusammenspiels mehrerer Funktionen mit nachvollziehbaren Beispielen.</p>
+<p>Sie können sich die verfügbaren Vignettes für eine Bibliothek mit der Operation <code>vignette(package = bibliotheksname)</code> anzeigen lassen. Wenn Sie z.B. alle Vignettes für die dplyr Bibliothek anzeigen lassen möchten, dann geben Sie <code>vignette(package = "dplyr")</code> ein. Das Ergebnis ist die Liste der verfügbaren Vignettes für diese Bibliothek.</p>
+<p>Wenn Sie das gesuchte Thema gefunden haben, dann können Sie sich die Vignette mit dem folgenden Befehl anzeigen lassen: <code>vignette(thema, package = bibliotheksname)</code></p>
+<div id="fig-dplyr-vignette-index" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/vignette-index-dplyr.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;3.3: Index der <code>dplyr</code> Anleitungenb</figcaption>
+</figure>
+</div>
+<p>In Visual Studio Code sind alle Vignettes einer Bibliothek (<a href="#fig-dplyr-vignette-index">Abbildung&nbsp;<span>3.3</span></a>) über deren Dokumentationsindex (<a href="#fig-lib-help-index">Abbildung&nbsp;<span>3.2</span></a>) erreichbar. Dadurch lassen sich Anleitungen oft leichter finden.</p>
+</section>
+<section id="cheat-sheets" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cheat-sheets"><span class="header-section-number">3.3</span> Cheat Sheets</h2>
+<p>Die <em>tidyverse</em>-Bibliotheken bieten zusätzlich <em>Spickzettel</em> für die wichtigsten Funktionen und Techniken für eine Bibliothek auf zwei Seiten. Diese Spickzettel werden auch als <em>Cheat Sheets</em> bezeichnet. Sie können diese Cheat Sheets doppelseitig ausdrucken und als Schnellreferenz verwenden.</p>
+<p>Im Git-Repository <a href="https://github.com/rstudio/cheatsheets/">rstudio/cheatsheets</a> finden sich Spickzettel und Kurzreferenzen viele R-Bibliotheken.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Spickzettel sind <strong>nicht</strong> Teil der Dokumenation einer Bibliothek und werden nicht mit ihr gepflegt.</p>
+<p><strong>Ein Spickzettel ersetzt nicht die Dokumentation!</strong> Gelegentlich verweisen Spickzettel auf stark veraltete Praktiken. Es ist also immer ein Vergleich mit der offiziellen Dokumentation notwendig.</p>
+</div>
+</div>
+<p>Die folgenden Spickzettel unterstützen die Arbeit mit diesem Buch:</p>
+<ul>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf">Datenimport</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf">Datenvisualisierung (ggplot2)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">Datentransformation (dplyr)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">Datenbereinigung (tidyr)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf">Vektorfunktionen (purrr)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/strings.pdf">Zeichenketten (stringr)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/factors.pdf">Faktoren (forcats)</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/main/lubridate.pdf">Datumswerte (lubridate)</a></li>
+</ul>
 
 
 </section>
@@ -548,13 +674,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Vorwort</span>
+      <a href="../../kapitel/tool-chain/installation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tool Chain</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/tool-chain/installation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tool Chain</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../kapitel/daten-organisieren/kapitel.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dokumentation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

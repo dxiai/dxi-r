@@ -21,100 +21,156 @@
     "text": "1.2 Organisation dieses Buchs"
   },
   {
-    "objectID": "kapitel/daten-einlesen/kapitel.html",
-    "href": "kapitel/daten-einlesen/kapitel.html",
-    "title": "2  Daten sammeln",
+    "objectID": "kapitel/tool-chain/installation.html#r-installieren",
+    "href": "kapitel/tool-chain/installation.html#r-installieren",
+    "title": "2  Tool Chain",
+    "section": "2.1 R installieren",
+    "text": "2.1 R installieren\nDie Installation von R ist einfach. Auf der R-Project Webseite kann das Installationspaket für das jeweilige Betriebssystem heruntergeladen werden. Die Installation erfolgt wie gewohnt über den Installer.\n\n\n\n\n\n\nMacOS\n\n\n\nViele R-Bibliotheken benötigen zusätzliche Komponenten, damit sie funktionieren. Diese Komponenten müssen zusätzlich kompiliert werden. Unter MacOS benötigt R dafür die App XCode und die XCode Command Line Tools.\nBeide Komponenten stehen unter MacOS kostenlos zur Verfügung. XCode wird wie gewohnt über Apple’s AppStore installiert. Nach der Installation muss XCode einmal gestartet werden, um die Lizenzbedingungen zu akzeptieren. Anschliessend sollten die notwendigen Ergänzungen für die Entwicklung unter MacOS installiert werden.\nNach erfolgreicher Installation erscheint eine Abfrage, zum Starten eines neuen Projekts (Abbildung 2.1).\n\n\n\nAbbildung 2.1: XCode Start Dialog\n\n\nDamit ist die Installation von XCode abgeschlossen. Nun folgt die Installation der Kommandozeilenwerkzeuge. Dazu muss ein Terminal geöffnet werden.\n\n\n\nAbbildung 2.2: MacOS Terminal\n\n\nIm Terminal muss das folgende Kommando eingegeben und anschliessend mit der Eingabe-Taste abgeschlossen werden.\nxcode-select --install\nAnschliessend folgen mehrere Abgragen zur Installation der XCode-Command-Line Komponenten. Nach der Installation kann das Terminal und XCode wieder geschlossen werden.\nXCode wird regelmässig grösseren Änderungen unterzogen. Diese Änderungen erfolgen oft im April, Juni und September. Nach einem Update von XCode müssen die Command-Line Tools ebenfalls erneut installiert werden. Ausserdem ist es notwendig, dass die Lizensbedingungen erneut akzeptiert werden, sonst lassen sich R-Bibliotheken nicht mehr kompilieren.\n\n\n\n2.1.1 Überprüfen der Installation\nNach erfolgreicher Installation sollte R mit den Werkzeugen der Laufzeitumgebung auf dem Rechner vorhanden sein. Die Installation lässt sich mithilfe des Terminals (MacOS) oder der Powershell (Windows) überprüfen.\n\n\n\n\n\n\nMacOS vs. Windows\n\n\n\nUnter MacOS muss der folgende Befehl eingegeben und mit der Eingabe-Taste abgeschlossen werden.\nRscript -e 'sessionInfo()'\nIn der Windows Powershell muss der Befehl wie folgt aussehen:\nRSCRIPT.EXE -e 'sessionInfo()'\n\n\nBei erfolgreicher Installation erscheint eine Meldung im Terminal, die der folgen Meldung ähnelt. Die Funktion sessionInfo() zeigt die Versionsinformationen der aktuellen R-Installation an.\nR version 4.3.1 (2023-06-16)\nPlatform: aarch64-apple-darwin22.4.0 (64-bit)\nRunning under: macOS Ventura 13.5.2\n\nMatrix products: default\nBLAS:   /opt/homebrew/Cellar/openblas/0.3.23/lib/libopenblasp-r0.3.23.dylib \nLAPACK: /opt/homebrew/Cellar/r/4.3.1/lib/R/lib/libRlapack.dylib;  LAPACK version 3.11.0\n\nlocale:\n[1] de_DE.UTF-8/de_DE.UTF-8/de_DE.UTF-8/C/de_DE.UTF-8/de_DE.UTF-8\n\ntime zone: Europe/Zurich\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.3.1\n\n\n2.1.2 Erste Schritte\nR ist eine interaktive Sprache und besteht im Kern aus einer sog. Laufzeitumgebung. Diese Umgebung übersetzt R-Syntax in Maschinensprache und führt vollständige Ausdrücke direkt aus. Innerhalb der Laufzeitumgebung steht ein einfacher Zeileneditor zur Verfügung, mit dem Eingaben erstellt und manipuliert werden können.\n\n\n\n\n\n\nMacOS vs Windows\n\n\n\nDie R-Laufzeitumgebung wird auf MacOS-Systeme im Terminal mit dem Kommando R und Eingabetaste gestartet.\nAuf Windows-Systemen wird die Laufzeitumgebung in der Powershell mit dem Kommando R.EXE aufgerufen.\n\n\nR verwendet für alle Operationen Funktionen. Die meisten R-Funktionen haben einen Namen und werden mit runden Klammern aufgerufen. Ein Beispiel ist die Funktion quit(), mit der die R-Laufzeitumgebung verlassen wird. Funktionen werden in die Laufzeitumgebung eingegeben und durch das Drücken der Eingabetaste ausgeführt.\nquit()\nDieser Funktionsaufruf führt zu der Abfrage, ob die aktuelle Arbeitsumgebung gesichert werden soll.\nSave workspace image? [y/n/c]:\nWeil nichts geändert wurde, kann diese Frage mit n für No beantwortet und mit einem Druck auf die Eingabetaste übergeben werden. Anschliessend wird die Laufzeitumgebung geschlossen und kehrt auf die Kommandozeile des Betriebssystems zurück.\nNeben der interaktiven Laufzeitumgebung wird R mit dem Programm Rscript ausgeliefert. Mit Rscript können Dateien mit R-Code zusammenhängend ausgeführt werden.\n\nDefinition 2.1 Ein R-Script ist eine Datei, die nur R-Code enthält. Ein R-Script hat per *konvention die Dateiendung .r\n\n\n\n\n\n\n\nMacOS vs. Windows\n\n\n\nDas Programm Rscript heisst unter Windows RSCRIPT.EXE.\n\n\n\nBeispiel 2.1 (Ausführen eines R-Scripts im MacOS Terminal)  \nRscript my-rscript.r\n\nRscript kann ausserdem einzelne Code-Zeilen ausführen, ohne in die interaktive Laufzeitumgebung wechseln zu müssen. Diese Funktion ist praktisch, um eine einfache Operation auszuführen, wie z.B. eine Bibliothek zu installieren (s. Kapitel 2.3)."
+  },
+  {
+    "objectID": "kapitel/tool-chain/installation.html#grafische-oberflächen-für-r",
+    "href": "kapitel/tool-chain/installation.html#grafische-oberflächen-für-r",
+    "title": "2  Tool Chain",
+    "section": "2.2 Grafische Oberflächen für R",
+    "text": "2.2 Grafische Oberflächen für R\nR hat keine eigene grafische Benutzeroberfläche und ist auf eine externe Entwicklungsumgebung angewiesen. Eine solche Entwicklungsumgebung muss zusätzlich zu R installiert werden, damit die Programmierung und die Analyse vereinfacht wird. Die am häufigsten eingesetzten Entwicklungsumgebungen für R sind:\n\nRStudio\nJupyter Notebooks\nVisual Studio Code\n\n\n\n\n\n\n\nHinweis\n\n\n\nIn diesem Buch wird Visual Studio Code für alle Beispiele mit Benutzeroberfläche verwendet. Die Bedienung von RStudio oder JupyterLab unterscheidet für die Arbeit in diesem Buch sich nur marginal von Visual Studio Code.\n\n\nEine R-Entwicklungsumgebung ist unabhängig von der R-Laufzeitumgebung, die die Programmiersprache bereitstellt. Es ist also möglich, R-Programme in der einen Umgebung zu entwickeln und später in einer anderen weiterzubearbeiten und auszuführen.\nDie Grundkomponenten einer Entwicklungsumgebung sind immer gleich (Abbildung 2.3):\n\nCode-Editor, mit dem Dokumentation und analytische Funktionen geschrieben werden.\nDatei-Browser, über den alle Dateien eines Projekts verwaltet werden können.\n\nLaufzeit-Console, über die die R-Laufzeitumgebung zugänglich ist.\nDatenbetrachter, zur Auswertung von generierten Datenstrukturen.\nVisualisierungsbetrachter, zur Anzeige von Datenvisualisierungen.\n\n\n\n\nAbbildung 2.3: Komponenten einer datenzentrischen Entwicklungsumgebung am Beispiel von Visual Studio Code\n\n\nNeben diesen Komponenten existieren oft zustätzliche Werkzeuge und Ansichten.\n\nWerkzeuge zur Versionierung von Code und Daten.\nDokumentation für R und ergänzende Bibliotheken.\nInstallationsunterstützung von Bibliotheken.\n\n\n2.2.1 RStudio\nRStudio ist eine integrierte Analyseumgebung, die speziell für die Entwicklung von R-Programmen und R-Analysen entwickelt wurde. Das System ist auf R-spezifische Arbeitsabläufe zur Datenanalyse ausgerichtet und unterstützt neben R auch die Programmiersprache Python.\nRStudio verwendet eine spezielle Version von Markdown, um R-Code-Fragmente auszuführen und die Ergebnisse in das Dokument einzubinden. Dieses Format heisst R-Markdown.\nVon RStudio existiert auch eine Web-basierte Version, welche online Zusammenarbeit und online Publikationen unterstützt.\n\n\n2.2.2 JupyterLab\nJupyterLab ist eine Web-basierte Analyseumgebung, die ursprünglich für die Programmiersprache Python entwickelt wurde. JupyterLab wurde speziell für Datendokumente entwickelt und unterstützt ausschliesslich Jupyter Notebooks als Austauschformat für Analysen.\nJupyterLab unterstützt neben Python viele andere Programmiersprachen. Dazu gehört auch R. JupyterLab integriert Programmiersprachen durch spezielle Kernel, die Code-Fragmente auswerten und die Ergebnisse in ein Datendokument einbinden.\nIn der Praxis werden Jupyter Notebooks und JupyterLab oft eingesetzt, wenn sehr umfangreiche Daten analysiert werden sollen, die nicht ohne weiteres über das Internet übertragen werden können oder dürfen.\n\n\n2.2.3 Visual Studio Code\nVisual Studio Code ist ein kostenloser Code-Editor mit vielen Erweiterungen für fast alle Programmiersprachen und Arbeitsumgebungen. Die Erweiterung für R ist ebenfalls kostenlos und kann über den Extension Manager installiert werden.\nIm Gegensatz zu R-Studio ist Visual Studio Code in erster Linie ein Code-Editor und bietet für R eine vergleichsweise einfache Entwicklungsumgebung. Der grösste Unterschied zwischen Visual Studio Code und RStudio oder JupyterLab ist der wenig differenzierte Variablen-Inspektor.\nIn Visual Studio Code lassen sich u.a. auch R-Markdown-Dokumente und Jupyter Notebooks bearbeiten."
+  },
+  {
+    "objectID": "kapitel/tool-chain/installation.html#sec-install-libs",
+    "href": "kapitel/tool-chain/installation.html#sec-install-libs",
+    "title": "2  Tool Chain",
+    "section": "2.3 R-Bibliotheken installieren",
+    "text": "2.3 R-Bibliotheken installieren\nR verfügt über einen sehr grossen Fundus an Lösungen für das statistische Rechnen. Diese Lösungen werden als Bibliotheken bereitgestellt und über das Comprehensive R Archive Network (CRAN) geteilt. CRAN ist ein integraler Bestandteil von R. Weil R jedoch über sehr viele Bibliotheken verfügt, werden diese nicht mit R ausgeliefert, sondern müssen bei Bedarf installiert werden. Hierzu liefert R die Funktion install.packages() mit. Diese Funktion teilt R mit, eine Bibliothek mit einem bestimmten Namen zu installieren.\n\nBeispiel 2.2 (Funktions-Schema von install.packages())  \ninstall.packages(package_name)\n\nIn diesem Buch werden neben den R-Basisfunktionen fast ausschliesslich die Funktionen der tidyverse-Bibliothek behandelt. Die tidyverse-Bibliothek erweitert die R-Syntax um moderne Sprachkonzepte und vereinheitlicht viele Funktionen für Standardaufgaben.\n\n\n\n\n\n\nHinweis\n\n\n\nStreng genommen ist die tidyverse-Bibliothek eine R-Bibliothek im engeren Sinn. Vielmehr vereint sie die häufig zusammen eingesetzten Biblliotheken ggplot2 (Kapitel 18), dplyr (Kapitel 14), tidyr (Kapitel 16), readr (Kapitel 6), stringr (Kapitel 8), forcats (Kapitel 9), lubridate und purrr (Kapitel 7) sowie etliche weitere Module für die tägliche Arbeit mit Daten.\n\n\nWeil die tidyverse-Bibliothek eine zentrale Bedeutung im R-Umfeld hat, ist es an dieser Stelle sinnvoll, die tidyverse-Bibliothek mithilfe von Rscript zu installieren.\n\nBeispiel 2.3 (Installieren der tidyverse-Bibliotheken unter MacOS)  \nRscript -e 'install.packages(\"tidyverse\")'\n\nBei der ersten Installation einer Bibliothek fragt R nach einem CRAN-Mirror. Hier sollte ein geografisch nahe Quelle gewählt werden, um die Ladezeiten zu verringern.\nMit Visual Studio Code können R-Bibliotheken auch mit der Arbeitsumgebung installiert werden. Dazu wird die R-Erweiterung geöffnet und im Bereich Help Pages die Option Install CRAN Package gewählt. Anschliessend wird der gewünschte Bibliotheksname in der interaktiven Suche eingegeben und mit der Eingabetaste ausgewählt (Abbildung 2.4).\n\n\n\nAbbildung 2.4: Installation der tidyverse-Bibliothek in Visual Studio Code"
+  },
+  {
+    "objectID": "kapitel/tool-chain/hilfe.html#help",
+    "href": "kapitel/tool-chain/hilfe.html#help",
+    "title": "3  Hilfe bekommen",
+    "section": "3.1 help()",
+    "text": "3.1 help()\nDie help()-Funktion ist der erste Anlaufpunkt, um mehr über eine Funktion zu erfahren.\nR-Funktionen sind in der Regel sehr ausführlich dokumentiert. Falls Sie Details über die Arbeitsweise einer Funktion erfahren möchten, können Sie die Dokumentation einer Funktion mit der help()-Funktion abrufen. Dazu rufen Sie diese Funktion wie jede andere R-Funktion auf.\nDie help()-Funktion ist Teil von Base R und ist in jeder Umgebung verfügbar.\nDie Funktion erwartet den gewünschten Funktionsnamen. help() kann der Funktionsname direkt oder als Zeichenkette als Parameter übergeben werden. D.h. die beiden folgenden Operationen haben den gleichen Effekt und zeigen die Dokumentation der Funktion read.csv an.\n\nBeispiel 3.1 (Hilfe anzeigen)  \nhelp(read.csv)\nhelp(\"read.csv\")\n\nIn Visual Studio Code ist es nicht notwendig, die help()-Funktion aufzurufen, weil die Hilfe direkt in die Arbeitsumgebung integriert ist. In R-Scirpten reicht es, den Mauszeiger über eine Funktion zu bewegen. Visual Studio Code zeigt dann die Hilfe direkt im Editor an (Abbildung 3.1). Diese Darstellung wird als Inline-Hilfe bezeichnet.\n\n\n\nAbbildung 3.1: Inline Anzeige einer R-Funktionsdokumentation in Visual Studio Code\n\n\nNeben der Inline-Hilfe lassen sich alle Funktionen der installierten R-Bibliotheken auch über den Abschnitt Help Pages der R-Erweiterung zugreifen. Dort findet sich unter dem letzten Punkt Help Topics by Packages die Dokumentation für alle auf dem Computer installierten Bibliotheken. Der erste Unterpunkt für jede Bibliothek ist der Index, der alle Dokumente für eine Bibliothek auflistet (Abbildung 3.2). Nach dem Installieren einer Bibliothek sollte diese Seite aufgerufen werden, um sich mit der installierten Version vertraut zu machen.\n\n\n\n\n\n\nAchtung\n\n\n\nIm Internet finden sich viele Materialien zur Verwendung bestimmter Bibliotheken. Oft beziehen sich diese Materialien auf ältere Versionen der jeweiligen Bibliothek. Damit ist nicht sichergestellt, dass die beschriebenen Techniken der richtigen Vorgehensweise entsprechen. Deshalb sollte immer die offizielle Dokumentation der installierten Bibliotheken zur Überprüfung der beschriebenen Methoden herangezogen werden.\n\n\n\n\n\nAbbildung 3.2: Index der Dokumentation für die Bibliothek dplyr\n\n\n\n3.1.1 Aufbau von Funktionsdokumentationen\nDie meisten R-Bibliotheken folgen einer Konvention zur systematischen Dokumentation von Funktionen. Jede Funktionsdokumentation besteht aus den folgenden Teilen:\n\nBeispielen für den Aufruf der Funktion\nBeschreibung aller Funktionsparameter\nEiner detaillierten Funktionsbeschreibung\nBeispielen\n\nDie Beispiele zeigen typische Aufrufe der jeweiligen Funktion und finden sich immer am Ende der Dokumentation. Es lohnt sich häufig zuerst die Beispiele anzusehen und danach die Funktionsdetails zu lesen."
+  },
+  {
+    "objectID": "kapitel/tool-chain/hilfe.html#vignettes",
+    "href": "kapitel/tool-chain/hilfe.html#vignettes",
+    "title": "3  Hilfe bekommen",
+    "section": "3.2 Vignettes",
+    "text": "3.2 Vignettes\nViele R-Bibliotheken haben komplexe Anwendungen. Diese Anwendungen werden in sogenannten Vignettes beschrieben. Eine Vignette ist eine ausführliche Beschreibung einer Funktion oder des Zusammenspiels mehrerer Funktionen mit nachvollziehbaren Beispielen.\nSie können sich die verfügbaren Vignettes für eine Bibliothek mit der Operation vignette(package = bibliotheksname) anzeigen lassen. Wenn Sie z.B. alle Vignettes für die dplyr Bibliothek anzeigen lassen möchten, dann geben Sie vignette(package = \"dplyr\") ein. Das Ergebnis ist die Liste der verfügbaren Vignettes für diese Bibliothek.\nWenn Sie das gesuchte Thema gefunden haben, dann können Sie sich die Vignette mit dem folgenden Befehl anzeigen lassen: vignette(thema, package = bibliotheksname)\n\n\n\nAbbildung 3.3: Index der dplyr Anleitungenb\n\n\nIn Visual Studio Code sind alle Vignettes einer Bibliothek (Abbildung 3.3) über deren Dokumentationsindex (Abbildung 3.2) erreichbar. Dadurch lassen sich Anleitungen oft leichter finden."
+  },
+  {
+    "objectID": "kapitel/tool-chain/hilfe.html#cheat-sheets",
+    "href": "kapitel/tool-chain/hilfe.html#cheat-sheets",
+    "title": "3  Hilfe bekommen",
+    "section": "3.3 Cheat Sheets",
+    "text": "3.3 Cheat Sheets\nDie tidyverse-Bibliotheken bieten zusätzlich Spickzettel für die wichtigsten Funktionen und Techniken für eine Bibliothek auf zwei Seiten. Diese Spickzettel werden auch als Cheat Sheets bezeichnet. Sie können diese Cheat Sheets doppelseitig ausdrucken und als Schnellreferenz verwenden.\nIm Git-Repository rstudio/cheatsheets finden sich Spickzettel und Kurzreferenzen viele R-Bibliotheken.\n\n\n\n\n\n\nAchtung\n\n\n\nDie Spickzettel sind nicht Teil der Dokumenation einer Bibliothek und werden nicht mit ihr gepflegt.\nEin Spickzettel ersetzt nicht die Dokumentation! Gelegentlich verweisen Spickzettel auf stark veraltete Praktiken. Es ist also immer ein Vergleich mit der offiziellen Dokumentation notwendig.\n\n\nDie folgenden Spickzettel unterstützen die Arbeit mit diesem Buch:\n\nDatenimport\nDatenvisualisierung (ggplot2)\nDatentransformation (dplyr)\nDatenbereinigung (tidyr)\nVektorfunktionen (purrr)\nZeichenketten (stringr)\nFaktoren (forcats)\nDatumswerte (lubridate)"
+  },
+  {
+    "objectID": "kapitel/daten-organisieren/kapitel.html",
+    "href": "kapitel/daten-organisieren/kapitel.html",
+    "title": "[4  Dokumentation]{#sec-chapter-dokumentation’ .quarto-section-identifier}",
     "section": "",
-    "text": "Work in Progress"
+    "text": "Work in Progress\n\n\n\n\n\n\n\nDefinition 4.1 Ein Datendokument ist ein Dokument, dass Datentransformationen, -Visualisierungen und -Auswertungen in die Dokumentation integriert.\n\nDatendokumente können für Labor- oder Projektberichte verwendet werden.\n\nR-Markdown\nJupyter Notebooks\n\nDaten Dokumente verbinden sog. Markdown-Text mit Code-Fragmenten, so dass die Ausgabe der Code-Fragmente direkt Teil des Berichts wird.\nFür die Publikation von Berichten sind diese Systeme nicht geeignet, sondern müssen durch zusätzliche Tools ergänzt werden.\n\nQuarto\nJupyter Books\n\nDiese zusätzlichen Tools ergänzen Datendokumente um zusätzliche Funktionen. Dazu gehören Querverweise, Verzeichnisse oder Zitieren. Ausserdem können diese System Berichte in übliche Publikationsformaten, wie HTML oder PDF, produzieren."
   },
   {
     "objectID": "kapitel/datentypen/kapitel.html",
     "href": "kapitel/datentypen/kapitel.html",
-    "title": "3  Datentypen",
+    "title": "5  Datentypen",
     "section": "",
     "text": "Work in Progress"
   },
   {
-    "objectID": "kapitel/zeichenketten/kapitel.html",
-    "href": "kapitel/zeichenketten/kapitel.html",
-    "title": "4  Zeichenketten",
-    "section": "",
-    "text": "Work in Progress"
-  },
-  {
-    "objectID": "kapitel/datenstrukturen/kapitel.html",
-    "href": "kapitel/datenstrukturen/kapitel.html",
-    "title": "5  Datenstrukturen",
+    "objectID": "kapitel/daten-importieren-exportieren/kapitel.html",
+    "href": "kapitel/daten-importieren-exportieren/kapitel.html",
+    "title": "6  Daten importieren und exportieren",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/variablen/kapitel.html",
     "href": "kapitel/variablen/kapitel.html",
-    "title": "6  Variablen",
+    "title": "7  Variablen",
     "section": "",
     "text": "Work in Progress"
+  },
+  {
+    "objectID": "kapitel/zeichenketten/kapitel.html",
+    "href": "kapitel/zeichenketten/kapitel.html",
+    "title": "8  Zeichenketten",
+    "section": "",
+    "text": "Work in Progress\n\n\n\n\n\n\nZeichenketten zerlegen\nString R"
+  },
+  {
+    "objectID": "kapitel/faktoren/kapitel.html#section",
+    "href": "kapitel/faktoren/kapitel.html#section",
+    "title": "9  Faktoren",
+    "section": "9.1 ",
+    "text": "9.1"
   },
   {
     "objectID": "kapitel/datenströme/kapitel.html",
     "href": "kapitel/datenströme/kapitel.html",
-    "title": "7  Datenströme",
-    "section": "",
-    "text": "Work in Progress"
-  },
-  {
-    "objectID": "kapitel/funktionen/kapitel.html",
-    "href": "kapitel/funktionen/kapitel.html",
-    "title": "8  Funktionen",
+    "title": "10  Datenströme",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/boolsche-operationen/kapitel.html",
     "href": "kapitel/boolsche-operationen/kapitel.html",
-    "title": "9  Bool’sche Operationen",
+    "title": "11  Boole’sche Operationen",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/vektor-operationen/kapitel.html",
     "href": "kapitel/vektor-operationen/kapitel.html",
-    "title": "10  Vektor-Operationen",
+    "title": "12  Vektoroperationen",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/matrix-operationen/kapitel.html",
     "href": "kapitel/matrix-operationen/kapitel.html",
-    "title": "11  Matrix-Operationen",
+    "title": "13  Matrix-Operationen",
     "section": "",
     "text": "Work in Progress"
   },
   {
+    "objectID": "kapitel/indizieren-gruppieren/kapitel.html#indizieren",
+    "href": "kapitel/indizieren-gruppieren/kapitel.html#indizieren",
+    "title": "14  Indizieren und Gruppieren",
+    "section": "14.1 Indizieren",
+    "text": "14.1 Indizieren"
+  },
+  {
+    "objectID": "kapitel/indizieren-gruppieren/kapitel.html#gruppieren",
+    "href": "kapitel/indizieren-gruppieren/kapitel.html#gruppieren",
+    "title": "14  Indizieren und Gruppieren",
+    "section": "14.2 Gruppieren",
+    "text": "14.2 Gruppieren"
+  },
+  {
+    "objectID": "kapitel/daten-kodieren/kapitel.html#mit-faktoren-kodieren",
+    "href": "kapitel/daten-kodieren/kapitel.html#mit-faktoren-kodieren",
+    "title": "15  Daten kodieren",
+    "section": "15.1 Mit Faktoren kodieren",
+    "text": "15.1 Mit Faktoren kodieren"
+  },
+  {
     "objectID": "kapitel/daten-formen/kapitel.html",
     "href": "kapitel/daten-formen/kapitel.html",
-    "title": "12  Daten formen",
+    "title": "16  Daten formen",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/daten-beschreiben/kapitel.html",
     "href": "kapitel/daten-beschreiben/kapitel.html",
-    "title": "13  Daten beschreiben",
+    "title": "17  Daten beschreiben",
     "section": "",
     "text": "Work in Progress"
   },
   {
     "objectID": "kapitel/daten-visualisieren/kapitel.html",
     "href": "kapitel/daten-visualisieren/kapitel.html",
-    "title": "14  Daten visualisieren",
-    "section": "",
-    "text": "Work in Progress"
-  },
-  {
-    "objectID": "kapitel/lineare-modelle/kapitel.html",
-    "href": "kapitel/lineare-modelle/kapitel.html",
-    "title": "15  Lineare Modelle",
+    "title": "18  Daten visualisieren",
     "section": "",
     "text": "Work in Progress"
   }
