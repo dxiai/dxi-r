@@ -33,7 +33,7 @@ Neben der *Inline-Hilfe* lassen sich alle Funktionen der installierten R-Bibliot
 
 ::: {.callout-important}
 ## Achtung
-Im Internet finden sich viele Materialien zur Verwendung bestimmter Bibliotheken. Oft beziehen sich diese Materialien auf ältere Versionen der jeweiligen Bibliothek. Damit ist nicht sichergestellt, dass die beschriebenen Techniken der richtigen Vorgehensweise entsprechen. **Deshalb sollte immer die offizielle Dokumentation der installierten Bibliotheken zur Überprüfung der beschriebenen Methoden herangezogen werden.**
+Im Internet finden sich viele Materialien zur Verwendung einzelner Bibliotheken. Oft beziehen sich diese Materialien auf ältere Versionen der jeweiligen Bibliothek. Damit ist nicht sichergestellt, dass die beschriebenen Techniken der richtigen Vorgehensweise entsprechen. **Deshalb sollte immer die offizielle Dokumentation der installierten Bibliotheken zur Überprüfung der beschriebenen Methoden herangezogen werden.**
 :::
 
 ![Index der Dokumentation für die Bibliothek `dplyr`](figures/lib-help-index.png){#fig-lib-help-index}
