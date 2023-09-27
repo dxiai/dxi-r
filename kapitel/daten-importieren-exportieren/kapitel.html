@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -261,7 +295,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#daten-importieren" id="toc-daten-importieren" class="nav-link active" data-scroll-target="#daten-importieren"><span class="header-section-number">6.1</span> Daten importieren</a>
+  <ul class="collapse">
+  <li><a href="#dateitypen" id="toc-dateitypen" class="nav-link" data-scroll-target="#dateitypen"><span class="header-section-number">6.1.1</span> Dateitypen</a></li>
+  <li><a href="#dateien-mit-einer-spalte" id="toc-dateien-mit-einer-spalte" class="nav-link" data-scroll-target="#dateien-mit-einer-spalte"><span class="header-section-number">6.1.2</span> Dateien mit einer Spalte</a></li>
+  <li><a href="#excel-arbeitsmappen" id="toc-excel-arbeitsmappen" class="nav-link" data-scroll-target="#excel-arbeitsmappen"><span class="header-section-number">6.1.3</span> Excel Arbeitsmappen</a></li>
+  </ul></li>
+  <li><a href="#daten-exportieren" id="toc-daten-exportieren" class="nav-link" data-scroll-target="#daten-exportieren"><span class="header-section-number">6.2</span> Daten exportieren</a></li>
+  <li><a href="#json-daten" id="toc-json-daten" class="nav-link" data-scroll-target="#json-daten"><span class="header-section-number">6.3</span> JSON-Daten</a></li>
+  <li><a href="#festkodierte-daten" id="toc-festkodierte-daten" class="nav-link" data-scroll-target="#festkodierte-daten"><span class="header-section-number">6.4</span> Festkodierte Daten</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,8 +344,285 @@ Work in Progress
 
 </div>
 </div>
+<section id="daten-importieren" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="daten-importieren"><span class="header-section-number">6.1</span> Daten importieren</h2>
+<p>Das Einlesen von Datendateien ist ein zentraler Bestandteil von R, weil es die Voraussetzung für die statistische Programmierung bildet. Diese Funktionen gehen jedoch nicht sehr sparsam mit dem Arbeitsspeicher unseres Computers um, sodass sehr grosse Datenmengen immer wieder zu Problemen führen.</p>
+<p>Die <code>readr</code>-Bibliothek ersetzt die Base R-Funktionen zum Einlesen von Dateien durch flexiblere und effizientere Funktionen. Diese Funktionen können mit grösseren Datenmengen umgehen und schonen den verfügbaren Arbeitsspeicher. Deshalb sind die <code>readr</code>-Funktionen den jeweiligen Gegenstücken von Base R vorzuziehen.</p>
+<section id="dateitypen" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="dateitypen"><span class="header-section-number">6.1.1</span> Dateitypen</h3>
+<p>Für den Austausch von Stichproben stehen verschiedene Dateiformate zur Verfügung. Diese Dateiformate unterscheiden sich durch die Strategie, mit der die Werte in den einzelnen Tabellenzellen unterschieden werden.</p>
+<p>Die wichtigsten Formate sind:</p>
+<ul>
+<li>Tabulator getrennte Werte (TSV, tabulator-separated values)</li>
+<li>Komma getrennte Werte (CSV, comma-separated values)</li>
+<li>Excel Tabellen (via <code>readxl</code>-Bibliothek)</li>
+<li>Fixformat Tabellen (FWF, fixed-width format)</li>
+<li>R-Datendateien (RDS, R-data structure)</li>
+</ul>
+<p>Diese Dateien können wir mit den folgenden Funktionen einlesen.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>tidy R</th>
+<th>Base R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>csv (mit <code>,</code> als Trennzeichen)</td>
+<td><code>read_csv()</code></td>
+<td><code>read.csv()</code></td>
+</tr>
+<tr class="even">
+<td>csv (mit <code>;</code> als Trennzeichen)</td>
+<td><code>read_delim()</code> oder <code>read_csv2()</code></td>
+<td><code>read.csv2()</code></td>
+</tr>
+<tr class="odd">
+<td>tsv</td>
+<td><code>read_tsv()</code></td>
+<td><code>read.delim()</code></td>
+</tr>
+<tr class="even">
+<td>xls (Excel Arbeitsmappen mit <code>readxl</code>)</td>
+<td><code>read_excel()</code></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>FWF</td>
+<td><code>read_fwf()</code></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>RDS</td>
+<td><code>read_rds()</code></td>
+<td><code>readRDS()</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In der Schweiz kann das CSV-Format zu Verwirrung führen, weil sehr häufig das Semikolon als Spaltentrennzeichen und der Punkt als Dezimaltrennzeichen verwendet werden. Die Ursache für diese Situation sind CSV-Dateien, die aus Excel exportiert wurden.</p>
+<p>Die normalerweise für dieses Format empfohlene Funktion <code>read_csv2()</code> behandelt Dezimalzahlen fälschlich als Ganzzahlen. Um dieses Problem zu beheben, sollte das Dezimaltrennzeichen laut Dokumentation wie folgt angepasst werden:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv2</span>(datei_name, <span class="at">locale =</span> <span class="fu">local</span>(<span class="at">decimal_mark =</span> <span class="st">"."</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Dieser Aufruf funktioniert jedoch nicht!</strong></p>
+<p>Hier greift die Funktion <code>read_delim()</code>. Wird dieser Funktion nur ein Dateiname übergeben, dann prüft die Funktion auf die verschiedenen Trennzeichen. Dieser (undokumentierte) Algorithmus erkennt Schweizer CSV-Dateien korrekt.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(datei_name)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Dieser Aufruf importiert die Werte wie erwartet.</strong></p>
+</div>
+</div>
+<p>Bei der modernen <code>read_</code> Variante können wir uns leicht an der Dateiendung orientieren, um die richtige <code>read_</code>-Funktion auszuwählen.</p>
+<p>Wenn eine Datei eingelesen wird, dann gibt die jeweilige <code>read_</code>-Funktion neben den Daten auch zurück, wie die Datei eingelesen wurde. Enthält die eingelesene Datei die erwarteten Spaltenüberschriften, dann wurde das richtige Dateiformat ausgewählt.</p>
+</section>
+<section id="dateien-mit-einer-spalte" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="dateien-mit-einer-spalte"><span class="header-section-number">6.1.2</span> Dateien mit einer Spalte</h3>
+<p><strong>CSV</strong>-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Die Funktion <code>read_delim()</code> liest diese Dateien meistens korrekt ein. Falls eine Datei mit nur <strong>einem</strong> <em>Datenvektor</em> importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle <strong>muss</strong> die Datei mit der <code>read_csv()</code> oder <code>read_csv2()</code>-Funktion noch einmal eingelesen werden.</p>
+<p>Für Spalten mit Zeichenketten oder Ganzzahlen wird immer die Funktion <code>read_csv()</code> verwendet.</p>
+<p>Für Gleitkommazahlen erfolgt die Auswahl auf Grundlage des verwendeten Dezimaltrennzeichens. Wird der Dezimalpunkt verwendet, dann <strong>muss</strong> die Funktion <code>read_csv()</code> benutzt werden. Wird das Dezimalkomma verwendet, dann <strong>muss</strong> die Funktion <code>read_csv2()</code> eingesetzt werden.</p>
+<blockquote class="blockquote">
+<div id="exm-import-single-col" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.1 (Datei mit einer Spalte importieren) </strong></span>Mit dem Aufruf <code>read_csv("beispieldaten.csv")</code> werden Daten mit einem Komma als Trennzeichen und mit Dezimalpunkt eingelesen.</p>
+<p>Mit dem Aufruf <code>read_csv2("beispieldaten.csv")</code> werden Daten mit einem Semikolon als Trennzeichen und mit Dezimalkomma eingelesen.</p>
+<p>In beiden Fällen nutzen wir dieses Verhalten aus, um eine Stichprobe mit nur einer Spalte einzulesen.</p>
+</div>
+</blockquote>
+</section>
+<section id="excel-arbeitsmappen" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="excel-arbeitsmappen"><span class="header-section-number">6.1.3</span> Excel Arbeitsmappen</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Liegen Daten in einer Excel Arbeitsmappe vor, dann muss diese Arbeitsmappe <strong>nicht</strong> in ein anderes Dateiformat umgewandelt werden, damit die Daten in R importiert werden können.</p>
+</div>
+</div>
+<p>In Excel werden Daten in <em>Arbeitsmappen</em> organisiert. Es ist also möglich, mehr als eine Tabelle und darauf basierende Operationen in einer Datei zu speichern. Damit Daten aus Arbeitsmappen in R importiert werden können, müssen die Struktur der Arbeitsmappe bekannt sein.</p>
+<p>Eine Excel Arbeitsmappe ist eine Datei, die üblicherweise auf <code>.xlsx</code> endet. Die Dateiendung signalisiert uns <em>meistens</em> die interne Organisation einer Datei. <em>Interne Organisation einer Datei</em> bedeutet, in welcher Folge die Daten in einer Datei auf der Festplatte abgelegt sind.</p>
+<p>Nur das Dateiformat von <code>.xlsx</code>-Dateien unterstützt alle Funktionen von Excel und kann von R korrekt eingelesen werden</p>
+<p>Das Dateiformat wird in Excel im <code>Speichern-Unter</code>-Dialog festgelegt. Dieser Dialog erscheint in der Regel, wenn eine neue Arbeitsmappe das erste Mal gespeichert wird. Wenn im Start-Dialog von Excel einfach eine neue Arbeitsmappe erstellt wird, dann erzeugt Excel <em>automatisch</em> eine Arbeitsmappe im Excel-Format.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Excel-Dateien sind Dateien mit der Endung <code>.xlsx</code> oder <code>.xls</code>und werden als <strong>Excel Arbeitsmappen</strong> bezeichnet. Nur Dateien mit dieser Endung können in R als Excel-Datei importiert werden.</p>
+</div>
+</div>
+<p>Excel Arbeitsmappen haben vier zentrale Strukturelemente:</p>
+<ol type="1">
+<li>Arbeitsblätter</li>
+<li>Adressbereiche</li>
+<li>Zellenwerte</li>
+<li>Zellenformeln</li>
+</ol>
+<p>Jedes Arbeitsblatt einer Arbeitsmappe hat einen <em>eindeutigen</em> Namen.</p>
+<p>Die Adressbereiche sind in Zeilen und Spalten gegliedert. Wir finden Daten daher immer auf einem bestimmten Arbeitsblatt in einem bestimmten Adressbereich. Die konkrete Position der Daten in der Arbeitsmappe legen die Autoren willkürlich fest.</p>
+<p>Jede Zelle eines Arbeitsblatts hat <em>immer</em> zwei <em>gleichzeitige</em> Zustände, die immer in einer Excel Arbeitsmappe gespeichert werden:</p>
+<ol type="1">
+<li>Jede Zelle hat einen Wert.</li>
+<li>Jede Zelle hat eine Operation.</li>
+</ol>
+<p>Aus diesen Strukturelementen ergeben sich zwei Konsequenzen:</p>
+<ol type="1">
+<li>Ein Arbeitsblatt kann mehr als eine Tabelle mit Daten enthalten.</li>
+<li>Die Daten müssen nicht am Anfang (d.h. in der ersten Zeile und ersten Spalte) eines Arbeitsblatts beginnen.</li>
+</ol>
+<p>Um mit den Daten in Excel Arbeitsmappen arbeiten zu können, müssen bekannt sein, auf welchem Arbeitsblatt und in welchem Adressbereich die Daten stehen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tabellen sind <strong>keine</strong> Strukturelemente von Excel Arbeitsmappen, die in R zugänglich sind.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Excel Arbeitsmappen mit Excel geöffnet werden, dann berechnet Excel alle Operationen auf <em>allen</em> Arbeitsblättern neu. Damit werden die Werte in der Arbeitsmappe verändert.</p>
+<p>Es kommt also vor, dass sich eine Arbeitsmappe ändert, ohne dass eine Interaktion vorgenommen wurde. In diesen Fällen fragt Excel beim Schliessen der Arbeitsmappe, ob die Änderungen gespeichert werden sollen.</p>
+<p>Wird eine Excel Arbeitsmappe in R (oder in einer anderen Programmiersprache) geöffnet, dann wird nur die Arbeitsmappe geöffnet <strong><em>ohne</em></strong> die Operationen neu zu berechnen.</p>
+</div>
+</div>
+<p>Mit den Funktionen der <code>readxl</code>-Bibliothek können wir Excel Arbeitsmappen nach R importieren. Dabei sind zwei Funktionen von besonderer Bedeutung:</p>
+<ul>
+<li><code>excel_sheets(dateiname)</code> und</li>
+<li><code>read_excel(dateiname, sheet)</code></li>
+</ul>
+<p>Mit der Funktion <code>excel_sheets()</code> können die vorhandenen Arbeitsblätter erkannt werden. Das Ergebnis dieser Funktion ist die Liste der Arbeitsblattnamen in einer Arbeitsmappe. Diese Funktion sollte vor dem Import von Daten zur Kontrolle der Arbeitsblattnamen verwendet werden.</p>
+<p>Die Funktion <code>read_excel()</code> erlaubt es einzelne Arbeitsblätter zu importieren. Wenn kein Arbeitsblattname für den Parameter <code>sheet</code> übergeben wird, dann nimmt die Funktion das aktive oder das erste Arbeitsblatt in der Arbeitsmappe.</p>
+<p>Mit den <code>readxl</code>-Funktionen können keine Formeln aus den Zellen ausgelesen werden.</p>
+<div id="exm-read-arbeitsmappe" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.2 (Excel-Arbeitsmappe importieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Arbeitsblaetter <span class="ot">=</span> <span class="fu">excel_sheets</span>(<span class="st">"Bestellungen_2.xlsx"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Arbeitsblatt "Daten" sollte vorhanden sein.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"Bestellungen_2.xlsx"</span>, <span class="st">"Daten"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Funktion <code>read_excel()</code> importiert alle Daten auf einem Arbeitsblatt. Enthält nur ein bestimmter Bereich auf einem Arbeitsblatt die Daten von Interesse, dann muss dieser Bereich als Excel-Bereichsadresse angegeben werden.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>read_excel()</code> kann nur mit Excels Arbeitsblattadressen umgehen. Tabellenadressen oder die Gatter-Notation beherrscht die Funktion nicht.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="daten-exportieren" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="daten-exportieren"><span class="header-section-number">6.2</span> Daten exportieren</h2>
+<p>R unterstützt den Export strukturierter Daten in Textdateien. Beim Exportieren kommen für die Formate TSV und CSV werden die entsprechenden Funktionen <code>write_tsv()</code>, <code>write_csv()</code> und <code>write_csv2()</code> benutzt. Für speziellformatierte Dateien kann die Funktion <code>write_delim()</code> eingesetzt werden.</p>
+<p>Alle Export-Funktionen erwarten eine Datenstruktur als ersten Parameter und einen Dateinamen als zweiten Parameter. Der Dateiname legt fest, wohin das Ergebnis der Funktion auf dem Computer geschrieben werden soll.</p>
+<p>Die Import- und Export-Funktionen lassen sich zu einfachen Konvertierungsprogrammen verknüpfen. <a href="#exm-korrect-swiss-csv">Beispiel&nbsp;<span>6.3</span></a> korrigert von Excel exportierte CSV-Dateien in ein gültiges CSV-Format.</p>
+<div id="exm-korrect-swiss-csv" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.3 (“Schweizer” CSV-Format korrigieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_delim</span>(<span class="st">"Bestellungen_Excel.csv"</span>), </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bestellungen_korrigiert.csv"</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R kann Excel Arbeitsmappen <strong>nicht exportieren</strong>. Die <code>readr</code>-Funktionen <code>write_excel_csv()</code> und <code>write_excel_csv2()</code> exportieren CSV-Dateien mit einer zusätzlichen Markierung am Dateianfang. <strong>Diese Funktionen sollten nur verwendet werden, wenn eine CSV-Datei nur mit Excel importiert werden soll und nicht für die Archivierung oder Weiterverarbeitung gedacht ist.</strong></p>
+<p>Die zusätzliche Markierung wird als <strong>Byte Order Mark</strong> (BOM) bezeichnet und muss das UTF8-Symbol <code>FEFF</code> sein. Dieses Symbol ist ein Leerzeichen ohne Länge und wird deshalb nie dargestellt. Excel bzw. Power Query verwenden das BOM, um UTF8-kodierte Dateien zu identifizieren.</p>
+</div>
+</div>
+</section>
+<section id="json-daten" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="json-daten"><span class="header-section-number">6.3</span> JSON-Daten</h2>
+<p>JSON ist ein Datenformat, dass von vielen sog. <em>Web-Diensten</em> zum Austausch von Datenstrukturen eingesetzt wird. R kann dieses Datenformat mit der <code>tidyverse</code>-Bibliothek <code>jsonlite</code> importieren und auch exportieren. <code>jsonlite</code> stellt zwei Funktionen für den regelmässigen Einsatz bereit:</p>
+<ul>
+<li>fromJSON()</li>
+<li>toJSON()</li>
+</ul>
+<p>Die beiden Funktionen <code>fromJSON()</code> und <code>toJSON()</code> unterstützen das Parsen von und Serialisieren zu Zeichenketten im JSON-Format.</p>
+<p>Um Daten aus einer Textdatei im JSON-Format zu importieren, muss die gesamte Datei zuerst eingelesen werden und dann an den JSON-Parser <code>fromJSON()</code> übergeben werden.</p>
+<div id="exm-parse-json" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.4 (JSON Daten aus einer Datei importieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">read_file</span>(<span class="st">"beispiele/daten.json"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mit der Funktion <code>toJSON()</code> werden Daten in eine JSON-formatierte Zeichenkette umgewandelt. Diese Zeichenkette kann anschliessend mit <code>write_file()</code> in eine Datei geschrieben werden.</p>
+<div id="exm-parse-json" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.5 (Daten im JSON-Format exportieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_file</span>(<span class="fu">toJSON</span>(Daten),<span class="st">"neue_daten.json"</span>)<span class="er">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die beiden Funktionen <code>read_json()</code> und <code>write_json()</code> erlauben das Lesen und Schreiben von Textdateien im JSON-Format. Die Standardeinstellungen sind jedoch nicht identisch mit denen von <code>fromJSON()</code> und <code>toJSON()</code>, so dass der Import und Export mit diesen Funktionen komplexer ist, als mit der oben beschrieben Technik.</p>
+</div>
+</div>
+</section>
+<section id="festkodierte-daten" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="festkodierte-daten"><span class="header-section-number">6.4</span> Festkodierte Daten</h2>
+<p>R unterstützt den Import von <strong>festkodierten Daten</strong> nicht direkt. Festkodierte Daten benötigen einen eigenen Parser, der die Datenfelder extrahiert. Die prinzipielle Vorgehensweise ähnelt dem Import und Export von JSON-Daten. Dazu werden die Daten als unstrukturierte Textdaten mit der Funktion <code>read_file()</code> eingelesen. Anschliessend werden die Datenfelder mit Zeichenketten-Operationen (<a href="../zeichenketten/kapitel.html"><span>Kapitel&nbsp;8</span></a>) einzeln extrahiert. Beim Exportieren müssen die Daten zuerst serialisiert werden und anschliessend mit der Funktion <code>write_file()</code> in die entsprechende Datei geschrieben werden.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -549,4 +874,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
