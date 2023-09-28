@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - [4&nbsp; Dokumentation]{#sec-chapter-dokumentation’ .quarto-section-identifier}</title>
+<title>Einführung in die Datenwissenschaft mit R - 4&nbsp; Dokumentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -62,6 +115,22 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -261,14 +330,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#mathematische-formeln-in-datendokumenten" id="toc-mathematische-formeln-in-datendokumenten" class="nav-link active" data-scroll-target="#mathematische-formeln-in-datendokumenten"><span class="header-section-number">4.1</span> Mathematische Formeln in Datendokumenten</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">[<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dokumentation</span>]{#sec-chapter-dokumentation’ .quarto-section-identifier}</h1>
+<h1 class="title"><span id="sec-chapter-dokumentation" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dokumentation</span></span></h1>
 </div>
 
 
@@ -283,36 +358,99 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<div id="def-datendokumente" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.1 </strong></span>Ein <strong>Datendokument</strong> ist ein Dokument, dass Datentransformationen, -Visualisierungen und -Auswertungen in die Dokumentation integriert.</p>
+</div>
+<p>Datendokumente eignen sich besonders für Labor- oder Projektberichte, weil die Auswertung direkt in den Bericht einfliesst. Datendokumente verbinden sog. beschreibenden Text mit Code-Fragmenten, so dass die Ausgabe der Code-Fragmente direkt Teil des Berichts wird.</p>
+<p>Datendokumente verbinden beschreibende und formatierte Textblöcke mit Code-Blöcken. Die Formatierung der Textblöcke erfolgt in der Regel mithilfe von Markdown. Markdown hat gegenüber anderen Textformatierungen den Vorteil, dass es ähnlich wie Programm-Code leicht erlernbar und leicht versionierbar ist.</p>
+<p>Datendokumente werden in der Regel als Web-Seiten oder als PDF-Dokumente bereitgestellt. Dieses Bereitstellen ist die <strong>Präsentation</strong> eines Datendokuments.</p>
+<p>Bei Datendokumenten werden zwei leicht unterschiedliche Ansätze verfolgt.</p>
+<ul>
+<li><p><strong><em>R-Markdown</em></strong> <span class="citation" data-cites="grolemund_introduction_2014">(<a href="../../references.html#ref-grolemund_introduction_2014" role="doc-biblioref">Grolemund, 2014</a>)</span> verwendet ausschliesslich Markdown als Dokumentenformat. Die Ergebnisse von Code-Blöcken sind nicht Bestandteil des eigentlichen Dokuments, sondern werden erst für die Präsentation erzeugt. Die Codezellen bilden gemeinsam ein Programm bzw. Script, dass immer in der Reihenfolge der Code-Zellen ausgeführt wird. Ein R-Markdown-Dokument ist immer ein gültiges Markdown Dokument und kann mit jedem Markdown-fähigen Betrachter (z.B. GitHub) angezeigt werden.</p></li>
+<li><p><strong><em>Jupyter Notebooks</em></strong> <span class="citation" data-cites="jupyter_development_team_notebook_2015">(<a href="../../references.html#ref-jupyter_development_team_notebook_2015" role="doc-biblioref">Jupyter Development Team, 2015</a>)</span> unterscheiden zwischen <em>Textzellen</em> und <em>Code-Zellen</em>. Textzellen enthalten nur in Markdown formatierte Textelemente. Werden Markdown-Code-Blöcke in Textzellen verwendet, dann werden diese nicht ausgeführt. Code-Zellen enthalten nur ausführbaren Code. Wird dieser ausgeführt werden, dann werden die Ergebnisse als Teil des Dokuments gespeichert. Die Code-Zellen eines Jupyter-Notebooks können in beliebiger Reihenfolge ausgeführt werden. Deshalb wird zusätzlich für ausgeführte Code-Zellen eine Nummer festgehalten, aus der die Reihenfolge der Ausführung hervorgeht. Jupyter Notebooks verwenden ein spezielles Datenformat und benötigen spezielle Betrachter-Software.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Work in Progress
+Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-
+<p>Der Begriff <em>R-Markdown</em> wird hier als Referenz für den verfolgten Ansatz verwendet. Datendokumente in R-Markdown sind nicht auf R beschränkt, sondern können beliebige andere Programmiersprachen in Code-Blöcken verwenden.</p>
 </div>
 </div>
-<div id="def-datendokumente" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.1 </strong></span>Ein <strong>Datendokument</strong> ist ein Dokument, dass Datentransformationen, -Visualisierungen und -Auswertungen in die Dokumentation integriert.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Datendokumente können für Labor- oder Projektberichte verwendet werden.</p>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Weil <em>Jupyter Notebooks</em> die Ergebnisse von Code-Zellen im Dokument speichern, ändert sich das Dokument, selbst wenn keine inhaltlichen Änderungen vorgenommen wurden. Diese Eingenschaft von Jupyter Notebooks erschwert die Versionierung ein wenig.</p>
+</div>
+</div>
+<p>Für Laborberichte können Datendokumente direkt verwendet werden. Für die Publikation von Projektberichten sind diese Systeme nicht unmittelbar geeignet, sondern müssen durch zusätzliche Tools ergänzt werden, um die zusätzlichen Elemente dieser Berichte erzeugen zu können. Dazu gehören Bild- und Tabellenbeschriftungen, Querverweise, Quellenverweise und das Literaturverzeichnis sowie Inhaltsverzeichnisse und Indizes.</p>
+<p>R-Markdown-Dokumente können mit der Software <code>quarto</code> <span class="citation" data-cites="posit_software_pbc_quarto_2023">(<a href="../../references.html#ref-posit_software_pbc_quarto_2023" role="doc-biblioref">Posit Software PBC, 2023</a>)</span> in ein geeignetes Präsentationsformat gebracht werden.</p>
+<p>Für <em>Jupyter Notebooks</em> übernimmt diese Funktion das Werkzeug <code>Jupyter Books</code> <span class="citation" data-cites="the_jupyter_book_community_jupyter_2023">(<a href="../../references.html#ref-the_jupyter_book_community_jupyter_2023" role="doc-biblioref">The Jupyter Book Community, 2023</a>)</span>.</p>
+<section id="mathematische-formeln-in-datendokumenten" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="mathematische-formeln-in-datendokumenten"><span class="header-section-number">4.1</span> Mathematische Formeln in Datendokumenten</h2>
+<p>In Datendokumenten lassen sich mathematische Formeln darstellen. Diese Formeln werden im sog. <strong>LaTeX-Math-Mode</strong> eingegeben. Diese Formeln werden bei der Präsentation in die korrekte mathematische Darstellung überführt.</p>
+<p>Der LaTeX-Math-Mode ist eine Formelbeschreibungssprache <span class="citation" data-cites="american_mathematical_society_users_2020 hogholm_mathtools_2022">(<a href="../../references.html#ref-american_mathematical_society_users_2020" role="doc-biblioref">American Mathematical Society &amp; LATEX Project, 2020</a>; <a href="../../references.html#ref-hogholm_mathtools_2022" role="doc-biblioref">Høgholm &amp; Madsen, 2022</a>)</span>, mit der die exotischen und in nicht mathematischen Texten wenig bis nie verwendeten Symbole und deren Anordnung gezielt ausgewählt werden können. Der LaTeX-Math-Mode wird von vielen Systemen zur Darstellung von Formeln verwendet. Deshalb lohn sich eine Auseinandersetzung mit den Grundkonzepten dieser Technik.</p>
+<p>Der LaTeX-Math-Mode kennt zwei Modi: den <strong>inline Modus</strong>, wenn eine Formel wie oben in den Fliesstext eingebettet ist, und den <strong>Gleichungsmodus</strong>, wenn eine Formel wie eine Abbildung hervorgehoben und beschriftet wird. Der inline Modus wird durch ein einfaches Dollar-Zeichen (<code>$</code>) oder mit der Zeichenfolge Backslash-runde Klammer (<code>\(</code> und <code>\)</code>) eingeleitet und abgeschlossen. Der Gleichungsmodus wird durch ein doppeltes Dollar-Zeichen (<code>$$</code>) eingeleitet und abgeschlossen. Die Formelbeschreibung ist unabhängig vom Modus, wobei die Darstellung dem zur Verfügung stehenden Platz berücksichtigt.</p>
+<p>Mit dem LaTeX-Math-Mode wird die Formel mit ihren Bestandteilen und ihren Beziehungen beschrieben. Die folgenden Grundregeln sind für den Math-Mode wichtig:</p>
 <ul>
-<li>R-Markdown</li>
-<li>Jupyter Notebooks</li>
+<li>Zahlen und Buchstaben und andere Sonderzeichen auf der Tastatur werden als solche dargestellt.</li>
+<li>Sonderzeichen, Operatoren und besondere Formatierungen werden durch einen Back-Slash (<code>\</code>) eingeleitet, der von einem Schlüsselwort gefolgt wird.</li>
+<li>zusammengehörende Teilausdrücke werden durch geschweifte Klammern zusammengefasst (<code>{}</code>). Teilausdrücke, die nur aus einem Symbolbestehen müssen nicht in Klammern gesetzt werden.</li>
+<li>Das Dach (<code>^</code>) bedeutet den folgenden Teilausdruck hochstellen.</li>
+<li>Der Unterstrich (<code>_</code>) bedeutet den folgenden Teilausdruck tiefstellen.</li>
 </ul>
-<p>Daten Dokumente verbinden sog. Markdown-Text mit Code-Fragmenten, so dass die Ausgabe der Code-Fragmente direkt Teil des Berichts wird.</p>
-<p>Für die Publikation von Berichten sind diese Systeme nicht geeignet, sondern müssen durch zusätzliche Tools ergänzt werden.</p>
-<ul>
-<li>Quarto</li>
-<li>Jupyter Books</li>
-</ul>
-<p>Diese zusätzlichen Tools ergänzen Datendokumente um zusätzliche Funktionen. Dazu gehören Querverweise, Verzeichnisse oder Zitieren. Ausserdem können diese System Berichte in übliche Publikationsformaten, wie HTML oder PDF, produzieren.</p>
+<div id="exm-math-mode" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.1 (LaTeX-Math-Mode) </strong></span>Die Formel <span class="math inline">\sum_{i=1}^{n}{(\frac{x_i}{2})^2}</span> lässt sich mit einer normalen Tastatur nicht eingeben. Deshalb wird der Math-Mode zur Formelbeschreibung verwendet. Im inline Modus wird die Formeldarstellung so gewählt, dass die Formel ungefähr in die aktuelle Textzeile passt. Im Gleichungsmodus wird die gleiche Formel möglichst übersichtlich angezeigt.</p>
+<p><span class="math display">
+\sum_{i=1}^{n}{(\frac{x_i}{2})^2}
+</span></p>
+<p>Die Formel wird wie folgt im Math-Mode beschrieben:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">\sum</span>_{i=1}^{n}{(<span class="fu">\frac</span>{x_i}{2})^2}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Die Formel beginnt mit dem grossen griechischen Sigma (<span class="math inline">\Sigma</span>) für das Summensymbol. Das wird durch <code>\sum</code> erzeugt. Eine Summe besteht aus drei Teilausdrücken:</p>
+<ol type="1">
+<li>Dem Initialwert <em>unter</em> dem Summenzeichen.</li>
+<li>Dem Endwert <em>über</em> dem Summenzeichen.</li>
+<li>Dem Summenterm hinter dem Summenzeichen.</li>
+</ol>
+<p>Entsprechend wird der Initialwert mit <code>_</code> tiefgestellt, der Endwert mit <code>^</code> hochgestellt und der Summenterm wird hinter die Summe gefügt.</p>
+<p>Der Summenterm wird durch eine Potenz und einem Bruch gebildet. Die Potenz wird durch das Hochstellen gekennzeichnet. Die runden Klammern werden als einfache runde Klammern eingegeben</p>
+<p>Der Bruch ist eine besondere Darstellung und benötigt das Schlüsselwort <code>frac</code> für <em>fraction</em> (dt. Fraktur/Bruch). Ein Bruch besteht immer aus zwei Teilausdrücken, die nacheinander in geschweiften Klammern angegeben werden müssen. Der Zähler besteht aus dem Teilausdruck <span class="math inline">x_i</span>. Entsprechend muss das i gegenüber dem x tiefgestellt werden. Weil es sich jeweils um einzelne Symbole handelt, müssen die Teilausdrücke nicht geklammert werden.</p>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-american_mathematical_society_users_2020" class="csl-entry" role="listitem">
+American Mathematical Society, &amp; LATEX Project. (2020). <em>User’s Guide for the amsmath Package</em>. <a href="http://mirrors.ctan.org/macros/latex/required/amsmath/amsldoc.pdf">http://mirrors.ctan.org/macros/latex/required/amsmath/amsldoc.pdf</a>
+</div>
+<div id="ref-grolemund_introduction_2014" class="csl-entry" role="listitem">
+Grolemund, G. (2014). <em>Introduction to R Markdown</em>. <a href="https://rmarkdown.rstudio.com/articles_intro.html">https://rmarkdown.rstudio.com/articles_intro.html</a>
+</div>
+<div id="ref-hogholm_mathtools_2022" class="csl-entry" role="listitem">
+Høgholm, M., &amp; Madsen, L. (2022). <em>mathtools – Mathematical tools to use with amsmath</em>. <a href="https://ctan.org/pkg/mathtools?lang=en">https://ctan.org/pkg/mathtools?lang=en</a>
+</div>
+<div id="ref-jupyter_development_team_notebook_2015" class="csl-entry" role="listitem">
+Jupyter Development Team. (2015). <em>The Notebook file format</em>. <a href="https://nbformat.readthedocs.io/en/latest/format_description.html">https://nbformat.readthedocs.io/en/latest/format_description.html</a>
+</div>
+<div id="ref-posit_software_pbc_quarto_2023" class="csl-entry" role="listitem">
+Posit Software PBC. (2023). <em>quarto</em>. <a href="https://quarto.org/">https://quarto.org/</a>
+</div>
+<div id="ref-the_jupyter_book_community_jupyter_2023" class="csl-entry" role="listitem">
+The Jupyter Book Community. (2023). <em>Jupyter Book</em>. <a href="https://jupyterbook.org">https://jupyterbook.org</a>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -564,4 +702,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
