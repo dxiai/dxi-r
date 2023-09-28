@@ -49,7 +49,7 @@ Mit dem LaTeX-Math-Mode wird die Formel mit ihren Bestandteilen und ihren Bezieh
 
 ::: {#exm-math-mode}
 ## LaTeX-Math-Mode
-Die Formel $\sum_{i=1}^{n}{(\frac{x_i}{2})^2}$ lässt sich mit einer normalen Tastatur nicht eingeben. Im inline Modus wird die Formeldarstellung so gewählt, dass die Formel ungefähr in die aktuelle Textzeile passt. Im Gleichungsmodus wird die gleiche Formel möglichst übersichtlich angezeigt.
+Die Formel $\sum_{i=1}^{n}{(\frac{x_i}{2})^2}$ lässt sich mit einer normalen Tastatur nicht eingeben. Deshalb wird der Math-Mode zur Formelbeschreibung verwendet. Im inline Modus wird die Formeldarstellung so gewählt, dass die Formel ungefähr in die aktuelle Textzeile passt. Im Gleichungsmodus wird die gleiche Formel möglichst übersichtlich angezeigt.
 
 $$
 \sum_{i=1}^{n}{(\frac{x_i}{2})^2}
