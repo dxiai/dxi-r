@@ -110,7 +110,7 @@ Weil nichts geändert wurde, kann diese Frage mit `n` für *No* beantwortet und 
 Neben der interaktiven Laufzeitumgebung wird R mit dem Programm `Rscript` ausgeliefert. Mit `Rscript` können Dateien mit R-Code zusammenhängend ausgeführt werden. 
 
 ::: {#def-r-script}
-Ein **R-Script** ist eine Datei, die nur R-Code enthält. Ein R-Script hat per *konvention die Dateiendung `.r`
+Ein **R-Script** ist eine Datei, die nur R-Code enthält. Ein R-Script hat per *Konvention* die Dateiendung `.r`
 :::
 
 
