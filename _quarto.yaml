@@ -1,6 +1,8 @@
 project:
   type: book
 
+bibliography: dxi-skript.bib
+
 execute: 
   freeze: auto
 
