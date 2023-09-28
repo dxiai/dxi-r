@@ -362,6 +362,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td>txt (ganze Datei)</td>
+<td><code>read_file()</code></td>
+<td><code>readChar()</code> + <code>file.info()</code></td>
+</tr>
+<tr class="even">
+<td>txt (zeilenweise)</td>
+<td><code>read_lines()</code></td>
+<td><code>readLines()</code> + <code>file()</code></td>
+</tr>
+<tr class="odd">
 <td>csv (mit <code>,</code> als Trennzeichen)</td>
 <td><code>read_csv()</code></td>
 <td><code>read.csv()</code></td>
@@ -374,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>tsv</td>
 <td><code>read_tsv()</code></td>
-<td><code>read.delim()</code></td>
+<td><code>read.table()</code></td>
 </tr>
 <tr class="even">
 <td>xls (Excel Arbeitsmappen mit <code>readxl</code>)</td>
@@ -393,6 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<p>Die Base R Funktionen <code>read.table()</code>, <code>read.csv</code> und <code>read.csv2()</code> importieren Zeichenketten als Faktoren (s. <a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;5</span></a>). Damit können diese Werte nicht direkt als Zeichenketten behandelt werden. Diese automatische Behandlung entfällt bei den jeweiligen tidy R Varianten. Dadurch lassen sich Daten intuitiver bearbeiten.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
