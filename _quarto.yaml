@@ -33,6 +33,7 @@ book:
   - kapitel/einleitung/kapitel.md
   - kapitel/tool-chain/installation.md
   - kapitel/tool-chain/hilfe.md
+  - kapitel/tool-chain/language.md
  
   - part: "Datenquellen"
     chapters:
