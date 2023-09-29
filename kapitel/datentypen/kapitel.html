@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 5&nbsp; Datentypen</title>
+<title>Einführung in die Datenwissenschaft mit R - 6&nbsp; Datentypen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-organisieren/kapitel.html">Datenquellen</a></li><li class="breadcrumb-item"><a href="../../kapitel/datentypen/kapitel.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Datentypen</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-organisieren/kapitel.html">Datenquellen</a></li><li class="breadcrumb-item"><a href="../../kapitel/datentypen/kapitel.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datentypen</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,6 +160,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../kapitel/tool-chain/language.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -138,19 +178,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-organisieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dokumentation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dokumentation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/datentypen/kapitel.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Datentypen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datentypen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-importieren-exportieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Importieren und Exportieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Importieren und Exportieren</span></span></a>
   </div>
 </li>
       </ul>
@@ -167,61 +207,61 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/variablen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Variablen, Funktionen und Operatoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Variablen, Funktionen und Operatoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/zeichenketten/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Zeichenketten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Zeichenketten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/faktoren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Faktoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Faktoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/datenströme/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Datenströme</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Datenströme</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/boolsche-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/vektor-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/matrix-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Matrix-Operationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Matrix-Operationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/indizieren-gruppieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Indizieren und Gruppieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Indizieren und Gruppieren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-kodieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-formen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Daten formen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten formen</span></span></a>
   </div>
 </li>
       </ul>
@@ -238,13 +278,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-beschreiben/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-visualisieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,14 +301,34 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#fundamentale-datentypen" id="toc-fundamentale-datentypen" class="nav-link active" data-scroll-target="#fundamentale-datentypen"><span class="header-section-number">6.1</span> Fundamentale Datentypen</a>
+  <ul class="collapse">
+  <li><a href="#undefinierte-werte" id="toc-undefinierte-werte" class="nav-link" data-scroll-target="#undefinierte-werte"><span class="header-section-number">6.1.1</span> Undefinierte Werte</a></li>
+  <li><a href="#zahlen" id="toc-zahlen" class="nav-link" data-scroll-target="#zahlen"><span class="header-section-number">6.1.2</span> Zahlen</a></li>
+  <li><a href="#zeichenketten-character" id="toc-zeichenketten-character" class="nav-link" data-scroll-target="#zeichenketten-character"><span class="header-section-number">6.1.3</span> Zeichenketten (character)</a></li>
+  <li><a href="#wahrheitswerte" id="toc-wahrheitswerte" class="nav-link" data-scroll-target="#wahrheitswerte"><span class="header-section-number">6.1.4</span> Wahrheitswerte</a></li>
+  <li><a href="#faktoren" id="toc-faktoren" class="nav-link" data-scroll-target="#faktoren"><span class="header-section-number">6.1.5</span> Faktoren</a></li>
+  </ul></li>
+  <li><a href="#datenstrukturen" id="toc-datenstrukturen" class="nav-link" data-scroll-target="#datenstrukturen"><span class="header-section-number">6.2</span> Datenstrukturen</a>
+  <ul class="collapse">
+  <li><a href="#vektoren" id="toc-vektoren" class="nav-link" data-scroll-target="#vektoren"><span class="header-section-number">6.2.1</span> Vektoren</a></li>
+  <li><a href="#listen" id="toc-listen" class="nav-link" data-scroll-target="#listen"><span class="header-section-number">6.2.2</span> Listen</a></li>
+  <li><a href="#matrizen" id="toc-matrizen" class="nav-link" data-scroll-target="#matrizen"><span class="header-section-number">6.2.3</span> Matrizen</a></li>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">6.2.4</span> Data Frames</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-chapter-datentypen" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Datentypen</span></span></h1>
+<h1 class="title"><span id="sec-chapter-datentypen" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Datentypen</span></span></h1>
 </div>
 
 
@@ -296,8 +356,108 @@ Work in Progress
 
 </div>
 </div>
+<p>R ist eine <strong>vektororientierte Programmiersprache</strong>. Das bedeutet zum einen, dass alle skalaren Werte von R wie ein-dimensionale Vektoren behandelt werden. Zum anderen ist die Syntax von R auf die Arbeit mit Vektoren optimiert, so dass sich entsprechende Aufgaben in R leichter ausdrücken lassen als in anderen (nicht-vektororientierten) Programmiersprachen.</p>
+<p>Die Idee der Vektororientierung hat Auswirkungen auf die Datentypen, denn die fundamentalen Datentypen legen in R nur die <em>zulässigen Wertebereiche</em> fest. Die Werte selbst werden von R immer als Datenstruktur behandelt, auch wenn diese nicht explizit als solche gekennzeichnet wurden. Bei der praktischen Arbeit tritt diese Besonderheit meist nicht in den Vordergrund und wird in der R-Syntax nicht hervorgehoben. Die entsprechenden Sonderfälle werden im <a href="../vektor-operationen/kapitel.html"><span>Kapitel&nbsp;13</span></a> behandelt.</p>
+<section id="fundamentale-datentypen" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="fundamentale-datentypen"><span class="header-section-number">6.1</span> Fundamentale Datentypen</h2>
+<section id="undefinierte-werte" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="undefinierte-werte"><span class="header-section-number">6.1.1</span> Undefinierte Werte</h3>
+<p>R kennt zwei voneinander verschiedene Werte für undefinierte Werte.</p>
+<ul>
+<li><code>NULL</code></li>
+<li><code>NA</code></li>
+</ul>
+<p>Weder <code>NULL</code> noch <code>NA</code> sind in R gleichwertig mit dem Wert <code>0</code>. Die beiden Werte sind ausserdem nicht gleich und haben eine leicht unterschiedliche Bedeutung.</p>
+<p><code>NULL</code> bedeutet, dass kein Wert vorhanden ist <em>und</em> kein Datentyp bekannt ist. Dieses Symbol ist für die Programmierung von Bedeutung und zeigt für eine Variable (<a href="../variablen/kapitel.html"><span>Kapitel&nbsp;8</span></a>) an, dass diese auf keinen Wert im Speicher des Computers verweist. Das Symbol <code>NULL</code> ist ein eigener Datentyp.</p>
+<p><code>NA</code> (für <em>not available</em>) bedeutet, dass ein Wert fehlt, obwohl ein Wert erwartet wird. In diesem Fall ist der Datentyp bekannt. Dieser Wert bezieht sich auf die Daten und zeigt fehlende Werte an. Der Wert <code>NA</code> hat einen beliebigen Datentyp ausser <code>NULL</code>. <code>NA</code> ist ein Platzhalter für fehlende Werte in Daten, der immer ausserhalb des gültigen Wertebereichs der Daten liegt. Damit müssen fehlende Werte in R nicht durch einen alternativen Wert ersetzt werden.</p>
+<p>Beim Zählen von Werten werden <code>NA</code>-Werte mitgezählt. Für mathematische Operationen, wie der Addition oder der Multiplikation, führt ein Operand mit Wert <code>NA</code> als Operand immer zum Ergebnis <code>NA</code>. Deshalb müssen <code>NA</code> Werte vor allen anderen Operationen behandelt werden.</p>
+</section>
+<section id="zahlen" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="zahlen"><span class="header-section-number">6.1.2</span> Zahlen</h3>
+<p>R unterscheidet drei Arten von Zahlen:</p>
+<ul>
+<li>Ganzzahlen (<code>integer()</code>)</li>
+<li>nummeric / Gleitkomma (<code>numeric()</code>)</li>
+<li>Komplexe Zahlen (<code>complex()</code>)</li>
+</ul>
+<p>Neben den klassischen Zahlen verfügt R über das Konzept <em>Unendlich</em>, das in vielen Programmiersprachen fehlt. Ein unendlicher Wert wird durch das Symbol <code>INF</code> dargestellt. Weil sowohl positive als auch negative unendliche Werte existieren steht <code>Inf</code> für <em>positiv unendlich</em> und <code>-Inf</code> für <em>negativ unendlich</em></p>
+</section>
+<section id="zeichenketten-character" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="zeichenketten-character"><span class="header-section-number">6.1.3</span> Zeichenketten (character)</h3>
+<p>Zeichenketten heissen in R <em>Character-Strings</em> (<code>character()</code>). Zeichenketten müssen immer in Anführungszeichen eingefasst werden. Als Anführungszeichen dürfen das einfache Anführungszeichen (<code>'</code>) oder das doppelte Anführungszeichen (<code>"</code>) verwendet werden.</p>
+<div id="exm-zeichenketten" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.1 (Gleichwertige Zeichenketten mit einfachen und doppelten Anführungszeichen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">'Daten und Information'</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Daten und Information"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Lesbarkeit von R-Code wird dadurch verbessert, dass konsequent nur ein Symbol für die Kennzeichnung von Zeichenketten verwendet wird. Die Wahl welches der beiden Zeichen benutzt wird, wird von persönlichen Vorlieben geleitet. In diesem Buch wird konsequent das doppelte Anführungszeichen (<code>"</code>) eingesetzt, weil dadurch leere Zeichenketten direkt als solche erkennbar sind und dieses Symbol auch in anderen Programmiersprachen und Dateiformaten zur Kennzeichnung von Zeichenketten benutzt wird.</p>
+</div>
+</div>
+<div id="exm-leere-zeichenketten" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 6.2 (leere Zeichenketten mit einfachen und doppelten Anführungszeichen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">''</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">""</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wahrheitswerte" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="wahrheitswerte"><span class="header-section-number">6.1.4</span> Wahrheitswerte</h3>
+<p>R kennt die beiden Wahrheitswerte <em>Wahr</em> und <em>Falsch</em> bzw. die englischen Begriffe <strong>True</strong> und <strong>False</strong>. In R müssen Wahrheitswerte ( <code>logical()</code>) immer in Grossbuchstaben geschrieben werden. Der Wert <em>Wahr</em> wird also <code>TRUE</code> und der Wert <em>Falsch</em> wird <code>FALSE</code> geschrieben.</p>
+<p>Beide Wahrheitswerte dürfen mit dem Anfangsbuchstaben abgekürzt werden. Auch dieser Buchstabe muss gross geschrieben werden. Die Werte <code>T</code> und <code>TRUE</code> sowie <code>F</code> und <code>FALSE</code> sind deshalb immer gleich.</p>
+<p>Die Werte <code>TRUE</code> und <code>FALSE</code> dürfen nicht in Anführungszeichen eingefasst werden, denn sonst werden sie als Zeichenketten und nicht als Wahrheitswerte interpretiert.</p>
+</section>
+<section id="faktoren" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="faktoren"><span class="header-section-number">6.1.5</span> Faktoren</h3>
+<p>Ein besonderer Datentyp von R sind <strong>Faktoren</strong> (<code>factor()</code>).</p>
+<div id="def-faktor-r" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6.1 </strong></span>Ein <strong>Faktor</strong> ist ein <em>diskreter Datentyp</em> mit einem <em>festen Wertebereich</em> mit einer ganzzahligen Ordnung.</p>
+</div>
+<p>Die angezeigten Werte eines Faktors können als Zahlen, Zeichenketten oder Wahrheitswerte dargestellt werden. Jeder Faktor hat einen definierten Wertebereich, wobei die Werte dieses Wertebereichs diskret sind und eine ganzzahlige Ordnung haben. Mit Faktoren können nominal- und ordinalskalierte Datentypen abgebildet werden. Die Ordnung eines Faktor wird für die visuelle Darstellung der Werte verwendet und für Vergleiche von Werten berücksichtigt.</p>
+<p>Ein Faktor ist in R ein eigener fundamentaler Datentyp und kann nicht als Datentyp der dargestellten Werte verwendet werden.</p>
+<p>Die <em>Ordnungswerte</em> eines Faktors lassen sich in Ganzzahlen ausgeben und entsprechend weiter verarbeiten. In diesem Fall muss der Faktor mit der Funktion <code>as.integer()</code> in Zahlen umgewandelt werden.</p>
+<p>Der <em>Wertebereich</em> eines Faktors kann mit der Funktion <code>levels()</code> abgefragt werden.</p>
+<p>Der Wertebereich eines Faktors ist standardmässig Alphanumerisch geordnet. Für ordinalskalierte Datentypen kann diese Reihung angepasst werden (s. <a href="../faktoren/kapitel.html"><span>Kapitel&nbsp;10</span></a>).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Der tatsächliche Wertebereich eines Faktors umfasst immer nur die vorhandenen Werte in den Daten. Die nicht vorkommenden Werte werden von R aus dem Wertebereich eines Faktors entfernt.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="datenstrukturen" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="datenstrukturen"><span class="header-section-number">6.2</span> Datenstrukturen</h2>
+<section id="vektoren" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="vektoren"><span class="header-section-number">6.2.1</span> Vektoren</h3>
+</section>
+<section id="listen" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="listen"><span class="header-section-number">6.2.2</span> Listen</h3>
+</section>
+<section id="matrizen" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="matrizen"><span class="header-section-number">6.2.3</span> Matrizen</h3>
+</section>
+<section id="data-frames" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">6.2.4</span> Data Frames</h3>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -536,12 +696,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../kapitel/daten-organisieren/kapitel.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dokumentation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dokumentation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../kapitel/daten-importieren-exportieren/kapitel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Importieren und Exportieren</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Importieren und Exportieren</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -549,4 +709,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>

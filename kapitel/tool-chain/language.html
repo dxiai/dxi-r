@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 18&nbsp; Daten beschreiben</title>
+<title>Einführung in die Datenwissenschaft mit R - 4&nbsp; Sprachelemente von R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../kapitel/daten-visualisieren/kapitel.html" rel="next">
-<link href="../../kapitel/daten-formen/kapitel.html" rel="prev">
+<link href="../../kapitel/daten-organisieren/kapitel.html" rel="next">
+<link href="../../kapitel/tool-chain/hilfe.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-beschreiben/kapitel.html">Deskriptive Datenanalyse</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-beschreiben/kapitel.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/language.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -128,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kapitel/tool-chain/language.html" class="sidebar-item-text sidebar-link">
+  <a href="../../kapitel/tool-chain/language.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></span></a>
   </div>
 </li>
@@ -243,7 +277,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kapitel/daten-beschreiben/kapitel.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../kapitel/daten-beschreiben/kapitel.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></a>
   </div>
 </li>
@@ -267,14 +301,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#symbole" id="toc-symbole" class="nav-link active" data-scroll-target="#symbole"><span class="header-section-number">4.1</span> Symbole</a>
+  <ul class="collapse">
+  <li><a href="#werte" id="toc-werte" class="nav-link" data-scroll-target="#werte"><span class="header-section-number">4.1.1</span> Werte</a></li>
+  <li><a href="#schlüsselworte" id="toc-schlüsselworte" class="nav-link" data-scroll-target="#schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</a></li>
+  <li><a href="#namen" id="toc-namen" class="nav-link" data-scroll-target="#namen"><span class="header-section-number">4.1.3</span> Namen</a></li>
+  </ul></li>
+  <li><a href="#operatoren" id="toc-operatoren" class="nav-link" data-scroll-target="#operatoren"><span class="header-section-number">4.2</span> Operatoren</a></li>
+  <li><a href="#operationen" id="toc-operationen" class="nav-link" data-scroll-target="#operationen"><span class="header-section-number">4.3</span> Operationen</a></li>
+  <li><a href="#blöcke" id="toc-blöcke" class="nav-link" data-scroll-target="#blöcke"><span class="header-section-number">4.4</span> Blöcke</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-chapter-daten-beschreiben" class="quarto-section-identifier"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></h1>
 </div>
 
 
@@ -302,8 +350,75 @@ Work in Progress
 
 </div>
 </div>
+<ul>
+<li>Symbole</li>
+<li>Operatoren</li>
+<li>Operationen</li>
+<li>Blöcke</li>
+</ul>
+<section id="symbole" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="symbole"><span class="header-section-number">4.1</span> Symbole</h2>
+<section id="werte" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="werte"><span class="header-section-number">4.1.1</span> Werte</h3>
+</section>
+<section id="schlüsselworte" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</h3>
+<p>R kennt verschiedene Schlüsselworte, die als eigene Symbole festgelegt sind und nicht verändert werden können. Jedes der folgenden Schlüsselworte hat eine Bedeutung für R und kann nur in dieser Bedeutung verwendet werden.</p>
+<p>Funktionen (<a href="../variablen/kapitel.html"><span>Kapitel&nbsp;8</span></a>)</p>
+<ul>
+<li><code>function</code></li>
+</ul>
+<p>Entscheidungen (<a href="../boolsche-operationen/kapitel.html"><span>Kapitel&nbsp;12</span></a>)</p>
+<ul>
+<li><code>if</code></li>
+<li><code>else</code></li>
+</ul>
+<p>Schleifen</p>
+<ul>
+<li><code>repeat</code></li>
+<li><code>while</code></li>
+<li><code>for</code></li>
+<li><code>next</code></li>
+<li><code>break</code></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Keine Schleifen in der Paxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R-Schleifen sind im Vergleich zu vergleichbaren Funktionen <strong><em>äusserst ineffizient</em></strong>. Deshalb haben Schleifen in der praktischen Anwendung von R in den Datenwissenschaften <strong>keine Bedeutung</strong> mehr. Stattdessen werden ausschliesslich spezielle Funktionen über Datenstrukturen verwendet. Entsprechend finden sich diese Schlüsselworte sehr selten in R-Skripten.</p>
+</div>
+</div>
+</section>
+<section id="namen" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="namen"><span class="header-section-number">4.1.3</span> Namen</h3>
+<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als Name behandelt. Ein Name steht für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
+<p>Namen können beliebige Zeichen enthalten. R unterscheidet Namen von Werten indem die folgenden Regeln für Namen verwendet werden:</p>
+<p>Weicht ein Name von diesen Regeln ab, dann muss dieser als solcher durch Backticks gekennzeichnet werden (`).</p>
+<div id="exm-gekennzeichneter-name" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Name) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">merkwürdiger Name</span><span class="st">`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="operatoren" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="operatoren"><span class="header-section-number">4.2</span> Operatoren</h2>
+</section>
+<section id="operationen" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="operationen"><span class="header-section-number">4.3</span> Operationen</h2>
+</section>
+<section id="blöcke" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="blöcke"><span class="header-section-number">4.4</span> Blöcke</h2>
+<p>Mehrere Operationen können in R zu Blöcken zusammengefasst werden. In diesem Fall müssen die zusammengehörenden Opeartionen durch geschweifte Klammern (<code>{</code> und <code>}</code>) eingerahmt werden.</p>
+<p>Ein Block wird von R als eine Operation behandelt. Damit die Operationen in einem Block von R ausgeführt werden können, müssen alle übergeordneten Blöcke geschlossen werden.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -541,13 +656,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/daten-formen/kapitel.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten formen</span></span>
+      <a href="../../kapitel/tool-chain/hilfe.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/daten-visualisieren/kapitel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../kapitel/daten-organisieren/kapitel.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dokumentation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -555,4 +670,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
