@@ -210,8 +210,8 @@ Die zusätzliche Markierung wird als **Byte Order Mark** (BOM) bezeichnet und mu
 
 JSON ist ein Datenformat, dass von vielen sog. *Web-Diensten* zum Austausch von Datenstrukturen eingesetzt wird. R kann dieses Datenformat mit der `tidyverse`-Bibliothek `jsonlite` importieren und auch exportieren. `jsonlite` stellt zwei Funktionen für den regelmässigen Einsatz bereit:
 
-- fromJSON()
-- toJSON()
+- `fromJSON()`
+- `toJSON()`
 
 Die beiden Funktionen `fromJSON()` und `toJSON()` unterstützen das Parsen von und Serialisieren zu Zeichenketten im JSON-Format.
 
