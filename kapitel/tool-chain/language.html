@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 4&nbsp; Sprachelemente von R</title>
+<title>Einführung in die Datenwissenschaft mit R - 4&nbsp; R-Sprachelemente</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/language.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/language.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R-Sprachelemente</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/tool-chain/language.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R-Sprachelemente</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -305,15 +305,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#symbole" id="toc-symbole" class="nav-link active" data-scroll-target="#symbole"><span class="header-section-number">4.1</span> Symbole</a>
+  <li><a href="#syntaktische-symbole" id="toc-syntaktische-symbole" class="nav-link active" data-scroll-target="#syntaktische-symbole"><span class="header-section-number">4.1</span> Syntaktische Symbole</a>
   <ul class="collapse">
   <li><a href="#werte" id="toc-werte" class="nav-link" data-scroll-target="#werte"><span class="header-section-number">4.1.1</span> Werte</a></li>
   <li><a href="#schlüsselworte" id="toc-schlüsselworte" class="nav-link" data-scroll-target="#schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</a></li>
   <li><a href="#namen" id="toc-namen" class="nav-link" data-scroll-target="#namen"><span class="header-section-number">4.1.3</span> Namen</a></li>
   </ul></li>
-  <li><a href="#operatoren" id="toc-operatoren" class="nav-link" data-scroll-target="#operatoren"><span class="header-section-number">4.2</span> Operatoren</a></li>
-  <li><a href="#operationen" id="toc-operationen" class="nav-link" data-scroll-target="#operationen"><span class="header-section-number">4.3</span> Operationen</a></li>
-  <li><a href="#blöcke" id="toc-blöcke" class="nav-link" data-scroll-target="#blöcke"><span class="header-section-number">4.4</span> Blöcke</a></li>
+  <li><a href="#operationen" id="toc-operationen" class="nav-link" data-scroll-target="#operationen"><span class="header-section-number">4.2</span> Operationen</a>
+  <ul class="collapse">
+  <li><a href="#operatoren" id="toc-operatoren" class="nav-link" data-scroll-target="#operatoren"><span class="header-section-number">4.2.1</span> Operatoren</a></li>
+  <li><a href="#blöcke" id="toc-blöcke" class="nav-link" data-scroll-target="#blöcke"><span class="header-section-number">4.2.2</span> Blöcke</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -322,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sprachelemente von R</span></h1>
+<h1 class="title"><span id="sec-chapter-language" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R-Sprachelemente</span></span></h1>
 </div>
 
 
@@ -337,43 +339,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Work in Progress
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
-</div>
-</div>
-<ul>
-<li>Symbole</li>
-<li>Operatoren</li>
-<li>Operationen</li>
-<li>Blöcke</li>
-</ul>
-<section id="symbole" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="symbole"><span class="header-section-number">4.1</span> Symbole</h2>
+<p>Jede Programmiersprache besteht aus festgelegten <em>Symbolen</em> und <em>Operatoren</em>. Diese beiden Elemente bilden zusammen die <strong>Syntax</strong> einer Programmiersprache mit der <em>Operationen</em> erstellt werden können. Syntaktische Kern von R ist vergleichsweise kompakt und übersichtlich.</p>
+<section id="syntaktische-symbole" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="syntaktische-symbole"><span class="header-section-number">4.1</span> Syntaktische Symbole</h2>
+<p>Syntaktische <strong>Symbole</strong> sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Namen sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.</p>
 <section id="werte" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="werte"><span class="header-section-number">4.1.1</span> Werte</h3>
+<p>Werte können direkt angegeben werden. Dabei legt der Datentyp eines Werts (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) fest, wie dieser eingegeben werden muss.</p>
+<ul>
+<li>Zahlen werden als Ziffernfolge direkt eingegeben (z.B. <code>123.45</code>).</li>
+<li>Wahrheitswerte werden in Grossbuchstaben eingegeben (z.B. <code>WAHR</code>).</li>
+<li>Zeichenketten werden in Anführungszeichen eingegeben (z.B. <code>"Daten und Information"</code>)</li>
+</ul>
 </section>
 <section id="schlüsselworte" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</h3>
-<p>R kennt verschiedene Schlüsselworte, die als eigene Symbole festgelegt sind und nicht verändert werden können. Jedes der folgenden Schlüsselworte hat eine Bedeutung für R und kann nur in dieser Bedeutung verwendet werden.</p>
+<p>R kennt verschiedene Schlüsselworte, die als eigene Symbole festgelegt sind und nicht verändert werden können. Jedes der folgenden Schlüsselworte hat eine Bedeutung für R und kann nur in dieser Bedeutung verwendet und nicht umdefiniert werden.</p>
 <p>Funktionen (<a href="../variablen/kapitel.html"><span>Kapitel&nbsp;8</span></a>)</p>
 <ul>
 <li><code>function</code></li>
 </ul>
-<p>Entscheidungen (<a href="../boolsche-operationen/kapitel.html"><span>Kapitel&nbsp;12</span></a>)</p>
+<p>Entscheidungen (<a href="../boolsche-operationen/kapitel.html"><span>Kapitel&nbsp;12</span></a>) zur bedingten Ausführung von Operationen.</p>
 <ul>
 <li><code>if</code></li>
 <li><code>else</code></li>
 </ul>
-<p>Schleifen</p>
+<p>Schleifen zur wiederholten Ausführung von Operationen.</p>
 <ul>
 <li><code>repeat</code></li>
 <li><code>while</code></li>
@@ -391,33 +382,95 @@ Keine Schleifen in der Paxis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>R-Schleifen sind im Vergleich zu vergleichbaren Funktionen <strong><em>äusserst ineffizient</em></strong>. Deshalb haben Schleifen in der praktischen Anwendung von R in den Datenwissenschaften <strong>keine Bedeutung</strong> mehr. Stattdessen werden ausschliesslich spezielle Funktionen über Datenstrukturen verwendet. Entsprechend finden sich diese Schlüsselworte sehr selten in R-Skripten.</p>
+<p>R-Schleifen sind im Vergleich zu vergleichbaren Funktionen <strong><em>äusserst ineffizient</em></strong>. Deshalb haben Schleifen in der praktischen Anwendung von R <strong>keine Bedeutung</strong> mehr. Stattdessen werden ausschliesslich spezielle Funktionen über Datenstrukturen verwendet. Entsprechend finden sich diese Schlüsselworte sehr selten in R-Skripten.</p>
 </div>
 </div>
 </section>
 <section id="namen" class="level3" data-number="4.1.3">
 <h3 data-number="4.1.3" class="anchored" data-anchor-id="namen"><span class="header-section-number">4.1.3</span> Namen</h3>
-<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als Name behandelt. Ein Name steht für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
-<p>Namen können beliebige Zeichen enthalten. R unterscheidet Namen von Werten indem die folgenden Regeln für Namen verwendet werden:</p>
-<p>Weicht ein Name von diesen Regeln ab, dann muss dieser als solcher durch Backticks gekennzeichnet werden (`).</p>
+<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als Name behandelt. Ein Name ist ein Platzhalter für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
+<p>Grundsätzlich können Namen beliebige Zeichen enthalten. R erkennt zulässige Namen mit zwei Regeln.</p>
+<ul>
+<li>Beginnt mit einem ASCII-Buchstaben (A-Z, a-z) oder einem Unterstrich.</li>
+<li>Enthält nur ASCII-Buchstaben (A-Z, a-z), arabische Ziffern (0-9) und Unterstriche.</li>
+</ul>
+<p>Weicht ein Name von diesen Regeln ab, dann muss dieser als solcher durch Backticks gekennzeichnet werden (<code>`</code>). <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> zeigt einen Namen, der den deutschen Umlaut (<code>ü</code>) und ein Leerzeichen enthält. Weil <code>ü</code> kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss dieses Symbol als Name markiert werden.</p>
 <div id="exm-gekennzeichneter-name" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Name) </strong></span>&nbsp;</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">merkwürdiger Name</span><span class="st">`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Wird der Name aus <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> nicht markiert, wird die Fehlermeldung <code>Fehler: unerwartetes Symbol in "merwürdiger Name"</code> erzeugt.</p>
 </section>
 </section>
-<section id="operatoren" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="operatoren"><span class="header-section-number">4.2</span> Operatoren</h2>
+<section id="operationen" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="operationen"><span class="header-section-number">4.2</span> Operationen</h2>
+<div id="def-opeartion" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.1 </strong></span>Eine <strong>Operation</strong> ist ein syntaktisches Konstrukt, das von einer Programmiersprache als ausgeführbar erkannt wird.</p>
+</div>
+<p>Eine Operation kann sich als ein Satz in einer Sprache vorgestellt werden, wobei für Programmiersprachen nur <strong>ganze (vollständige) Sätze</strong> gültig sind und ausgeführt werden.</p>
+<p>R fügt Symbole und Operatoren solange zusammen, bis eine <strong>syntaktisch gültige</strong> Operation gefunden wird. Syntaktisch gültig heisst in diesem Zusammenhang, dass alle syntaktischen Elemente für eine Operation gefunden wurden. Erst dann versucht R diese Operation auszuführen. Bei der Ausführung kann festgestellt werden, dass eine Operation nicht ausführbar ist. In diesem Fall erzeugt R eine <strong>Fehlermeldung</strong>.</p>
+<p>Die einfachste R-Operation ist die Angabe eines einzelnen Symbols. Wird nur ein Symbol als Operation eingegeben, dann bedeutet das für R, dass die zum Symbol gehörenden Daten <strong>serialisiert</strong> werden sollen. Das bedeutet, dass die Daten des Symbols angezeigt werden. Ist das Symbol ein Wert, dann wird der Wert wiederholt.</p>
+<div id="exm-wertwiederholen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.2 (Wert direkt serialisieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Daten und Information"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="#exm-wertwiederholen">Beispiel&nbsp;<span>4.2</span></a> zeigt die Operation, die die Zeichenkette <em>Daten und Information</em> als Ergebnis serialisiert.</p>
+<section id="operatoren" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="operatoren"><span class="header-section-number">4.2.1</span> Operatoren</h3>
+<div id="def-operator" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.2 </strong></span>Ein <strong>Operator</strong> ist ein syntaktisches Element, das Symbole zu einer Operation <em>verknüpft</em>.</p>
+</div>
+<p>Die bekanntesten Operatoren sind die arithmetischen Operatoren und die Vergleichsoperatoren.</p>
+<p>In R sind vier spezielle Operatoren wichtig:</p>
+<ul>
+<li>Die drei Zuweisungsoperatoren (<code>&lt;-</code>, <code>=</code> und <code>-&gt;</code>).</li>
+<li>Der Funktionsaufrufoperator (<code>()</code>).</li>
+</ul>
+<p>Mit den <em>Zuweisungsoperatoren</em> können Werte Namen zugewiesen werden. Bei den Pfeil-Operatoren wird der Wert in Richtung des Pfeils zugewiesen. Beim Gleich-Operator erfolgt die Zuweisung von rechts nach links. (s. <a href="#exm-zuweisungsoperatoren">Beispiel&nbsp;<span>4.3</span></a>)</p>
+<div id="exm-zuweisungsoperatoren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.3 (Zuweisung einer Zeichenkette) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>buchtitel1 <span class="ot">=</span> <span class="st">"Daten und Information 1"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>buchtitel2 <span class="ot">&lt;-</span> <span class="st">"Daten und Information 2"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Daten und Information 3"</span> <span class="ot">-&gt;</span> buchtitel3 </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Es können auch Namen anderen Namen zugewiesen werden. In diesem Fall wird der zugehörige Wert für einen Namen ermittelt und dem neuen Namen zugewiesen (<a href="#exm-zuweisung-namen">Beispiel&nbsp;<span>4.4</span></a>).</p>
+<div id="exm-zuweisung-namen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.4 (Zuweisung von Namen an einen anderen Namen.) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>buchtitel4 <span class="ot">=</span> buchttitel1 </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># buchtitel4 enthält "Daten und Information 1"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>buchtitel5 <span class="ot">&lt;-</span> buchtitel2 </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># buchtitel5 enthält "Daten und Information 2"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>buchtitel3 <span class="ot">-&gt;</span> buchtitel6 </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># buchtitel6 enthält "Daten und Information 3"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der <em>Funktionsaufrufoperator</em> prüft ob der vorangehende Name eine Funktion ist und ruft diese auf. Zwischen den Klammern können Werte oder Namen als Parameter der Funktion übergeben werden. Die Parameter werden durch Kommas getrennt (<a href="#exm-funktionsaufruf">Beispiel&nbsp;<span>4.5</span></a>).</p>
+<div id="exm-funktionsaufruf" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.5 (Funktionsaufruf der Summefunktion mit Parametern) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 6</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Funktionsaufrufoperator darf nicht mit den aus der Mathematik bekannten Klammern verwechselt werden. Klammern fassen auch in R Teiloperationen zusammen und reihen diese gegenüber einer anderen Teiloperation vor. Der Funktionsaufrufoperator kommt nur zur Anwendung, wenn ein Name auf eine Funktion verweist.</p>
+<p>Wird der Funktionsaufrufoperator zusammen mit dem Schlüsselwort <code>function</code> verwendet, dann wird eine Funktion mit den angegebenen Parametern erstellt (s. <a href="#exm-funktionsdeklaration">Beispiel&nbsp;<span>4.6</span></a>). Diese Operation heisst <strong>Funktionsdeklaration</strong>. Eine deklarierte Funktion muss in R einem Namen zugewiesen werden.</p>
+<div id="exm-funktionsdeklaration" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.6 (Funktionsdeklaration) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>add3 <span class="ot">&lt;-</span> <span class="cf">function</span> (eins, zwei, drei) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(eins, zwei, drei)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="operationen" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="operationen"><span class="header-section-number">4.3</span> Operationen</h2>
-</section>
-<section id="blöcke" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="blöcke"><span class="header-section-number">4.4</span> Blöcke</h2>
-<p>Mehrere Operationen können in R zu Blöcken zusammengefasst werden. In diesem Fall müssen die zusammengehörenden Opeartionen durch geschweifte Klammern (<code>{</code> und <code>}</code>) eingerahmt werden.</p>
+<section id="blöcke" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="blöcke"><span class="header-section-number">4.2.2</span> Blöcke</h3>
+<p>Mehrere Operationen lassen sich in R zu <em>Blöcken</em> zusammenfassen. Ein Block wird durch geschweifte Klammern (<code>{</code> und <code>}</code>) markiert. Geschweifte Klammern bilden also den <strong>Blockoperator</strong>.</p>
 <p>Ein Block wird von R als eine Operation behandelt. Damit die Operationen in einem Block von R ausgeführt werden können, müssen alle übergeordneten Blöcke geschlossen werden.</p>
+<p><a href="#exm-funktionsblock">Beispiel&nbsp;<span>4.7</span></a> zeigt die Deklaration einer Funktion, die aus zwei Operationen besteht. Damit beide Operationen zu einer Funktion zusammengefasst werden können, müssen diese in einen Block gefasst werden.</p>
+<div id="exm-funktionsblock" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 4.7 (Funktionsdeklaration mit Block) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>add3mod6 <span class="ot">&lt;-</span> <span class="cf">function</span> (eins, zwei, drei) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(eins, zwei, drei) <span class="ot">-&gt;</span> sechs</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    sechs <span class="sc">%%</span> <span class="dv">6</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
