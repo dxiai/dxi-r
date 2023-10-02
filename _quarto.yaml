@@ -51,7 +51,6 @@ book:
     - kapitel/variablen/kapitel.md
     - kapitel/zeichenketten/kapitel.md
     - kapitel/faktoren/kapitel.qmd
-    - kapitel/datenströme/kapitel.md
     - kapitel/boolsche-operationen/kapitel.md
     - kapitel/vektor-operationen/kapitel.md
     - kapitel/matrix-operationen/kapitel.md

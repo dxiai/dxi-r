@@ -9,3 +9,24 @@ execute:
 ::: {.callout-warning}
 ## Work in Progress
 :::
+
+## Variablen
+
+
+
+## Funktionen
+
+### Funktionsbibliotheken
+
+
+
+### Funktionen definieren
+
+
+
+## Funktionsketten
+
+
+
+## Datenströme
+
