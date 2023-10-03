@@ -96,6 +96,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -351,6 +367,25 @@ Work in Progress
 </div>
 <section id="variablen" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="variablen"><span class="header-section-number">8.1</span> Variablen</h2>
+<p>Variablen sind spezielle R Symbole (s. <a href="../tool-chain/language.html"><span>Kapitel&nbsp;4</span></a>) mit denen Werte für die spätere Verwendung gespeichert werden. Variablen erzeugen Referenzen, über die Werte zugegriffen werden können. Es sind also <strong>Namen</strong>, die die eigentlichen Werte <em>substituieren</em>.</p>
+<div id="exm-var-zuweisen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.1 (Den Wert 1 der Variable <code>var1</code> zuweisen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">=</span> <span class="dv">1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variablen sollten in einem Kontext <em>eindeutig</em> sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert der Variable der Wert der letzten Zuweisung.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die letzte Zuweisung ist nicht zwingend die Zuweisung die als letztes im Code erfolgt. Deshalb sollte immer geprüft werden, ob ein Variablenname bereits verwendet wird.</p>
+</div>
+</div>
 </section>
 <section id="funktionen" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="funktionen"><span class="header-section-number">8.2</span> Funktionen</h2>
@@ -364,7 +399,61 @@ Work in Progress
 <section id="eigene-funktionen-erstellen" class="level3" data-number="8.2.3">
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="eigene-funktionen-erstellen"><span class="header-section-number">8.2.3</span> Eigene Funktionen erstellen</h3>
 <p>In R werden Funktionen mit dem <code>function</code>-Schlüsselwort erstellt. Eine R-Funktion besteht aus einer Parameterliste und einem Funktionskörper. Die Parameterliste wird in Klammern hinter dem Wort <code>function</code> angegeben. Der Funktionskörper kann eine einzelne Operation oder ein Block sein. Das Ergebnis einer Funktion ist das Ergebnis der letzten Operation des Funktionskörpers.</p>
-<p>Eine Funktion ist in R ein Wert wie eine Zahl oder eine Zeichenkette. Damit eine Funktion über einen Namen gefunden und ausgeführt werden kann, muss die Funktion zuerst einer Variablen zugewiesen werden.</p>
+<p><a href="#exm-function-create">Beispiel&nbsp;<span>8.2</span></a> zeigt eine <em>Funktionsdeklaration</em>, die einen <code>parameter</code> <em>akzeptiert</em>. Die Funktion quadriert diesen Wert und zieht vom Ergebnis <code>1</code> ab. An diesen Operationen wird erkannt, dass die Funktion nur Werte vom Datenyp Zahlen als <code>parameter</code> akzeptiert.</p>
+<p>Parameter sind in R spezielle <em>Variablen</em>, mit denen Werte an eine Funktion übergeben werden. Parameter existieren nur <em>innerhalb</em> einer Funktion während der Ausführung des Funktionskörpers. Es kommt sehr häufig vor, dass ausserhalb einer Funktion Variablen mit gleichem Namen vorhanden sind. Ein Parameter überschreibt diese Variablen <strong>nicht</strong>.</p>
+<div id="exm-function-create" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.2 (Eine Funktion deklarieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (parameter) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    parameter <span class="sc">^</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Eine Funktion ist in R ein Wert wie eine Zahl oder eine Zeichenkette. R gibt eine direkte Funktionsdefinition wie jeden Wert direkt aus. Im Fall von Funktionen ist das die Funktionsdeklaration. Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variablen zugewiesen werden. Der Name einer Funktion sollte möglichst die zentrale Bedeutung einer Funktion beschreiben.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Wahl eines guten Funktionsnamen hängt vom jeweiligen Kontext ab.</p>
+<p>Mathematische Funktionen werden oft mit <span class="math inline">f(x)</span> oder <span class="math inline">g(x)</span> usw. geschrieben. In R sind solche Namen ebenfalls zulässig, solange sie <strong>eindeutig</strong> sind. Solche sehr kurzen Funktionsnamen sollten speziell gekennzeichnet und dokumentiert werden.</p>
+</div>
+</div>
+<p><a href="#exm-function-named-create">Beispiel&nbsp;<span>8.3</span></a> weist der Funktion aus <a href="#exm-function-create">Beispiel&nbsp;<span>8.2</span></a> den Namen <code>quadrat_minus_eins</code> zu. Dieser Name kann anschliessend als Funktion verwendet werden (s. <a href="#exm-funktion-aufrufen">Beispiel&nbsp;<span>8.4</span></a>).</p>
+<div id="exm-function-named-create" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.3 (Eine Funktion mit Namen deklarieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>quadrat_minus_eins <span class="ot">=</span> <span class="cf">function</span> (parameter) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    parameter <span class="sc">^</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="exm-funktion-aufrufen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.4 (Eine Funktion aufrufem) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quadrat_minus_eins</span>(<span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>3</code></pre>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wird der neuen Funktion ein falscher Datentyp als Parameter übergeben, dann können die Rs Fehlermeldungen sehr verwirrend sein. Es ist daher ein guter Stil, Parameter die bestimmte Datentypen erfordern direkt zu Begin des Funktionskörpers zu prüfen (s. <a href="#exm-fkt-datentyp-prüfen">Beispiel&nbsp;<span>8.5</span></a>).</p>
+</div>
+</div>
+<div id="exm-fkt-datentyp-prüfen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.5 (Eine Funktion mit Namen deklarieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>quadrat_minus_eins <span class="ot">=</span> <span class="cf">function</span> (parameter) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(parameter))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    parameter <span class="sc">^</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="bibliotheken" class="level3" data-number="8.2.4">
 <h3 data-number="8.2.4" class="anchored" data-anchor-id="bibliotheken"><span class="header-section-number">8.2.4</span> Bibliotheken</h3>
@@ -377,18 +466,18 @@ Work in Progress
 </ol>
 <p>Die erste Option bietet sich an, wenn ein Script viele Funktionen einer Bibliothek aufrufen wird. R läd in diesem Fall <em>alle Funktionen</em> der Bibliothek, so dass diese direkt verwendet werden können.</p>
 <div id="exm-fkt-library-load" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 8.1 (Funktionen mit der <code>library()</code> Funktion einbinden) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(mpg, hp)) <span class="sc">+</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 8.6 (Funktionen mit der <code>library()</code> Funktion einbinden) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(mpg, hp)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die zweite Option ist sinnvoll, wenn nur eine oder zwei Funktionen einer Bibliothek verwendet werden sollen. In diesem Fall muss R nicht die gesamte Bibliothek bereitstellen, sondern läd gezielt nur die gewünschten Funktionen.</p>
 <div id="exm-fkt-direct-access" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 8.2 (Eine Funktion direkt ansprechen) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(hp <span class="sc">&gt;</span> <span class="dv">200</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 8.7 (Eine Funktion direkt ansprechen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(hp <span class="sc">&gt;</span> <span class="dv">200</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -403,13 +492,13 @@ Hinweis
 <p>R bietet sog. Meta-Bibliotheken an, mit denen mehrere Bibliotheken gemeinsam verwendet werden können. Funktionen können nur nicht über den Namen einer Meta-Bibliothek, sondern immer nur über die Bibliothek, die einer Funktion definiert.</p>
 </div>
 </div>
-<p>Die <code>tidyverse</code>-Bibliothek ist eine solche Meta-Bibliothek. <a href="#exm-fkt-dir-ansprechen-meta">Beispiel&nbsp;<span>8.3</span></a> zeigt wie die Funktion <code>read_delim()</code> direkt angesprochen werden kann, wenn die <code>tidyverse</code>-Bibliotheken nicht mit <code>library(tidyverse)</code> eingebunden wurden. <code>read_delim()</code> wird in der Bibliothek <code>readr</code> definiert. Entsprechend kann die Funktion nur über <code>readr::read_delim()</code> aufgerufen werden.</p>
+<p>Die <code>tidyverse</code>-Bibliothek ist eine solche Meta-Bibliothek. <a href="#exm-fkt-dir-ansprechen-meta">Beispiel&nbsp;<span>8.8</span></a> zeigt wie die Funktion <code>read_delim()</code> direkt angesprochen werden kann, wenn die <code>tidyverse</code>-Bibliotheken nicht mit <code>library(tidyverse)</code> eingebunden wurden. <code>read_delim()</code> wird in der Bibliothek <code>readr</code> definiert. Entsprechend kann die Funktion nur über <code>readr::read_delim()</code> aufgerufen werden.</p>
 <div id="exm-fkt-dir-ansprechen-meta" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 8.3 (Funktion aus Unterbibliothek direkt ansprechen) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">"meine_daten.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># entspricht:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   library(tidyverse)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   read_delim("meine_daten.csv")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 8.8 (Funktion aus Unterbibliothek direkt ansprechen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">"meine_daten.csv"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># entspricht:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   library(tidyverse)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   read_delim("meine_daten.csv")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
