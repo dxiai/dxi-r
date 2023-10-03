@@ -17,27 +17,136 @@ Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte f�
 ::: {#exm-var-zuweisen}
 ## Den Wert 1 der Variable `var1` zuweisen
 ```r
-var1 = 1
+var1 <- 1
 ```
 :::
 
 Variablen sollten in einem Kontext *eindeutig* sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert der Variable der Wert der letzten Zuweisung.
 
 ::: {.callout-warning}
-Die letzte Zuweisung ist nicht zwingend die Zuweisung die als letztes im Code erfolgt. Deshalb sollte immer geprüft werden, ob ein Variablenname bereits verwendet wird.
+Die letzte Zuweisung ist nicht zwingend die Zuweisung, die als letztes im Code erscheint. Deshalb sollte vor einer Zuweisung immer geprüft werden, ob ein Variablenname bereits verwendet wird.
 :::
 
 ## Funktionen
 
+In R bilden Funktionen die Grundlage für die Datenverarbeitung. 
+
+::: {.callout-note}
+## Merke
+Eine Funktion ist für R ein Wert wie eine Zahl oder eine Zeichenkette. 
+:::
+
+Im Fall von Funktionen ist der Wert einer Funktion die Funktionsdeklaration. Entsprechend ist es möglich Funktionen zu überschreiben. 
+
+Wird nur der Name einer R gibt eine direkte Funktionsdefinition wie jeden anderen Wert direkt aus. 
 
 ### Operatoren
 
+Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei Werte verknüpfen. Zu diesen Operatoren gehören die auch die arithmetischen Operatoren für die Grundrechenarten. 
 
-### Funktionsketten
+| Operator | Beschreibung | Art | 
+| :---: | :------- | :--- |
+|  `-` |	Minus, sowohl unär als auch binär | arithmetisch |
+| `+`	| Plus, sowohl unär als auch binär | arithmetisch |
+| `!` |	unäres Nicht | logisch |
+| `~`	| Tilde, in Modellformeln: folgt, sowohl unär als auch binär | Funktion |
+| `?`	| Hilfe | spezial |
+| `:`	| Sequenz, binär (in model formulae: interaction) | Funktion |
+| `*`	| Multiplikation, binär | arithmetisch |
+| `/`	| Division, binär | arithmetisch |
+| `^`	| Potenzieren, binär | arithmetisch |
+| `%%`	| Modulo, binär | arithmetisch |
+| `%/%`	| Ganzzahldivision, binär | arithmetisch |
+| `%*%`	| Matrixprodukt, binär | arithmetisch, Matrix |
+| `%o%`	| äusseres Produkt, binär | arithmetisch, Matrix |
+| `%x%`	| Kronecker-Produkt, binär | arithmetisch, Matrix |
+| `%in%`	| Existenzoperator, binär (in model formulae: nesting) | logisch |
+| `<`	| Kleiner als, binär |  logisch |
+| `>`	| Grösser als, binär | logisch |
+| `==` |	Gleich, binär | logisch |
+| `!=` |	Ungleich, binär | logisch |
+| `>=` |	Grösser oder gleich, binär | logisch |
+| `<=` |	Kleiner oder gleich, binär | logisch |
+| `&`	| Und, binär, vectorisiert | logisch |
+| `&&`	| Und, binär, nicht vectorisiert | logisch |
+| `|` |	Oder, binär, vectorisiert | logisch |
+| `||` |	Oder, binär, nicht vectorisiert | logisch |
+| `<-` |	linksgerichtete Zuweisung, binär | Zuweisung |
+| `->` |	rechtsgerichtete Zuweisung, binär | Zuweisung |
+| `[` | Indexzugriff (Vektoren), binär |  Index |
+| `$`, `[[`	| Listenzugriff, binär | Index |
 
-Datenströme
+: Liste der Base R Operatoren {#tbl-r-operatorem}
 
-### Eigene Funktionen erstellen
+Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Parameter ausgeführt wird, um das Ergebnis des Operators zu bestimmen. Daraus folgt, dass jeder Operator auch als Funktionsname verwendet werden kann. In diesem Fall muss R mitgeteilt werden, dass der Operator nun als Funktionsname verwendet werden soll. Der Operator muss also  mit Backticks als Name markiert werden.
+
+::: {#exm-plus-als-fkt}
+## `+`-Operator als Funktionsname
+```r
+`+`(1, 2)
+```
+```
+3
+```
+:::
+
+#### Zuweisungsoperatoren
+
+R kennt zwei Zuweisungsoperatoren: `<-` und `->`. Die Zuweisung erfolgt in Richtung des Pfeils. Daneben wird der `=`-Operator ebenfalls als (inoffizieller) Zuweisungsoperator unterstützt. 
+
+Ein Zuweisungsoperator erwartet immer einen Namen und eine Operation als Parameter. Das Ergebnis der Operation wird als Wert dem Namen zugewiesen. 
+
+Weil nicht immer klar ist, ob `<-` oder `=` verwendet werden soll, lautet die offizielle Kommunikation, dass für Variablenzuweisungen der `<-`-Operator verwendet werden sollte. Das einfache Gleich (`=`) weist einen Wert einem Funktionsparameter zu. Gerade in **tidy R** ist dieser Unterschied nur schwer nachvollziehbar, weil bestimmte Parameter wie Variablen behandelt werden.
+
+::: {.callout-note}
+In diesem Buch wird für die *linksgerichtete Zuweisung* immer das  Gleichzeichen (`=`) verwendet, so dass eine Zuweisung eines Werts an eine Variable und an einen Parameter gleichwertig behandelt wird. Dadurch wird die Lesart etwas vereinfacht. Zusätzlich wird die rechtsgerichtete Zuweisung konsequent als Abschluss für einen primären Datenstrom (s. @sec-fkt-ketten) eingesetzt.
+:::
+
+#### Ausführungsoperator
+
+Der Ausführenoperator (`()`) gilt in R offiziell nicht als Operator, weil dieser nicht als Funktion umgesetzt werden kann. Es gibt zwar die Funktion `do.call()`, um diese auszuführen müsste sie sich aber selbst aufrufen. Dieses Problem wird von R dadurch gelöst, dass `(` und  `)` als eigene *Symbole* erkannt werden und immer eine Funktionsausführung einleiten.
+
+#### Hilfeoperator
+
+Der *Hilfeoperator* ist ein besonderer Operator, weil dieser die Interaktion mit der Dokumentation von Funktionen und Konzepten ermöglicht. Der Hilfeoperator wird normalerweise nicht in einem R-Script verwendet und hat keine Bedeutung für die Datenverarbeitung.
+
+Der Hilfeoperator kann direkt mit einem Funktionsnamen oder einem Namen aufgerufen werden. 
+
+::: {#exm-hilfeop-funktionsname}
+## Dokumentation der Funktion `is.character()`
+```r 
+?is.character
+```
+:::
+
+Wird der Hilfeoperator mit sich selbst aufgerufen, wird der nächste Wert als Suchbegriff gewertete und eine Suche über alle Hilfedokumente auf dem System durchgeführt.
+
+::: {#exm-hilfeop-hilfeop}
+## Dokumentationssuche nach Operatoren
+```r
+??operator
+```
+::: 
+
+
+### Funktionsketten {#sec-fkt-ketten}
+
+R unterstützt die spezielle Funktionsverkettung mit dem `|>`- Operator. Dadurch lassen sich Funktionsfolgen direkt in R ausdrücken. In Kombination mit der rechtsgerichteten Zuweisung (`->`) ist es möglich, Datenströme durch eine Funktionskette von einem Ausgangswert zu einem Ergebnis in der natürlichen Reihenfolge aufzuschreiben.
+
+::: {#exm-fktkette-datenstrom}
+## Funktionskette mit abschliessender Zuweisung
+```r
+# library(tidyverse)
+iris |>
+    filter(Species == "setosa") |>
+    arrange(desc(Petal.Length)) -> 
+        sortierteSetosaWerte
+```
+:::
+
+Neben der speziellen Funktionsverkettung (`|>`) gibt es einen sehr ähnlichen Verkettungsoperator: `%>%`. Dieser Verkettungsoperator ist Teil der `tidyverse`-Bibliothek und gleicht der speziellen Funktionsverkettung mit dem kleinen Unterschied, dass die Parameterzuweisung für die nachfolgende Funktion zusätzliche Kontrollmöglichkeiten bietet, die der speziellen Funktionsverkettung fehlen.  
+
+## Eigene Funktionen erstellen
 
 In R werden Funktionen mit dem `function`-Schlüsselwort erstellt. Eine R-Funktion besteht aus einer Parameterliste und einem Funktionskörper. Die Parameterliste wird in Klammern hinter dem Wort `function` angegeben. Der Funktionskörper kann eine einzelne Operation oder ein Block sein. Das Ergebnis einer Funktion ist das Ergebnis der letzten Operation des Funktionskörpers.
 
@@ -54,7 +163,7 @@ function (parameter) {
 ```
 :::
 
-Eine Funktion ist in R ein Wert wie eine Zahl oder eine Zeichenkette. R gibt eine direkte Funktionsdefinition wie jeden Wert direkt aus. Im Fall von Funktionen ist das die Funktionsdeklaration. Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variablen zugewiesen werden. Der Name einer Funktion sollte möglichst die zentrale Bedeutung einer Funktion beschreiben.
+Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variablen zugewiesen werden. Der Name einer Funktion sollte möglichst die zentrale Bedeutung einer Funktion beschreiben.
 
 ::: {.callout-note}
 Die Wahl eines guten Funktionsnamen hängt vom jeweiligen Kontext ab.
@@ -74,7 +183,7 @@ quadrat_minus_eins = function (parameter) {
 :::
 
 ::: {#exm-funktion-aufrufen}
-## Eine Funktion aufrufem
+## Eine selbstdeklarierte Funktion aufrufen
 ```r
 quadrat_minus_eins(2)
 ```
@@ -90,7 +199,7 @@ Wird der neuen Funktion ein falscher Datentyp als Parameter übergeben, dann kö
 :::
 
 ::: {#exm-fkt-datentyp-prüfen}
-## Eine Funktion mit Namen deklarieren
+## Eine Funktion mit Typenprüfung deklarieren
 ```r
 quadrat_minus_eins = function (parameter) {
     stopifnot(is.numeric(parameter))
@@ -99,8 +208,7 @@ quadrat_minus_eins = function (parameter) {
 ```
 :::
 
-
-### Bibliotheken
+## Bibliotheken
 
 Oft ist es nicht notwendig eigene Funktionen zu erstellen. Stattdessen kann in vielen Fällen auf Funktionsbibliotheken zurückgegriffen werden, die bereits entsprechende Funktionen bereitstellen. 
 
