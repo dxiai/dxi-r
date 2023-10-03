@@ -12,19 +12,31 @@ execute:
 
 ## Variablen
 
-Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte für die spätere Verwendung gespeichert werden. Variablen erzeugen Referenzen, über die Werte zugegriffen werden können. Es sind also **Namen**, die die eigentlichen Werte *substituieren*. 
+Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte für die spätere Verwendung markiert werden. Variablen sind also **Namen**, welche die eigentlichen Werte *substituieren*. 
+
+Damit eine Variable einen Wert substituieren kann, muss der Wert der Variablen *zugewiesen* werden. Ein Wert kann dabei ein einzelner Wert eines fundamentalen Datentyps oder eine komplexe Datenstruktur sein. 
 
 ::: {#exm-var-zuweisen}
 ## Den Wert 1 der Variable `var1` zuweisen
 ```r
-var1 <- 1
+var1 = 1
 ```
 :::
 
-Variablen sollten in einem Kontext *eindeutig* sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert der Variable der Wert der letzten Zuweisung.
+Variablen müssen in einem Kontext *eindeutig* sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert der Variablen der Wert der letzten Zuweisung.
+
+Der **Kontext** bzw. *Geltungsbereich* (engl. Scope) einer Variablen wird durch Funktionskörper definiert. R kennt dabei drei Arten von Kontexten. In diesem Zusammenhang spricht man von äusseren (engl. *outer scope*) und inneren Kontexten (engl. *inner scope*).
+
+Grundsätzlich können alle Variablen in einem Kontext verwendet werden, die in einem der äusseren Kontexte deklariert und zugewiesen wurden. Variablen der inneren Kontexte sind in den äusseren Kontexten *nicht verfügbar*. 
+
+Der **globale Kontext** gilt für alle Variablen, die ausserhalb einer Funktion oder einer Bibliothek erzeugt werden.
+
+Der **Funktionskontext** ist auf den Funktionsköper einer Funktion beschränkt. 
+
+Der **Modulkontext** ist der globale Kontext einer Funktionsbibliothek. Variablen dieses Kontexts sind im globalen Kontext eines R-Scripts nicht erreichbar. In der Praxis spielt dieser Kontext eine untergeordnete Rolle
 
 ::: {.callout-warning}
-Die letzte Zuweisung ist nicht zwingend die Zuweisung, die als letztes im Code erscheint. Deshalb sollte vor einer Zuweisung immer geprüft werden, ob ein Variablenname bereits verwendet wird.
+Die letzte Zuweisung ist nicht zwingend die Zuweisung, die als letztes im Code erscheint.
 :::
 
 ## Funktionen
@@ -71,8 +83,8 @@ Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei
 | `&&`	| Und, binär, nicht vectorisiert | logisch |
 | `|` |	Oder, binär, vectorisiert | logisch |
 | `||` |	Oder, binär, nicht vectorisiert | logisch |
-| `<-` |	linksgerichtete Zuweisung, binär | Zuweisung |
-| `->` |	rechtsgerichtete Zuweisung, binär | Zuweisung |
+| `<-`, `<<-` |	linksgerichtete Zuweisung, binär | Zuweisung |
+| `->`, `->>` |	rechtsgerichtete Zuweisung, binär | Zuweisung |
 | `[` | Indexzugriff (Vektoren), binär |  Index |
 | `$`, `[[`	| Listenzugriff, binär | Index |
 
@@ -193,10 +205,15 @@ quadrat_minus_eins(2)
 ```
 :::
 
-::: {.callout-tip}
-## Praxis
+### Parameter und Variablen
+
+Ein Parameter ist ein Platzhalter für einen Wert, der einer Funktion beim Funktionsaufruf übergeben wird. Parameter werden für eine spezielle Form der Variablenzuweisung eingesetzt. 
+
+Im Funktionskörper verhält sich ein Parameter wie eine Variable. Einem Parameter können also in einem Funktionskörper neue Werte zugewiesen werden. Neben Parametern können Funktionskörper zusätzliche Variablen benötigen. Der Geltungsbereich dieser Variablen sind auf den Funktionskörper beschränkt.
+
+### Datentypen überprüfen
+
 Wird der neuen Funktion ein falscher Datentyp als Parameter übergeben, dann können die Rs Fehlermeldungen sehr verwirrend sein. Es ist daher ein guter Stil, Parameter die bestimmte Datentypen erfordern direkt zu Begin des Funktionskörpers zu prüfen (s. @exm-fkt-datentyp-prüfen).
-:::
 
 ::: {#exm-fkt-datentyp-prüfen}
 ## Eine Funktion mit Typenprüfung deklarieren
@@ -206,6 +223,68 @@ quadrat_minus_eins = function (parameter) {
     parameter ^ 2 - 1
 }
 ```
+:::
+
+### Nebeneffekte
+
+Der Funktionskörper bildet einen abgegrenzten Geltungsbereich für Variablen. Alle normalen Zuweisungen gelten nur für den Funktionskörper, selbst wenn eine Variable oder ein Parameter ursprünglich in einem äusseren Kontext deklariert wurde.
+
+::: {#exm-variablen-decl}
+## Geltungsbereich von Variablen in Funktionen
+```r
+# Deklarationen
+var1 = 1
+f = function (x) {
+    var1 = x + var1
+    var1
+}
+
+# Anwendung
+f(2)
+var1
+```
+
+```
+3 # Ergebnis von f(2)
+1 # Ergebnis von var1
+```
+:::
+
+In ***seltenen Fällen*** ist es notwendig, eine Variable eines äusseren Kontexts in einer Funktion einen neuen Wert zuzuweisen. Hier kommen die speziellen Zuweisungen `<<-` und `->>` zum Einsatz. Wird anstelle einer normalen Zuweisung die spezielle Zuweisung verwendet, dann wird einer Variablen oder einem Parameter eines äusseren Kontext ein neuer Wert zugewiesen. 
+
+::: {#def-nebeneffekt}
+Ändert eine Funktion eine Variable eines äusseren Kontexts, dann ist diese Änderung ein **Nebeneffekt** der Funktion. 
+:::
+
+::: {#exm-function-sideeffect}
+## Funktion mit Nebeneffekt
+```r
+# Deklarationen
+var1 = 1
+f = function (x) {
+    x + var1 ->> var1
+    var1
+}
+
+# Anwendung
+f(2)
+var1
+```
+```
+3 # Ergebnis von f(2)
+3 # Ergebnis von var1
+```
+:::
+
+::: {.callout-tip}
+## Praxis
+In R sollten ausschliesslich *Closures* Nebeneffekte haben. Variablen des globalen Kontexts sollten **nie** durch Nebeneffekte geändert werden. 
+:::
+
+::: {.callout-note}
+**Objektorientierte Sprachen**, wie Python oder Java, verwenden Nebeneffekte als zentrales Programmierprinzip.
+
+**Streng-funktionale Sprachen**, wie Excel, sind ***nebeneffektfrei***.
 :::
 
 ## Bibliotheken
