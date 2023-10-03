@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -190,44 +224,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kapitel/datenströme/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Datenströme</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../kapitel/boolsche-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/vektor-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/matrix-operationen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Matrix-Operationen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Matrix-Operationen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/indizieren-gruppieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Indizieren und Gruppieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Indizieren und Gruppieren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-kodieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-formen/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten formen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Daten formen</span></span></a>
   </div>
 </li>
       </ul>
@@ -244,13 +272,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-beschreiben/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-visualisieren/kapitel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span></a>
   </div>
 </li>
       </ul>
@@ -267,7 +295,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#variablen" id="toc-variablen" class="nav-link active" data-scroll-target="#variablen"><span class="header-section-number">8.1</span> Variablen</a></li>
+  <li><a href="#funktionen" id="toc-funktionen" class="nav-link" data-scroll-target="#funktionen"><span class="header-section-number">8.2</span> Funktionen</a>
+  <ul class="collapse">
+  <li><a href="#operatoren" id="toc-operatoren" class="nav-link" data-scroll-target="#operatoren"><span class="header-section-number">8.2.1</span> Operatoren</a></li>
+  <li><a href="#funktionsketten" id="toc-funktionsketten" class="nav-link" data-scroll-target="#funktionsketten"><span class="header-section-number">8.2.2</span> Funktionsketten</a></li>
+  <li><a href="#eigene-funktionen-erstellen" id="toc-eigene-funktionen-erstellen" class="nav-link" data-scroll-target="#eigene-funktionen-erstellen"><span class="header-section-number">8.2.3</span> Eigene Funktionen erstellen</a></li>
+  <li><a href="#bibliotheken" id="toc-bibliotheken" class="nav-link" data-scroll-target="#bibliotheken"><span class="header-section-number">8.2.4</span> Bibliotheken</a></li>
+  </ul></li>
+  <li><a href="#bibliotheksmanagement" id="toc-bibliotheksmanagement" class="nav-link" data-scroll-target="#bibliotheksmanagement"><span class="header-section-number">8.3</span> Bibliotheksmanagement</a>
+  <ul class="collapse">
+  <li><a href="#projektvorbereitung" id="toc-projektvorbereitung" class="nav-link" data-scroll-target="#projektvorbereitung"><span class="header-section-number">8.3.1</span> Projektvorbereitung</a></li>
+  <li><a href="#bibliotheken-installieren" id="toc-bibliotheken-installieren" class="nav-link" data-scroll-target="#bibliotheken-installieren"><span class="header-section-number">8.3.2</span> Bibliotheken installieren</a></li>
+  <li><a href="#updates-für-bibliotheken" id="toc-updates-für-bibliotheken" class="nav-link" data-scroll-target="#updates-für-bibliotheken"><span class="header-section-number">8.3.3</span> Updates für Bibliotheken</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -302,8 +349,145 @@ Work in Progress
 
 </div>
 </div>
+<section id="variablen" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="variablen"><span class="header-section-number">8.1</span> Variablen</h2>
+</section>
+<section id="funktionen" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="funktionen"><span class="header-section-number">8.2</span> Funktionen</h2>
+<section id="operatoren" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="operatoren"><span class="header-section-number">8.2.1</span> Operatoren</h3>
+</section>
+<section id="funktionsketten" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="funktionsketten"><span class="header-section-number">8.2.2</span> Funktionsketten</h3>
+<p>Datenströme</p>
+</section>
+<section id="eigene-funktionen-erstellen" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="eigene-funktionen-erstellen"><span class="header-section-number">8.2.3</span> Eigene Funktionen erstellen</h3>
+<p>In R werden Funktionen mit dem <code>function</code>-Schlüsselwort erstellt. Eine R-Funktion besteht aus einer Parameterliste und einem Funktionskörper. Die Parameterliste wird in Klammern hinter dem Wort <code>function</code> angegeben. Der Funktionskörper kann eine einzelne Operation oder ein Block sein. Das Ergebnis einer Funktion ist das Ergebnis der letzten Operation des Funktionskörpers.</p>
+<p>Eine Funktion ist in R ein Wert wie eine Zahl oder eine Zeichenkette. Damit eine Funktion über einen Namen gefunden und ausgeführt werden kann, muss die Funktion zuerst einer Variablen zugewiesen werden.</p>
+</section>
+<section id="bibliotheken" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="bibliotheken"><span class="header-section-number">8.2.4</span> Bibliotheken</h3>
+<p>Oft ist es nicht notwendig eigene Funktionen zu erstellen. Stattdessen kann in vielen Fällen auf Funktionsbibliotheken zurückgegriffen werden, die bereits entsprechende Funktionen bereitstellen.</p>
+<p>R wird durch Funktionsbibliotheken erweitert. Eine Funktionsbibliothek stellt hauptsächlich Funktionen und Operationen für bestimme Algorithmen oder Analysemethoden bereit. Eine Funktionsbibliothek wird mit der Funktion <code>install.packages()</code> auf einem Rechner installiert.</p>
+<p>In einem R-Script lassen sich die Funktionen einer Bibliothek auf zwei Arten nutzen:</p>
+<ol type="1">
+<li>Die Bibliothek wird mithilfe der Funktion <code>library()</code> in den Code eingebunden.</li>
+<li>Eine Funktion einer Bibliothek wird direkt angesprochen.</li>
+</ol>
+<p>Die erste Option bietet sich an, wenn ein Script viele Funktionen einer Bibliothek aufrufen wird. R läd in diesem Fall <em>alle Funktionen</em> der Bibliothek, so dass diese direkt verwendet werden können.</p>
+<div id="exm-fkt-library-load" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.1 (Funktionen mit der <code>library()</code> Funktion einbinden) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(mpg, hp)) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die zweite Option ist sinnvoll, wenn nur eine oder zwei Funktionen einer Bibliothek verwendet werden sollen. In diesem Fall muss R nicht die gesamte Bibliothek bereitstellen, sondern läd gezielt nur die gewünschten Funktionen.</p>
+<div id="exm-fkt-direct-access" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.2 (Eine Funktion direkt ansprechen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(hp <span class="sc">&gt;</span> <span class="dv">200</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R bietet sog. Meta-Bibliotheken an, mit denen mehrere Bibliotheken gemeinsam verwendet werden können. Funktionen können nur nicht über den Namen einer Meta-Bibliothek, sondern immer nur über die Bibliothek, die einer Funktion definiert.</p>
+</div>
+</div>
+<p>Die <code>tidyverse</code>-Bibliothek ist eine solche Meta-Bibliothek. <a href="#exm-fkt-dir-ansprechen-meta">Beispiel&nbsp;<span>8.3</span></a> zeigt wie die Funktion <code>read_delim()</code> direkt angesprochen werden kann, wenn die <code>tidyverse</code>-Bibliotheken nicht mit <code>library(tidyverse)</code> eingebunden wurden. <code>read_delim()</code> wird in der Bibliothek <code>readr</code> definiert. Entsprechend kann die Funktion nur über <code>readr::read_delim()</code> aufgerufen werden.</p>
+<div id="exm-fkt-dir-ansprechen-meta" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 8.3 (Funktion aus Unterbibliothek direkt ansprechen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">"meine_daten.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># entspricht:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   library(tidyverse)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   read_delim("meine_daten.csv")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Syntax von R kann durch Module erweitert werden. Diese Form nutzt die Konzepte zur <strong>Metaprogrammierung</strong> von R. Dadurch können neue Programmierkonzepte in die Sprache einfliessen. Die <code>tidyverse</code>-Bibliotheken nutzen diese Möglichkeit intensiv. Solche Bibliotheken <strong>müssen</strong> mit der Funktion <code>library()</code> eingebunden werden, damit die zusätzliche Syntax bereitgestellt wird.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="bibliotheksmanagement" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="bibliotheksmanagement"><span class="header-section-number">8.3</span> Bibliotheksmanagement</h2>
+<p>Verwendet ein R-Script Funktionsbibliotheken, dann ist dieses Script nur auf Rechnern lauffähig, auf denen die benutzten Bibliotheken auch installiert sind. Solche notewendigen Bibliotheken heissen die <strong>Abhängigkeiten</strong> (engl. <em>dependencies</em>) eines Scripts. Alle Abhängigkeiten müssen dokumentiert werden.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Im Internet gibt es sehr viele Beispiele, die die Funktion <code>install.packages()</code> als Teil des Programmcodes darstellen. In konkreten R-Projekten sollte die Funktion <code>install.packages()</code> <strong>nie</strong> in einem normalen R-Script aufgerufen werden, weil bei jedem Start des Script geprüft wird, ob eine neue Version der Bibliothek existiert. Diese Technik stellt ein Sicherheitsrisiko dar, weil bei jeder Ausführung des Scripts Installationen unkontrolliert vorgenommen werden können und Schadcode auf die Systeme geschleust werden kann.</p>
+<p>Das Risiko unkontrollierter Installationen wird verringert, indem Installationen von der Programmlogik getrennt und nur kontrolliert durchgeführt werden. Dadurch wird die Installation von Funktionsbibliotheken von ihrer Anwendung getrennt.</p>
+</div>
+</div>
+<p>Die Dokumentation von Abhängigkeiten wird normalerweise von einem sog. Packetmanagement übernommen. R verfügt über <em>kein integriertes</em> Packetmanagement. Dieses wird von der Bibliothek <code>renv</code> übernommen. Bevor dieses genutzt werden kann muss <code>renv</code> mit <code>install.packages("renv")</code> installiert werden.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>renv</code> sollte bei der Installation von R gleich mitinstalliert werden.</p>
+</div>
+</div>
+<p><code>renv</code> ist ein Packetmanagementsystem für R. Anders als die Funktion <code>install.packages()</code> installiert <code>renv</code> nicht nur Bibliotheken, sondern dokumentiert auch die Abhängigkeiten eines Projekts in einer Form, dass alle Abhängigkeiten einfach auf dem System installiert werden können. Mit <code>renv::restore()</code> lässt sich ein Projekt in einer anderen Umgebung mit allen Abhängigkeiten konfigurieren und ausführen.</p>
+<p>Wird eine Bibliothek mit <code>renv</code> installiert, dann steht diese Bibliothek nur dem jeweiligen Projekt zur Verfügung. Was auf dem ersten Blick als Nachteil klingt, ist ein grosser Vorteil, wenn unterschiedliche Projekte besonderen Anforderungen an die Versionen einer Bibliothek haben. Auf diese Weise kann jedes Projekt die richtige Version einer Bibliothek verwenden und beeinflusst keine anderen Projekte.</p>
+<section id="projektvorbereitung" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="projektvorbereitung"><span class="header-section-number">8.3.1</span> Projektvorbereitung</h3>
+<p>Ein Projekt wird mit <code>renv::init()</code> für die Verwendung des Packetmanagements vorbereitet. Beim ersten Aufruf von <code>renv</code> werden die internen Abhängigkeiten von <code>renv</code> kontrolliert und notfalls installiert. Das nimmt etwas Zeit in Anspruch. Das Packetmanagement erfasst automatisch alle Bibliotheken, die systemweit installiert wurden. Dadurch wird sichergestellt, dass alle Bibliotheken berücksichtigt wurden, die im eigenen System installiert sind und deshalb im Projekt verwendet werden können.</p>
+</section>
+<section id="bibliotheken-installieren" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="bibliotheken-installieren"><span class="header-section-number">8.3.2</span> Bibliotheken installieren</h3>
+<p>Nach der Initialisierung des Packetmanagements können projektspezifische Bibliotheken mit <code>renv::install()</code> installiert werden. War eine Installation erfolgreich, sollte die Bibliothek auf ihre Funktionstüchtigkeit mit einem einfachen Beispiel geprüft und danach mit <code>renv::snapshot()</code> als Abhängigkeit dokumentiert werden. Mit einem <em>Snapshot</em> wird eine Bibliotheksversion als Abhängigkeit registiert. Im Gegensatz zu <code>install.packages()</code> wird ab diesem Zeitpunkt nicht mehr eine beliebige Version der Bibliothek installiert, sondern nur die dokumentierte Version. Dadurch wird sichergestellt, dass der Code auch in anderen Umgebungen wie erwartet funktioniert.</p>
+</section>
+<section id="updates-für-bibliotheken" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="updates-für-bibliotheken"><span class="header-section-number">8.3.3</span> Updates für Bibliotheken</h3>
+<p>Eine Besonderheit von <code>renv</code> ist die Möglichkeit, kontrollierte Updates für einzelne oder alle Abhängigkeiten eines Projekts mit <code>renv::update()</code> durchzuführen. <code>renv::update()</code> installiert die neusten Versionen der Projektbibliotheken.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Updates sollten nie unklontrolliert akzeptiert werden!</p>
+</div>
+</div>
+<p>Bevor neue Bibliotheksversionen in das Packetmanagement aufgenommen werden, sollte immer geprüft werden, ob der bestehende Code mit den neuen Versionen immer noch funktioniert. Sollten bei dieser Prüfung Probleme auftreten, dann können die Updates mit <code>renv::revert()</code> wieder rückgängig gemacht werden. Gab es keine Probleme, dann können die Updates mit <code>renv::snapshot()</code> übernommen werden.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -555,4 +739,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
