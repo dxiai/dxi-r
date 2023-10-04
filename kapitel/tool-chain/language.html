@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#werte" id="toc-werte" class="nav-link" data-scroll-target="#werte"><span class="header-section-number">4.1.1</span> Werte</a></li>
   <li><a href="#schlüsselworte" id="toc-schlüsselworte" class="nav-link" data-scroll-target="#schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</a></li>
-  <li><a href="#namen" id="toc-namen" class="nav-link" data-scroll-target="#namen"><span class="header-section-number">4.1.3</span> Namen</a></li>
+  <li><a href="#bezeichner" id="toc-bezeichner" class="nav-link" data-scroll-target="#bezeichner"><span class="header-section-number">4.1.3</span> Bezeichner</a></li>
   </ul></li>
   <li><a href="#operationen" id="toc-operationen" class="nav-link" data-scroll-target="#operationen"><span class="header-section-number">4.2</span> Operationen</a>
   <ul class="collapse">
@@ -336,7 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Jede Programmiersprache besteht aus festgelegten <em>Symbolen</em> und <em>Operatoren</em>. Diese beiden Elemente bilden zusammen die <strong>Syntax</strong> einer Programmiersprache mit der <em>Operationen</em> erstellt werden können. Syntaktische Kern von R ist vergleichsweise kompakt und übersichtlich.</p>
 <section id="syntaktische-symbole" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="syntaktische-symbole"><span class="header-section-number">4.1</span> Syntaktische Symbole</h2>
-<p>Syntaktische <strong>Symbole</strong> sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Namen sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.</p>
+<p>Syntaktische <strong>Symbole</strong> sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Bezeichner sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.</p>
 <section id="werte" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="werte"><span class="header-section-number">4.1.1</span> Werte</h3>
 <p>Werte können direkt angegeben werden. Dabei legt der Datentyp eines Werts (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) fest, wie dieser eingegeben werden muss.</p>
@@ -380,20 +380,20 @@ Keine Schleifen in der Paxis
 </div>
 </div>
 </section>
-<section id="namen" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="namen"><span class="header-section-number">4.1.3</span> Namen</h3>
-<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als Name behandelt. Ein Name ist ein Platzhalter für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
-<p>Grundsätzlich können Namen beliebige Zeichen enthalten. R erkennt zulässige Namen mit zwei Regeln.</p>
+<section id="bezeichner" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="bezeichner"><span class="header-section-number">4.1.3</span> Bezeichner</h3>
+<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als <strong>Bezeichner</strong> behandelt. Ein Bezeichner ist ein Platzhalter für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
+<p>Grundsätzlich können Bezeichner beliebige Zeichen enthalten. R erkennt einfache Bezeichner mit zwei Regeln.</p>
 <ul>
 <li>Beginnt mit einem ASCII-Buchstaben (A-Z, a-z) oder einem Unterstrich.</li>
 <li>Enthält nur ASCII-Buchstaben (A-Z, a-z), arabische Ziffern (0-9) und Unterstriche.</li>
 </ul>
-<p>Weicht ein Name von diesen Regeln ab, dann muss dieser als solcher durch Backticks gekennzeichnet werden (<code>`</code>). <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> zeigt einen Namen, der den deutschen Umlaut (<code>ü</code>) und ein Leerzeichen enthält. Weil <code>ü</code> kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss dieses Symbol als Name markiert werden.</p>
+<p>Weicht ein Bezeichner von diesen Regeln ab, dann muss dieser als solcher durch Backticks (<code>`</code>) gekennzeichnet werden. <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> zeigt einen Bezeichner, der den deutschen Umlaut (<code>ü</code>) und ein Leerzeichen enthält. Weil <code>ü</code> kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss der ganze Bezeichner als Symbol markiert werden.</p>
 <div id="exm-gekennzeichneter-name" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Name) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">merkwürdiger Name</span><span class="st">`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Bezeichner) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">merkwürdiger Bezeichner</span><span class="st">`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wird der Name aus <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> nicht markiert, wird die Fehlermeldung <code>Fehler: unerwartetes Symbol in "merwürdiger Name"</code> erzeugt.</p>
+<p>Wird der Bezeichner aus <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> nicht markiert, erzeugt R die Fehlermeldung <code>Fehler: unerwartetes Symbol in "merwürdiger Name"</code>.</p>
 </section>
 </section>
 <section id="operationen" class="level2" data-number="4.2">
@@ -421,6 +421,9 @@ Keine Schleifen in der Paxis
 <li>Der Funktionsaufrufoperator (<code>()</code>).</li>
 </ul>
 <p>Mit den <em>Zuweisungsoperatoren</em> können Werte Namen zugewiesen werden. Bei den Pfeil-Operatoren wird der Wert in Richtung des Pfeils zugewiesen. Beim Gleich-Operator erfolgt die Zuweisung von rechts nach links. (s. <a href="#exm-zuweisungsoperatoren">Beispiel&nbsp;<span>4.3</span></a>)</p>
+<div id="def-deklaration" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.3 </strong></span>Eine <strong>Deklaration</strong> heisst die (erste) Zuweisung eines Werts an eine Variable.</p>
+</div>
 <div id="exm-zuweisungsoperatoren" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 4.3 (Zuweisung einer Zeichenkette) </strong></span>&nbsp;</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>buchtitel1 <span class="ot">=</span> <span class="st">"Daten und Information 1"</span></span>
