@@ -266,11 +266,39 @@
     "text": "10.5 Faktorstufen und Visualisierung\nFaktoren erleichtern das Veranschaulichen von Daten. Der grosse Vorteil bei der Verwendung von Faktoren ist, dass sich der Code für die Visualisierung nicht ändert. Mit Hilfe der Faktorstufen geben wir ggplot Hinweise über die Struktur der Werte in einem Vektor. Dadurch werden unsere Visualisierungen aussagekräftiger.\n\n10.5.1 Überzählige Achsenbeschriftungen entfernen\nFaktoren werden regelmässig für die Datenvisualisierung verwendet, um diskrete Daten richtig darzustellen. Das ist besonders dann notwendig, wenn die Werte im entsprechenden Vektor mit Zahlen dargestellt werden und die Reihenfolge dieser Zahlen vom Üblichen abweicht.\nNehmen wir zum Beispiel die Stichprobe mtcars und den Vektor cyl (Zylinder) . Dieser Vektor nimmt nur die folgenden diskreten Werte an.\nmtcars %&gt;% \n    summarise( cyl = unique(cyl) )\n\n\n\ncyl  &lt;dbl&gt;\n\n\n\n\n6\n\n\n4\n\n\n8\n\n\n\nIn beiden Fällen haben wir also diskrete Daten. Wenn wir die Daten darstellen, dann ergibt sich das folgende Bild.\nmtcars %&gt;% \n   ggplot(aes(x = cyl )) + \n      geom_bar()\n\n\n\nAbbildung 10.1: mtcars cyl ohne Faktorisierung\n\n\nHier erkennen wir, dass die X-Achse Werte anzeigt, die gar nicht vorkommen können. Dieses Problem können wir leicht beheben, indem wir den Vektor faktorisieren.\nmtcars %&gt;% \n   mutate( cyl = cyl %&gt;% as_factor() )  %&gt;%\n   ggplot(aes(x = cyl )) + \n      geom_bar()\n\n\n\nAbbildung 10.2: mtcars cyl mit Faktorisierung\n\n\n\n\n10.5.2 Sortierte Balkendiagramme\nDas Arrangieren von Daten erreichen wir ebenfalls mit Faktoren. Hierzu betrachten wir die Vektoren name und sleep_total aus der Stichprobe msleep. Stellen wir die beiden Vektoren in einem Balkendiagramm gegenüber, dann können wir kaum die verschiedenen Spezies vergleichen.\nmsleep %&gt;% \n    ggplot(aes(name, sleep_total)) + \n        geom_col() +\n        coord_flip()\n\n\n\nAbbildung 10.3: msleep data ohne Faktorisierung\n\n\nWesentlich anschaulicher wird dieses Balkendiagramm, wenn wir den name-Vektor vor der Visualisierung in einen Faktor umwandeln und die Faktorstufen entlang der Gesamtschlafdauer organisieren.\nmsleep %&gt;% \n    mutate(\n        name = name %&gt;% as_factor() %&gt;% fct_reorder(sleep_total)\n    ) %&gt;%  \n    ggplot(aes(name, sleep_total)) + \n        geom_col() +\n        coord_flip()\n\n\n\nAbbildung 10.4: msleep data mit Faktorisierung"
   },
   {
-    "objectID": "kapitel/boolsche-operationen/kapitel.html",
-    "href": "kapitel/boolsche-operationen/kapitel.html",
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#logische-aggregationen-mit-reduce",
+    "href": "kapitel/boolsche-operationen/kapitel.html#logische-aggregationen-mit-reduce",
     "title": "11  Boole’sche Operationen",
-    "section": "",
-    "text": "Work in Progress"
+    "section": "11.1 Logische Aggregationen mit reduce()",
+    "text": "11.1 Logische Aggregationen mit reduce()\n\n\n\n\n\n\nMerke\n\n\n\nUm logische Vektoren in R zu aggregieren, muss der Vektor reduziert (engl. reduce) werden. Das Reduzieren ist eine besondere Aggregation über eine Reihe von Werten, bei der jeder Wert gemeinsam mit dem Ergebnis der Vorgängerwerte an eine Funktion übergeben wird.\n\n\n\nBeispiel 11.3 (Aggregation logischer Vektoren)  \nbeispielWerte = c(TRUE, TRUE, FALSE, TRUE)\n\nbeispielWerte %&gt;% reduce(`&`)   # Ergibt FALSE\nbeispielWerte %&gt;% reduce(`|`)   # Ergibt TRUE\nbeispielWerte %&gt;% reduce(`xor`) # Ergibt TRUE\n\n\n\n\n\n\n\nWichtig\n\n\n\nBeim Reduzieren muss beachtet werden, dass eine Funktion und nicht den Operator übergeben wird. Deshalb muss der jeweilige logische Operator in Backticks (`) gesetzt und so als Funktionsbezeichner markiert werden."
+  },
+  {
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#vergleiche",
+    "href": "kapitel/boolsche-operationen/kapitel.html#vergleiche",
+    "title": "11  Boole’sche Operationen",
+    "section": "11.2 Vergleiche",
+    "text": "11.2 Vergleiche\nNeben den logischen Operationen sind Vergleiche ein wichtiges Konzept, das wir in logischen Ausdrücken regelmässig anwenden.\nEs gibt genau sechs (6) Vergleichsoperatoren:\n\nGleich (==)\nUngleich (!=)\nGrösser als (&gt;)\nGrösser gleich (&gt;=)\nKleiner als (&lt;)\nKleiner gleich (&lt;=)\n\n\n\n\n\n\n\nWarnung\n\n\n\nVergleiche erfordern, dass beide Werte vom gleichen Datentyp sind.\n\n\nDie Vergleiche funktionieren für alle fundamentalen Datentypen.\nBei Zeichenketten wertet R die alphabetische Reihenfolge der Symbole vom Beginn einer Zeichenkette aus, um grösser oder kleiner Vergleiche durchzuführen.\n\n11.2.1 Die Existenz eines Werts in einem Vektor überprüfen\nHäufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von Beispiel 11.4 schreiben.\n\nBeispiel 11.4 (Existstenzprüfung ohne %in%)  \nmeinWert = 3\nwertVektor = c(8, 2, 3)\n\nmeinWert == wertVektor[1] | meinWert == wertVektor[2] | meinWert == wertVektor[3]\n\nEinfacher ist aber ein sogenannter Existenztest. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in Beispiel 11.5 schreiben:\n\nBeispiel 11.5 (Existstenzprüfung mit %in%)  \nmeinWert = 3\nwertVektor = c(8, 2, 3)\n\nmeinWert %in% wertVektor\n\nEntsprechend der Definition des Existenzvergleichs \\in funktioniert R’s %in%-Operator auch für Vektoren als linker Operand."
+  },
+  {
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#entscheidungen",
+    "href": "kapitel/boolsche-operationen/kapitel.html#entscheidungen",
+    "title": "11  Boole’sche Operationen",
+    "section": "11.3 Entscheidungen",
+    "text": "11.3 Entscheidungen\n\n11.3.1 Bedingte Operationen\n\n\n11.3.2 Vektorisierte Entscheidungen"
+  },
+  {
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#filter",
+    "href": "kapitel/boolsche-operationen/kapitel.html#filter",
+    "title": "11  Boole’sche Operationen",
+    "section": "11.4 Filter",
+    "text": "11.4 Filter"
+  },
+  {
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#sortieren",
+    "href": "kapitel/boolsche-operationen/kapitel.html#sortieren",
+    "title": "11  Boole’sche Operationen",
+    "section": "11.5 Sortieren",
+    "text": "11.5 Sortieren"
   },
   {
     "objectID": "kapitel/vektor-operationen/kapitel.html",

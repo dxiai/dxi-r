@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -62,6 +96,22 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -261,7 +311,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#logische-aggregationen-mit-reduce" id="toc-logische-aggregationen-mit-reduce" class="nav-link active" data-scroll-target="#logische-aggregationen-mit-reduce"><span class="header-section-number">11.1</span> Logische Aggregationen mit <code>reduce()</code></a></li>
+  <li><a href="#vergleiche" id="toc-vergleiche" class="nav-link" data-scroll-target="#vergleiche"><span class="header-section-number">11.2</span> Vergleiche</a>
+  <ul class="collapse">
+  <li><a href="#die-existenz-eines-werts-in-einem-vektor-überprüfen" id="toc-die-existenz-eines-werts-in-einem-vektor-überprüfen" class="nav-link" data-scroll-target="#die-existenz-eines-werts-in-einem-vektor-überprüfen"><span class="header-section-number">11.2.1</span> Die Existenz eines Werts in einem Vektor überprüfen</a></li>
+  </ul></li>
+  <li><a href="#entscheidungen" id="toc-entscheidungen" class="nav-link" data-scroll-target="#entscheidungen"><span class="header-section-number">11.3</span> Entscheidungen</a>
+  <ul class="collapse">
+  <li><a href="#bedingte-operationen" id="toc-bedingte-operationen" class="nav-link" data-scroll-target="#bedingte-operationen"><span class="header-section-number">11.3.1</span> Bedingte Operationen</a></li>
+  <li><a href="#vektorisierte-entscheidungen" id="toc-vektorisierte-entscheidungen" class="nav-link" data-scroll-target="#vektorisierte-entscheidungen"><span class="header-section-number">11.3.2</span> Vektorisierte Entscheidungen</a></li>
+  </ul></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">11.4</span> Filter</a></li>
+  <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">11.5</span> Sortieren</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,8 +363,216 @@ Work in Progress
 
 </div>
 </div>
+<p>In R stehen die logischen Operationen als <em>binäre</em> Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole’sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Opeartoren folgt der gleichen Regel wie die Arithmetik.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Das logische Und entspricht der Multiplikation.</li>
+<li>Das logische Oder entspricht der Addition.</li>
+</ul>
+</div>
+</div>
+<p>Daraus folgt, dass immer zuerst das logische Und und erst danach das logische Oder ausgewertet wird. Dieser Regel folgt auch R.</p>
+<p>Die <a href="#tbl-logische-operatoren">Tabelle&nbsp;<span>11.1</span></a> stellt die logischen Operationen und die verschiedenen Schreibweisen gegenüber.</p>
+<div id="tbl-logische-operatoren" class="anchored">
+<table class="table">
+<caption>Tabelle&nbsp;11.1: Die wichtigsten logischen Operatoren und ihre Entsprechung in R</caption>
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operation</th>
+<th style="text-align: left;">neutrales Element</th>
+<th style="text-align: left;">Mathematisch</th>
+<th style="text-align: center;">R</th>
+<th style="text-align: center;">arithmetische Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Nicht</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="math display"> \lnot </span></td>
+<td style="text-align: center;"><code>!</code></td>
+<td style="text-align: center;"><span class="math inline">1 - a</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Und</td>
+<td style="text-align: left;">WAHR</td>
+<td style="text-align: left;"><span class="math display"> \land </span></td>
+<td style="text-align: center;"><code>&amp;</code></td>
+<td style="text-align: center;"><span class="math inline">a \cdot b</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oder</td>
+<td style="text-align: left;">FALSCH</td>
+<td style="text-align: left;"><span class="math display"> \lor </span></td>
+<td style="text-align: center;"><code>|</code></td>
+<td style="text-align: center;"><span class="math inline">a + b</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exklusiv-Oder/Antivalenz</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="math display"> \oplus </span></td>
+<td style="text-align: center;"><code>xor()</code></td>
+<td style="text-align: center;">(a - b)^2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es gibt neben den beiden Operatoren <code>&amp;</code> und <code>|</code> auch die gedoppelte Varianten <code>&amp;&amp;</code> und <code>||</code>. Diese Varianten arbeiten auf den Binärwerten von Ganzzahlen und werden normalerweise <strong>nicht</strong> im Zusammenhang mit logischen Ausdrücken verwendet.</p>
+</div>
+</div>
+<p>Das <strong>Logisches Nicht</strong> wird in R durch den Nicht-Operator (<code>!</code>) ausgedrückt. Dieser Operator wird auf jeden Wert eines Vektors einzeln angewandt.</p>
+<div id="exm-logisches-nicht" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.1 (Logisches Nicht) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>logischer_vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> logischer_vektor </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(FALSE, TRUE, TRUE, FALSE, FALSE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R wandelt numerische Werte automatisch in Wahrheitswerte um, wenn sie mit logischen Operationen verwendet werden. Dabei gilt:</p>
+<ul>
+<li><code>FALSE</code> entspricht <code>0</code></li>
+<li><code>TRUE</code> entspricht <em>ungleich</em> <code>0</code></li>
+</ul>
+<div id="exm-autoconvert-not" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.2 </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(FALSE FALSE  TRUE FALSE  TRUE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wenn Sie in R zwei Vektoren mit dem Und- (<code>&amp;</code>), dem Oder-Operator (<code>|</code>) oder der Antivalenz (<code>xor()</code>) verknüpfen, dann werden die Werte <strong>immer</strong> <em>paarweise</em> miteinander verglichen. Ein einzelner Vektor kann nicht an die Funktion des jeweiligen Operators übergeben werden.</p>
+<p><strong>Beispiel paarweise Verknüpfung</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vektor_b <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="sc">&amp;</span> vektor_b </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(TRUE, FALSE, FALSE, FALSE, TRUE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="logische-aggregationen-mit-reduce" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="logische-aggregationen-mit-reduce"><span class="header-section-number">11.1</span> Logische Aggregationen mit <code>reduce()</code></h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Um logische Vektoren in <strong>R</strong> zu aggregieren, muss der Vektor <strong>reduziert</strong> (engl. <em>reduce</em>) werden. Das <em>Reduzieren</em> ist eine besondere <em>Aggregation</em> über eine Reihe von Werten, bei der jeder Wert gemeinsam mit dem Ergebnis der Vorgängerwerte an eine Funktion übergeben wird.</p>
+</div>
+</div>
+<div id="exm-logical-reduce" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.3 (Aggregation logischer Vektoren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">&amp;</span><span class="st">`</span>)   <span class="co"># Ergibt FALSE</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">|</span><span class="st">`</span>)   <span class="co"># Ergibt TRUE</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">xor</span><span class="st">`</span>) <span class="co"># Ergibt TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beim Reduzieren muss beachtet werden, dass eine Funktion und nicht den Operator übergeben wird. Deshalb muss der jeweilige logische Operator in Backticks (<code>`</code>) gesetzt und so als Funktionsbezeichner markiert werden.</p>
+</div>
+</div>
+</section>
+<section id="vergleiche" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="vergleiche"><span class="header-section-number">11.2</span> Vergleiche</h2>
+<p>Neben den logischen Operationen sind Vergleiche ein wichtiges Konzept, das wir in logischen Ausdrücken regelmässig anwenden.</p>
+<p>Es gibt genau sechs (6) Vergleichsoperatoren:</p>
+<ul>
+<li>Gleich (<code>==</code>)</li>
+<li>Ungleich (<code>!=</code>)</li>
+<li>Grösser als (<code>&gt;</code>)</li>
+<li>Grösser gleich (<code>&gt;=</code>)</li>
+<li>Kleiner als (<code>&lt;</code>)</li>
+<li>Kleiner gleich (<code>&lt;=</code>)</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vergleiche erfordern, dass beide Werte vom gleichen Datentyp sind.</p>
+</div>
+</div>
+<p>Die Vergleiche funktionieren für alle fundamentalen Datentypen.</p>
+<p>Bei Zeichenketten wertet R die alphabetische Reihenfolge der Symbole vom Beginn einer Zeichenkette aus, um grösser oder kleiner Vergleiche durchzuführen.</p>
+<section id="die-existenz-eines-werts-in-einem-vektor-überprüfen" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="die-existenz-eines-werts-in-einem-vektor-überprüfen"><span class="header-section-number">11.2.1</span> Die Existenz eines Werts in einem Vektor überprüfen</h3>
+<p>Häufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von <a href="#exm-check-without-in">Beispiel&nbsp;<span>11.4</span></a> schreiben.</p>
+<div id="exm-check-without-in" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.4 (Existstenzprüfung ohne <code>%in%</code>) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">==</span> wertVektor[<span class="dv">1</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">2</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">3</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Einfacher ist aber ein sogenannter <em>Existenztest</em>. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in <a href="#exm-check-with-in">Beispiel&nbsp;<span>11.5</span></a> schreiben:</p>
+<div id="exm-check-with-in" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.5 (Existstenzprüfung mit <code>%in%</code>) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">%in%</span> wertVektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Entsprechend der Definition des Existenzvergleichs <span class="math inline">\in</span> funktioniert R’s <code>%in%</code>-Operator auch für Vektoren als linker Operand.</p>
+</section>
+</section>
+<section id="entscheidungen" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="entscheidungen"><span class="header-section-number">11.3</span> Entscheidungen</h2>
+<section id="bedingte-operationen" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="bedingte-operationen"><span class="header-section-number">11.3.1</span> Bedingte Operationen</h3>
+</section>
+<section id="vektorisierte-entscheidungen" class="level3" data-number="11.3.2">
+<h3 data-number="11.3.2" class="anchored" data-anchor-id="vektorisierte-entscheidungen"><span class="header-section-number">11.3.2</span> Vektorisierte Entscheidungen</h3>
+</section>
+</section>
+<section id="filter" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="filter"><span class="header-section-number">11.4</span> Filter</h2>
+</section>
+<section id="sortieren" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="sortieren"><span class="header-section-number">11.5</span> Sortieren</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -549,4 +824,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
