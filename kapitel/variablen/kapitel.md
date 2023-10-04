@@ -156,7 +156,6 @@ Wird der Hilfeoperator mit sich selbst aufgerufen, wird der nächste Wert als Su
 ```
 ::: 
 
-
 ### Funktionsketten {#sec-fkt-ketten}
 
 R unterstützt die spezielle Funktionsverkettung mit dem `|>`- Operator. Dadurch lassen sich Funktionsfolgen direkt in R ausdrücken. In Kombination mit der rechtsgerichteten Zuweisung (`->`) ist es möglich, Datenströme durch eine Funktionskette von einem Ausgangswert zu einem Ergebnis in der natürlichen Reihenfolge aufzuschreiben.
