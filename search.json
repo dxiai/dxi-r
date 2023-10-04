@@ -280,11 +280,11 @@
     "text": "11.2 Vergleiche\nNeben den logischen Operationen sind Vergleiche ein wichtiges Konzept, das wir in logischen Ausdrücken regelmässig anwenden.\nEs gibt genau sechs (6) Vergleichsoperatoren:\n\nGleich (==)\nUngleich (!=)\nGrösser als (&gt;)\nGrösser gleich (&gt;=)\nKleiner als (&lt;)\nKleiner gleich (&lt;=)\n\n\n\n\n\n\n\nWarnung\n\n\n\nVergleiche erfordern, dass beide Werte vom gleichen Datentyp sind.\n\n\nDie Vergleiche funktionieren für alle fundamentalen Datentypen.\nBei Zeichenketten wertet R die alphabetische Reihenfolge der Symbole vom Beginn einer Zeichenkette aus, um grösser oder kleiner Vergleiche durchzuführen.\n\n11.2.1 Die Existenz eines Werts in einem Vektor überprüfen\nHäufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von Beispiel 11.4 schreiben.\n\nBeispiel 11.4 (Existstenzprüfung ohne %in%)  \nmeinWert = 3\nwertVektor = c(8, 2, 3)\n\nmeinWert == wertVektor[1] | meinWert == wertVektor[2] | meinWert == wertVektor[3]\n\nEinfacher ist aber ein sogenannter Existenztest. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in Beispiel 11.5 schreiben:\n\nBeispiel 11.5 (Existstenzprüfung mit %in%)  \nmeinWert = 3\nwertVektor = c(8, 2, 3)\n\nmeinWert %in% wertVektor\n\nEntsprechend der Definition des Existenzvergleichs \\in funktioniert R’s %in%-Operator auch für Vektoren als linker Operand."
   },
   {
-    "objectID": "kapitel/boolsche-operationen/kapitel.html#entscheidungen",
-    "href": "kapitel/boolsche-operationen/kapitel.html#entscheidungen",
+    "objectID": "kapitel/boolsche-operationen/kapitel.html#fälle-unterscheiden",
+    "href": "kapitel/boolsche-operationen/kapitel.html#fälle-unterscheiden",
     "title": "11  Boole’sche Operationen",
-    "section": "11.3 Entscheidungen",
-    "text": "11.3 Entscheidungen\n\n11.3.1 Bedingte Operationen\n\n\n11.3.2 Vektorisierte Entscheidungen"
+    "section": "11.3 Fälle unterscheiden",
+    "text": "11.3 Fälle unterscheiden\n\n11.3.1 Bedingte Operationen\n\n\n11.3.2 Vektorisierte Unterscheidungen"
   },
   {
     "objectID": "kapitel/boolsche-operationen/kapitel.html#filter",
