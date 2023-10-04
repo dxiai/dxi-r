@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -261,7 +295,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#verwendung-von-faktoren-in-r" id="toc-verwendung-von-faktoren-in-r" class="nav-link active" data-scroll-target="#verwendung-von-faktoren-in-r"><span class="header-section-number">10.1</span> Verwendung von Faktoren in R</a></li>
+  <li><a href="#erstellen-von-faktoren" id="toc-erstellen-von-faktoren" class="nav-link" data-scroll-target="#erstellen-von-faktoren"><span class="header-section-number">10.2</span> Erstellen von Faktoren</a></li>
+  <li><a href="#forcats---faktoren-leicht-gemacht" id="toc-forcats---faktoren-leicht-gemacht" class="nav-link" data-scroll-target="#forcats---faktoren-leicht-gemacht"><span class="header-section-number">10.3</span> <code>forcats</code> - Faktoren leicht gemacht</a></li>
+  <li><a href="#organisieren-von-faktorstufen" id="toc-organisieren-von-faktorstufen" class="nav-link" data-scroll-target="#organisieren-von-faktorstufen"><span class="header-section-number">10.4</span> Organisieren von Faktorstufen</a>
+  <ul class="collapse">
+  <li><a href="#faktorstufen-an-den-werten-eines-anderen-vektors-ausrichten" id="toc-faktorstufen-an-den-werten-eines-anderen-vektors-ausrichten" class="nav-link" data-scroll-target="#faktorstufen-an-den-werten-eines-anderen-vektors-ausrichten"><span class="header-section-number">10.4.1</span> Faktorstufen an den Werten eines anderen Vektors ausrichten</a></li>
+  </ul></li>
+  <li><a href="#faktorstufen-und-visualisierung" id="toc-faktorstufen-und-visualisierung" class="nav-link" data-scroll-target="#faktorstufen-und-visualisierung"><span class="header-section-number">10.5</span> Faktorstufen und Visualisierung</a>
+  <ul class="collapse">
+  <li><a href="#überzählige-achsenbeschriftungen-entfernen" id="toc-überzählige-achsenbeschriftungen-entfernen" class="nav-link" data-scroll-target="#überzählige-achsenbeschriftungen-entfernen"><span class="header-section-number">10.5.1</span> Überzählige Achsenbeschriftungen entfernen</a></li>
+  <li><a href="#sortierte-balkendiagramme" id="toc-sortierte-balkendiagramme" class="nav-link" data-scroll-target="#sortierte-balkendiagramme"><span class="header-section-number">10.5.2</span> Sortierte Balkendiagramme</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,11 +347,381 @@ Work in Progress
 
 </div>
 </div>
-<div id="def-faktoren" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 10.1 </strong></span>&nbsp;</p>
+<p>R kennt diskrete Daten in zwei Varianten.</p>
+<ol type="1">
+<li>Diskrete Daten als Abfolge von Werten in einem Vektor.</li>
+<li>Diskrete Daten als Faktor.</li>
+</ol>
+<p>Base-R-Funktionen, wie <code>read.csv()</code> oder <code>data.frame()</code>, erstellen automatisch Faktoren, wenn diskrete Daten erkannt werden. Diese Daten werden immer dann erkannt, wenn es sich nicht um Zahlenwerte handelt. Dieser Automatismus ist nicht immer erwünscht, weil nicht alle Daten automatisch Faktoren sind, wenn die Werte keine Zahlen sind, und weil ordinalskalierte Daten oft mit Zahlen erhoben werden. Deshalb lesen die modernen Funktionen der <code>tidyverse</code>-Bibliothek Daten grundsätzlich als Vektoren atomarer Datentypen ein. So können wir entscheiden, ob ein Vektor als Faktor behandelt werden soll oder nicht.</p>
+<p>Wir erkennen Faktoren in Stichprobenobjekten von R am Symbol <code>&lt;fct&gt;</code> für den Datentyp und können mit der Funktion <code>is.factor()</code> prüfen, ob ein Vektor ein Faktor ist. In R ist ein Faktor ein <em>komplexer Datentyp</em>, der neben den Werten auch den geordneten Wertebereich speichert. Dieser Wertebereich wird in R als <code>levels</code> bezeichnet. Der Wertebereich eines Faktors bildet also die “<em>Ausprägungen</em>” bzw. “Ebenen” (engl. levels) der diskreten Daten ab.</p>
+<section id="verwendung-von-faktoren-in-r" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="verwendung-von-faktoren-in-r"><span class="header-section-number">10.1</span> Verwendung von Faktoren in R</h2>
+<p>Neben der Bedeutung für die Empirie sind Faktoren in R auch für die Darstellung von Daten von Bedeutung. Dabei wird die Ordnung der Faktorstufen für die Anordnung von Ergebnissen verwendet, die mit Hilfe eines Faktors berechnet wurden. Diese Ordnung wird von <code>ggplot()</code> und für die Sortierung der Ergebnisse gruppierter Daten verwendet. Die Verwendung von Faktoren für solche Aufgaben hat den Vorteil, dass die Reihenfolge der Datensätze nicht verändert werden muss.</p>
+<p>Die folgenden Beispiele verwenden die Stichprobe <code>digitales_umfeld.csv</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"digitales_umfeld.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Wenn wir zum Beispiel die Anzahl der Mobilgerätetypen bestimmen möchten, dann können wir naiv vorgehen:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(mobilgeraet) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>mobilgeraet <br>&lt;chr&gt;</th>
+<th>n<br> &lt;int&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Android Smartphone</td>
+<td>64</td>
+</tr>
+<tr class="even">
+<td>iPhone</td>
+<td>69</td>
+</tr>
+<tr class="odd">
+<td>Mobiltelefon</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Wenn wir die häufigste Nennung eines Mobilgeräts als erstes in dieser Tabelle stehen haben möchten, dann bietet sich die Verwendung eines Faktors mit organisierten Faktorstufen an.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">mobilgeraet =</span> mobilgeraet <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_infreq</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(mobilgeraet) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>mobilgeraet <br>&lt;chr&gt;</th>
+<th>n<br> &lt;int&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>iPhone</td>
+<td>69</td>
+</tr>
+<tr class="even">
+<td>Android Smartphone</td>
+<td>64</td>
+</tr>
+<tr class="odd">
+<td>Mobiltelefon</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="erstellen-von-faktoren" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="erstellen-von-faktoren"><span class="header-section-number">10.2</span> Erstellen von Faktoren</h2>
+<p>Faktoren sind ein zentraler Bestandteil von R. Ohne die <code>tidyverse</code> Bibliothek kann ein Faktor mittels der Funktion <code>factor()</code> erstellt werden.</p>
+<p>Gegeben sei zum Beispiel der Vektor mit den Namen der Studiengänge des ZHAW Departements LSFM:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Studiengaenge <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemie"</span>, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Umweltingenieurwesen"</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Facility Management"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Biotechnologie"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lebensmitteltechnology"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Applied Digital Life Sciences"</span>, </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Biomedical Labordiagnostik"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dieser Vektor enthält nur Zeichenketten und ist daher ein Zeichenkettenvektor. Der Funktionsaufruf <code>is.factor(Studiengaenge)</code> gibt entsprechend <code>FALSE</code> als Ergebnis zurück.</p>
+<p>Dieser Vektor kann einfach in einen Faktor umgewandelt werden.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stgFaktor <span class="ot">=</span> Studiengaenge <span class="sc">%&gt;%</span> <span class="fu">factor</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>stgFaktor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Chemie</li>
+<li>Umweltingenieurwesen</li>
+<li>Facility Management</li>
+<li>Biotechnologie</li>
+<li>Lebensmitteltechnology</li>
+<li>Applied Digital Life Sciences</li>
+<li>Biomedical Labordiagnostik</li>
+</ul>
+<p>Das Ergebnis unterscheidet sich nicht wesentlich vom ursprünglichen Vektor. Wir können mit dem Aufruf <code>is.factor(stgFaktor)</code> überprüfen, ob es sich nun um einen Faktor handelt. Wir erhalten nun <code>TRUE</code> als Ergebnis.</p>
+<p>Wir können nun mit der Funktion <code>levels()</code> die Faktorstufen abfragen. Diese Funktion gibt uns einen Vektor mit allen Faktorstufen zurück.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stgFaktor <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">levels</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Applied Digital Life Sciences</li>
+<li>Biomedical Labordiagnostik</li>
+<li>Biotechnologie</li>
+<li>Chemie</li>
+<li>Facility Management</li>
+<li>Lebensmitteltechnology</li>
+<li>Umweltingenieurwesen</li>
+</ul>
+<p>Dieses Ergebnis ist etwas überraschend, weil die Reihenfolge der Faktorstufen nicht mehr mit der Reihenfolge der Werte in unserem Vektor übereinstimmt. Wir sehen am Ergebnis, dass die Funktion <code>factor()</code> die Annahme macht, dass unsere Faktorstufen alphabetisch sortiert sind. Leider ist das oft nicht der Fall und gerade bei unsortierten Faktoren müssen die Werte Präsentationen oft neu arrangiert werden. Deshalb hat sich die Konvention eingebürgert, für die initiale Reihenfolge von Faktorstufen das erste Auftreten des jeweiligen Werts zu wählen. Dazu müssen wir der <code>factor()</code>-Funktion auch die Faktorstufen mitgeben.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>stgFaktor <span class="ot">=</span> Studiengaenge <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="co"># erzeugt alle Faktorstufen in der Reihenfolge des ersten Auftretens, </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="co"># selbst wenn Werte doppelt auftreten. </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        Studiengaenge <span class="sc">%&gt;%</span> <span class="fu">unique</span>() </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nun können wir mit der <code>levels()</code>-Funktion die Reihenfolge der Faktorstufen überprüfen.</p>
+<p>Weil diese Vorgehensweise eine Konvention moderner R-Programmierung ist, gibt es eine Funktion, die uns diesen Schritt kompakter schreiben lässt. Dazu verwenden wir die Funktion <code>as_factor()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stgFaktor <span class="ot">=</span> Studiengaenge <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_factor</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Wenn wir einzelne Vektoren in einem Stichprobenobjekt in Faktoren umwandeln wollen, dann führen wir eine Umwandlung mit <code>mutate()</code> durch.</p>
+<p>Wir wollen nur den Vektor <code>mobilgeraet</code>, <code>geschlecht</code> und <code>digitalisiert</code> in Faktoren umwandeln.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">mobilgeraet =</span> mobilgeraet <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>(),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">geschlecht =</span> geschlecht <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>(),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">digitalisiert =</span> digitalisiert <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> duFaktorisiert </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>duFaktorisiert</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>geschlecht<br> &lt;fct&gt;</th>
+<th>alter<br> &lt;dbl&gt;</th>
+<th>tage <br>&lt;dbl&gt;</th>
+<th>monate <br>&lt;dbl&gt;</th>
+<th>geburtsjahr<br> &lt;dbl&gt;</th>
+<th>digitalisiert<br> &lt;fct&gt;</th>
+<th>mobilgeraet<br> &lt;fct&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Männlich</td>
+<td>23</td>
+<td>8474</td>
+<td>278</td>
+<td>1998</td>
+<td>3</td>
+<td>iPhone</td>
+</tr>
+<tr class="even">
+<td>Männlich</td>
+<td>27</td>
+<td>9970</td>
+<td>327</td>
+<td>1994</td>
+<td>6</td>
+<td>Android Smartphone</td>
+</tr>
+<tr class="odd">
+<td>Männlich</td>
+<td>27</td>
+<td>10131</td>
+<td>332</td>
+<td>1994</td>
+<td>6</td>
+<td>iPhone</td>
+</tr>
+<tr class="even">
+<td>Weiblich</td>
+<td>25</td>
+<td>9253</td>
+<td>304</td>
+<td>1996</td>
+<td>5</td>
+<td>Android Smartphone</td>
+</tr>
+<tr class="odd">
+<td>Männlich</td>
+<td>25</td>
+<td>9363</td>
+<td>307</td>
+<td>1996</td>
+<td>6</td>
+<td>iPhone</td>
+</tr>
+<tr class="even">
+<td>Andere</td>
+<td>23</td>
+<td>8750</td>
+<td>287</td>
+<td>1997</td>
+<td>2</td>
+<td>iPhone</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Wir sehen nun, dass die faktorisierten Vektoren nun den Datentyp Factor (<code>fct</code>) haben.</p>
+</section>
+<section id="forcats---faktoren-leicht-gemacht" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="forcats---faktoren-leicht-gemacht"><span class="header-section-number">10.3</span> <code>forcats</code> - Faktoren leicht gemacht</h2>
+<p>Die Arbeit mit Faktoren ist in Base-R nicht immer ganz einfach. Wollschläger (2017, Kap. 2.6) zeigt detailliert, wie Faktoren mit R erstellt und manipuliert werden. Das ist zum Teil recht komplex und aufwändig. Zum Glück versteckt die <a href="https://forcats.tidyverse.org/reference/" target="_blank"><code>forcats</code>-Bibliothek</a> die Komplexität von R-Faktoren vor uns, sodass wir präzise ausdrücken können, wie wir die interne Struktur unserer diskreten Daten organisieren möchten.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Funktionen der <code>forcats</code>-Bibliothek sind verfügbar, sobald Sie die <code>tidyverse</code>-Bibliothek eingebunden haben.</p>
+</div>
+</div>
+<p>Die <code>forcats</code>-Bibliothek bietet neun Funktionen zum Umorganisieren von Faktoren.</p>
+</section>
+<section id="organisieren-von-faktorstufen" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="organisieren-von-faktorstufen"><span class="header-section-number">10.4</span> Organisieren von Faktorstufen</h2>
+<p>Die zentrale Funktion in R von Faktorstufen ist ihre Bedeutung für die Ordnung der Werte des jeweiligen Faktors. Indem wir die Faktorstufen organisieren, können wir die Werte des Vektors strukturieren, ohne ihre Reihenfolge zu ändern.</p>
+<p>Für die Organisation von Faktorstufen gibt es vier häufig vorkommende Aufgaben:</p>
+<ol type="1">
+<li>Organisation entlang einer vordefinierten Reihenfolge (<em>Skala</em>),</li>
+<li>Organisation entlang der internen Organisation eines Datentyps,</li>
+<li>Organisation entlang der Häufigkeit eines Werts,</li>
+<li>Organisation entlang des Auftretens in der Stichprobe.</li>
+</ol>
+<p><strong>Die erste Aufgabe</strong> tritt immer ein, wenn wir mit etablierten Methoden arbeiten. In diesem Fall ist die Reihenfolge der Faktorstufen bereits bekannt. In solchen Fällen sprechen wir von der Zuordnung einer Skala. Für solche Zuordnungen verwenden wir die Funktion <code>fct_relevel()</code>.</p>
+<p>Zum Beispiel wollen wir die Faktorstufen in der Stichprobe digitales Umfeld nach einer externen Vorgabe festlegen, sodass die folgende “Ladies-First” Reihenfolge gilt:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>geschlecht_faktorstufen <span class="ot">=</span> <span class="fu">c</span>( <span class="st">"Weiblich"</span>, <span class="st">"Andere"</span>, <span class="st">"Keine Angabe"</span>, <span class="st">"Männlich"</span> )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nun können wir den Faktor <code>geschlecht</code> entsprechend umformen.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>duFaktorisiert <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">geschlecht =</span> geschlecht <span class="sc">%&gt;%</span> <span class="fu">fct_relevel</span>( geschlecht_faktorstufen )</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> digitales_umfeld_externe_skala</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie mit <code>fct_relevel()</code> eine vorgegebene Skala als Vektor übergeben, die nicht vollständig in der Stichprobe abgedeckt wurde, dann erhalten Sie eine kryptische Warnung, die auf <code>Unknown levels in `f`:</code> endet. <strong>Diese Warnung können Sie ignorieren</strong>. R fügt die fehlenden Faktorstufen nicht ein, behält aber deren innere Organisation bei.</p>
+</div>
+</div>
+<p><strong>Die zweite Aufgabe</strong> ist die Organisation der Faktorstufen nach der internen Organisation des jeweiligen Datentyps. Liegen die Werte als Zahlen vor, dann werden die Faktorstufen entsprechend des jeweiligen Nennwerts sortiert. Liegen die Werte als Zeichenketten vor, dann werden die Faktorstufen alphabetisch sortiert. Diese Organisation entspricht der Vorgehensweise der meisten Base-R Funktionen. Falls unsere Daten als Zahlen (oder Wahrheitswerte) vorliegen, können wir für diese Vorgehensweise die Funktion <code>fct_inseq()</code> verwenden.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>duFaktorisiert <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">digitalisiert =</span> digitalisiert <span class="sc">%&gt;%</span>  <span class="fu">fct_inseq</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> duFaktorisiert_sequenziell</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Im Fall von Zeichenketten als Faktorstufen, müssen wir die bestehenden Faktorstufen selbst umsortieren und dann als neue Vorgabe mit <code>fct_relevel()</code> übergeben. Im folgenden Beispiel ist das alphabetische Sortieren der Faktorstufen eine eingebettete Funktionskette.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>duFaktorisiert <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">mobilgeraet =</span> mobilgeraet <span class="sc">%&gt;%</span> <span class="fu">fct_relevel</span>( mobilgeraet <span class="sc">%&gt;%</span> <span class="fu">levels</span>() <span class="sc">%&gt;%</span> <span class="fu">sort</span>() )</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> duFaktorisiert_alphabetisch</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Die dritte Aufgabe</strong> ist die Organisation nach der Häufigkeit eines Werts in einer Stichprobe. Diese Vorgehensweise ist besonders für nominalskalierte Daten interessant, um über die Häufigkeiten die Reihenfolge der Faktorstufen festzulegen. Hierbei hilft die Funktion <code>fct_infreq()</code>. Die Faktorstufen werden so den Häufigkeiten entsprechend in der Stichprobe ab- bzw. aufsteigend organisiert.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>duFaktorisiert <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">mobilgeraet =</span> mobilgeraet <span class="sc">%&gt;%</span>  <span class="fu">fct_infreq</span>()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> duFaktorisiert_frequenz</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Bei der vierten Aufgabe</strong> sollen die Faktorstufen entlang der Reihenfolge des ersten Auftretens in der Stichprobe erfolgen. Dieser Fall tritt meistens dann ein, wenn die Faktorstufen umorganisiert wurden und wieder in die ursprüngliche Reihenfolge gebracht werden müssen. Die Funktion <code>fct_inorder()</code> übernimmt diese Aufgabe.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>duFaktorisiert <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">mobilgeraet =</span> mobilgeraet <span class="sc">%&gt;%</span>  <span class="fu">fct_inorder</span>()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> duFaktorisiert_reihenfolge</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="faktorstufen-an-den-werten-eines-anderen-vektors-ausrichten" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="faktorstufen-an-den-werten-eines-anderen-vektors-ausrichten"><span class="header-section-number">10.4.1</span> Faktorstufen an den Werten eines anderen Vektors ausrichten</h3>
+<p>Mit der Funktion <code>fct_reorder()</code> können wir die Faktorstufen eines Vektors über die Werte eines anderen Vektors organisieren. Solche Ausrichtungen sind oft nach Aggregationen sinnvoll, wenn für jede Faktorstufe eines nominalskalierten Vektors genau ein Wert in einem anderen Vektor festliegt. Dabei <strong>muss</strong> aber immer <strong>genau ein Wert</strong> einer Faktorstufe entsprechen. Dabei wird für die Faktorstufen eine absteigende bzw. (optional) aufsteigende Reihenfolge des Referenzvektors angenommen.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> name <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_reorder</span>(sleep_total)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ähnlich wie beim Gruppieren, ändert sich die sichtbare Struktur des Stichprobenobjekts nicht. Es wird lediglich die interne Reihenfolge der Faktorstufen angepasst. Solche Schritte sind für aussagekräftige Visualisierungen sehr hilfreich.</p>
+</section>
+</section>
+<section id="faktorstufen-und-visualisierung" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="faktorstufen-und-visualisierung"><span class="header-section-number">10.5</span> Faktorstufen und Visualisierung</h2>
+<p>Faktoren erleichtern das Veranschaulichen von Daten. Der grosse Vorteil bei der Verwendung von Faktoren ist, dass sich der Code für die Visualisierung nicht ändert. Mit Hilfe der Faktorstufen geben wir <code>ggplot</code> Hinweise über die Struktur der Werte in einem Vektor. Dadurch werden unsere Visualisierungen aussagekräftiger.</p>
+<section id="überzählige-achsenbeschriftungen-entfernen" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="überzählige-achsenbeschriftungen-entfernen"><span class="header-section-number">10.5.1</span> Überzählige Achsenbeschriftungen entfernen</h3>
+<p>Faktoren werden regelmässig für die Datenvisualisierung verwendet, um diskrete Daten richtig darzustellen. Das ist besonders dann notwendig, wenn die Werte im entsprechenden Vektor mit Zahlen dargestellt werden und die Reihenfolge dieser Zahlen vom Üblichen abweicht.</p>
+<p>Nehmen wir zum Beispiel die Stichprobe <code>mtcars</code> und den Vektor <code>cyl</code> (Zylinder) . Dieser Vektor nimmt nur die folgenden diskreten Werte an.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>( <span class="at">cyl =</span> <span class="fu">unique</span>(cyl) )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">cyl <br> <code>&lt;dbl&gt;</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+</tr>
+</tbody>
+</table>
+<p>In beiden Fällen haben wir also diskrete Daten. Wenn wir die Daten darstellen, dann ergibt sich das folgende Bild.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cyl )) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-datavis-a-without-factors" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/mtcars_cyl.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;10.1: mtcars cyl ohne Faktorisierung</figcaption>
+</figure>
+</div>
+<p>Hier erkennen wir, dass die X-Achse Werte anzeigt, die gar nicht vorkommen können. Dieses Problem können wir leicht beheben, indem wir den Vektor faktorisieren.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>( <span class="at">cyl =</span> cyl <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>() )  <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cyl )) <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-datavis-a-with-factors" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/mtcars_cyl_factor.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;10.2: mtcars cyl mit Faktorisierung</figcaption>
+</figure>
+</div>
+</section>
+<section id="sortierte-balkendiagramme" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="sortierte-balkendiagramme"><span class="header-section-number">10.5.2</span> Sortierte Balkendiagramme</h3>
+<p>Das Arrangieren von Daten erreichen wir ebenfalls mit Faktoren. Hierzu betrachten wir die Vektoren <code>name</code> und <code>sleep_total</code> aus der Stichprobe <code>msleep</code>. Stellen wir die beiden Vektoren in einem Balkendiagramm gegenüber, dann können wir kaum die verschiedenen Spezies vergleichen.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(name, sleep_total)) <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_flip</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-datavis-without-factors" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/msleep.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;10.3: msleep data ohne Faktorisierung</figcaption>
+</figure>
+</div>
+<p>Wesentlich anschaulicher wird dieses Balkendiagramm, wenn wir den <code>name</code>-Vektor vor der Visualisierung in einen Faktor umwandeln und die Faktorstufen entlang der Gesamtschlafdauer organisieren.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> name <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_reorder</span>(sleep_total)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(name, sleep_total)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_flip</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-datavis-with-factors" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/msleep_factors.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;10.4: msleep data mit Faktorisierung</figcaption>
+</figure>
 </div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -552,4 +973,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
