@@ -6,10 +6,6 @@ execute:
 ---
 # Variablen, Funktionen und Operatoren {#sec-chapter-variablen}
 
-::: {.callout-warning}
-## Work in Progress
-:::
-
 ## Variablen
 
 Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte für die spätere Verwendung markiert werden. Variablen sind also **Bezeichner**, welche die eigentlichen Werte **substituieren**. 
@@ -60,37 +56,55 @@ Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei
 
 | Operator | Beschreibung | Art | 
 | :---: | :------- | :--- |
-|  `-` |	Minus, sowohl unär als auch binär | arithmetisch |
 | `+`	| Plus, sowohl unär als auch binär | arithmetisch |
-| `!` |	unäres Nicht | logisch |
-| `~`	| Tilde, in Modellformeln: folgt, sowohl unär als auch binär | Funktion |
-| `?`	| Hilfe | spezial |
-| `:`	| Sequenz, binär (in model formulae: interaction) | Funktion |
+|  `-` |	Minus, sowohl unär als auch binär | arithmetisch |
 | `*`	| Multiplikation, binär | arithmetisch |
 | `/`	| Division, binär | arithmetisch |
-| `^`	| Potenzieren, binär | arithmetisch |
+| `^`	| Potenz, binär | arithmetisch |
 | `%%`	| Modulo, binär | arithmetisch |
 | `%/%`	| Ganzzahldivision, binär | arithmetisch |
 | `%*%`	| Matrixprodukt, binär | arithmetisch, Matrix |
 | `%o%`	| äusseres Produkt, binär | arithmetisch, Matrix |
 | `%x%`	| Kronecker-Produkt, binär | arithmetisch, Matrix |
-| `%in%`	| Existenzoperator, binär (in model formulae: nesting) | logisch |
 | `<`	| Kleiner als, binär |  logisch |
 | `>`	| Grösser als, binär | logisch |
-| `==` |	Gleich, binär | logisch |
-| `!=` |	Ungleich, binär | logisch |
-| `>=` |	Grösser oder gleich, binär | logisch |
-| `<=` |	Kleiner oder gleich, binär | logisch |
-| `&`	| Und, binär, vectorisiert | logisch |
-| `&&`	| Und, binär, nicht vectorisiert | logisch |
-| `|` |	Oder, binär, vectorisiert | logisch |
-| `||` |	Oder, binär, nicht vectorisiert | logisch |
-| `<-`, `<<-` |	linksgerichtete Zuweisung, binär | Zuweisung |
+| `==` | Gleich, binär | logisch |
+| `!=` | Ungleich, binär | logisch |
+| `>=` | Grösser oder gleich, binär | logisch |
+| `<=` | Kleiner oder gleich, binär | logisch |
+| `%in%` | Existenzoperator, binär | logisch |
+| `!` |	unäres Nicht | logisch |
+| `&`	| Und, binär, vektorisiert | logisch |
+| `&&`	| Und, binär, nicht vektorisiert | logisch |
+| `|` |	Oder, binär, vektorisiert | logisch |
+| `||` | Oder, binär, nicht vektorisiert | logisch |
+| `<-`, `<<-`, `=` |	linksgerichtete Zuweisung, binär | Zuweisung |
 | `->`, `->>` |	rechtsgerichtete Zuweisung, binär | Zuweisung |
 | `[` | Indexzugriff (Vektoren), binär |  Index |
 | `$`, `[[`	| Listenzugriff, binär | Index |
+| `~`	| funktionale Abhängigkeit, sowohl unär als auch binär | Funktionen |
+| `:`	| Sequenz (in Modellen: Interaktion), binär | Funktionen |
+| `?`	| Hilfe | spezial |
 
 : Liste der Base R Operatoren {#tbl-r-operatorem}
+
+::: {.callout-note}
+Im R-Umfeld wird oft von **Modellen** geschrieben und gesprochen. *Modelle* sind *spezielle Funktionen*, die *Beziehungen zwischen Daten* beschreiben, ohne eine mathematisch exakte Beziehung vorzugeben. Modelle werden in der *Statistik* und *Stochastik* eingesetzt, wenn die exakten Beziehungen zwischen Daten unbekannt sind.
+:::
+
+::: {#exm-exakte-beziehung}
+## Exakte *lineare* Beziehung zwischen Daten
+```r
+f = function (x) 2 * x + 3
+```
+:::
+
+::: {#exm-beziehung-als-modell}
+## Beziehung zwischen Daten mit Interaktion als Modell
+```r
+f = y ~ x : c
+```
+:::
 
 Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Parameter ausgeführt wird, um das Ergebnis des Operators zu bestimmen. Daraus folgt, dass jeder Operator auch als Funktionsbezeichner verwendet werden kann. In diesem Fall muss R mitgeteilt werden, dass der Operator nun als Funktionsbezeichner verwendet werden soll. Der Operator muss also  mit Backticks als Bezeichner markiert werden.
 
@@ -118,7 +132,7 @@ In diesem Buch wird für die *linksgerichtete Zuweisung* immer das  Gleichzeiche
 
 #### Ausführungsoperator
 
-Der Ausführenoperator (`()`) gilt in R offiziell nicht als Operator, weil dieser nicht als Funktion umgesetzt werden kann. Es gibt zwar die Funktion `do.call()`, um diese auszuführen müsste sie sich aber selbst aufrufen. Dieses Problem wird von R dadurch gelöst, dass `(` und  `)` als eigene *Symbole* erkannt werden und immer eine Funktionsausführung einleiten.
+Der Ausführenoperator (`()`) gilt in R offiziell nicht als Operator, weil dieser nicht als Funktion umgesetzt werden kann. Es gibt zwar die Funktion `do.call()`, um eine Funktion auszuführen. Wenn diese Funktion als Ausführungsoperator eingesetzt wird,  müsste `do.call()` sich selbst aufrufen, um sich selbst auszuführen. Dieses Problem wird von R dadurch gelöst, dass `(` und  `)` als eigene *Symbole* erkannt werden und immer eine Funktionsausführung anzeigen.
 
 #### Hilfeoperator
 
@@ -379,7 +393,9 @@ Wird eine Bibliothek mit `renv` installiert, dann steht diese Bibliothek nur dem
 
 ### Projektvorbereitung
 
-Ein Projekt wird mit `renv::init()` für die Verwendung des Packetmanagements vorbereitet. Beim ersten Aufruf von `renv` werden die internen Abhängigkeiten von `renv` kontrolliert und notfalls installiert. Das nimmt etwas Zeit in Anspruch. Das Packetmanagement erfasst automatisch alle Bibliotheken, die systemweit installiert wurden. Dadurch wird sichergestellt, dass alle Bibliotheken berücksichtigt wurden, die im eigenen System installiert sind und deshalb im Projekt verwendet werden können.
+Ein Projekt wird mit `renv::init()` für die Verwendung des Packetmanagements vorbereitet. Beim ersten Aufruf von `renv` werden die internen Abhängigkeiten von `renv` kontrolliert und notfalls installiert. Das nimmt etwas Zeit in Anspruch. 
+
+Das Packetmanagement erfasst automatisch alle Bibliotheken, die systemweit installiert wurden. Dadurch wird sichergestellt, dass alle Bibliotheken berücksichtigt wurden, die im eigenen System installiert sind und deshalb auch im Projekt verwendet werden können. Die Einzige Ausnahme davon ist `renv` selbst.
 
 ### Bibliotheken installieren
 
