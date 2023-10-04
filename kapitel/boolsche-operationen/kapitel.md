@@ -146,3 +146,13 @@ meinWert %in% wertVektor
 :::
 
 Entsprechend der Definition des Existenzvergleichs $\in$ funktioniert R's `%in%`-Operator auch für Vektoren als linker Operand.
+
+## Entscheidungen
+
+### Bedingte Operationen
+
+### Vektorisierte Entscheidungen
+
+## Filter
+
+## Sortieren
