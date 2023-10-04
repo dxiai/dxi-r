@@ -36,7 +36,7 @@ iris %>%
        geom_point()
 ```
 
-Das Ergebnis dieser Operation zeig @fig-plot-iris-points. 
+Das Ergebnis dieser Operation zeigt @fig-plot-iris-points. 
 
 ![Punktdiagramm der `iris`-Daten](figures/iris_points.png){#fig-plot-iris-points}
 
