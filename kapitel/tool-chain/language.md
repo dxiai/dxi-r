@@ -4,7 +4,7 @@ Jede Programmiersprache besteht aus festgelegten *Symbolen* und *Operatoren*. Di
 
 ## Syntaktische Symbole
 
-Syntaktische **Symbole** sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Namen sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.
+Syntaktische **Symbole** sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Bezeichner sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.
 
 ### Werte
 
@@ -41,26 +41,26 @@ Schleifen zur wiederholten Ausführung von Operationen.
 R-Schleifen sind im Vergleich zu vergleichbaren Funktionen ***äusserst ineffizient***. Deshalb haben Schleifen in der praktischen Anwendung von R **keine Bedeutung** mehr. Stattdessen werden ausschliesslich spezielle Funktionen über Datenstrukturen verwendet. Entsprechend finden sich diese Schlüsselworte sehr selten in R-Skripten.
 :::
 
-### Namen
+### Bezeichner
 
-Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als Name behandelt. Ein Name ist ein Platzhalter für einen Wert (@sec-chapter-datentypen) und kann wie ein Wert in Operationen verwendet werden. 
+Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als **Bezeichner** behandelt. Ein Bezeichner ist ein Platzhalter für einen Wert (@sec-chapter-datentypen) und kann wie ein Wert in Operationen verwendet werden. 
 
-Grundsätzlich können Namen beliebige Zeichen enthalten. R erkennt zulässige Namen mit zwei Regeln. 
+Grundsätzlich können Bezeichner beliebige Zeichen enthalten. R erkennt einfache Bezeichner mit zwei Regeln. 
 
 - Beginnt mit einem ASCII-Buchstaben (A-Z, a-z) oder einem Unterstrich.
 - Enthält nur ASCII-Buchstaben (A-Z, a-z), arabische Ziffern (0-9) und Unterstriche.
 
-Weicht ein Name von diesen Regeln ab, dann muss dieser als solcher durch Backticks gekennzeichnet werden (`` ` ``). @exm-gekennzeichneter-name zeigt einen Namen, der den deutschen Umlaut (`ü`) und ein Leerzeichen enthält. Weil `ü` kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss dieses Symbol als Name markiert werden.
+Weicht ein Bezeichner von diesen Regeln ab, dann muss dieser als solcher durch Backticks (`` ` ``) gekennzeichnet werden. @exm-gekennzeichneter-name zeigt einen Bezeichner, der den deutschen Umlaut (`ü`) und ein Leerzeichen enthält. Weil `ü` kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss der ganze Bezeichner als Symbol markiert werden.
 
 ::: {#exm-gekennzeichneter-name}
-## markierter Name
+## markierter Bezeichner
 
 ```r
-`merkwürdiger Name`
+`merkwürdiger Bezeichner`
 ```
 ::: 
 
-Wird der Name aus @exm-gekennzeichneter-name nicht markiert, wird die Fehlermeldung `Fehler: unerwartetes Symbol in "merwürdiger Name"` erzeugt.
+Wird der Bezeichner aus @exm-gekennzeichneter-name nicht markiert, erzeugt R die Fehlermeldung `Fehler: unerwartetes Symbol in "merwürdiger Name"`.
 
 ## Operationen
 
@@ -97,6 +97,10 @@ In R sind vier spezielle Operatoren wichtig:
 - Der Funktionsaufrufoperator (`()`).
 
 Mit den *Zuweisungsoperatoren* können Werte Namen zugewiesen werden. Bei den Pfeil-Operatoren wird der Wert in Richtung des Pfeils zugewiesen. Beim Gleich-Operator erfolgt die Zuweisung von rechts nach links. (s. @exm-zuweisungsoperatoren)
+
+::: {#def-deklaration}
+Eine **Deklaration** heisst die (erste) Zuweisung eines Werts an eine Variable.
+:::
 
 ::: {#exm-zuweisungsoperatoren}
 ## Zuweisung einer Zeichenkette 

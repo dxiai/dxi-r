@@ -12,9 +12,11 @@ execute:
 
 ## Variablen
 
-Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte für die spätere Verwendung markiert werden. Variablen sind also **Namen**, welche die eigentlichen Werte *substituieren*. 
+Variablen sind spezielle R Symbole (s. @sec-chapter-language) mit denen Werte für die spätere Verwendung markiert werden. Variablen sind also **Bezeichner**, welche die eigentlichen Werte **substituieren**. 
 
 Damit eine Variable einen Wert substituieren kann, muss der Wert der Variablen *zugewiesen* werden. Ein Wert kann dabei ein einzelner Wert eines fundamentalen Datentyps oder eine komplexe Datenstruktur sein. 
+
+Bei der ersten Zuweisung wird eine Variable *deklariert* (@def-deklaration).
 
 ::: {#exm-var-zuweisen}
 ## Den Wert 1 der Variable `var1` zuweisen
@@ -23,17 +25,17 @@ var1 = 1
 ```
 :::
 
-Variablen müssen in einem Kontext *eindeutig* sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert der Variablen der Wert der letzten Zuweisung.
+Variablen müssen in einem Geltungsbereich *eindeutig* sein. Wird nämlich einer Variable mehrfach zugewiesen, dann ist der Wert einer Variablen der Wert der letzten Zuweisung.
 
-Der **Kontext** bzw. *Geltungsbereich* (engl. Scope) einer Variablen wird durch Funktionskörper definiert. R kennt dabei drei Arten von Kontexten. In diesem Zusammenhang spricht man von äusseren (engl. *outer scope*) und inneren Kontexten (engl. *inner scope*).
+Der **Geltungsbereich** (engl. Scope) einer Variablen wird durch Funktionskörper definiert. R kennt dabei drei Arten von Geltungsbereichen. In diesem Zusammenhang spricht man von äusseren (engl. *outer scope*) und inneren Geltungsbereichen (engl. *inner scope*).
 
-Grundsätzlich können alle Variablen in einem Kontext verwendet werden, die in einem der äusseren Kontexte deklariert und zugewiesen wurden. Variablen der inneren Kontexte sind in den äusseren Kontexten *nicht verfügbar*. 
+Grundsätzlich können alle Variablen in einem Geltungsbereich verwendet werden, die in einem der äusseren Geltungsbereiche deklariert und zugewiesen wurden. Variablen der inneren Geltungsbereiche sind in den äusseren Geltungsbereichen *nicht verfügbar*. 
 
-Der **globale Kontext** gilt für alle Variablen, die ausserhalb einer Funktion oder einer Bibliothek erzeugt werden.
+Der **globale Geltungsbereich** gilt für alle Variablen, die ausserhalb einer Funktion oder einer Bibliothek erzeugt werden.
 
-Der **Funktionskontext** ist auf den Funktionsköper einer Funktion beschränkt. 
+Der **Funktionsgeltungsbereich** ist auf den Funktionsköper einer Funktion beschränkt. 
 
-Der **Modulkontext** ist der globale Kontext einer Funktionsbibliothek. Variablen dieses Kontexts sind im globalen Kontext eines R-Scripts nicht erreichbar. In der Praxis spielt dieser Kontext eine untergeordnete Rolle
+Der **Modulgeltungsbereich** ist der globale Geltungsbereich einer Funktionsbibliothek. Variablen dieses Geltungsbereichs sind im globalen Geltungsbereich eines R-Scripts nicht erreichbar. In der Praxis spielt dieser Geltungsbereich eine untergeordnete Rolle
 
 ::: {.callout-warning}
 Die letzte Zuweisung ist nicht zwingend die Zuweisung, die als letztes im Code erscheint.
@@ -50,7 +52,7 @@ Eine Funktion ist für R ein Wert wie eine Zahl oder eine Zeichenkette.
 
 Im Fall von Funktionen ist der Wert einer Funktion die Funktionsdeklaration. Entsprechend ist es möglich Funktionen zu überschreiben. 
 
-Wird nur der Name einer R gibt eine direkte Funktionsdefinition wie jeden anderen Wert direkt aus. 
+Wird nur der Bezeichner einer R gibt eine direkte Funktionsdefinition wie jeden anderen Wert direkt aus. 
 
 ### Operatoren
 
@@ -90,10 +92,10 @@ Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei
 
 : Liste der Base R Operatoren {#tbl-r-operatorem}
 
-Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Parameter ausgeführt wird, um das Ergebnis des Operators zu bestimmen. Daraus folgt, dass jeder Operator auch als Funktionsname verwendet werden kann. In diesem Fall muss R mitgeteilt werden, dass der Operator nun als Funktionsname verwendet werden soll. Der Operator muss also  mit Backticks als Name markiert werden.
+Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Parameter ausgeführt wird, um das Ergebnis des Operators zu bestimmen. Daraus folgt, dass jeder Operator auch als Funktionsbezeichner verwendet werden kann. In diesem Fall muss R mitgeteilt werden, dass der Operator nun als Funktionsbezeichner verwendet werden soll. Der Operator muss also  mit Backticks als Bezeichner markiert werden.
 
 ::: {#exm-plus-als-fkt}
-## `+`-Operator als Funktionsname
+## `+`-Operator als Funktionsbezeichner
 ```r
 `+`(1, 2)
 ```
@@ -106,7 +108,7 @@ Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Para
 
 R kennt zwei Zuweisungsoperatoren: `<-` und `->`. Die Zuweisung erfolgt in Richtung des Pfeils. Daneben wird der `=`-Operator ebenfalls als (inoffizieller) Zuweisungsoperator unterstützt. 
 
-Ein Zuweisungsoperator erwartet immer einen Namen und eine Operation als Parameter. Das Ergebnis der Operation wird als Wert dem Namen zugewiesen. 
+Ein Zuweisungsoperator erwartet immer einen Bezeichner und eine Operation als Parameter. Das Ergebnis der Operation wird als Wert dem Bezeichner zugewiesen. 
 
 Weil nicht immer klar ist, ob `<-` oder `=` verwendet werden soll, lautet die offizielle Kommunikation, dass für Variablenzuweisungen der `<-`-Operator verwendet werden sollte. Das einfache Gleich (`=`) weist einen Wert einem Funktionsparameter zu. Gerade in **tidy R** ist dieser Unterschied nur schwer nachvollziehbar, weil bestimmte Parameter wie Variablen behandelt werden.
 
@@ -122,7 +124,7 @@ Der Ausführenoperator (`()`) gilt in R offiziell nicht als Operator, weil diese
 
 Der *Hilfeoperator* ist ein besonderer Operator, weil dieser die Interaktion mit der Dokumentation von Funktionen und Konzepten ermöglicht. Der Hilfeoperator wird normalerweise nicht in einem R-Script verwendet und hat keine Bedeutung für die Datenverarbeitung.
 
-Der Hilfeoperator kann direkt mit einem Funktionsnamen oder einem Namen aufgerufen werden. 
+Der Hilfeoperator kann direkt mit einem Bezeichner aufgerufen werden. Existiert für den Bezeichner eine Dokumentation, dann wird diese angezeigt.
 
 ::: {#exm-hilfeop-funktionsname}
 ## Dokumentation der Funktion `is.character()`
@@ -164,7 +166,7 @@ In R werden Funktionen mit dem `function`-Schlüsselwort erstellt. Eine R-Funkti
 
 @exm-function-create zeigt eine *Funktionsdeklaration*, die einen `parameter` *akzeptiert*. Die Funktion quadriert diesen Wert und zieht vom Ergebnis `1` ab. An diesen Operationen wird erkannt, dass die Funktion nur Werte vom Datenyp Zahlen als `parameter` akzeptiert.
 
-Parameter sind in R spezielle *Variablen*, mit denen Werte an eine Funktion übergeben werden. Parameter existieren nur *innerhalb* einer Funktion während der Ausführung des Funktionskörpers. Es kommt sehr häufig vor, dass ausserhalb einer Funktion Variablen mit gleichem Namen vorhanden sind. Ein Parameter überschreibt diese Variablen **nicht**.
+Parameter sind in R spezielle *Variablen*, mit denen Werte an eine Funktion übergeben werden. Parameter existieren nur *innerhalb* einer Funktion während der Ausführung des Funktionskörpers. Es kommt sehr häufig vor, dass ausserhalb einer Funktion Variablen mit gleichem Bezeichnern vorhanden sind. Ein Parameter überschreibt diese Variablen **nicht**.
 
 ::: {#exm-function-create}
 ## Eine Funktion deklarieren
@@ -175,18 +177,18 @@ function (parameter) {
 ```
 :::
 
-Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variablen zugewiesen werden. Der Name einer Funktion sollte möglichst die zentrale Bedeutung einer Funktion beschreiben.
+Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variablen zugewiesen werden. Der Bezeichner einer Funktion sollte möglichst die zentrale Bedeutung einer Funktion beschreiben.
 
 ::: {.callout-note}
-Die Wahl eines guten Funktionsnamen hängt vom jeweiligen Kontext ab.
+Die Wahl eines guten Funktionsbezeichners hängt vom jeweiligen Geltungsbereich ab.
 
-Mathematische Funktionen werden oft mit $f(x)$ oder $g(x)$ usw. geschrieben. In R sind solche Namen ebenfalls zulässig, solange sie **eindeutig** sind. Solche sehr kurzen Funktionsnamen sollten speziell gekennzeichnet und dokumentiert werden.
+Mathematische Funktionen werden oft mit $f(x)$ oder $g(x)$ usw. geschrieben. In R sind solche Bezeichner ebenfalls zulässig, solange sie **eindeutig** sind. Solche sehr kurzen Funktionsbezeichnern sollten speziell gekennzeichnet und dokumentiert werden.
 :::
 
-@exm-function-named-create weist der Funktion aus @exm-function-create den Namen `quadrat_minus_eins` zu. Dieser Name kann anschliessend als Funktion verwendet werden (s. @exm-funktion-aufrufen).
+@exm-function-named-create weist der Funktion aus @exm-function-create den Bezeichner `quadrat_minus_eins` zu. Dieser Bezeichner kann anschliessend als Funktion verwendet werden (s. @exm-funktion-aufrufen).
 
 ::: {#exm-function-named-create}
-## Eine Funktion mit Namen deklarieren
+## Eine Funktion mit Bezeichner deklarieren
 ```r
 quadrat_minus_eins = function (parameter) {
     parameter ^ 2 - 1
@@ -225,9 +227,15 @@ quadrat_minus_eins = function (parameter) {
 ```
 :::
 
-### Nebeneffekte
+### Nebeneffekte {#sec-nebeneffekte}
 
-Der Funktionskörper bildet einen abgegrenzten Geltungsbereich für Variablen. Alle normalen Zuweisungen gelten nur für den Funktionskörper, selbst wenn eine Variable oder ein Parameter ursprünglich in einem äusseren Kontext deklariert wurde.
+::: {.callout-important}
+**Nebeneffekte** sind in (fast) immer unerwünscht. Die in diesem Abschnitt werden die beiden speziellen Zuweisungsoperatoren `<<-` und `->>` vorgestellt, die gezielt **Nebeneffekte** erzeugen.
+
+Dieser Abschnitt beschreibt einen Sonderfall der Variablen- oder Funktionsdeklaration in **speziellen *Closures*** (s.u.), der in R **sehr selten** vorkommt. Die meisten Algorithmen lassen sich *nebeneffektsfrei* Programmieren, weshalb die beiden speziellen Zuweisungsoperatoren normalerweise nicht verwendet werden.
+:::
+
+Der Funktionskörper bildet einen abgegrenzten Geltungsbereich für Variablen. Alle normalen Zuweisungen gelten nur für den Funktionskörper, selbst wenn eine Variable oder ein Parameter ursprünglich in einem äusseren Geltungsbereich deklariert wurde.
 
 ::: {#exm-variablen-decl}
 ## Geltungsbereich von Variablen in Funktionen
@@ -250,10 +258,10 @@ var1
 ```
 :::
 
-In ***seltenen Fällen*** ist es notwendig, eine Variable eines äusseren Kontexts in einer Funktion einen neuen Wert zuzuweisen. Hier kommen die speziellen Zuweisungen `<<-` und `->>` zum Einsatz. Wird anstelle einer normalen Zuweisung die spezielle Zuweisung verwendet, dann wird einer Variablen oder einem Parameter eines äusseren Kontext ein neuer Wert zugewiesen. 
+In ***seltenen Fällen*** ist es notwendig, eine Variable eines äusseren Geltungsbereichs in einer Funktion einen neuen Wert zuzuweisen. Hier kommen die speziellen Zuweisungen `<<-` und `->>` zum Einsatz. Wird anstelle einer normalen Zuweisung die spezielle Zuweisung verwendet, dann wird einer Variablen oder einem Parameter eines äusseren Geltungsbereich ein neuer Wert zugewiesen. 
 
 ::: {#def-nebeneffekt}
-Ändert eine Funktion eine Variable eines äusseren Kontexts, dann ist diese Änderung ein **Nebeneffekt** der Funktion. 
+Ändert eine Funktion eine Variable eines äusseren Geltungsbereichs, dann ist diese Änderung ein **Nebeneffekt** der Funktion. 
 :::
 
 ::: {#exm-function-sideeffect}
@@ -278,7 +286,12 @@ var1
 
 ::: {.callout-tip}
 ## Praxis
-In R sollten ausschliesslich *Closures* Nebeneffekte haben. Variablen des globalen Kontexts sollten **nie** durch Nebeneffekte geändert werden. 
+In R sollten ausschliesslich *Closures* Nebeneffekte haben, wenn eine Closure eine Variable einer generierenden Funktion ändern muss. ***Dieser Fall tritt sehr selten ein!***
+:::
+
+
+::: {.callout-important}
+Variablen mit globalem Geltungsbereich sollten **nie** durch Nebeneffekte geändert werden. 
 :::
 
 ::: {.callout-note}
