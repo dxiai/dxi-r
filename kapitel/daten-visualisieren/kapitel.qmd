@@ -4,7 +4,7 @@
 abstract: ""
 
 execute: 
-  echo: false
+  echo: true
 ---
 # Daten visualisieren {#sec-chapter-daten-visualisieren}
 
@@ -13,6 +13,12 @@ execute:
 :::
 
 In R erstellen wir Plots mit Hilfe der `ggplot2`-Funktionen. Anders als in Excel werden mit diesen Funktionen Plots schrittweise aufgebaut und können auf diese Weise einheitlich reproduziert werden. 
+
+Als Erstes laden wir wie immer die `tidyverse`-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.
+
+```{r}
+library(tidyverse)
+```
 
 <!-- 
 Eine umfassende Einführung zu den Funktionen und Konzepten von `ggplot2` gibt das Buch von [Wickham (2021)](https://ggplot2-book.org/). Dieses Buch erläutert alle relevanten Konzepte und Tricks für die gängigsten Visualisierungen. 
@@ -25,20 +31,16 @@ Wir erzeugen eine Datenvisualisierung immer mit den folgenden Funktionsaufrufen:
 
 ::: {.callout-warning}
 ## Achtung
-`ggplot2` verwendet zur Funktionsverkettung den `+`-Operator und nicht wie der Rest der modernen R-Funktionen den Verkettungsoperator `%>%`. Wir können also leicht erkennen, dass ein Code-Fragment einen Plot erzeugt, wenn Funktionen mit `+` verkettet sind.
+`ggplot2` verwendet zur Funktionsverkettung den `+`-Operator und nicht wie der Rest der modernen R-Funktionen den Verkettungsoperator `|>`. Wir können also leicht erkennen, dass ein Code-Fragment einen Plot erzeugt, wenn Funktionen mit `+` verkettet sind.
 :::
 
 Mit den folgenden Funktionsaufrufen erzeugen wir ein einfaches Punktdiagramm. Als Beispielstichprobe verwenden wir hier die `iris`-Daten, die mit R mitgeliefert werden. 
 
-```R
-iris %>%
+```{r}
+iris |>
    ggplot(aes(x = Sepal.Length, y = Petal.Length)) + 
        geom_point()
 ```
-
-Das Ergebnis dieser Operation zeigt @fig-plot-iris-points. 
-
-![Punktdiagramm der `iris`-Daten](figures/iris_points.png){#fig-plot-iris-points}
 
 ## Technischer Aufbau von Visualisierungen
 
@@ -72,17 +74,11 @@ $$
 f2(x) \to 4x + 2
 $$
 
-Als Erstes laden wir wie immer die `tidyverse`-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.
-
-
-```R
-library(tidyverse)
-```
 
 Im nächsten Schritt erstellen wir unsere beiden mathematischen Funktionen. Dabei beachten wir, dass wir den Namen der jeweiligen Funktion als eine Variable zuweisen müssen. Die rechte Seite der Zuweisung zeigt R an, dass wir eine neue Funktion mit dem Parameter `x` erstellen möchten. Nach dieser *Funktionsdefinition* folgt der sog. Funktionskörper in geschweiften Klammern. Hier schreiben wir die Formel unserer Funktion in der ausführlichen Operatorenschreibweise. Anders als bei der mathematischen Schreibweise dürfen wir keine Operatoren weglassen. 
 
 
-```R
+```{R}
 f1 = function (x) {
     x ^ 2 - 3 * x
 }
@@ -95,87 +91,60 @@ f2 = function (x) {
 Damit `ggplot` "weiss", welches Intervall für `x` wir darstellen möchten, erzeugen wir eine Stichprobe mit einem Vektor `x`, der genau zwei Werte hat. Diesen Vektor weisen wir der Variable `Darstellungsbereich` zu. Wenn wir die Werte symmetrisch angeben, dann landet die 0 auf der x-Achse in der Mitte unseres Diagramms. 
 
 
-```R
+```{R}
 Darstellungsbereich = tibble(x = c(-9, 9)) 
 ```
 
 Jetzt können wir unsere Funktion visualisieren. Wir übergeben die Stichprobe im der Variablen `Darstellungsbereich` an die `ggplot()`-Funktion und legen mit dem Aufruf der `aes()`-Funktion mit dem Vektor `x` die Grenzen für die x-Achse fest. Anschliessend rufen wir die Funktion `geom_line()` auf, um einen Graphen zu erzeugen. Weil wir keine Werte für die y-Achse haben, legen wir fest, dass wir die y-Werte aus einer Funktion berechnen wollen. Das erreichen wir mit dem Parameter `stat = "function"`. Sobald wir diesen Parameter angeben, erwartet die `geom_line()` Funktion eine Funktion zur Berechnung der y-Werte. Diese Funktion übergeben wir mit dem Parameter `fun = f1`, wobei `f1` eine unserer vorab definierten Funktionen ist. 
 
 
-```R
-Darstellungsbereich %>%
+```{R}
+Darstellungsbereich |>
     ggplot(aes(x)) + 
         geom_line(stat = "function", fun = f1)
 ```
 
 
-    
-![png](figures/funktionen/output_7_0.png)
-    
-
-
 Diesen Schritt können wir für die Funktion `f2` wiederholen. 
 
 
-```R
-Darstellungsbereich %>%
+```{R}
+Darstellungsbereich |>
     ggplot(aes(x)) + 
         geom_line(stat = "function", fun = f2)
 ```
-
-
-    
-![png](figures/funktionen/output_9_0.png)
-    
 
 
 Weil wir mit `ggplot` Darstellungen überlagern können, dürfen wir die beiden Funktionen selbstverständlich auch in einem Diagramm darstellen.
 
 
-```R
-Darstellungsbereich %>%
+```{R}
+Darstellungsbereich |>
     ggplot(aes(x)) + 
         geom_line(stat = "function", fun = f1) + 
         geom_line(stat = "function", fun = f2)
 ```
 
-
-    
-![png](figures/funktionen/output_11_0.png)
-    
-
-
 Wir wollen die beiden Graphen noch visuell hervorheben, damit wir wissen, welcher Graph zu welcher Funktion gehört. Dabei überlassen wir die Auswahl der Farben `ggplot`, womit wir sicherstellen, dass die Farben nicht zu ähnlich sind. Dazu verwenden wir den Trick, dass wir jeder Geometrie-Funktion ergänzende ästhetische Parameter übergeben dürfen.
 
 
-```R
-Darstellungsbereich %>%
+```{R}
+Darstellungsbereich |>
     ggplot(aes(x)) + 
         geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
         geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2"))
 ```
 
-
-    
-![png](figures/funktionen/output_13_0.png)
-    
-
-
 Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir noch schnell mit der `labs()`-Funktion(für *labels* bzw. *Beschriftungen*) an. Dort geben wir für den ästhetischen Parameter die richtige Beschriftung an. In unserem Fall ist das `colour`.
 
 
-```R
-Darstellungsbereich %>%
+```{R}
+Darstellungsbereich |>
     ggplot(aes(x)) + 
         geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
         geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2")) +
         labs(colour = "Funktion")
 ```
-
-
-    
-![png](figures/funktionen/output_15_0.png)
-    
 
 ## Berechnete Visualisierungen
 
@@ -205,11 +174,9 @@ Das folgende Beispiel veranschaulicht die Situation.
 Wir verwenden die Stichprobe `digitales_umfeld1.csv`. In dieser Stichprobe gibt es den Vektor `tage`, der das Alter der beantwortenden Person in Tagen festhält. Dabei handelt es sich rein formell um *diskrete Werte*. Wenn wir die Verteilung dieser Werte in einem Histogramm für *diskrete Werte* darstellen würden, dann erhalten wir das folgende Histogramm: 
 
 ```R
-library(tidyverse)
-
 digitales_umfeld = read_delim("digitales_umfeld1.csv")
 
-digitales_umfeld %>% 
+digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_bar()
 ```
@@ -221,7 +188,7 @@ Auf diesem Histogramm kann man keine Verteilung erkennen. Es scheint, als ob all
 Die Werte in diesem Vektore verhalten sich also wie *kontinuierliche Werte*. Deshalb verwenden wir die Funktion `geom_histogram()`, um die Daten darzustellen. 
 
 ```R
-digitales_umfeld %>% 
+digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_histogram()
 ```
@@ -252,7 +219,7 @@ Beim Box-Plot wird der Median als dicke Linie dargestellt. Der Interquartilsabst
 Wiederholen wir die Visualisierung für unsere Alterstage mit einem Boxplot, dann erhalten wir folgendes Ergebnis: 
 
 ```R
-digitales_umfeld %>% 
+digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_boxplot()
 ```
@@ -270,16 +237,12 @@ Für Punktwolken stehen zwei Funktionen zur Verfügung:
 1. `geom_point()` für kontinuierliche Werte.
 2. `geom_jitter()` für diskrete Werte.
 
-<!-- 
-[[fa-download] beispieldaten.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=635316){.btn.btn-primary}
--->
-
 ```R
 daten = read_delim("digitales_umfeld_geraete_fm_att.csv");
 
-daten %>%
+daten |>
     filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) %>%
+           sozial_like_unbekannt >= -1 ) |>
     ggplot(aes(x = sozial_like_unbekannt, 
                y = sozial_like_freunde)) + 
         geom_point()
@@ -287,17 +250,15 @@ daten %>%
 
 ![](figures/interpretieren/output_27_0.png){}
     
-
-
 In diesem Beispiel sehen wir, dass alle Werte genau an den gleichen Punkten im Koordinatensystem liegen. Ein solcher Plot ist ein gutes Beispiel für *diskrete Werte*. Bei diskreten Werten fallen alle Messungen genau auf bestimmte Punkte im Wertebereich. Kontinuierliche Werte weichen oft ein wenig voneinander ab, sodass wir eine Wolke sehen würden. 
 
 Um Punktwolken für diskrete Werte zu erzeugen, verwenden wir die `geom_jitter()`-Funktion. Diese Funktion erzeugt einen kleinen Bereich um den diskreten (echten) Messwert und verteilt die einzelnen Datensätze mit einem zufälligen Abstand vom echten Messwert. Dadurch wird das gemeinsame Auftreten von Werten deutlich sichtbar, sofern es Gemeinsamkeiten gibt.
 
 
 ```R
-daten %>%
+daten |>
     filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) %>%
+           sozial_like_unbekannt >= -1 ) |>
     ggplot(aes(x = sozial_like_unbekannt, 
                y = sozial_like_freunde)) + 
         geom_jitter()
@@ -315,11 +276,10 @@ Eine **Korrelation** bezeichnet das wiederholte Auftreten von Wertepaaren in Sti
 
 Ähnlich wie beim Vergleichen mit Histogrammen ist es bei Punktwolken hilfreich, für die Wolke eine Referenz zur Orientierung zu haben. Das erreichen wir mit der `geom_smooth()`-Funktion. Die Methode `lm` steht für "lineares Modell". In diesem Modell versteckt sich das Wort Linie und deshalb *erzeugt ein lineares Modell immer eine Ausgleichsgerade*. Der graue Bereich zeigt uns die Spanne des Fehlerbereichs für diese Gerade. Bei einer linearen Korrelation sollte diese Gerade den Häufungen in unserem Plot ungefähr folgen.
 
-
 ```R
-daten %>%
+daten |>
     filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) %>%
+           sozial_like_unbekannt >= -1 ) |>
     ggplot(aes(x = sozial_like_unbekannt, 
                y = sozial_like_freunde)) + 
         geom_jitter() +
@@ -333,9 +293,9 @@ Das folgende Beispiel zeigt eine Punktwolke, bei der die Wertepaare zufällig ü
 
 
 ```R
-daten %>%
+daten |>
     filter(sozial_like_freunde  >= -1 & 
-           sozial_freundschaftsanfragen_aus_netzwerk >= -1 ) %>%
+           sozial_freundschaftsanfragen_aus_netzwerk >= -1 ) |>
     ggplot(aes(x = sozial_like_freunde, 
                y = sozial_freundschaftsanfragen_aus_netzwerk)) + 
         geom_jitter() +
@@ -353,9 +313,9 @@ Wenn eine Ausgleichskurve fast gerade ist, dann sollten wir eine lineare Korrela
 
 
 ```R
-daten %>%
+daten |>
     filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) %>%
+           sozial_like_unbekannt >= -1 ) |>
     ggplot(aes(x = sozial_like_unbekannt, 
                y= sozial_like_freunde)) + 
         geom_jitter() +
@@ -364,6 +324,15 @@ daten %>%
 
 ![](figures/interpretieren/output_35_1.png){}
 
+## Mehrdimensionale Plots mit `aes`
+
+### Farbkodierung
+
+### Grössenkodierung
+
+### Formenkodierung
+
+### Facetted Plots
 
 ## Spezielle Visualisierungen
 
@@ -439,10 +408,10 @@ Uns interessiert nun: ***Wie oft kommen die drei möglichen Werte in unserer Sti
 Wir können die Werte mit `count()` selbst berechnen oder `ggplot` die Arbeit überlassen. Anstelle der `geom_col()`-Funktion verwenden wir nun die `geom_bar()`-Funktion. `geom_bar()` erwartet einen Vektor für die x-Achse und berechnet für die y-Achse das Auftreten der Werte, so wie wir es mit der `count()`-Funktion auch bestimmen würden.
 
 ```R
-daten2 %>%
+daten2 |>
     count(q00_demo_gen)
 
-daten2 %>%
+daten2 |>
     ggplot(aes(x = q00_demo_gen)) +
         geom_bar()
 ```
@@ -470,7 +439,7 @@ Für Präsentationen ist so ein Plot aber nicht wahnsinnig attraktiv. Färben wi
 
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar()
 ```
@@ -483,7 +452,7 @@ Für Histogramme verwenden wir normalerweise ein kartesisches Koordinatensystem.
 Wir stellen unsere Daten in einem polaren Koordinatensystem dar, indem wir mit der `coord_polar()`-Funktion ggplot mitteilen, dass wir ein anderes Koordinatensystem wünschen. 
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
         coord_polar("y") 
@@ -497,7 +466,7 @@ Unser Plot hat jetzt unschöne Beschriftungen. Die werden wir mit einem Formatie
 
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
         coord_polar("y") +
@@ -518,7 +487,7 @@ Manchmal wollen wir alle Balken  übereinander stapeln. Das erreichen wir, indem
 
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() 
 ```
@@ -529,7 +498,7 @@ daten2 %>%
 Mit der Funktion `coord_flip` vertauschen wir die Achsen und drehen so unser Diagramm.
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
         coord_flip()
@@ -543,7 +512,7 @@ Das Interessante an dieser Darstellung ist aber nicht dieses Format, sondern das
 
 
 ```R
-daten2 %>%
+daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
         coord_polar("y") + 

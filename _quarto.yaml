@@ -62,7 +62,7 @@ book:
     chapters:
    
     - kapitel/daten-beschreiben/kapitel.md
-    - kapitel/daten-visualisieren/kapitel.md
+    - kapitel/daten-visualisieren/kapitel.qmd
     # - kapitel/lineare-modelle/kapitel.md
     
   - references.qmd
