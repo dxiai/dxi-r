@@ -2,7 +2,7 @@
 abstract: ""
 
 execute: 
-  echo: false
+  echo: true
 ---
 # Variablen, Funktionen und Operatoren {#sec-chapter-variablen}
 
@@ -39,7 +39,175 @@ Die letzte Zuweisung ist nicht zwingend die Zuweisung, die als letztes im Code e
 
 ## Funktionen
 
-In R bilden Funktionen die Grundlage für die Datenverarbeitung. 
+In R bilden Funktionen die Grundlage für die Datenverarbeitung. Fast alle Spracheelemente sind als Funktionen umgesetzt.
+
+### Identätsfunktion
+
+R hat eine explizite Identitätsfunktion `identity()`. Diese Funktion setzt die Identität für einen Parameter um. Die Funktion wird zur allgemeinen Identitätsfunktion, indem die Parameterliste als Liste übergeben.
+
+::: {#exm-mehrparametrische-identität}
+## Mehrparametrische Indentität
+```{r}
+identity(list(1, "Daten und Information", TRUE))
+```
+:::
+
+### Transformationen
+
+Transformationen verändern die Werte eines Vektors, wobei das Ergebnis *immer* ein Ergebnis der Länge des ursprünglichen Vektors hat. 
+
+In R sind alle arithmetischen Operatoren Transformatoren (s. @exm-arithm-transformation)
+
+::: {#exm-arithm-transformation}
+## Additive Transformation eines Zahlenvektors (Skalarprodukt)
+
+```{r}
+c(1, 9 , 7, 3, 5) * 2
+```
+:::
+
+Eine besondere Gruppe innerhalb der Transformationen sind die Matrizen-Produkte (@sec-chapter-matrix-operationen) sowie das Umformen von Vektoren (@sec-chapter-daten-formen). Diese Transformationen erzeugen aus mehreren Vektoren *Vektorfelder*, wobei die urspünglichen Werte erhalten bleiben bzw. durch eine Multiplikation umgeformt werden.
+
+### Aggregatoren
+
+Aggregationen fassen Werte eines Vektors zusammen. Das Ergebnis von Aggregatoren ist oft ein einzelner Wert, kann aber auch mehrere Werte umfassen. In solchen Fällen hat das Aggregat höchstens die Länge des Eingabevektors.
+
+Typische Aggregationen sind die Summe (`sum()`, @exm-aggregation-sum) und andere statistische Kennzahlen (@sec-chapter-daten-beschreiben).
+
+::: {#exm-aggregation-sum}
+## Summenaggregation
+```{r}
+c(1, 2, 3, 4) |> sum()
+```
+::: 
+
+### Genratoren
+
+Generatoren bilden eine besondere Funktionsgruppe in R. Mit ihnen lassen sich Werte erzeugen. In dieser Gruppe gibt es zwei Arten:
+
+1. Sequenzgeneratoren
+1. Zufallsgeneratoren
+
+#### Sequenzgeneratoren
+
+Sequenzgeneratoren erzeugen Sequenzen von Werten. Sequenzgeneratoren werden in R zur systematischen Erzeugung von Vektoren verwendet. 
+
+Die beiden wichtigsten Funktionen dieser Gruppe sind die Funktionen `seq()` und `rep()`. 
+
+Die Funktion `seq()` erzeugt eine Sequenz von Werten mit fester Schrittweite. In R wird eine Sequenz über einen Startwert sowie die Länge, die Schrittweite *oder* den Endwert definiert.
+
+::: {#exm-sequenz}
+## Sequenzen mit `seq()` erzeugen
+```{r}
+seq(5) 
+seq(2, 5) 
+seq(2, len = 5) 
+seq(2, len = 3, by = 2) 
+```
+::: 
+
+Sequenzen mit der Schrittweite `0` wiederholen den Startwert für die erforderliche Länge. Solche Sequenzen werden relativ häufig verwendet, weshalb @exm-sequenz-rep etwas umständlich ist. 
+
+::: {#exm-sequenz-rep}
+## Einsvektor der Länge 4 mit `seq()` erzeugen
+```{r}
+seq(1, len = 4, by = 0)
+```
+::: 
+
+Diese Operation kann mit R vereinfacht werden. Hierfür diehnt die Funktion `rep()` (für *replicate*). Die Funktion `rep()` erfordert den Wiederholungswert sowie die Anzahl der Wiederholungen (@exm-replicate).
+
+::: {#exm-replicate}
+## Einsvektor der Länge 4 mit `rep()` erzeugen
+```{r}
+rep(1, 4)
+```
+::: 
+
+#### Zufallsgeneratoren
+
+::: {#def-zufallszahlen}
+**Zufallszahlen** sind numerische Werte, die zufällig ausgewählt werden. 
+:::
+
+Zufallszahlen werden in normalen Computer-Programmen relativ selten verwendet.
+
+::: {.callout-note}
+## Merke
+Die ***Anwendungsgebiete*** von Zufallszahlen sind die **Krypografie** und die **Simualation**. 
+:::
+
+In den Datenwissenschaften sind Simulationen ein wichtiges Werkzeug für analytische und prediktive Modelle, insbesondere für die künstliche Intelligenz.
+
+R bietet die Funktion `runif()` zur Erzeugung von gleichmässig verteilten Zufallszahlen. Die Funktion generiert zufällig reelle Werte im Intervall von $\left]0, 1 \right[$. In diesem Zusammenhang bedeutet *gleichmässig verteilt*, dass alle Werte mit gleicher Wahrscheinlichkeit erzeugt werden.
+
+::: {.callout-note}
+## Merke
+*Gleichmässig verteilte* Werte werden auch als **uniforme** oder **uniform-verteilte** Werte bezeichnet.
+::: 
+
+::: {#exm-runif}
+## Fünf Zufallswerte mit `runif()` erzeugen
+```{r}
+runif(5)
+```
+:::
+
+Aus diesen Werten lassen sich beliebige Zufallsvektoren erzeugen. Um Werte in anderen Intervallen zu erzeugen, können der Funktion eigene Intervallgrenzen übergeben werden. 
+
+Werden uniformverteilte Zufallswerte gegenübergestellt, dann sind diese Werte gleichmässig im Intervall verteilt (@fig-runif). 
+
+```{r}
+#| label: fig-runif
+#| echo: false
+#| warnings: false
+#| fig-cap: Visualisierung von Zufallswerten
+
+library(ggplot2)
+
+data.frame(x = runif(1000), y = runif(1000)) |> 
+  ggplot(aes(x, y)) + geom_point()
+```
+
+::: {.callout-note}
+## Merke
+Ganzzahlen dürfen nicht durch Runden , sondern müssen durch Entfernen des Nachkommaanteils mit `trunc()` erzeugt werden. 
+::: 
+
+::: {#exm-zufallsganzzahlen}
+## Zufällige Ganzzahlen in einem Intervall erzeugen
+```{r}
+runif(10, min = -10, max = 10) |> trunc()
+```
+::: 
+
+Neben den uniformverteilten Werten, stellt R Funktionen zum Erzeugen von Zufallswerten mit anderen Verteilungen an. Die Grundlage für diese Zufallswerte bilden die *statistischen Verteilungen*, wie z.B. die Normalverteilung (mit `rnorm()`), die F-Verteilung (mit `rf()`), die Binomialverteilung (mit `rbinom()`) oder die $\chi^2$-Verteilung (mit `rchisq()`). 
+
+In diesen Verteilungen sind nicht alle Werte gleich wahrscheinlich. Dadurch erscheinen in einer Visualisierung die Werte geklumpt (@fig-rnorm). 
+
+```{r}
+#| label: fig-rnorm
+#| echo: false
+#| warnings: false
+#| fig-cap: Visualisierung von normalverteilten Zufallswerten
+
+data.frame(x = rnorm(1000), y = rnorm(1000)) |> 
+  ggplot(aes(x, y)) + geom_point()
+```
+
+
+```{r}
+#| label: fig-rchisq
+#| echo: false
+#| warnings: false
+#| fig-cap: Visualisierung von $\chi^2$-verteilten Zufallswerten
+
+data.frame(x = rchisq(1000, 10), y = rchisq(1000, 10)) |> 
+  ggplot(aes(x, y)) + geom_point()
+```
+
+
+### Funktionen als Werte
 
 ::: {.callout-note}
 ## Merke
@@ -48,9 +216,10 @@ Eine Funktion ist für R ein Wert wie eine Zahl oder eine Zeichenkette.
 
 Im Fall von Funktionen ist der Wert einer Funktion die Funktionsdeklaration. Entsprechend ist es möglich Funktionen zu überschreiben. 
 
-Wird nur der Bezeichner einer R gibt eine direkte Funktionsdefinition wie jeden anderen Wert direkt aus. 
+Wird nur der Bezeichner einer Funktion eingegeben, gibt R die  Funktionsdefinition wie jeden anderen Wert direkt aus.  
 
-### Operatoren
+
+## Operatoren
 
 Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei Werte verknüpfen. Zu diesen Operatoren gehören die auch die arithmetischen Operatoren für die Grundrechenarten. 
 
@@ -110,15 +279,12 @@ Hinter jedem Operator steht eine Funktion, die mit den beiden Operanden als Para
 
 ::: {#exm-plus-als-fkt}
 ## `+`-Operator als Funktionsbezeichner
-```r
+```{r}
 `+`(1, 2)
-```
-```
-3
 ```
 :::
 
-#### Zuweisungsoperatoren
+### Zuweisung
 
 R kennt zwei Zuweisungsoperatoren: `<-` und `->`. Die Zuweisung erfolgt in Richtung des Pfeils. Daneben wird der `=`-Operator ebenfalls als (inoffizieller) Zuweisungsoperator unterstützt. 
 
@@ -130,7 +296,7 @@ Weil nicht immer klar ist, ob `<-` oder `=` verwendet werden soll, lautet die of
 In diesem Buch wird für die *linksgerichtete Zuweisung* immer das  Gleichzeichen (`=`) verwendet, so dass eine Zuweisung eines Werts an eine Variable und an einen Parameter gleichwertig behandelt wird. Dadurch wird die Lesart etwas vereinfacht. Zusätzlich wird die rechtsgerichtete Zuweisung konsequent als Abschluss für einen primären Datenstrom (s. @sec-fkt-ketten) eingesetzt.
 :::
 
-#### Ausführungsoperator
+### Funktionsausführung
 
 Der Ausführenoperator (`()`) gilt in R offiziell nicht als Operator, weil dieser nicht als Funktion umgesetzt werden kann. Es gibt zwar die Funktion `do.call()`, um eine Funktion auszuführen. Wenn diese Funktion als Ausführungsoperator eingesetzt wird,  müsste `do.call()` sich selbst aufrufen, um sich selbst auszuführen. Dieses Problem wird von R dadurch gelöst, dass `(` und  `)` als eigene *Symbole* erkannt werden und immer eine Funktionsausführung anzeigen.
 
@@ -156,7 +322,7 @@ Wird der Hilfeoperator mit sich selbst aufgerufen, wird der nächste Wert als Su
 ```
 ::: 
 
-### Funktionsketten {#sec-fkt-ketten}
+## Funktionsketten {#sec-fkt-ketten}
 
 R unterstützt die spezielle Funktionsverkettung mit dem `|>`- Operator. Dadurch lassen sich Funktionsfolgen direkt in R ausdrücken. In Kombination mit der rechtsgerichteten Zuweisung (`->`) ist es möglich, Datenströme durch eine Funktionskette von einem Ausgangswert zu einem Ergebnis in der natürlichen Reihenfolge aufzuschreiben.
 
@@ -202,7 +368,7 @@ Mathematische Funktionen werden oft mit $f(x)$ oder $g(x)$ usw. geschrieben. In 
 
 ::: {#exm-function-named-create}
 ## Eine Funktion mit Bezeichner deklarieren
-```r
+```{r}
 quadrat_minus_eins = function (parameter) {
     parameter ^ 2 - 1
 }
@@ -211,12 +377,8 @@ quadrat_minus_eins = function (parameter) {
 
 ::: {#exm-funktion-aufrufen}
 ## Eine selbstdeklarierte Funktion aufrufen
-```r
+```{r}
 quadrat_minus_eins(2)
-```
-
-```
-3
 ```
 :::
 
@@ -252,7 +414,7 @@ Der Funktionskörper bildet einen abgegrenzten Geltungsbereich für Variablen. A
 
 ::: {#exm-variablen-decl}
 ## Geltungsbereich von Variablen in Funktionen
-```r
+```{r}
 # Deklarationen
 var1 = 1
 f = function (x) {
@@ -264,11 +426,6 @@ f = function (x) {
 f(2)
 var1
 ```
-
-```
-3 # Ergebnis von f(2)
-1 # Ergebnis von var1
-```
 :::
 
 In ***seltenen Fällen*** ist es notwendig, eine Variable eines äusseren Geltungsbereichs in einer Funktion einen neuen Wert zuzuweisen. Hier kommen die speziellen Zuweisungen `<<-` und `->>` zum Einsatz. Wird anstelle einer normalen Zuweisung die spezielle Zuweisung verwendet, dann wird einer Variablen oder einem Parameter eines äusseren Geltungsbereich ein neuer Wert zugewiesen. 
@@ -279,7 +436,7 @@ In ***seltenen Fällen*** ist es notwendig, eine Variable eines äusseren Geltun
 
 ::: {#exm-function-sideeffect}
 ## Funktion mit Nebeneffekt
-```r
+```{r}
 # Deklarationen
 var1 = 1
 f = function (x) {
@@ -290,10 +447,6 @@ f = function (x) {
 # Anwendung
 f(2)
 var1
-```
-```
-3 # Ergebnis von f(2)
-3 # Ergebnis von var1
 ```
 :::
 
@@ -328,7 +481,7 @@ Die erste Option bietet sich an, wenn ein Script viele Funktionen einer Biblioth
 
 ::: {#exm-fkt-library-load}
 ## Funktionen mit der `library()` Funktion einbinden
-```r
+```{r}
 library(ggplot2)
 
 mtcars |> 
@@ -341,7 +494,7 @@ Die zweite Option ist sinnvoll, wenn nur eine oder zwei Funktionen einer Bibliot
 
 ::: {#exm-fkt-direct-access}
 ## Eine Funktion direkt ansprechen
-```r
+```{r}
 mtcars |> 
     dplyr::filter(hp > 200)
 ```
@@ -367,9 +520,9 @@ readr::read_delim("meine_daten.csv")
 Die Syntax von R kann durch Module erweitert werden. Diese Form nutzt die Konzepte zur **Metaprogrammierung** von R. Dadurch können neue Programmierkonzepte in die Sprache einfliessen. Die `tidyverse`-Bibliotheken nutzen diese Möglichkeit intensiv. Solche Bibliotheken **müssen** mit der Funktion `library()` eingebunden werden, damit die zusätzliche Syntax bereitgestellt wird.
 ::: 
 
-## Bibliotheksmanagement
+## Bibliotheken verwalten
 
-Verwendet ein R-Script Funktionsbibliotheken, dann ist dieses Script nur auf Rechnern lauffähig, auf denen die benutzten Bibliotheken auch installiert sind. Solche notewendigen Bibliotheken heissen die **Abhängigkeiten** (engl. *dependencies*) eines Scripts. Alle Abhängigkeiten müssen dokumentiert werden. 
+Verwendet ein R-Script Funktionsbibliotheken, dann ist dieses Script nur auf Rechnern lauffähig, auf denen die benutzten Bibliotheken auch installiert sind. Solche notewendigen Bibliotheken heissen die **Abhängigkeiten** (engl. *dependencies*) eines Scripts. Weil sich die Abhängikeiten nicht immer leicht erkennen lassen, müssen alle Abhängigkeiten müssen dokumentiert werden. 
 
 ::: {.callout-tip}
 ## Praxis
@@ -400,7 +553,7 @@ Das Packetmanagement erfasst automatisch alle Bibliotheken, die systemweit insta
 
 Nach der Initialisierung des Packetmanagements können projektspezifische Bibliotheken mit `renv::install()` installiert werden. War eine Installation erfolgreich, sollte die Bibliothek auf ihre Funktionstüchtigkeit mit einem einfachen Beispiel geprüft und danach mit `renv::snapshot()` als Abhängigkeit dokumentiert werden. Mit einem *Snapshot* wird eine Bibliotheksversion als Abhängigkeit registiert. Im Gegensatz zu `install.packages()` wird ab diesem Zeitpunkt nicht mehr eine beliebige Version der Bibliothek installiert, sondern nur die dokumentierte Version. Dadurch wird sichergestellt, dass der Code auch in anderen Umgebungen wie erwartet funktioniert. 
 
-### Updates für Bibliotheken 
+### Bibliotheken updaten 
 
 Eine Besonderheit von `renv` ist die Möglichkeit, kontrollierte Updates für einzelne oder alle Abhängigkeiten eines Projekts mit `renv::update()` durchzuführen. `renv::update()` installiert die neusten Versionen der Projektbibliotheken. 
 
