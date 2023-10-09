@@ -1,5 +1,10 @@
 # Daten kodieren {#sec-chapter-daten-kodieren}
 
-## Kodierungstabellen
+
+::: {.callout-warning}
+## Work in Progress
+::: 
+
+## Kodierungstabellen
 
 ## Mit Faktoren kodieren
