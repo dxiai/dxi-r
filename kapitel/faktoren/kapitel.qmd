@@ -29,8 +29,8 @@ digitales_umfeld = read_delim("digitales_umfeld.csv")
 Wenn wir zum Beispiel die Anzahl der Mobilgerätetypen bestimmen möchten, dann können wir naiv vorgehen: 
 
 ```R
-digitales_umfeld %>% 
-    group_by(mobilgeraet) %>% 
+digitales_umfeld |> 
+    group_by(mobilgeraet) |> 
     count()
 ```
 
@@ -43,11 +43,11 @@ digitales_umfeld %>%
 Wenn wir die häufigste Nennung eines Mobilgeräts als erstes in dieser Tabelle stehen haben möchten, dann bietet sich die Verwendung eines Faktors mit organisierten Faktorstufen an. 
 
 ```R
-digitales_umfeld %>% 
+digitales_umfeld |> 
     mutate(
-        mobilgeraet = mobilgeraet %>% as_factor() %>% fct_infreq()
-    ) %>% 
-    group_by(mobilgeraet) %>% 
+        mobilgeraet = mobilgeraet |> as_factor() |> fct_infreq()
+    ) |> 
+    group_by(mobilgeraet) |> 
     count()
 ```
 
@@ -80,7 +80,7 @@ Dieser Vektor enthält nur Zeichenketten und ist daher ein Zeichenkettenvektor. 
 Dieser Vektor kann einfach in einen Faktor umgewandelt werden.
 
 ```R
-stgFaktor = Studiengaenge %>% factor()
+stgFaktor = Studiengaenge |> factor()
 
 stgFaktor
 ```
@@ -98,7 +98,7 @@ Das Ergebnis unterscheidet sich nicht wesentlich vom ursprünglichen Vektor. Wir
 Wir können nun mit der Funktion ``levels()`` die Faktorstufen abfragen. Diese Funktion gibt uns einen Vektor mit allen Faktorstufen zurück.
 
 ```R
-stgFaktor %>% 
+stgFaktor |> 
     levels()
 ```
 
@@ -113,11 +113,11 @@ stgFaktor %>%
 Dieses Ergebnis ist etwas überraschend, weil die Reihenfolge der Faktorstufen nicht mehr mit der Reihenfolge der Werte in unserem Vektor übereinstimmt. Wir sehen am Ergebnis, dass die Funktion ``factor()`` die Annahme macht, dass unsere Faktorstufen alphabetisch sortiert sind. Leider ist das oft nicht der Fall und gerade bei unsortierten Faktoren müssen die Werte Präsentationen oft neu arrangiert werden. Deshalb hat sich die Konvention eingebürgert, für die initiale Reihenfolge von Faktorstufen das erste Auftreten des jeweiligen Werts zu wählen. Dazu müssen wir der ``factor()``-Funktion auch die Faktorstufen mitgeben. 
 
 ```R
-stgFaktor = Studiengaenge %>%
+stgFaktor = Studiengaenge |>
     factor(
          # erzeugt alle Faktorstufen in der Reihenfolge des ersten Auftretens, 
          # selbst wenn Werte doppelt auftreten. 
-        Studiengaenge %>% unique() 
+        Studiengaenge |> unique() 
     )
 ```
 
@@ -126,7 +126,7 @@ Nun können wir mit der ``levels()``-Funktion die Reihenfolge der Faktorstufen �
 Weil diese Vorgehensweise eine Konvention moderner R-Programmierung ist, gibt es eine Funktion, die uns diesen Schritt kompakter schreiben lässt. Dazu verwenden wir die Funktion ``as_factor()``.
 
 ```R
-stgFaktor = Studiengaenge %>%
+stgFaktor = Studiengaenge |>
     as_factor()
 ```
 
@@ -135,11 +135,11 @@ Wenn wir einzelne Vektoren in einem Stichprobenobjekt in Faktoren umwandeln woll
 Wir wollen nur den Vektor ``mobilgeraet``,  ``geschlecht`` und ``digitalisiert`` in Faktoren umwandeln.
 
 ```R
-digitales_umfeld %>% 
+digitales_umfeld |> 
     mutate(
-        mobilgeraet = mobilgeraet %>% as_factor(),
-        geschlecht = geschlecht %>% as_factor(),
-        digitalisiert = digitalisiert %>% as_factor()
+        mobilgeraet = mobilgeraet |> as_factor(),
+        geschlecht = geschlecht |> as_factor(),
+        digitalisiert = digitalisiert |> as_factor()
     ) -> duFaktorisiert 
 
 duFaktorisiert
@@ -189,9 +189,9 @@ geschlecht_faktorstufen = c( "Weiblich", "Andere", "Keine Angabe", "Männlich" )
 Nun können wir den Faktor ``geschlecht`` entsprechend umformen.
 
 ```R 
-duFaktorisiert %>% 
+duFaktorisiert |> 
     mutate(
-        geschlecht = geschlecht %>% fct_relevel( geschlecht_faktorstufen )
+        geschlecht = geschlecht |> fct_relevel( geschlecht_faktorstufen )
     ) -> digitales_umfeld_externe_skala
 ```
 
@@ -202,34 +202,34 @@ Wenn Sie mit `fct_relevel()` eine vorgegebene Skala als Vektor übergeben, die n
 **Die zweite Aufgabe** ist die Organisation der Faktorstufen nach der internen Organisation des jeweiligen Datentyps. Liegen die Werte als Zahlen vor, dann werden die Faktorstufen entsprechend des jeweiligen Nennwerts sortiert. Liegen die Werte als Zeichenketten vor, dann werden die Faktorstufen alphabetisch sortiert. Diese Organisation entspricht der Vorgehensweise der meisten Base-R Funktionen. Falls unsere Daten als Zahlen (oder Wahrheitswerte) vorliegen, können wir für diese Vorgehensweise die Funktion ``fct_inseq()`` verwenden. 
 
 ```R 
-duFaktorisiert %>% 
+duFaktorisiert |> 
     mutate(
-        digitalisiert = digitalisiert %>%  fct_inseq()
+        digitalisiert = digitalisiert |>  fct_inseq()
     ) -> duFaktorisiert_sequenziell
 ```
 
 Im Fall von Zeichenketten als Faktorstufen, müssen wir die bestehenden Faktorstufen selbst umsortieren und dann als neue Vorgabe mit ``fct_relevel()`` übergeben. Im folgenden Beispiel ist das alphabetische Sortieren der Faktorstufen eine eingebettete Funktionskette.
 
 ```R
-duFaktorisiert %>% 
+duFaktorisiert |> 
     mutate(
-        mobilgeraet = mobilgeraet %>% fct_relevel( mobilgeraet %>% levels() %>% sort() )
+        mobilgeraet = mobilgeraet |> fct_relevel( mobilgeraet |> levels() |> sort() )
     ) -> duFaktorisiert_alphabetisch
 ```
 
 **Die dritte Aufgabe** ist die Organisation nach der Häufigkeit eines Werts in einer Stichprobe. Diese Vorgehensweise ist besonders für nominalskalierte Daten interessant, um über die Häufigkeiten die Reihenfolge der Faktorstufen festzulegen. Hierbei hilft die Funktion ``fct_infreq()``. Die Faktorstufen werden so  den Häufigkeiten entsprechend in der Stichprobe ab- bzw. aufsteigend organisiert. 
 
 ```R
-duFaktorisiert %>% mutate(
-        mobilgeraet = mobilgeraet %>%  fct_infreq()
+duFaktorisiert |> mutate(
+        mobilgeraet = mobilgeraet |>  fct_infreq()
     ) -> duFaktorisiert_frequenz
 ```
 
 **Bei der vierten Aufgabe** sollen die Faktorstufen entlang der Reihenfolge des ersten Auftretens in der Stichprobe erfolgen. Dieser Fall tritt meistens dann ein, wenn die  Faktorstufen umorganisiert wurden und wieder in die ursprüngliche Reihenfolge gebracht werden müssen. Die Funktion ``fct_inorder()`` übernimmt diese Aufgabe.
 
 ```R
-duFaktorisiert %>% mutate(
-        mobilgeraet = mobilgeraet %>%  fct_inorder()
+duFaktorisiert |> mutate(
+        mobilgeraet = mobilgeraet |>  fct_inorder()
     ) -> duFaktorisiert_reihenfolge
 ```
 
@@ -238,9 +238,9 @@ duFaktorisiert %>% mutate(
 Mit der Funktion ``fct_reorder()``  können wir die Faktorstufen eines Vektors über die Werte eines anderen Vektors organisieren. Solche Ausrichtungen sind oft nach Aggregationen sinnvoll, wenn für jede Faktorstufe eines nominalskalierten Vektors genau ein Wert in einem anderen Vektor festliegt. Dabei **muss** aber immer **genau ein Wert** einer Faktorstufe entsprechen. Dabei wird für die Faktorstufen eine absteigende bzw. (optional) aufsteigende Reihenfolge des Referenzvektors angenommen. 
 
 ```R
-msleep %>% 
+msleep |> 
     mutate(
-        name = name %>% as_factor() %>% fct_reorder(sleep_total)
+        name = name |> as_factor() |> fct_reorder(sleep_total)
     )
 ```
 
@@ -257,7 +257,7 @@ Faktoren werden regelmässig für die Datenvisualisierung verwendet, um diskrete
 Nehmen wir zum Beispiel die Stichprobe `mtcars` und den Vektor `cyl` (Zylinder) . Dieser Vektor nimmt nur die folgenden diskreten Werte an. 
 
 ```r
-mtcars %>% 
+mtcars |> 
     summarise( cyl = unique(cyl) )
 ```
 
@@ -270,7 +270,7 @@ mtcars %>%
 In beiden Fällen haben wir also diskrete Daten. Wenn wir die Daten darstellen, dann ergibt sich das folgende Bild. 
 
 ```R
-mtcars %>% 
+mtcars |> 
    ggplot(aes(x = cyl )) + 
       geom_bar()
 ```
@@ -281,8 +281,8 @@ mtcars %>%
 Hier erkennen wir, dass die X-Achse Werte anzeigt, die gar nicht vorkommen können. Dieses Problem können wir leicht beheben, indem wir den Vektor faktorisieren.
 
 ```R
-mtcars %>% 
-   mutate( cyl = cyl %>% as_factor() )  %>%
+mtcars |> 
+   mutate( cyl = cyl |> as_factor() )  |>
    ggplot(aes(x = cyl )) + 
       geom_bar()
 ```
@@ -294,7 +294,7 @@ mtcars %>%
 Das Arrangieren von Daten erreichen wir ebenfalls mit Faktoren. Hierzu betrachten wir die Vektoren `name` und `sleep_total` aus der Stichprobe `msleep`. Stellen wir die beiden Vektoren in einem Balkendiagramm gegenüber, dann können wir kaum  die verschiedenen Spezies vergleichen. 
 
 ```R
-msleep %>% 
+msleep |> 
     ggplot(aes(name, sleep_total)) + 
         geom_col() +
         coord_flip()
@@ -305,10 +305,10 @@ msleep %>%
 Wesentlich anschaulicher wird dieses Balkendiagramm, wenn wir den `name`-Vektor vor der Visualisierung in einen Faktor umwandeln und die Faktorstufen entlang der Gesamtschlafdauer organisieren.  
 
 ```R
-msleep %>% 
+msleep |> 
     mutate(
-        name = name %>% as_factor() %>% fct_reorder(sleep_total)
-    ) %>%  
+        name = name |> as_factor() |> fct_reorder(sleep_total)
+    ) |>  
     ggplot(aes(name, sleep_total)) + 
         geom_col() +
         coord_flip()

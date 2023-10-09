@@ -39,7 +39,7 @@ In R verwenden wir dazu die Funktion `str_replace_all()`. Diese Funktion ersetzt
 
 ## Einzelne Symbole aus einer Zeichenkette extrahieren
 
-In **R** lassen sich die  einzelnen Symbole einer Zeichenkette mit der Operation ``zeichenkette %>% str_extract("")`` extrahieren. 
+In **R** lassen sich die  einzelnen Symbole einer Zeichenkette mit der Operation ``zeichenkette |> str_extract("")`` extrahieren. 
 
 ::: {.callout-warning}
 Wenn Sie die Zeichenketten in einem Zeichenkettenvektor in die einzelnen Symbole zerlegen möchten, dann erhalten Sie für jede Zeichenkette einen eigenen Vektor, der die Symbole der Zeichenkette enthält. R kann diese Vektoren nicht einfach zu einem grossen Vektor zusammensetzen. Daher werden die Ergebnisse als Listen geschützt und zu einem Ergebnisvektor zusammengefasst. 
@@ -51,10 +51,10 @@ In einem zweiten Schritt können die extrahierten Symbole mit `unnest()` in der 
 ## Zeichenkettenvektor in die einzelnen Symbole zerlegen
 
 ```R
-tibble(zeichenkette = c("Daten", "und", "Information")) %>% 
+tibble(zeichenkette = c("Daten", "und", "Information")) |> 
     mutate(
-        symbol = zeichenkette %>% str_extract_all("") 
-    ) %>% 
+        symbol = zeichenkette |> str_extract_all("") 
+    ) |> 
     unnest(symbol)
 ```
 
@@ -142,9 +142,9 @@ library(tidyverse)
 
 texte = tibble(text = c("Daten und Information", "Klimatologie Informatik"))
 
-texte %>% 
+texte |> 
     mutate(
-        getrennter_text = text %>% str_split(" ")
+        getrennter_text = text |> str_split(" ")
     )
 ```
 
@@ -165,10 +165,10 @@ Um an eingebettete Werte zu gelangen, müssen wir sie zuerst "ausbetten". Dazu v
 ::: {#exm-trennung-entpacken}
 ## Entpacken von getrennten Zeichenketten mit `unnest()`
 ```R
-texte %>% 
+texte |> 
     mutate(
-        getrennter_text = text %>% str_split(" ")
-    ) %>% 
+        getrennter_text = text |> str_split(" ")
+    ) |> 
     unnest(getrennter_text) -> texte_getrennt
 
 texte_getrennt
@@ -196,7 +196,7 @@ Das @exm-trennung-entpacken können wir mit der folgenden Operation zurück in d
 ::: {#exm-renesting-zeichenketten}
 ## Zeichenketten einbetten
 ```R
-texte_getrennt %>% 
+texte_getrennt |> 
     nest(getrennter_text = getrennter_text)
 ```
 
@@ -251,7 +251,7 @@ zeichenkettenVektor = c( "Daten und Information", "Datenverarbeitung", "Informat
 
 regulaererAusdruck = "Daten In"
 
-zeichenkettenVektor %>% str_detect(regulaererAusdruck) 
+zeichenkettenVektor |> str_detect(regulaererAusdruck) 
 # erzeugt c(FALSE FALSE FALSE TRUE TRUE)
 ```
 
@@ -267,7 +267,7 @@ zeichenkette = "Daten und Information"
 
 regulaererAusdruck = "\\w\\s\\w"
 
-zeichenkette %>% str_replace(regulaererAusdruck, "p x") # erzeugt "Datep xnd Information"
+zeichenkette |> str_replace(regulaererAusdruck, "p x") # erzeugt "Datep xnd Information"
 
 # Hinweis, um alle Vorkommnisse des Musters auszutauschen, müssen wir 
 # str_replace_all() verwenden!
@@ -317,7 +317,7 @@ Gelegentlich wollen wir ein Muster bis zu einem bestimmten Symbol in unserer Zei
 > Der folgende Code demonstriert diesen regulären Ausdruck.
 > 
 > ```r
-> aquaponics %>%
+> aquaponics |>
 >     str_match("term [^\\[]+\\[")
 > ```
 > :::
@@ -359,8 +359,8 @@ Hier fällt uns eine neue Funktion auf: `read_file()`. Mit dieser Funktion könn
 Nun können wir die Daten mit Hilfe von `unnest_tokens()` in Tokens zerlegen. Die Funktion `unnest_tokens()` funktioniert analog zu `str_split()` gefolgt von `unnest()`. Sie erleichtert diese Funktionsfolge, indem sie nicht nur Leerzeichen, sondern auch alle anderen Symbole und Satzzeichen, die keine Worte darstellen aus der ursprünglichen Zeichenkette entfernt. 
 
 ```r
-Rohdaten %>% 
-    unnest_tokens(worte, rohtext)  %>% 
+Rohdaten |> 
+    unnest_tokens(worte, rohtext)  |> 
     head()
 ```
 
@@ -380,8 +380,8 @@ In diesem Beispiel sehen wir die grundsätzliche Arbeitsweise der Funktion. Wir 
 Während die Gross- und Kleinschreibung im Englischen (mit Ausnahme von Eigennamen) nicht signifikant ist, haben deutsche Worte in Gross- und Kleinschreibung eine andere inhaltliche Bedeutung. Falls diese Bedeutung erhalten bleiben soll, kann der optionale Parameter `to_lower = FALSE` übergeben werden. Der Code ändert sich dann wie folgt: 
 
 ```r
-Rohdaten %>% 
-    unnest_tokens(worte, rohtext, to_lower = FALSE)  %>% 
+Rohdaten |> 
+    unnest_tokens(worte, rohtext, to_lower = FALSE)  |> 
     head()
 ```
 
@@ -399,7 +399,7 @@ Rohdaten %>%
 Wenn wir Texte in Sätze zerlegen wollen, dann verwenden wir die Funktion `unnest_sentences()`.
 
 ```r
-Rohdaten %>% 
+Rohdaten |> 
     unnest_sentences(saetze, rohtext, to_lower = FALSE)
 ```
 
@@ -415,7 +415,7 @@ Rohdaten %>%
 Dieser Code ist übrigens identisch mit dem folgenden Code: 
 
 ```r
-Rohdaten %>% 
+Rohdaten |> 
     unnest_tokens(saetze, rohtext, to_lower = FALSE, token = "sentences")
 ```
 
@@ -435,7 +435,7 @@ Trennen Sie beim Transkribieren mit MS Word Absätze **immer** mit einer zusätz
 Sind die Textdaten entsprechend vorbereitet, dann können wir unsere Texte mit der Funktion `unnest_paragraphs()` in  Absätze gliedern. 
 
 ```r
-Rohdaten %>% 
+Rohdaten |> 
     unnest_paragraphs(
         saetze, 
         rohtext, 
@@ -455,8 +455,8 @@ n-Gramme sind ein wichtiges Werkzeug für einen besseren inhaltlichen Überblick
 n-Gramme extrahieren wir mit der Funktion `unnest_ngrams()`. Dabei wird der Text in Wortsequenzen mit der Länge `n` gegliedert. 
 
 ```r
-Rohdaten %>% 
-    unnest_ngrams(ngram, rohtext, to_lower = FALSE) %>% 
+Rohdaten |> 
+    unnest_ngrams(ngram, rohtext, to_lower = FALSE) |> 
     head()
 ``` 
 
@@ -473,8 +473,8 @@ Rohdaten %>%
 Dieser Code ist identisch mit dem folgenden Code: 
 
 ```r
-Rohdaten %>% 
-    unnest_ngrams(ngram, rohtext, to_lower = FALSE, n = 3) %>% 
+Rohdaten |> 
+    unnest_ngrams(ngram, rohtext, to_lower = FALSE, n = 3) |> 
     head()
 ``` 
 
@@ -489,9 +489,9 @@ Wobei die n-Gram-Länge von `3` am üblichsten ist.
 Am Beispiel ist die Arbeitsweise von n-Gram-Tokenisierung erkennbar: Beginnend vom ersten Wort wird eine Sequenz von `n` Worten extrahiert und so lange ein Wort weiter gegangen bis keine Wortsequenz der Länge `n` mehr möglich ist. Dabei ist zu beachten, dass Satz- und Zeilengrenzen nicht automatisch berücksichtigt werden. Um nur inhaltlich zusammenhängende n-Gramme zu erhalten, müssen zwei Tokenisierungen nacheinander vorgenommen werden. Das folgende Beispiel zeigt eine 3-Gram-Zerlegung auf Satzebene. 
 
 ```r
-Rohtext %>% 
-    unnest_sentences(saetze, rohtext, to_lower = FALSE)  %>% 
-    unnest_ngrams(ngram, saetze, to_lower = FALSE)  %>% 
+Rohtext |> 
+    unnest_sentences(saetze, rohtext, to_lower = FALSE)  |> 
+    unnest_ngrams(ngram, saetze, to_lower = FALSE)  |> 
     head()
 ```
 
@@ -526,7 +526,7 @@ library(docxtractr)
 Nun können wir kodierte Dokumente in unsere R-Umgebung importieren. Dazu verwenden wir die besondere Funktion `read_docx()`. Diese Funktion liest das ganze Word-Dokument ein. Mit Hilfe der Funktion `docx_extract_all_cmnts()` sammeln wir unsere markierten Textstellen ein. 
 
 ```r
-read_docx("kodiert/marketing_1.docx") %>% 
+read_docx("kodiert/marketing_1.docx") |> 
     docx_extract_all_cmnts(include_text = TRUE) -> documentCodes
 ```
 
@@ -547,12 +547,12 @@ Die `separate()`-Funktion darf nur verwenden werden, wenn alle Kommentare die gl
 ::: 
 
 ```r
-documentCodes %>%
-    select(id, comment_text, word_src) %>% 
-    separate(comment_text, into =c("kategorie", "gender"), sep =",") %>%
+documentCodes |>
+    select(id, comment_text, word_src) |> 
+    separate(comment_text, into =c("kategorie", "gender"), sep =",") |>
     mutate(
-        gender = gender %>% str_trim() %>% str_to_lower(),
-        kategorie = kategorie %>% str_trim() %>% str_to_lower()
+        gender = gender |> str_trim() |> str_to_lower(),
+        kategorie = kategorie |> str_trim() |> str_to_lower()
     ) -> kodierteDaten
 ```
 
@@ -561,11 +561,11 @@ Nach diesem Schritt sind unsere Codes vereinheitlicht und für jede Textstelle k
 Falls wir unterschiedlich viele Kodierungen in den Kommentaren vorliegen, müssen wir die Funktion `str_split()`  und anschliessend `unnest()` verwenden. 
 
 ```r
-data %>% 
-    select(id, comment_text, word_src) %>% 
+data |> 
+    select(id, comment_text, word_src) |> 
     mutate(
-        code = comment_text %>% str_split(",")
-    ) %>% 
+        code = comment_text |> str_split(",")
+    ) |> 
     unnest(code) -> allgemeinereExtraktion
 ```
 
@@ -574,16 +574,16 @@ data %>%
 In diesem Beispiel enthalten die markierten Texte Hyperlinks zu externen Seiten. Diese Links stören uns bei  der Analyse und deshalb entfernen wir sie aus den Textstellen.
 
 ```r
-kodierteDaten %>%
+kodierteDaten |>
     mutate(
-        word_src = word_src %>% str_remove("HY\\s?\\S+ \"[^\"]+\"[^\"]+\"[^\"]+\" "),
+        word_src = word_src |> str_remove("HY\\s?\\S+ \"[^\"]+\"[^\"]+\"[^\"]+\" "),
     ) -> kodierteDaten2
 ```
 
 #### Schritt 3: Kategorien organisieren
 
 ```r
-kodierteDaten2 %>% 
+kodierteDaten2 |> 
     count(kategorie)
 ```
 
@@ -641,11 +641,11 @@ stopwords_DE = tibble(
     word = stopwords::stopwords("de", source = "stopwords-iso")
 )
 
-kodierteDaten2 %>% 
-    unnest_tokens(word, word_src) %>%
-    anti_join(stopwords_DE) %>% 
-    count(word, kategorie, gender) %>% 
-    arrange(desc(n)) %>% 
+kodierteDaten2 |> 
+    unnest_tokens(word, word_src) |>
+    anti_join(stopwords_DE) |> 
+    count(word, kategorie, gender) |> 
+    arrange(desc(n)) |> 
     filter(n > 1)
 ```
 
@@ -681,7 +681,7 @@ library(docxtractr)
 Nun können wir kodierte Dokumente in unsere R-Umgebung importieren. Dazu verwenden wir die besondere Funktion `read_docx()`. Diese Funktion liest das ganze Word-Dokument ein. Mit Hilfe der Funktion `docx_extract_all_cmnts()` sammeln wir unsere markierten Textstellen ein. 
 
 ```r
-read_docx("kodiert/marketing_1.docx") %>% 
+read_docx("kodiert/marketing_1.docx") |> 
     docx_extract_all_cmnts(include_text = TRUE) -> documentCodes
 ```
 
@@ -702,12 +702,12 @@ Die `separate()`-Funktion darf nur verwenden werden, wenn alle Kommentare die gl
 :::
 
 ```r
-documentCodes %>%
-    select(id, comment_text, word_src) %>% 
-    separate(comment_text, into =c("kategorie", "gender"), sep =",") %>%
+documentCodes |>
+    select(id, comment_text, word_src) |> 
+    separate(comment_text, into =c("kategorie", "gender"), sep =",") |>
     mutate(
-        gender = gender %>% str_trim() %>% str_to_lower(),
-        kategorie = kategorie %>% str_trim() %>% str_to_lower()
+        gender = gender |> str_trim() |> str_to_lower(),
+        kategorie = kategorie |> str_trim() |> str_to_lower()
     ) -> kodierteDaten
 ```
 
@@ -716,11 +716,11 @@ Nach diesem Schritt sind unsere Codes vereinheitlicht und für jede Textstelle k
 Falls wir unterschiedlich viele Kodierungen in den Kommentaren vorliegen, müssen wir die Funktion `str_split()`  und anschliessend `unnest()` verwenden. 
 
 ```r
-data %>% 
-    select(id, comment_text, word_src) %>% 
+data |> 
+    select(id, comment_text, word_src) |> 
     mutate(
-        code = comment_text %>% str_split(",")
-    ) %>% 
+        code = comment_text |> str_split(",")
+    ) |> 
     unnest(code) -> allgemeinereExtraktion
 ```
 
@@ -729,16 +729,16 @@ data %>%
 In diesem Beispiel enthalten die markierten Texte Hyperlinks zu externen Seiten. Diese Links stören uns bei  der Analyse und deshalb entfernen wir sie aus den Textstellen.
 
 ```r
-kodierteDaten %>%
+kodierteDaten |>
     mutate(
-        word_src = word_src %>% str_remove("HY\\s?\\S+ \"[^\"]+\"[^\"]+\"[^\"]+\" "),
+        word_src = word_src |> str_remove("HY\\s?\\S+ \"[^\"]+\"[^\"]+\"[^\"]+\" "),
     ) -> kodierteDaten2
 ```
 
 #### Schritt 3: Kategorien organisieren
 
 ```r
-kodierteDaten2 %>% 
+kodierteDaten2 |> 
     count(kategorie)
 ```
 
@@ -795,11 +795,11 @@ stopwords_DE = tibble(
     word = stopwords::stopwords("de", source = "stopwords-iso")
 )
 
-kodierteDaten2 %>% 
-    unnest_tokens(word, word_src) %>%
-    anti_join(stopwords_DE) %>% 
-    count(word, kategorie, gender) %>% 
-    arrange(desc(n)) %>% 
+kodierteDaten2 |> 
+    unnest_tokens(word, word_src) |>
+    anti_join(stopwords_DE) |> 
+    count(word, kategorie, gender) |> 
+    arrange(desc(n)) |> 
     filter(n > 1)
 ```
 
@@ -834,14 +834,14 @@ tibble(
                     path = datenordner, 
                     pattern = "^[^~]+.docx$"  
                )
-) %>% 
-    group_by(datei) %>% 
+) |> 
+    group_by(datei) |> 
     mutate(
         pfad = str_c(datenordner, "/", datei),
-        codes = read_docx(pfad) %>% 
-                    docx_extract_all_cmnts(include_text = TRUE) %>% list()
-    ) %>% 
-    ungroup() %>% 
+        codes = read_docx(pfad) |> 
+                    docx_extract_all_cmnts(include_text = TRUE) |> list()
+    ) |> 
+    ungroup() |> 
     unnest(codes) -> alleCodes
 ```
 
@@ -874,14 +874,14 @@ Die Funktion `list.files()` gibt einen Vektor mit allen Datennamen im angegebene
 Anschliessend können wir die kodierten Dokumente einzeln einlesen. Dabei müssen wir beachten, dass die Funktion `read_docx()` nur eine Datei gleichzeitig einlesen kann. Wir müssen deshalb über die Dateinamen mit `group_by()` gruppieren. Dadurch erhalten wir Teilstichproben mit genau einen Dateinamen. 
 
 ```r
-dateinamen %>% 
-    group_by(datei) %>% 
+dateinamen |> 
+    group_by(datei) |> 
     mutate(
         pfad = str_c(datenordner, "/", datei),
-        codes = read_docx(pfad) %>% 
-                    docx_extract_all_cmnts(include_text = TRUE) %>% list()
-    ) %>% 
-    ungroup() %>% 
+        codes = read_docx(pfad) |> 
+                    docx_extract_all_cmnts(include_text = TRUE) |> list()
+    ) |> 
+    ungroup() |> 
     unnest(codes) -> alleCodes
 ```
 
@@ -904,11 +904,11 @@ tibble(
                     path = datenordner, 
                     pattern = str_c("\\.", dateiendung, "$")
                )
-) %>% 
-    group_by(datei) %>% 
+) |> 
+    group_by(datei) |> 
     mutate(
         pfad = str_c(datenordner, "/", datei),
         codes = read_file(pfad)
-    ) %>% 
+    ) |> 
     ungroup() -> eingeleseneTexte
 ```
