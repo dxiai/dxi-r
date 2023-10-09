@@ -458,7 +458,7 @@ Work in Progress
 <p>In R verwenden wir dazu die Funktion <code>str_replace_all()</code>. Diese Funktion ersetzt einen Teil einer Zeichenkette durch eine andere Zeichenkette. Wir müssen daher R mitteilen, dass wir alle Teilzeichenketten löschen möchten, die nicht-druckbare Zeichen enthalten. Das erreichen wir durch den <strong><em>regulären Ausdruck</em></strong> <code>"[\u01-\u07\u0E-\u1f\u80-\u9F]+"</code>. Dieses Suchmuster teilt R mit, welche nicht-druckbaren Zeichen entfernt werden müssen. Das Löschen erreichen wir dadurch, dass wir eine Teilzeichenkette mit der leeren Zeichenkette (s.u.) ersetzen.</p>
 <section id="einzelne-symbole-aus-einer-zeichenkette-extrahieren" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="einzelne-symbole-aus-einer-zeichenkette-extrahieren"><span class="header-section-number">9.1</span> Einzelne Symbole aus einer Zeichenkette extrahieren</h2>
-<p>In <strong>R</strong> lassen sich die einzelnen Symbole einer Zeichenkette mit der Operation <code>zeichenkette %&gt;% str_extract("")</code> extrahieren.</p>
+<p>In <strong>R</strong> lassen sich die einzelnen Symbole einer Zeichenkette mit der Operation <code>zeichenkette |&gt; str_extract("")</code> extrahieren.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -475,10 +475,10 @@ Warnung
 </div>
 <div id="exm-zeichenketten-zerlegen" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 9.1 (Zeichenkettenvektor in die einzelnen Symbole zerlegen) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">zeichenkette =</span> <span class="fu">c</span>(<span class="st">"Daten"</span>, <span class="st">"und"</span>, <span class="st">"Information"</span>)) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">zeichenkette =</span> <span class="fu">c</span>(<span class="st">"Daten"</span>, <span class="st">"und"</span>, <span class="st">"Information"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">symbol =</span> zeichenkette <span class="sc">%&gt;%</span> <span class="fu">str_extract_all</span>(<span class="st">""</span>) </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">symbol =</span> zeichenkette <span class="sc">|&gt;</span> <span class="fu">str_extract_all</span>(<span class="st">""</span>) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(symbol)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -633,9 +633,9 @@ Hinweis
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>texte <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"Daten und Information"</span>, <span class="st">"Klimatologie Informatik"</span>))</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>texte <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>texte <span class="sc">|&gt;</span> </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">%&gt;%</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -663,10 +663,10 @@ Hinweis
 <p>Um an eingebettete Werte zu gelangen, müssen wir sie zuerst “ausbetten”. Dazu verwenden wir die Funktion <code>unnest()</code>. Mit dieser Funktion werden eingebette Listen in einen Vektor entpackt.</p>
 <div id="exm-trennung-entpacken" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 9.4 (Entpacken von getrennten Zeichenketten mit <code>unnest()</code>) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>texte <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>texte <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">%&gt;%</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(getrennter_text) <span class="ot">-&gt;</span> texte_getrennt</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>texte_getrennt</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -719,7 +719,7 @@ Hinweis
 <p>Das <a href="#exm-trennung-entpacken">Beispiel&nbsp;<span>9.4</span></a> können wir mit der folgenden Operation zurück in die Listenform bringen. Dabei beachten wir, dass wir den neuen Vektor benennen und diesem die Werte aus dem Ursprungsvektor übergeben müssen.</p>
 <div id="exm-renesting-zeichenketten" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 9.5 (Zeichenketten einbetten) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>texte_getrennt <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>texte_getrennt <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>(<span class="at">getrennter_text =</span> getrennter_text)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -785,7 +785,7 @@ Hinweis
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>regulaererAusdruck <span class="ot">=</span> <span class="st">"Daten In"</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>zeichenkettenVektor <span class="sc">%&gt;%</span> <span class="fu">str_detect</span>(regulaererAusdruck) </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>zeichenkettenVektor <span class="sc">|&gt;</span> <span class="fu">str_detect</span>(regulaererAusdruck) </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># erzeugt c(FALSE FALSE FALSE TRUE TRUE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="mustersymbole-in-r-verwenden" class="level3" data-number="9.7.2">
@@ -798,7 +798,7 @@ Hinweis
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>regulaererAusdruck <span class="ot">=</span> <span class="st">"</span><span class="sc">\\</span><span class="st">w</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">w"</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>zeichenkette <span class="sc">%&gt;%</span> <span class="fu">str_replace</span>(regulaererAusdruck, <span class="st">"p x"</span>) <span class="co"># erzeugt "Datep xnd Information"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>zeichenkette <span class="sc">|&gt;</span> <span class="fu">str_replace</span>(regulaererAusdruck, <span class="st">"p x"</span>) <span class="co"># erzeugt "Datep xnd Information"</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Hinweis, um alle Vorkommnisse des Musters auszutauschen, müssen wir </span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># str_replace_all() verwenden!</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -834,7 +834,7 @@ Hinweis
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">    plants without soil.[16]"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Wir möchten nun die Zeichenkette ab dem Wort <code>term</code> und der öffnenden eckigen Klammer der Referenz markieren. D.h. wir wollen nicht ein beliebiges Zeichen und wollen nicht alle Symbole bis auf die öffnende Klammer explizit ausschliessen. Stattdessen können wir einen <em>negierten</em> Symbolbereich angeben. In unserem Fall erlauben wir jedes Zeichen, ausser die öffnende eckige Klammer. Weil die eckige Klammer eine besondere Bedeutung für reguläre Ausdrücke hat, müssen wir sie entsprechend mit Backslash “escapen”. Unser regulärer Ausdruck muss entsprechend <code>"termn [^\\[]+\\["</code>. Der Teil <code>[^\\[]+</code> bedeutet dabei, “<em>alle Symbole ausser der öffnenden eckigen Klammer <code>[</code></em>”. Die beiden Backslashes sind dabei die notwendige Escape-Sequenz, um die Klammer vom Symbolbereich zu unterscheiden.</p>
 <p>Der folgende Code demonstriert diesen regulären Ausdruck.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aquaponics <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aquaponics <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_match</span>(<span class="st">"term [^</span><span class="sc">\\</span><span class="st">[]+</span><span class="sc">\\</span><span class="st">["</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </blockquote>
@@ -901,8 +901,8 @@ Hinweis
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>) <span class="ot">-&gt;</span> Rohdaten </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Hier fällt uns eine neue Funktion auf: <code>read_file()</code>. Mit dieser Funktion können beliebige Textdateien eingelesen werden. R versucht bei dieser Funktion nicht, strukturierte Daten zu finden. Stattdessen wird der gesamte Inhalt der Datei als Zeichenkette zurückgegeben.</p>
 <p>Nun können wir die Daten mit Hilfe von <code>unnest_tokens()</code> in Tokens zerlegen. Die Funktion <code>unnest_tokens()</code> funktioniert analog zu <code>str_split()</code> gefolgt von <code>unnest()</code>. Sie erleichtert diese Funktionsfolge, indem sie nicht nur Leerzeichen, sondern auch alle anderen Symbole und Satzzeichen, die keine Worte darstellen aus der ursprünglichen Zeichenkette entfernt.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext)  <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext)  <span class="sc">|&gt;</span> </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -935,8 +935,8 @@ Hinweis
 <section id="deutsche-gross--und-kleinschreibung" class="level3" data-number="9.8.1">
 <h3 data-number="9.8.1" class="anchored" data-anchor-id="deutsche-gross--und-kleinschreibung"><span class="header-section-number">9.8.1</span> Deutsche Gross- und Kleinschreibung</h3>
 <p>Während die Gross- und Kleinschreibung im Englischen (mit Ausnahme von Eigennamen) nicht signifikant ist, haben deutsche Worte in Gross- und Kleinschreibung eine andere inhaltliche Bedeutung. Falls diese Bedeutung erhalten bleiben soll, kann der optionale Parameter <code>to_lower = FALSE</code> übergeben werden. Der Code ändert sich dann wie folgt:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -969,7 +969,7 @@ Hinweis
 <section id="texte-in-sätze-zerlegen" class="level3" data-number="9.8.2">
 <h3 data-number="9.8.2" class="anchored" data-anchor-id="texte-in-sätze-zerlegen"><span class="header-section-number">9.8.2</span> Texte in Sätze zerlegen</h3>
 <p>Wenn wir Texte in Sätze zerlegen wollen, dann verwenden wir die Funktion <code>unnest_sentences()</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_sentences</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <colgroup>
@@ -1002,7 +1002,7 @@ Hinweis
 </tbody>
 </table>
 <p>Dieser Code ist übrigens identisch mit dem folgenden Code:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>, <span class="at">token =</span> <span class="st">"sentences"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In diesem Beispiel fällt auf, dass <code>unnest_sentences()</code> streng entlang den Satztrennzeichen (<code>. ! ?</code>) trennt und in Anführungszeichen eingebettete Sätze ebenfalls trennt. Dieses Verhalten kann nur dadurch beeinflusst werden, dass die Texte im Vorfeld entsprechend vorbereitet werden. In solchen Fällen empfiehlt es sich, eingebettete Satzenden durch ein Semikolon (<code>;</code>) zu ersetzen.</p>
 <p>In anderen Fällen wollen wir nach dem Trennen die Satzzeichen aus den Sätzen vollständig entfernen. Das erreichen wir mit dem Parameter <code>strip_punct = TRUE</code>. Dieser Parameter veranlasst, dass alle Satzzeichen aus den Sätzen entfernt werden. Dazu gehört auch das Zeichen für das Satzende.</p>
@@ -1024,7 +1024,7 @@ Praxis
 </div>
 </div>
 <p>Sind die Textdaten entsprechend vorbereitet, dann können wir unsere Texte mit der Funktion <code>unnest_paragraphs()</code> in Absätze gliedern.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_paragraphs</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        saetze, </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        rohtext, </span>
@@ -1049,8 +1049,8 @@ Warnung
 <h3 data-number="9.8.4" class="anchored" data-anchor-id="n-gramme-extrahieren"><span class="header-section-number">9.8.4</span> n-Gramme extrahieren</h3>
 <p>n-Gramme sind ein wichtiges Werkzeug für einen besseren inhaltlichen Überblick. Worte sind spezielle n-Gramme mit <span class="math inline">n = 1</span>. Bei dieser Länge haben bestimmte häufig vorkommende Worte (die Stoppworte) die unerwünschte Eigenschaft, das Ergebnis inhaltlich zu verzerren. Durch das Entfernen dieser Worte wird aber immer auch ein Teil der inhaltlichen Bedeutung entfernt. Dieser besondere Effekt von Stoppworten tritt bei n-Grammen mit <span class="math inline">n &gt; 1</span> nicht auf.</p>
 <p>n-Gramme extrahieren wir mit der Funktion <code>unnest_ngrams()</code>. Dabei wird der Text in Wortsequenzen mit der Länge <code>n</code> gegliedert.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1080,8 +1080,8 @@ Warnung
 </tbody>
 </table>
 <p>Dieser Code ist identisch mit dem folgenden Code:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1098,9 +1098,9 @@ Praxis
 </div>
 </div>
 <p>Am Beispiel ist die Arbeitsweise von n-Gram-Tokenisierung erkennbar: Beginnend vom ersten Wort wird eine Sequenz von <code>n</code> Worten extrahiert und so lange ein Wort weiter gegangen bis keine Wortsequenz der Länge <code>n</code> mehr möglich ist. Dabei ist zu beachten, dass Satz- und Zeilengrenzen nicht automatisch berücksichtigt werden. Um nur inhaltlich zusammenhängende n-Gramme zu erhalten, müssen zwei Tokenisierungen nacheinander vorgenommen werden. Das folgende Beispiel zeigt eine 3-Gram-Zerlegung auf Satzebene.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Rohtext <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_sentences</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, saetze, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Rohtext <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_sentences</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, saetze, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1143,7 +1143,7 @@ Praxis
 <pre><code>library(tidyverse)
 library(docxtractr)</code></pre>
 <p>Nun können wir kodierte Dokumente in unsere R-Umgebung importieren. Dazu verwenden wir die besondere Funktion <code>read_docx()</code>. Diese Funktion liest das ganze Word-Dokument ein. Mit Hilfe der Funktion <code>docx_extract_all_cmnts()</code> sammeln wir unsere markierten Textstellen ein.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_docx</span>(<span class="st">"kodiert/marketing_1.docx"</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_docx</span>(<span class="st">"kodiert/marketing_1.docx"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> documentCodes</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Drei Vektoren sind für uns von besonderer Bedeutung:</p>
 <ul>
@@ -1178,33 +1178,33 @@ Wichtig
 <p>Die <code>separate()</code>-Funktion darf nur verwenden werden, wenn alle Kommentare die gleiche Anzahl von Codes enthalten!</p>
 </div>
 </div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>documentCodes <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(comment_text, <span class="at">into =</span><span class="fu">c</span>(<span class="st">"kategorie"</span>, <span class="st">"gender"</span>), <span class="at">sep =</span><span class="st">","</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>documentCodes <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(comment_text, <span class="at">into =</span><span class="fu">c</span>(<span class="st">"kategorie"</span>, <span class="st">"gender"</span>), <span class="at">sep =</span><span class="st">","</span>) <span class="sc">|&gt;</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">gender =</span> gender <span class="sc">%&gt;%</span> <span class="fu">str_trim</span>() <span class="sc">%&gt;%</span> <span class="fu">str_to_lower</span>(),</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">kategorie =</span> kategorie <span class="sc">%&gt;%</span> <span class="fu">str_trim</span>() <span class="sc">%&gt;%</span> <span class="fu">str_to_lower</span>()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">gender =</span> gender <span class="sc">|&gt;</span> <span class="fu">str_trim</span>() <span class="sc">|&gt;</span> <span class="fu">str_to_lower</span>(),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">kategorie =</span> kategorie <span class="sc">|&gt;</span> <span class="fu">str_trim</span>() <span class="sc">|&gt;</span> <span class="fu">str_to_lower</span>()</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> kodierteDaten</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Nach diesem Schritt sind unsere Codes vereinheitlicht und für jede Textstelle können nun die Codes bearbeitet werden.</p>
 <p>Falls wir unterschiedlich viele Kodierungen in den Kommentaren vorliegen, müssen wir die Funktion <code>str_split()</code> und anschliessend <code>unnest()</code> verwenden.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">|&gt;</span> </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">code =</span> comment_text <span class="sc">%&gt;%</span> <span class="fu">str_split</span>(<span class="st">","</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">code =</span> comment_text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">","</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(code) <span class="ot">-&gt;</span> allgemeinereExtraktion</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="schritt-2-word-hyperlinks-entfernen" class="level4" data-number="9.9.1.2">
 <h4 data-number="9.9.1.2" class="anchored" data-anchor-id="schritt-2-word-hyperlinks-entfernen"><span class="header-section-number">9.9.1.2</span> Schritt 2: Word Hyperlinks entfernen</h4>
 <p>In diesem Beispiel enthalten die markierten Texte Hyperlinks zu externen Seiten. Diese Links stören uns bei der Analyse und deshalb entfernen wir sie aus den Textstellen.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten <span class="sc">|&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">word_src =</span> word_src <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">"HY</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">S+ </span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st"> "</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">word_src =</span> word_src <span class="sc">|&gt;</span> <span class="fu">str_remove</span>(<span class="st">"HY</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">S+ </span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st"> "</span>),</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> kodierteDaten2</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="schritt-3-kategorien-organisieren" class="level4" data-number="9.9.1.3">
 <h4 data-number="9.9.1.3" class="anchored" data-anchor-id="schritt-3-kategorien-organisieren"><span class="header-section-number">9.9.1.3</span> Schritt 3: Kategorien organisieren</h4>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(kategorie)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1300,11 +1300,11 @@ Wichtig
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">word =</span> stopwords<span class="sc">::</span><span class="fu">stopwords</span>(<span class="st">"de"</span>, <span class="at">source =</span> <span class="st">"stopwords-iso"</span>)</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">%&gt;%</span> </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, word_src) <span class="sc">%&gt;%</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stopwords_DE) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, word_src) <span class="sc">|&gt;</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stopwords_DE) <span class="sc">|&gt;</span> </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span> </span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1385,7 +1385,7 @@ Wichtig
 <div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(docxtractr)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Nun können wir kodierte Dokumente in unsere R-Umgebung importieren. Dazu verwenden wir die besondere Funktion <code>read_docx()</code>. Diese Funktion liest das ganze Word-Dokument ein. Mit Hilfe der Funktion <code>docx_extract_all_cmnts()</code> sammeln wir unsere markierten Textstellen ein.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_docx</span>(<span class="st">"kodiert/marketing_1.docx"</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_docx</span>(<span class="st">"kodiert/marketing_1.docx"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> documentCodes</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Drei Vektoren sind für uns von besonderer Bedeutung:</p>
 <ul>
@@ -1420,33 +1420,33 @@ Warnung
 <p>Die <code>separate()</code>-Funktion darf nur verwenden werden, wenn alle Kommentare die gleiche Anzahl von Codes enthalten!</p>
 </div>
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>documentCodes <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(comment_text, <span class="at">into =</span><span class="fu">c</span>(<span class="st">"kategorie"</span>, <span class="st">"gender"</span>), <span class="at">sep =</span><span class="st">","</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>documentCodes <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(comment_text, <span class="at">into =</span><span class="fu">c</span>(<span class="st">"kategorie"</span>, <span class="st">"gender"</span>), <span class="at">sep =</span><span class="st">","</span>) <span class="sc">|&gt;</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">gender =</span> gender <span class="sc">%&gt;%</span> <span class="fu">str_trim</span>() <span class="sc">%&gt;%</span> <span class="fu">str_to_lower</span>(),</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">kategorie =</span> kategorie <span class="sc">%&gt;%</span> <span class="fu">str_trim</span>() <span class="sc">%&gt;%</span> <span class="fu">str_to_lower</span>()</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">gender =</span> gender <span class="sc">|&gt;</span> <span class="fu">str_trim</span>() <span class="sc">|&gt;</span> <span class="fu">str_to_lower</span>(),</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">kategorie =</span> kategorie <span class="sc">|&gt;</span> <span class="fu">str_trim</span>() <span class="sc">|&gt;</span> <span class="fu">str_to_lower</span>()</span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> kodierteDaten</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Nach diesem Schritt sind unsere Codes vereinheitlicht und für jede Textstelle können nun die Codes bearbeitet werden.</p>
 <p>Falls wir unterschiedlich viele Kodierungen in den Kommentaren vorliegen, müssen wir die Funktion <code>str_split()</code> und anschliessend <code>unnest()</code> verwenden.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id, comment_text, word_src) <span class="sc">|&gt;</span> </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">code =</span> comment_text <span class="sc">%&gt;%</span> <span class="fu">str_split</span>(<span class="st">","</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">code =</span> comment_text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">","</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(code) <span class="ot">-&gt;</span> allgemeinereExtraktion</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="schritt-2-word-hyperlinks-entfernen-1" class="level4" data-number="9.9.2.2">
 <h4 data-number="9.9.2.2" class="anchored" data-anchor-id="schritt-2-word-hyperlinks-entfernen-1"><span class="header-section-number">9.9.2.2</span> Schritt 2: Word Hyperlinks entfernen</h4>
 <p>In diesem Beispiel enthalten die markierten Texte Hyperlinks zu externen Seiten. Diese Links stören uns bei der Analyse und deshalb entfernen wir sie aus den Textstellen.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">word_src =</span> word_src <span class="sc">%&gt;%</span> <span class="fu">str_remove</span>(<span class="st">"HY</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">S+ </span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st"> "</span>),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">word_src =</span> word_src <span class="sc">|&gt;</span> <span class="fu">str_remove</span>(<span class="st">"HY</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">S+ </span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st">[^</span><span class="sc">\"</span><span class="st">]+</span><span class="sc">\"</span><span class="st"> "</span>),</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> kodierteDaten2</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="schritt-3-kategorien-organisieren-1" class="level4" data-number="9.9.2.3">
 <h4 data-number="9.9.2.3" class="anchored" data-anchor-id="schritt-3-kategorien-organisieren-1"><span class="header-section-number">9.9.2.3</span> Schritt 3: Kategorien organisieren</h4>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(kategorie)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1541,11 +1541,11 @@ Warnung
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">word =</span> stopwords<span class="sc">::</span><span class="fu">stopwords</span>(<span class="st">"de"</span>, <span class="at">source =</span> <span class="st">"stopwords-iso"</span>)</span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">%&gt;%</span> </span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, word_src) <span class="sc">%&gt;%</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stopwords_DE) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, word_src) <span class="sc">|&gt;</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stopwords_DE) <span class="sc">|&gt;</span> </span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span> </span>
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="table">
 <thead>
@@ -1631,14 +1631,14 @@ Warnung
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">path =</span> datenordner, </span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pattern =</span> <span class="st">"^[^~]+.docx$"</span>  </span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>               )</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">|&gt;</span> </span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">pfad =</span> <span class="fu">str_c</span>(datenordner, <span class="st">"/"</span>, datei),</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">codes =</span> <span class="fu">read_docx</span>(pfad) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">list</span>()</span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">codes =</span> <span class="fu">read_docx</span>(pfad) <span class="sc">|&gt;</span> </span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">list</span>()</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(codes) <span class="ot">-&gt;</span> alleCodes</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="erklärung" class="level4" data-number="9.9.3.2">
@@ -1658,14 +1658,14 @@ Warnung
 <span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>)  <span class="ot">-&gt;</span> dateinamen</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Die Funktion <code>list.files()</code> gibt einen Vektor mit allen Datennamen im angegebenen Verzeichnis <code>path</code> zurück. Mit dem Parameter <code>pattern</code> können Dateien nach ihrem Namen noch gezielter ausgewählt werden. Der hier gezeigte <em>reguläre Ausdruck</em> wird als Teil eines <em>logischen Ausdrucks</em> verwendet, um reguläre Word-Dokumente zu erhalten. Hier müssen wir aufpassen, denn die Dateiendung reicht nicht aus. Word erzeugt beim Bearbeiten einer Datei Hilfsdokumente, die ebenfalls auf <code>docx</code> enden, aber im vorderen Teil des Dateinamens eine Tilde (<code>~</code>) haben. Diese Dateien können wir nicht verwenden und sie dürfen deshalb nicht in unserer Dateiliste vorkommen.</p>
 <p>Anschliessend können wir die kodierten Dokumente einzeln einlesen. Dabei müssen wir beachten, dass die Funktion <code>read_docx()</code> nur eine Datei gleichzeitig einlesen kann. Wir müssen deshalb über die Dateinamen mit <code>group_by()</code> gruppieren. Dadurch erhalten wir Teilstichproben mit genau einen Dateinamen.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dateinamen <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dateinamen <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">|&gt;</span> </span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">pfad =</span> <span class="fu">str_c</span>(datenordner, <span class="st">"/"</span>, datei),</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">codes =</span> <span class="fu">read_docx</span>(pfad) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">list</span>()</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">codes =</span> <span class="fu">read_docx</span>(pfad) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">docx_extract_all_cmnts</span>(<span class="at">include_text =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">list</span>()</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(codes) <span class="ot">-&gt;</span> alleCodes</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1693,12 +1693,12 @@ Warnung
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">path =</span> datenordner, </span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pattern =</span> <span class="fu">str_c</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>, dateiendung, <span class="st">"$"</span>)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>               )</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(datei) <span class="sc">|&gt;</span> </span>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">pfad =</span> <span class="fu">str_c</span>(datenordner, <span class="st">"/"</span>, datei),</span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">codes =</span> <span class="fu">read_file</span>(pfad)</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> eingeleseneTexte</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 

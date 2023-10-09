@@ -449,10 +449,14 @@ Achtung
 <p>Das <strong>Logisches Nicht</strong> wird in R durch den Nicht-Operator (<code>!</code>) ausgedrückt. Dieser Operator wird auf jeden Wert eines Vektors einzeln angewandt.</p>
 <div id="exm-logisches-nicht" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.1 (Logisches Nicht) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>logischer_vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>logischer_vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> logischer_vektor </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(FALSE, TRUE, TRUE, FALSE, FALSE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> logischer_vektor </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
 </div>
 <p>R wandelt numerische Werte automatisch in Wahrheitswerte um, wenn sie mit logischen Operationen verwendet werden. Dabei gilt:</p>
 <ul>
@@ -461,16 +465,24 @@ Achtung
 </ul>
 <div id="exm-autoconvert-not" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.2 </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>) </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(FALSE FALSE  TRUE FALSE  TRUE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
 </div>
 <p>Wenn Sie in R zwei Vektoren mit dem Und- (<code>&amp;</code>), dem Oder-Operator (<code>|</code>) oder der Antivalenz (<code>xor()</code>) verknüpfen, dann werden die Werte <strong>immer</strong> <em>paarweise</em> miteinander verglichen. Ein einzelner Vektor kann nicht an die Funktion des jeweiligen Operators übergeben werden.</p>
 <p><strong>Beispiel paarweise Verknüpfung</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vektor_b <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="sc">&amp;</span> vektor_b </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ergibt c(TRUE, FALSE, FALSE, FALSE, TRUE)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>vektor_b <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,  <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>vektor_a <span class="sc">&amp;</span> vektor_b </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+</div>
 <section id="logische-aggregationen-mit-reduce" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="logische-aggregationen-mit-reduce"><span class="header-section-number">11.1</span> Logische Aggregationen mit <code>reduce()</code></h2>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -488,11 +500,22 @@ Merke
 </div>
 <div id="exm-logical-reduce" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.3 (Aggregation logischer Vektoren) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">&amp;</span><span class="st">`</span>)   <span class="co"># Ergibt FALSE</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">|</span><span class="st">`</span>)   <span class="co"># Ergibt TRUE</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">%&gt;%</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">xor</span><span class="st">`</span>) <span class="co"># Ergibt TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">&amp;</span><span class="st">`</span>)   </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">|</span><span class="st">`</span>)   </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">xor</span><span class="st">`</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -540,18 +563,28 @@ Warnung
 <p>Häufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von <a href="#exm-check-without-in">Beispiel&nbsp;<span>11.4</span></a> schreiben.</p>
 <div id="exm-check-without-in" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.4 (Existstenzprüfung ohne <code>%in%</code>) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">==</span> wertVektor[<span class="dv">1</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">2</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">3</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">==</span> wertVektor[<span class="dv">1</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">2</span>] <span class="sc">|</span> meinWert <span class="sc">==</span> wertVektor[<span class="dv">3</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 </div>
 <p>Einfacher ist aber ein sogenannter <em>Existenztest</em>. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in <a href="#exm-check-with-in">Beispiel&nbsp;<span>11.5</span></a> schreiben:</p>
 <div id="exm-check-with-in" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.5 (Existstenzprüfung mit <code>%in%</code>) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">%in%</span> wertVektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>meinWert <span class="sc">%in%</span> wertVektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 </div>
 <p>Entsprechend der Definition des Existenzvergleichs <span class="math inline">\in</span> funktioniert R’s <code>%in%</code>-Operator auch für Vektoren als linker Operand.</p>
 </section>
