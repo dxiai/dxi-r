@@ -163,7 +163,7 @@ Werden uniformverteilte Zufallswerte gegenübergestellt, dann sind diese Werte g
 #| warnings: false
 #| fig-cap: Visualisierung von Zufallswerten
 
-library(ggplot2)
+library(tidyverse)
 
 data.frame(x = runif(1000), y = runif(1000)) |> 
   ggplot(aes(x, y)) + geom_point()
@@ -205,19 +205,6 @@ data.frame(x = rnorm(1000), y = rnorm(1000)) |>
 data.frame(x = rchisq(1000, 10), y = rchisq(1000, 10)) |> 
   ggplot(aes(x, y)) + geom_point()
 ```
-
-
-### Funktionen als Werte
-
-::: {.callout-note}
-## Merke
-Eine Funktion ist für R ein Wert wie eine Zahl oder eine Zeichenkette. 
-:::
-
-Im Fall von Funktionen ist der Wert einer Funktion die Funktionsdeklaration. Entsprechend ist es möglich Funktionen zu überschreiben. 
-
-Wird nur der Bezeichner einer Funktion eingegeben, gibt R die  Funktionsdefinition wie jeden anderen Wert direkt aus.  
-
 
 ## Operatoren
 
@@ -361,7 +348,16 @@ Damit eine Funktion sinnvoll verwendet werden kann, muss sie zuerst einer Variab
 ::: {.callout-note}
 Die Wahl eines guten Funktionsbezeichners hängt vom jeweiligen Geltungsbereich ab.
 
-Mathematische Funktionen werden oft mit $f(x)$ oder $g(x)$ usw. geschrieben. In R sind solche Bezeichner ebenfalls zulässig, solange sie **eindeutig** sind. Solche sehr kurzen Funktionsbezeichnern sollten speziell gekennzeichnet und dokumentiert werden.
+Mathematische Funktionen werden oft mit $f(x)$ oder $g(x)$ usw. geschrieben. In R sind solche Bezeichner ebenfalls zulässig, solange sie **eindeutig** sind. Solche sehr kurzen Funktionsbezeichnern sollten speziell gekennzeichnet und dokumentiert werden. 
+:::
+
+::: {.callout-tip}
+## Praxis
+Weil das Schlüsselwort `function` recht lang ist, behindert es gelegentlich das Lesen sehr einfacher Funktionen. R erlaubt die Definition der Parameterliste mit `\()` anstatt `function ()` zu schreiben. Beide Schreibweisen sind gleichbedeutend. 
+
+@exm-map zeigt die Anwendung der Abkürzung mit `\()`. 
+
+Grundsätzlich sollte das `function`-Schlüsselwort der Abkürzung vorgezogen werden, wenn eine Funktion einem Bezeichner zugewiesen wird. 
 :::
 
 @exm-function-named-create weist der Funktion aus @exm-function-create den Bezeichner `quadrat_minus_eins` zu. Dieser Bezeichner kann anschliessend als Funktion verwendet werden (s. @exm-funktion-aufrufen).
@@ -466,6 +462,57 @@ Variablen mit globalem Geltungsbereich sollten **nie** durch Nebeneffekte geänd
 **Streng-funktionale Sprachen**, wie Excel, sind ***nebeneffektfrei***.
 :::
 
+
+## Funktionen als Werte
+
+::: {.callout-note}
+## Merke
+Eine Funktion ist für R ein Wert wie eine Zahl oder eine Zeichenkette. 
+:::
+
+Im Fall von Funktionen ist der Wert einer Funktion die Funktionsdeklaration. Entsprechend ist es möglich Funktionen zu überschreiben. 
+
+Wird nur der Bezeichner einer Funktion eingegeben, gibt R die  Funktionsdefinition wie jeden anderen Wert direkt aus. 
+
+### Callbacks
+
+In R werden am häufigsten Funktionen als Parameter an eine andere Funktion übergeben. Im Gegensatz zur Funktionsverkettung ist dabei die Funktion selbst und nicht ihr Ergebnis der Wert des Parameters. Eine Funktion höherer Ordnung implementiert oft den generischen Teil eines Algorithmus und delegiert dem Callback spezifische Aufgaben. 
+
+Eine typische Anwendung von Callbacks sind Schleifen. Zwar existieren in R die Schleifenkonzepte `while`, `repeat` und `for`, sie kommen in der Praxis jedoch nie zum Einsatz. Stattdessen kommen fast immer Funktionen höherer Ordnung zum Einsatz. Die Schleife wird durch die Funktion höherer Ordnung realisiert. Der Schleifenblock wird als Callback umgesetzt. 
+
+::: {.callout-note}
+Weil R eine vektorbasierte Programmiersprache ist, werden die meisten Operationen automatisch für alle Elemente eines Vektors ausgeführt. Dadurch sind viele Schleifen unnötig, die in anderen Programmiersprachen erforderlich sind.
+:::
+
+Die Funktionen der Bibliothek `purrr` oder deren Schwesterbibliothek `furrr` sind der einfachste Weg in R das Verhalten Schleifen funktional umzusetzten. Dabei sind zwei Funktionen zentral: 
+
+- `map()` für Operationen, die für jedes Element unabhängig ausgeführt werden können. Diese Operationen sind *immer* Transformationen. Die Funktion hat immer eine Liste als Ergebnis. Falls ein Vektor benötigt wird, kann dieser durch eine Verkettung mit `unlist()` oder mit der Funktion `map_vec()` erzeugt werden (s. @exm-map).
+- `reduce()` für Operationen, die ein oder mehrere Elemente gemeinsam berücksichtigen. Diese Operationen sind *meistens* Aggregationen. (s. @exm-fibonacci-reduce)
+
+::: {#exm-map}
+## Lineartransformation mit `map()`
+```{r}
+map(rbinom(10, 7, .5), \(x) x - 4) |> unlist()
+# Alternativ
+map_vec(rbinom(10, 7, .5), \(x) x - 4)
+```
+::: 
+
+::: {#exm-fibonacci-reduce}
+## Berechnung des n-ten Werts der Fibonacci-Reihe mit `reduce()`
+```{r}
+n = 6
+
+fib_add = function (a, b) c(a[2], a[1] + a[2])
+
+reduce(seq(2, len = n-1), fib_add, .init = c(0,1))[2]
+```
+:::
+
+<!--
+### Closures
+-->
+
 ## Bibliotheken
 
 Oft ist es nicht notwendig eigene Funktionen zu erstellen. Stattdessen kann in vielen Fällen auf Funktionsbibliotheken zurückgegriffen werden, die bereits entsprechende Funktionen bereitstellen. 
@@ -482,7 +529,8 @@ Die erste Option bietet sich an, wenn ein Script viele Funktionen einer Biblioth
 ::: {#exm-fkt-library-load}
 ## Funktionen mit der `library()` Funktion einbinden
 ```{r}
-library(ggplot2)
+#| warning: false
+library(tidyverse)
 
 mtcars |> 
     ggplot(aes(mpg, hp)) +
