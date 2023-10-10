@@ -160,7 +160,7 @@ Werden uniformverteilte Zufallswerte gegenübergestellt, dann sind diese Werte g
 ```{r}
 #| label: fig-runif
 #| echo: false
-#| warnings: false
+#| warning: false
 #| fig-cap: Visualisierung von Zufallswerten
 
 library(tidyverse)
@@ -251,7 +251,7 @@ Im R-Umfeld wird oft von **Modellen** geschrieben und gesprochen. *Modelle* sind
 ::: {#exm-exakte-beziehung}
 ## Exakte *lineare* Beziehung zwischen Daten
 ```r
-f = function (x) 2 * x + 3
+f = function (x, c) 2 * x + 3 * c
 ```
 :::
 
@@ -462,7 +462,6 @@ Variablen mit globalem Geltungsbereich sollten **nie** durch Nebeneffekte geänd
 **Streng-funktionale Sprachen**, wie Excel, sind ***nebeneffektfrei***.
 :::
 
-
 ## Funktionen als Werte
 
 ::: {.callout-note}
@@ -484,7 +483,7 @@ Eine typische Anwendung von Callbacks sind Schleifen. Zwar existieren in R die S
 Weil R eine vektorbasierte Programmiersprache ist, werden die meisten Operationen automatisch für alle Elemente eines Vektors ausgeführt. Dadurch sind viele Schleifen unnötig, die in anderen Programmiersprachen erforderlich sind.
 :::
 
-Die Funktionen der Bibliothek `purrr` oder deren Schwesterbibliothek `furrr` sind der einfachste Weg in R das Verhalten Schleifen funktional umzusetzten. Dabei sind zwei Funktionen zentral: 
+Die Funktionen der Bibliothek `purrr` oder deren Schwesterbibliothek `furrr` sind der einfachste Weg in R, um das Verhalten von Schleifen funktional umzusetzten. Dabei sind zwei Funktionen zentral: 
 
 - `map()` für Operationen, die für jedes Element unabhängig ausgeführt werden können. Diese Operationen sind *immer* Transformationen. Die Funktion hat immer eine Liste als Ergebnis. Falls ein Vektor benötigt wird, kann dieser durch eine Verkettung mit `unlist()` oder mit der Funktion `map_vec()` erzeugt werden (s. @exm-map).
 - `reduce()` für Operationen, die ein oder mehrere Elemente gemeinsam berücksichtigen. Diese Operationen sind *meistens* Aggregationen. (s. @exm-fibonacci-reduce)
@@ -509,9 +508,39 @@ reduce(seq(2, len = n-1), fib_add, .init = c(0,1))[2]
 ```
 :::
 
-<!--
 ### Closures
--->
+
+*Closures* sind Funktionen, die von anderen Funktionen erzeugt und als Ergebnis zurückgegeben werden. Eine Closure bleibt mit der Ausführung der erzeugenden Funktion auch nach Rückgabe verbunden. Dadurch ergeben sich Anwendungen, mit denen sich Funktionsaufrufe vereinfachen lassen. 
+
+::: {#exm-closure}
+## Closure zum systematischen Quadrieren oder Kubieren
+```{r}
+potenz_factory = function(e) function (x) x ^ e
+
+quadrieren = potenz_factory(2)
+kubieren = potenz_factory(3)
+
+quadrieren(c(2, 3, 4))
+kubieren(c(1, 2, 3))
+```
+:::
+
+::: {.callout-tip}
+## Praxis
+Closures werden in R meistens in Verbindung mit Callbacks verwendet. Die generierende Funktion konfiguriert die Callbacks mit ihren Parametern, so dass diese in den Callbacks verwendet werden können. Ein solches Vorgehen ist immer dann sinnvoll, wenn sehr ähnliche Logik in mehreren Callbacks vorkommt und abstrahiert werden kann.
+:::
+
+::: {#exm-closure}
+## Closure mit Callback verbinden
+```{r}
+potenz_reduzierer = function(e) function (p, x) p + x ^ e
+
+reduce(c(1,2,3), potenz_reduzierer(1)) # Summe 
+reduce(c(1,2,3), potenz_reduzierer(2)) # Quadrat-Summe
+reduce(c(1,2,3), potenz_reduzierer(3)) # Kubik-Summe
+```
+:::
+
 
 ## Bibliotheken
 
