@@ -307,7 +307,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#daten-exportieren" id="toc-daten-exportieren" class="nav-link" data-scroll-target="#daten-exportieren"><span class="header-section-number">7.2</span> Daten exportieren</a></li>
   <li><a href="#json-daten" id="toc-json-daten" class="nav-link" data-scroll-target="#json-daten"><span class="header-section-number">7.3</span> JSON-Daten</a></li>
-  <li><a href="#festkodierte-daten" id="toc-festkodierte-daten" class="nav-link" data-scroll-target="#festkodierte-daten"><span class="header-section-number">7.4</span> Festkodierte Daten</a></li>
+  <li><a href="#yaml-daten" id="toc-yaml-daten" class="nav-link" data-scroll-target="#yaml-daten"><span class="header-section-number">7.4</span> YAML Daten</a></li>
+  <li><a href="#festkodierte-daten" id="toc-festkodierte-daten" class="nav-link" data-scroll-target="#festkodierte-daten"><span class="header-section-number">7.5</span> Festkodierte Daten</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -615,8 +616,30 @@ Hinweis
 </div>
 </div>
 </section>
-<section id="festkodierte-daten" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="festkodierte-daten"><span class="header-section-number">7.4</span> Festkodierte Daten</h2>
+<section id="yaml-daten" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="yaml-daten"><span class="header-section-number">7.4</span> YAML Daten</h2>
+<p>YAML ist eine Verallgemeinerung des JSON-Formats. Mit dem Ziel, dass Menschen komplexe Datenstrukturen leichter eingeben und lesen können. In R wird das Format von der Bibliothek <code>yaml</code> unterstützt. Diese Bibliothek gehört nicht zum <code>tidyverse</code> und muss separat installiert werden.</p>
+<p>Die <code>yaml</code>-Bibliothek stellt vier Funktionen bereit:</p>
+<ul>
+<li><code>yaml.load()</code> zum <em>Parsen</em> einer YAML-formatierte Zeichenkette in einer Datenstruktur.</li>
+<li><code>as.yaml()</code> zum <em>Serialisieren</em> einer Datenstruktur in eine YAML-Zeichenkette.</li>
+<li><code>read_yaml()</code> zum Importieren von YAML-Daten aus einer Datei.</li>
+<li><code>write_yaml()</code> zum Schreiben einer Datenstruktur in eine YAML-formatierte Datei.</li>
+</ul>
+<p>Der YAML-Parser <code>yaml.load()</code> erzeugt immer eine geschachtelte Datenstruktur aus benannten Listen, unbenannten Listen und Vektoren erzeugt wird. Der Parser erkennt automatisch, ob eine YAML-Liste ein Vektor oder eine Liste ist. YAML-Objekte werden immer in benannte Listen umgewandelt.</p>
+<div id="exm-read_yaml" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 7.6 (YAML-Daten mit <code>read_yaml()</code> importieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yaml)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="ot">=</span> <span class="fu">read_yaml</span>(<span class="st">"daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="exm-write_yaml" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 7.7 (YAML-Daten mit <code>read_yaml()</code> exportieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="sc">|&gt;</span> <span class="fu">write_yaml</span>(<span class="st">"kopie_der_daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="festkodierte-daten" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="festkodierte-daten"><span class="header-section-number">7.5</span> Festkodierte Daten</h2>
 <p>R unterstützt den Import von <strong>festkodierten Daten</strong> nicht direkt. Festkodierte Daten benötigen einen eigenen Parser, der die Datenfelder extrahiert. Die prinzipielle Vorgehensweise ähnelt dem Import und Export von JSON-Daten. Dazu werden die Daten als unstrukturierte Textdaten mit der Funktion <code>read_file()</code> eingelesen. Anschliessend werden die Datenfelder mit Zeichenketten-Operationen (<a href="../zeichenketten/kapitel.html"><span>Kapitel&nbsp;9</span></a>) einzeln extrahiert. Beim Exportieren müssen die Daten zuerst serialisiert werden und anschliessend mit der Funktion <code>write_file()</code> in die entsprechende Datei geschrieben werden.</p>
 
 
