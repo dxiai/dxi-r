@@ -242,6 +242,34 @@ write_file(toJSON(Daten),"neue_daten.json"))
 Die beiden Funktionen `read_json()` und `write_json()` erlauben das Lesen und Schreiben von Textdateien im JSON-Format. Die Standardeinstellungen sind jedoch nicht identisch mit denen von `fromJSON()` und `toJSON()`, so dass der Import und Export mit diesen Funktionen komplexer ist, als mit der oben beschrieben Technik.
 :::
 
+## YAML Daten
+
+YAML ist eine Verallgemeinerung des JSON-Formats. Mit dem Ziel, dass Menschen komplexe Datenstrukturen leichter eingeben und lesen können. In R wird das Format von der Bibliothek `yaml` unterstützt. Diese Bibliothek gehört nicht zum `tidyverse` und muss separat installiert werden. 
+
+Die `yaml`-Bibliothek stellt vier Funktionen bereit: 
+
+- `yaml.load()` zum *Parsen* einer YAML-formatierte Zeichenkette in einer Datenstruktur.
+- `as.yaml()` zum *Serialisieren* einer Datenstruktur in eine YAML-Zeichenkette.
+- `read_yaml()` zum Importieren von YAML-Daten aus einer Datei.
+- `write_yaml()` zum Schreiben einer Datenstruktur in eine YAML-formatierte Datei.
+
+Der YAML-Parser `yaml.load()` erzeugt immer eine geschachtelte Datenstruktur aus benannten Listen, unbenannten Listen und Vektoren erzeugt wird. Der Parser erkennt automatisch, ob eine YAML-Liste ein Vektor oder eine Liste ist. YAML-Objekte werden immer in benannte Listen umgewandelt.
+
+::: {#exm-read_yaml}
+## YAML-Daten mit `read_yaml()` importieren
+```r
+library(yaml)
+
+yamlDaten = read_yaml("daten.yml")
+```
+:::
+
+::: {#exm-write_yaml}
+## YAML-Daten mit `read_yaml()` exportieren
+```r
+yamlDaten |> write_yaml("kopie_der_daten.yml")
+```
+:::
 
 ## Festkodierte Daten
 
