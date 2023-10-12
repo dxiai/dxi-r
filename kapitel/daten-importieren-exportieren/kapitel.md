@@ -242,7 +242,7 @@ write_file(toJSON(Daten),"neue_daten.json"))
 Die beiden Funktionen `read_json()` und `write_json()` erlauben das Lesen und Schreiben von Textdateien im JSON-Format. Die Standardeinstellungen sind jedoch nicht identisch mit denen von `fromJSON()` und `toJSON()`, so dass der Import und Export mit diesen Funktionen komplexer ist, als mit der oben beschrieben Technik.
 :::
 
-## YAML Daten
+## YAML-Daten
 
 YAML ist eine Verallgemeinerung des JSON-Formats. Mit dem Ziel, dass Menschen komplexe Datenstrukturen leichter eingeben und lesen können. In R wird das Format von der Bibliothek `yaml` unterstützt. Diese Bibliothek gehört nicht zum `tidyverse` und muss separat installiert werden. 
 
