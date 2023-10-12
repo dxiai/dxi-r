@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#daten-exportieren" id="toc-daten-exportieren" class="nav-link" data-scroll-target="#daten-exportieren"><span class="header-section-number">7.2</span> Daten exportieren</a></li>
   <li><a href="#json-daten" id="toc-json-daten" class="nav-link" data-scroll-target="#json-daten"><span class="header-section-number">7.3</span> JSON-Daten</a></li>
-  <li><a href="#yaml-daten" id="toc-yaml-daten" class="nav-link" data-scroll-target="#yaml-daten"><span class="header-section-number">7.4</span> YAML Daten</a></li>
+  <li><a href="#yaml-daten" id="toc-yaml-daten" class="nav-link" data-scroll-target="#yaml-daten"><span class="header-section-number">7.4</span> YAML-Daten</a></li>
   <li><a href="#festkodierte-daten" id="toc-festkodierte-daten" class="nav-link" data-scroll-target="#festkodierte-daten"><span class="header-section-number">7.5</span> Festkodierte Daten</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
@@ -590,17 +590,21 @@ Warnung
 <li><code>toJSON()</code></li>
 </ul>
 <p>Die beiden Funktionen <code>fromJSON()</code> und <code>toJSON()</code> unterstützen das Parsen von und Serialisieren zu Zeichenketten im JSON-Format.</p>
-<p>Um Daten aus einer Textdatei im JSON-Format zu importieren, muss die gesamte Datei zuerst eingelesen werden und dann an den JSON-Parser <code>fromJSON()</code> übergeben werden.</p>
+<p>Um Daten aus einer Textdatei im JSON-Format zu importieren, kann die Funktion <code>read_json()</code> verwendet werden.</p>
 <div id="exm-parse-json" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 7.4 (JSON Daten aus einer Datei importieren) </strong></span>&nbsp;</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">fromJSON</span>(<span class="fu">read_file</span>(<span class="st">"beispiele/daten.json"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">read_json</span>(<span class="st">"beispiele/daten.json"</span>, <span class="at">simplifyVektor =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Mit der Funktion <code>toJSON()</code> werden Daten in eine JSON-formatierte Zeichenkette umgewandelt. Diese Zeichenkette kann anschliessend mit <code>write_file()</code> in eine Datei geschrieben werden.</p>
-<div id="exm-parse-json" class="theorem example">
+<p>Mit der Funktion <code>toJSON()</code> werden Daten in eine JSON-formatierte Zeichenkette umgewandelt. Diese Zeichenkette kann anschliessend mit <code>write_file()</code> in eine Datei geschrieben werden (<a href="#exm-serialise-json">Beispiel&nbsp;<span>7.5</span></a>). Dieser Doppelschritt kann mit der Funktion <code>write_json()</code> zusammengefasst werden (<a href="#exm-write-json">Beispiel&nbsp;<span>7.6</span></a>).</p>
+<div id="exm-serialise-json" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 7.5 (Daten im JSON-Format exportieren) </strong></span>&nbsp;</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_file</span>(<span class="fu">toJSON</span>(Daten),<span class="st">"neue_daten.json"</span>)<span class="er">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="exm-write-json" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 7.6 (Daten im JSON-Format exportieren und in eine Datei schreiben) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_json</span>(Daten,<span class="st">"neue_daten.json"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -617,7 +621,7 @@ Hinweis
 </div>
 </section>
 <section id="yaml-daten" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="yaml-daten"><span class="header-section-number">7.4</span> YAML Daten</h2>
+<h2 data-number="7.4" class="anchored" data-anchor-id="yaml-daten"><span class="header-section-number">7.4</span> YAML-Daten</h2>
 <p>YAML ist eine Verallgemeinerung des JSON-Formats. Mit dem Ziel, dass Menschen komplexe Datenstrukturen leichter eingeben und lesen können. In R wird das Format von der Bibliothek <code>yaml</code> unterstützt. Diese Bibliothek gehört nicht zum <code>tidyverse</code> und muss separat installiert werden.</p>
 <p>Die <code>yaml</code>-Bibliothek stellt vier Funktionen bereit:</p>
 <ul>
@@ -628,14 +632,14 @@ Hinweis
 </ul>
 <p>Der YAML-Parser <code>yaml.load()</code> erzeugt immer eine geschachtelte Datenstruktur aus benannten Listen, unbenannten Listen und Vektoren erzeugt wird. Der Parser erkennt automatisch, ob eine YAML-Liste ein Vektor oder eine Liste ist. YAML-Objekte werden immer in benannte Listen umgewandelt.</p>
 <div id="exm-read_yaml" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 7.6 (YAML-Daten mit <code>read_yaml()</code> importieren) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yaml)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="ot">=</span> <span class="fu">read_yaml</span>(<span class="st">"daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 7.7 (YAML-Daten mit <code>read_yaml()</code> importieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yaml)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="ot">=</span> <span class="fu">read_yaml</span>(<span class="st">"daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="exm-write_yaml" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 7.7 (YAML-Daten mit <code>read_yaml()</code> exportieren) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="sc">|&gt;</span> <span class="fu">write_yaml</span>(<span class="st">"kopie_der_daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="theorem-title"><strong>Beispiel 7.8 (YAML-Daten mit <code>read_yaml()</code> exportieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yamlDaten <span class="sc">|&gt;</span> <span class="fu">write_yaml</span>(<span class="st">"kopie_der_daten.yml"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="festkodierte-daten" class="level2" data-number="7.5">
