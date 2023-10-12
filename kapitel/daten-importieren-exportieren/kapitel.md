@@ -215,7 +215,7 @@ JSON ist ein Datenformat, dass von vielen sog. *Web-Diensten* zum Austausch von 
 
 Die beiden Funktionen `fromJSON()` und `toJSON()` unterstützen das Parsen von und Serialisieren zu Zeichenketten im JSON-Format.
 
-Um Daten aus einer Textdatei im JSON-Format zu importieren, muss die gesamte Datei zuerst eingelesen werden und dann an den JSON-Parser `fromJSON()` übergeben werden. 
+Um Daten aus einer Textdatei im JSON-Format zu importieren, kann die Funktion `read_json()` verwendet werden.
 
 ::: {#exm-parse-json}
 ## JSON Daten aus einer Datei importieren
@@ -223,18 +223,26 @@ Um Daten aus einer Textdatei im JSON-Format zu importieren, muss die gesamte Dat
 ```r
 library(jsonlite)
 
-Daten = fromJSON(read_file("beispiele/daten.json"))
+Daten = read_json("beispiele/daten.json", simplifyVektor = TRUE)
 ```
 ::: 
 
-Mit der Funktion `toJSON()` werden Daten in eine JSON-formatierte Zeichenkette umgewandelt. Diese Zeichenkette kann anschliessend mit `write_file()` in eine Datei geschrieben werden.
+Mit der Funktion `toJSON()` werden Daten in eine JSON-formatierte Zeichenkette umgewandelt. Diese Zeichenkette kann anschliessend mit `write_file()` in eine Datei geschrieben werden (@exm-serialise-json). Dieser Doppelschritt kann mit der Funktion `write_json()` zusammengefasst werden (@exm-write-json).  
 
-
-::: {#exm-parse-json}
+::: {#exm-serialise-json}
 ## Daten im JSON-Format exportieren
 
 ```r
 write_file(toJSON(Daten),"neue_daten.json"))
+```
+::: 
+
+
+::: {#exm-write-json}
+## Daten im JSON-Format exportieren und in eine Datei schreiben
+
+```r
+write_json(Daten,"neue_daten.json")
 ```
 ::: 
 
