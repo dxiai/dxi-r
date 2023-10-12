@@ -39,8 +39,8 @@ Beliebige Aggregationen lassen sich mit `REDUCE()` umsetzen.
 
 ## Zählen
 
-### Zählen durch Summieren
+### Zählen durch Summieren
 
-### Zählen durch Filtern
+### Zählen durch Filtern
 
 ### Zählen durch Nummerieren
