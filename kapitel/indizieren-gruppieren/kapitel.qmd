@@ -14,44 +14,33 @@ Es werden drei Arten von Indizes unterschieden:
 
 Weil ein Index Werte über einen Datensatz enthält, gehört ein Index zum jeweiligen Datensatz und wird über einen *Indexvektor* in einer Stichprobe abgebildet.
 
-### Existierende Indexvektoren. 
-
-Häufig liegen Indexvektoren bereits in einer Stichprobe vor.
-
-#### Beispiel bestehende Primär- und Sekundärindizes
-
-```{r}
-mtcars %>% 
-    as_tibble(rownames = "modell")  -> mtcarStichprobe
-
-mtcarStichprobe
-```
-
-Der Vektor `modell` ist der **Primärindex**, weil dieser Vektor nur Werte enthält, die einen Datensatz eindeutig identifizieren.
-
-Die Vektoren `cyl` (Zylinder), `vs` (Motortyp), `am` (Automatikschaltung), `gear` (Anzahl der Gänge), `carb` (Anzahl der Vergaser) sind *Gruppenindizes*, die Modelle nach verschiedenen Kriterien zusammenfassen. 
-
-### Fehlende Indexvektoren
-
-Gelegentlich liegen in einer Stichprobe keine Primär- oder Sekundärindizes vor oder die vorhandenen Indizes erlauben keine Zusammenfassungen für eine konkrete Fragestellung. In solchen Fällen muss ein entsprechender Index erzeugt werden.
-
-<p class="alert alert-primary" markdown="1">
-**Definition:** Eine Funktion, die *Hashes* für Indexvektoren erzeugt, heisst **Hashing-Funktion**.
-</p>
-
-<p class="alert alert-secondary" markdown="1">
-Hashing-Funktionen werden in der Industrie als Unterstützung zur Suche von Datensätzen in Datenbanken eingesetzt. Durch die geschickte Berechnung von Hashes beschleunigen diese Funktionen die Suche einzelner Werte um ein Vielfaches, indem sie den Bereich für die Suche einschränken. Deshalb haben viele Hashing-Funktionen ein anderes **Anwendungsziel** als die hier beschriebenen Hashing-Funktionen. 
-</p>
-
-### Hashing zur Identifikation
+### Hashing eines Primärindex
 
 Die einfachste Technik zur eindeutigen Indizierung ist das ***Durchnummerieren*** der Datensätze einer Stichprobe. Bei dieser Technik wird jedem Datensatz eine Nummer zugewiesen. In R verwenden wir dazu die Funktion `row_number()`. Diese Funktion ist einer *Sequenz* vorzuziehen, weil diese Funktion auch bei leeren Stichproben fehlerfrei arbeitet.
 
-In Excel muss zum Durchnummerieren die `SEQUENZ()`-Funktion verwendet werden. Das erreichen wir mit der folgenden Operation: `=SEQUENZ(ZEILEN(StichprobenBereich))`, wobei `StichprobenBereich` eine Excel-Adresse sein muss. Weil mit Excel keine leeren Stichproben erzeugt werden dürfen, gibt es mit Excel nicht das gleiche Problem wie mit R. Wegen dieser Eigenschaft muss ein entsprechender Bereich mindestens einen Stichprobenumfang von eins haben. Diese Eigenschaft gilt auch für Tabellen, die nur aus Überschriften bestehen. 
+::: {.callout-warning}
+Intuitiv würde man beim Durchnummerieren an seine Sequenz von `1:n()` denken. Diese Sequenz führt aber für leere Datenrahmen zu Fehlermeldungen. Die Funktion `row_number()` kann mit leeren Datenrahmen umgehen und erzeugt dieses Problem nicht.
+::: 
 
-<p class="alert alert-secondary" markdown="1">
-**Fingerübung:** Nummerieren Sie die Stichprobe `mtcars` und speichern Sie die Nummern im Vektor `nr`.
-</p>
+::: {#exm-durchnummerieren}
+## Primärindex erzeugen
+```{r}
+mtcars |> 
+    as_tibble(rownames = "modell") ->
+        mtcars_df
+
+mtcars_df |> 
+    mutate(
+        nr = row_number
+    ) -> 
+        mtcars_df_nbr
+
+# Nummerierung zeigen
+mtcars_df_nbr |> 
+    head()
+
+```
+:::
 
 ### Hashing zum Gruppieren
 
@@ -74,8 +63,7 @@ In diesem Beispiel besteht die Hashing-Funktion aus zwei Teilen:
 2. Die Leistungsklassen werden durch *Kodieren* den oben festgelegten Klassen zugewiesen und im Vektor `klasse` gespeichert.
 
 ```r
-mtcars %>% 
-    as_tibble(rownames = "modell") %>% 
+mtcars_df |> 
     mutate(
         verhaeltnis = hp/wt, 
         klasse = case_when( 
@@ -87,10 +75,6 @@ mtcars %>%
 ```
 
 
-<p class="alert alert-secondary" markdown="1">
-**Fingerübung:** Bestimmen Sie die Effizienz der Modelle in `mtcars` indem Sie den Verbrauch (`mpg`) und den Hubraum (`disp`) berücksichtigen. Legen Sie Effizienzklassen fest.
-</p>
-
 ### Hashing für Querverweise
 
 Beim Hashing für Querverweise gibt es zwei Stichproben. Die erste Stichprobe ist die Hauptstichprobe mit den eigentlichen Werten. Die zweite Stichprobe ist die Referenzstichprobe, die zusätzliche Informationen enthält. Ein Indexvektor für Querverweise in der ersten Stichprobe bezieht sich immer auf einen Primärindex aus der zweiten Stichprobe.
@@ -98,3 +82,4 @@ Beim Hashing für Querverweise gibt es zwei Stichproben. Die erste Stichprobe is
 Die Hashing-Funktion muss deshalb einen Verweis zur zweiten Stichprobe herstellen. Diese Verbindung kann mit der gleichen Strategie erzeugt werden, wie beim Gruppieren. Dabei muss jedoch darauf geachtet werden, dass alle Zuordnungen des Primärvektors korrekt abgebildet sind. 
 
 ## Gruppieren
+
