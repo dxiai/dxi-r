@@ -54,7 +54,7 @@ book:
     - kapitel/boolsche-operationen/kapitel.qmd
     - kapitel/vektor-operationen/kapitel.md
     - kapitel/matrix-operationen/kapitel.md
-    - kapitel/indizieren-gruppieren/kapitel.md
+    - kapitel/indizieren-gruppieren/kapitel.qmd
     - kapitel/daten-kodieren/kapitel.md
     - kapitel/daten-formen/kapitel.md
 
