@@ -66,7 +66,7 @@ c(1, 9 , 7, 3, 5) * 2
 ```
 :::
 
-Eine besondere Gruppe innerhalb der Transformationen sind die Matrizen-Produkte (@sec-chapter-matrix-operationen) sowie das Umformen von Vektoren (@sec-chapter-daten-formen). Diese Transformationen erzeugen aus mehreren Vektoren *Vektorfelder*, wobei die urspünglichen Werte erhalten bleiben bzw. durch eine Multiplikation umgeformt werden.
+Eine besondere Gruppe innerhalb der Transformationen sind die Matrizen-Produkte (@sec-chapter-matrix-operationen) sowie das Umformen von Vektoren (@sec-chapter-daten-formen). Diese Transformationen erzeugen aus mehreren Vektoren *Vektorfelder*, wobei die urspünglichen Werte erhalten bleiben bzw. durch eine Multiplikation umgeformt werden. 
 
 ### Aggregatoren
 
@@ -81,7 +81,28 @@ c(1, 2, 3, 4) |> sum()
 ```
 ::: 
 
-### Genratoren
+### Transformationsverben
+
+Die `tidyverse`-Bibliothek kennt sog. **Transformationsverben**. Das sind spezielle Funktionen für die Arbeit mit Datenrahmen. Diese Funktionen vereinheitlichen den Umgang mit Daten, indem sie die Komplexität der notwendigen Arbeitsschritte verbergen. Gleichzeitig machen sie die Intention einer Datentransformation sichtbar.
+
+| Funktion | Beschreibung |
+| :--- | :------ |
+| `mutate()` | Führt eine oder mehrere Transformationen über einen Datenrahmen durch. |
+| `arrange()` | Ordnet die Datensätze eines Datenrahmens neu an (@sec-chapter-booleans). |
+| `summarise()` | Führt eine oder mehrere Aggregationen über einen Datenrahmen durch. |
+| `count()` | Zählt die Anzahl der Datensätze, optional auch entlang gemeinsamer Eigenschaften (@sec-chapter-vektoroperationen). | 
+| `rename()` | Benennt Vektoren um. |
+| `select()` | Wählt Vektoren in einem Datenrahmen aus. |
+| `filter()` | Aggregiert einen Datenrahmen mithilfe von logischen Ausdrücken (@sec-chapter-booleans) |
+| `group_by()`/`ungroup()` | Gruppiert einen Datenrahmen mithilfe gemeinsamer Eigenschaften (@sec-chapter-indizieren-gruppieren) |
+| `pivot_longer()`/ `pivot_wider()` | Überführt einen Datenrahmen von der Breitform in die Langform, bzw. umgekehrt (@sec-chapter-daten-formen). |
+| `nest()`/`unnest()` | Bettet zusammengehörende Teile eines Datenrahmens als Unterstruktur in einen Datenrahmen ein, bzw. bettet diese Teile aus (@sec-chapter-daten-formen). |
+
+: Die wichtigsten Transformationsverben der `tidyverse` Bibliothek{#tbl-transformationsverben}
+
+Die beiden wichtigsten Funktionen sind `mutate()` für Transformationen und `summarise()` für Aggregationen. Das Ergebnis dieser Funktionen ist immer ein neuer Datenrahmen, welcher die transformierten Daten enthält.
+
+### Generatoren
 
 Generatoren bilden eine besondere Funktionsgruppe in R. Mit ihnen lassen sich Werte erzeugen. In dieser Gruppe gibt es zwei Arten:
 
@@ -161,7 +182,7 @@ Werden uniformverteilte Zufallswerte gegenübergestellt, dann sind diese Werte g
 #| label: fig-runif
 #| echo: false
 #| warning: false
-#| fig-cap: Visualisierung von Zufallswerten
+#| fig-cap: Visualisierung von zwei Vektoren mit Zufallswerten
 
 library(tidyverse)
 
@@ -189,7 +210,7 @@ In diesen Verteilungen sind nicht alle Werte gleich wahrscheinlich. Dadurch ersc
 #| label: fig-rnorm
 #| echo: false
 #| warnings: false
-#| fig-cap: Visualisierung von normalverteilten Zufallswerten
+#| fig-cap: Visualisierung von zwei Vektoren mit normalverteilten Zufallswerten
 
 data.frame(x = rnorm(1000), y = rnorm(1000)) |> 
   ggplot(aes(x, y)) + geom_point()
@@ -200,7 +221,7 @@ data.frame(x = rnorm(1000), y = rnorm(1000)) |>
 #| label: fig-rchisq
 #| echo: false
 #| warnings: false
-#| fig-cap: Visualisierung von $\chi^2$-verteilten Zufallswerten
+#| fig-cap: Visualisierung von zwei Vektoren mit $\chi^2$-verteilten Zufallswerten
 
 data.frame(x = rchisq(1000, 10), y = rchisq(1000, 10)) |> 
   ggplot(aes(x, y)) + geom_point()
