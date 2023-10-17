@@ -25,13 +25,19 @@ Intuitiv würde man beim Durchnummerieren an seine Sequenz von `1:n()` denken. D
 ::: {#exm-durchnummerieren}
 ## Primärindex erzeugen
 ```{r}
+#| echo: false
+#| warning: false
+library(tidyverse)
+```
+
+```{r}
 mtcars |> 
     as_tibble(rownames = "modell") ->
         mtcars_df
 
 mtcars_df |> 
     mutate(
-        nr = row_number
+        nr = row_number()
     ) -> 
         mtcars_df_nbr
 
@@ -62,7 +68,7 @@ In diesem Beispiel besteht die Hashing-Funktion aus zwei Teilen:
 1. Das Verhältnis zwischen Leistung und Gewicht wird bestimmt und im Vektor `verhaeltnis` abgelegt. 
 2. Die Leistungsklassen werden durch *Kodieren* den oben festgelegten Klassen zugewiesen und im Vektor `klasse` gespeichert.
 
-```r
+```{r}
 mtcars_df |> 
     mutate(
         verhaeltnis = hp/wt, 
@@ -71,7 +77,9 @@ mtcars_df |>
             verhaeltnis > 50 ~ "stark", 
             verhaeltnis > 40 ~ "mittel", 
             TRUE ~ "schwach") 
-    )
+    ) |>
+    # nur die relevanten Vektoren zeigen
+    select(modell, hp, wt, verhaeltnis, klasse)
 ```
 
 
