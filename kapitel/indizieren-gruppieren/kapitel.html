@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -265,7 +299,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#indizieren" id="toc-indizieren" class="nav-link active" data-scroll-target="#indizieren"><span class="header-section-number">14.1</span> Indizieren</a></li>
+  <li><a href="#indizieren" id="toc-indizieren" class="nav-link active" data-scroll-target="#indizieren"><span class="header-section-number">14.1</span> Indizieren</a>
+  <ul class="collapse">
+  <li><a href="#hashing-eines-primärindex" id="toc-hashing-eines-primärindex" class="nav-link" data-scroll-target="#hashing-eines-primärindex"><span class="header-section-number">14.1.1</span> Hashing eines Primärindex</a></li>
+  <li><a href="#hashing-zum-gruppieren" id="toc-hashing-zum-gruppieren" class="nav-link" data-scroll-target="#hashing-zum-gruppieren"><span class="header-section-number">14.1.2</span> Hashing zum Gruppieren</a></li>
+  <li><a href="#hashing-für-querverweise" id="toc-hashing-für-querverweise" class="nav-link" data-scroll-target="#hashing-für-querverweise"><span class="header-section-number">14.1.3</span> Hashing für Querverweise</a></li>
+  </ul></li>
   <li><a href="#gruppieren" id="toc-gruppieren" class="nav-link" data-scroll-target="#gruppieren"><span class="header-section-number">14.2</span> Gruppieren</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
@@ -305,6 +344,113 @@ Work in Progress
 </div>
 <section id="indizieren" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="indizieren"><span class="header-section-number">14.1</span> Indizieren</h2>
+<p>Es werden drei Arten von Indizes unterschieden:</p>
+<ol type="1">
+<li>Der <strong>Primärindex</strong>, mit dem ein einzelner Datensatz eindeutig <em>identifiziert</em> werden kann.</li>
+<li><strong>Fremdschlüssel</strong> sind Sekundärindizes für <em>Querverweise</em> auf eine zweite Datenstruktur (eine sog. <em>Indextabelle</em> oder engl. <em>Lookup-Table</em>).</li>
+<li><strong>Gruppenindizes</strong> sind Sekundärindizes zur Identifikation von Datensätzen mit <em>gemeinsamen Eigenschaften</em>.</li>
+</ol>
+<p>Weil ein Index Werte über einen Datensatz enthält, gehört ein Index zum jeweiligen Datensatz und wird über einen <em>Indexvektor</em> in einer Stichprobe abgebildet.</p>
+<section id="hashing-eines-primärindex" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="hashing-eines-primärindex"><span class="header-section-number">14.1.1</span> Hashing eines Primärindex</h3>
+<p>Die einfachste Technik zur eindeutigen Indizierung ist das <strong><em>Durchnummerieren</em></strong> der Datensätze einer Stichprobe. Bei dieser Technik wird jedem Datensatz eine Nummer zugewiesen. In R verwenden wir dazu die Funktion <code>row_number()</code>. Diese Funktion ist einer <em>Sequenz</em> vorzuziehen, weil diese Funktion auch bei leeren Stichproben fehlerfrei arbeitet.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Intuitiv würde man beim Durchnummerieren an seine Sequenz von <code>1:n()</code> denken. Diese Sequenz führt aber für leere Datenrahmen zu Fehlermeldungen. Die Funktion <code>row_number()</code> kann mit leeren Datenrahmen umgehen und erzeugt dieses Problem nicht.</p>
+</div>
+</div>
+<div id="exm-durchnummerieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 14.1 (Primärindex erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"modell"</span>) <span class="ot">-&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        mtcars_df</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mtcars_df <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">nr =</span> <span class="fu">row_number</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="ot">-&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        mtcars_df_nbr</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;Nummerierung zeigen</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>mtcars_df_nbr <span class="sc">|&gt;</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  modell   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb    nr
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1 Mazda…  21       6   160   110  3.9   2.62  16.5     0     1     4     4     1
+2 Mazda…  21       6   160   110  3.9   2.88  17.0     0     1     4     4     2
+3 Datsu…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1     3
+4 Horne…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1     4
+5 Horne…  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2     5
+6 Valia…  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1     6</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="hashing-zum-gruppieren" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="hashing-zum-gruppieren"><span class="header-section-number">14.1.2</span> Hashing zum Gruppieren</h3>
+<p>Beim Hashing zum Gruppieren müssen wir Werte erzeugen, die eine Zuordnung zu einer Gruppe oder einen Wert in einer anderen Stichprobe ermöglichen. Die Hashing-Funktion orientiert sich dabei an den konkreten Analyseanforderungen.</p>
+<p>Vier gängige Techniken können dabei unterschieden werden:</p>
+<ul>
+<li>Kodieren (alle Datentypen)</li>
+<li>Reihenfolgen bilden durch Ganzzahldivision (nur Zahlen)</li>
+<li>Reihenfolgen bilden durch Modulo-Operation (nur Zahlen)</li>
+<li>Reihenfolgen durch Anfangsbuchstaben (nur Zeichenketten)</li>
+</ul>
+<section id="beispiel-hashing-zum-gruppieren." class="level4" data-number="14.1.2.1">
+<h4 data-number="14.1.2.1" class="anchored" data-anchor-id="beispiel-hashing-zum-gruppieren."><span class="header-section-number">14.1.2.1</span> Beispiel Hashing zum Gruppieren.</h4>
+<p>Das folgende Beispiel bildet einen Index, um die Motorisierung der Fahrzeugtypen in der Stichprobe <code>mtcars</code> zu bestimmen. Dabei sollen die Modelle in schwach-, mittel-, stark- und sehr starkmotorisierte Typen unterschieden werden. Die Motorisierung richtet sich dabei zum einen nach der Leistung (<code>hp</code>). Zum anderen richtet sich die Motorisierung nach dem Fahrzeuggewicht (<code>wt</code>), weil für ein schweres Fahrzeug mehr Leistung zum Bewegen benötigt wird als für ein leichtes. Um beide Werte zu berücksichtigen, wird das Verhältnis der beiden Werte bestimmt. Ein Verhältnis ist eine <em>Division</em>. In diesem Fall wird das Gewicht als Nenner verwendet und die Leistung als Zähler. So ergeben sich immer Werte grösser als 1, weil die Leistung immer viel grösser als das Gewicht ist.</p>
+<p>In diesem Beispiel besteht die Hashing-Funktion aus zwei Teilen:</p>
+<ol type="1">
+<li>Das Verhältnis zwischen Leistung und Gewicht wird bestimmt und im Vektor <code>verhaeltnis</code> abgelegt.</li>
+<li>Die Leistungsklassen werden durch <em>Kodieren</em> den oben festgelegten Klassen zugewiesen und im Vektor <code>klasse</code> gespeichert.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mtcars_df <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">verhaeltnis =</span> hp<span class="sc">/</span>wt, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">klasse =</span> <span class="fu">case_when</span>( </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            verhaeltnis <span class="sc">&gt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"sehr stark"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            verhaeltnis <span class="sc">&gt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"stark"</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            verhaeltnis <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"mittel"</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"schwach"</span>) </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nur die relevanten Vektoren zeigen</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(modell, hp, wt, verhaeltnis, klasse)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 5
+   modell               hp    wt verhaeltnis klasse    
+   &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
+ 1 Mazda RX4           110  2.62        42.0 mittel    
+ 2 Mazda RX4 Wag       110  2.88        38.3 schwach   
+ 3 Datsun 710           93  2.32        40.1 mittel    
+ 4 Hornet 4 Drive      110  3.22        34.2 schwach   
+ 5 Hornet Sportabout   175  3.44        50.9 stark     
+ 6 Valiant             105  3.46        30.3 schwach   
+ 7 Duster 360          245  3.57        68.6 sehr stark
+ 8 Merc 240D            62  3.19        19.4 schwach   
+ 9 Merc 230             95  3.15        30.2 schwach   
+10 Merc 280            123  3.44        35.8 schwach   
+# ℹ 22 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="hashing-für-querverweise" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="hashing-für-querverweise"><span class="header-section-number">14.1.3</span> Hashing für Querverweise</h3>
+<p>Beim Hashing für Querverweise gibt es zwei Stichproben. Die erste Stichprobe ist die Hauptstichprobe mit den eigentlichen Werten. Die zweite Stichprobe ist die Referenzstichprobe, die zusätzliche Informationen enthält. Ein Indexvektor für Querverweise in der ersten Stichprobe bezieht sich immer auf einen Primärindex aus der zweiten Stichprobe.</p>
+<p>Die Hashing-Funktion muss deshalb einen Verweis zur zweiten Stichprobe herstellen. Diese Verbindung kann mit der gleichen Strategie erzeugt werden, wie beim Gruppieren. Dabei muss jedoch darauf geachtet werden, dass alle Zuordnungen des Primärvektors korrekt abgebildet sind.</p>
+</section>
 </section>
 <section id="gruppieren" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="gruppieren"><span class="header-section-number">14.2</span> Gruppieren</h2>

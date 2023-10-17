@@ -329,25 +329,123 @@
     "text": "11.5 Sortieren"
   },
   {
-    "objectID": "kapitel/vektor-operationen/kapitel.html",
-    "href": "kapitel/vektor-operationen/kapitel.html",
+    "objectID": "kapitel/vektor-operationen/kapitel.html#sequenzen",
+    "href": "kapitel/vektor-operationen/kapitel.html#sequenzen",
     "title": "12  Vektoroperationen",
-    "section": "",
-    "text": "Work in Progress"
+    "section": "12.1 Sequenzen",
+    "text": "12.1 Sequenzen\n\n12.1.1 Nullvektor\n\n\n12.1.2 Einsvektor"
   },
   {
-    "objectID": "kapitel/matrix-operationen/kapitel.html",
-    "href": "kapitel/matrix-operationen/kapitel.html",
+    "objectID": "kapitel/vektor-operationen/kapitel.html#konkatenation",
+    "href": "kapitel/vektor-operationen/kapitel.html#konkatenation",
+    "title": "12  Vektoroperationen",
+    "section": "12.2 Konkatenation",
+    "text": "12.2 Konkatenation\nc()"
+  },
+  {
+    "objectID": "kapitel/vektor-operationen/kapitel.html#transformationen",
+    "href": "kapitel/vektor-operationen/kapitel.html#transformationen",
+    "title": "12  Vektoroperationen",
+    "section": "12.3 Transformationen",
+    "text": "12.3 Transformationen\n\n\n\n\n\n\nMerke\n\n\n\nBeliebige Transformationen lassen sich mit MAP() umsetzen.\n\n\n\n12.3.1 Transformationen mit einem Skalar\n\n\n12.3.2 Transformationen mit einem Vektor"
+  },
+  {
+    "objectID": "kapitel/vektor-operationen/kapitel.html#aggregationen",
+    "href": "kapitel/vektor-operationen/kapitel.html#aggregationen",
+    "title": "12  Vektoroperationen",
+    "section": "12.4 Aggregationen",
+    "text": "12.4 Aggregationen\n\n\n\n\n\n\nMerke\n\n\n\nBeliebige Aggregationen lassen sich mit REDUCE() umsetzen."
+  },
+  {
+    "objectID": "kapitel/vektor-operationen/kapitel.html#zählen",
+    "href": "kapitel/vektor-operationen/kapitel.html#zählen",
+    "title": "12  Vektoroperationen",
+    "section": "12.5 Zählen",
+    "text": "12.5 Zählen\n\n12.5.1 Zählen durch Summieren\n\n\n12.5.2 Zählen durch Filtern\n\n\n12.5.3 Zählen durch Nummerieren"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#matrix-bibliothek",
+    "href": "kapitel/matrix-operationen/kapitel.html#matrix-bibliothek",
     "title": "13  Matrix-Operationen",
-    "section": "",
-    "text": "Work in Progress"
+    "section": "13.1 Matrix-Bibliothek",
+    "text": "13.1 Matrix-Bibliothek"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#vektorform-einer-matrix",
+    "href": "kapitel/matrix-operationen/kapitel.html#vektorform-einer-matrix",
+    "title": "13  Matrix-Operationen",
+    "section": "13.2 Vektorform einer Matrix",
+    "text": "13.2 Vektorform einer Matrix"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#matrizen-vergleichen",
+    "href": "kapitel/matrix-operationen/kapitel.html#matrizen-vergleichen",
+    "title": "13  Matrix-Operationen",
+    "section": "13.3 Matrizen vergleichen",
+    "text": "13.3 Matrizen vergleichen"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#einheitsmatrix-erzeugen",
+    "href": "kapitel/matrix-operationen/kapitel.html#einheitsmatrix-erzeugen",
+    "title": "13  Matrix-Operationen",
+    "section": "13.4 Einheitsmatrix erzeugen",
+    "text": "13.4 Einheitsmatrix erzeugen"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#matrizen-transponieren",
+    "href": "kapitel/matrix-operationen/kapitel.html#matrizen-transponieren",
+    "title": "13  Matrix-Operationen",
+    "section": "13.5 Matrizen Transponieren",
+    "text": "13.5 Matrizen Transponieren"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#matrixaddition",
+    "href": "kapitel/matrix-operationen/kapitel.html#matrixaddition",
+    "title": "13  Matrix-Operationen",
+    "section": "13.6 Matrixaddition",
+    "text": "13.6 Matrixaddition"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#vektoraddition",
+    "href": "kapitel/matrix-operationen/kapitel.html#vektoraddition",
+    "title": "13  Matrix-Operationen",
+    "section": "13.7 Vektoraddition",
+    "text": "13.7 Vektoraddition"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#skalarmultiplikation",
+    "href": "kapitel/matrix-operationen/kapitel.html#skalarmultiplikation",
+    "title": "13  Matrix-Operationen",
+    "section": "13.8 Skalarmultiplikation",
+    "text": "13.8 Skalarmultiplikation"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#matrixmultiplikationkreuzprodukt",
+    "href": "kapitel/matrix-operationen/kapitel.html#matrixmultiplikationkreuzprodukt",
+    "title": "13  Matrix-Operationen",
+    "section": "13.9 Matrixmultiplikation/Kreuzprodukt",
+    "text": "13.9 Matrixmultiplikation/Kreuzprodukt\n\n13.9.1 Inverse Matrix\n\n\n13.9.2 Zeilen- und Spaltensummen"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#äusseres-vektorprodukt",
+    "href": "kapitel/matrix-operationen/kapitel.html#äusseres-vektorprodukt",
+    "title": "13  Matrix-Operationen",
+    "section": "13.10 Äusseres Vektorprodukt",
+    "text": "13.10 Äusseres Vektorprodukt\n\n13.10.1 Dreieckmatrizen erzeugen\n\n\n13.10.2 Vorgänger- und Nachfolgersummen"
+  },
+  {
+    "objectID": "kapitel/matrix-operationen/kapitel.html#co-occurence-matrizen",
+    "href": "kapitel/matrix-operationen/kapitel.html#co-occurence-matrizen",
+    "title": "13  Matrix-Operationen",
+    "section": "13.11 Co-Occurence Matrizen",
+    "text": "13.11 Co-Occurence Matrizen"
   },
   {
     "objectID": "kapitel/indizieren-gruppieren/kapitel.html#indizieren",
     "href": "kapitel/indizieren-gruppieren/kapitel.html#indizieren",
     "title": "14  Indizieren und Gruppieren",
     "section": "14.1 Indizieren",
-    "text": "14.1 Indizieren"
+    "text": "14.1 Indizieren\nEs werden drei Arten von Indizes unterschieden:\n\nDer Primärindex, mit dem ein einzelner Datensatz eindeutig identifiziert werden kann.\nFremdschlüssel sind Sekundärindizes für Querverweise auf eine zweite Datenstruktur (eine sog. Indextabelle oder engl. Lookup-Table).\nGruppenindizes sind Sekundärindizes zur Identifikation von Datensätzen mit gemeinsamen Eigenschaften.\n\nWeil ein Index Werte über einen Datensatz enthält, gehört ein Index zum jeweiligen Datensatz und wird über einen Indexvektor in einer Stichprobe abgebildet.\n\n14.1.1 Hashing eines Primärindex\nDie einfachste Technik zur eindeutigen Indizierung ist das Durchnummerieren der Datensätze einer Stichprobe. Bei dieser Technik wird jedem Datensatz eine Nummer zugewiesen. In R verwenden wir dazu die Funktion row_number(). Diese Funktion ist einer Sequenz vorzuziehen, weil diese Funktion auch bei leeren Stichproben fehlerfrei arbeitet.\n\n\n\n\n\n\nWarnung\n\n\n\nIntuitiv würde man beim Durchnummerieren an seine Sequenz von 1:n() denken. Diese Sequenz führt aber für leere Datenrahmen zu Fehlermeldungen. Die Funktion row_number() kann mit leeren Datenrahmen umgehen und erzeugt dieses Problem nicht.\n\n\n\nBeispiel 14.1 (Primärindex erzeugen)  \n\nmtcars |&gt; \n    as_tibble(rownames = \"modell\") -&gt;\n        mtcars_df\n\nmtcars_df |&gt; \n    mutate(\n        nr = row_number()\n    ) -&gt; \n        mtcars_df_nbr\n\n# Nummerierung zeigen\nmtcars_df_nbr |&gt; \n    head()\n\n# A tibble: 6 × 13\n  modell   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb    nr\n  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;\n1 Mazda…  21       6   160   110  3.9   2.62  16.5     0     1     4     4     1\n2 Mazda…  21       6   160   110  3.9   2.88  17.0     0     1     4     4     2\n3 Datsu…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1     3\n4 Horne…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1     4\n5 Horne…  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2     5\n6 Valia…  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1     6\n\n\n\n\n\n14.1.2 Hashing zum Gruppieren\nBeim Hashing zum Gruppieren müssen wir Werte erzeugen, die eine Zuordnung zu einer Gruppe oder einen Wert in einer anderen Stichprobe ermöglichen. Die Hashing-Funktion orientiert sich dabei an den konkreten Analyseanforderungen.\nVier gängige Techniken können dabei unterschieden werden:\n\nKodieren (alle Datentypen)\nReihenfolgen bilden durch Ganzzahldivision (nur Zahlen)\nReihenfolgen bilden durch Modulo-Operation (nur Zahlen)\nReihenfolgen durch Anfangsbuchstaben (nur Zeichenketten)\n\n\n14.1.2.1 Beispiel Hashing zum Gruppieren.\nDas folgende Beispiel bildet einen Index, um die Motorisierung der Fahrzeugtypen in der Stichprobe mtcars zu bestimmen. Dabei sollen die Modelle in schwach-, mittel-, stark- und sehr starkmotorisierte Typen unterschieden werden. Die Motorisierung richtet sich dabei zum einen nach der Leistung (hp). Zum anderen richtet sich die Motorisierung nach dem Fahrzeuggewicht (wt), weil für ein schweres Fahrzeug mehr Leistung zum Bewegen benötigt wird als für ein leichtes. Um beide Werte zu berücksichtigen, wird das Verhältnis der beiden Werte bestimmt. Ein Verhältnis ist eine Division. In diesem Fall wird das Gewicht als Nenner verwendet und die Leistung als Zähler. So ergeben sich immer Werte grösser als 1, weil die Leistung immer viel grösser als das Gewicht ist.\nIn diesem Beispiel besteht die Hashing-Funktion aus zwei Teilen:\n\nDas Verhältnis zwischen Leistung und Gewicht wird bestimmt und im Vektor verhaeltnis abgelegt.\nDie Leistungsklassen werden durch Kodieren den oben festgelegten Klassen zugewiesen und im Vektor klasse gespeichert.\n\n\nmtcars_df |&gt; \n    mutate(\n        verhaeltnis = hp/wt, \n        klasse = case_when( \n            verhaeltnis &gt; 60 ~ \"sehr stark\",\n            verhaeltnis &gt; 50 ~ \"stark\", \n            verhaeltnis &gt; 40 ~ \"mittel\", \n            TRUE ~ \"schwach\") \n    ) |&gt;\n    # nur die relevanten Vektoren zeigen\n    select(modell, hp, wt, verhaeltnis, klasse)\n\n# A tibble: 32 × 5\n   modell               hp    wt verhaeltnis klasse    \n   &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     \n 1 Mazda RX4           110  2.62        42.0 mittel    \n 2 Mazda RX4 Wag       110  2.88        38.3 schwach   \n 3 Datsun 710           93  2.32        40.1 mittel    \n 4 Hornet 4 Drive      110  3.22        34.2 schwach   \n 5 Hornet Sportabout   175  3.44        50.9 stark     \n 6 Valiant             105  3.46        30.3 schwach   \n 7 Duster 360          245  3.57        68.6 sehr stark\n 8 Merc 240D            62  3.19        19.4 schwach   \n 9 Merc 230             95  3.15        30.2 schwach   \n10 Merc 280            123  3.44        35.8 schwach   \n# ℹ 22 more rows\n\n\n\n\n\n14.1.3 Hashing für Querverweise\nBeim Hashing für Querverweise gibt es zwei Stichproben. Die erste Stichprobe ist die Hauptstichprobe mit den eigentlichen Werten. Die zweite Stichprobe ist die Referenzstichprobe, die zusätzliche Informationen enthält. Ein Indexvektor für Querverweise in der ersten Stichprobe bezieht sich immer auf einen Primärindex aus der zweiten Stichprobe.\nDie Hashing-Funktion muss deshalb einen Verweis zur zweiten Stichprobe herstellen. Diese Verbindung kann mit der gleichen Strategie erzeugt werden, wie beim Gruppieren. Dabei muss jedoch darauf geachtet werden, dass alle Zuordnungen des Primärvektors korrekt abgebildet sind."
   },
   {
     "objectID": "kapitel/indizieren-gruppieren/kapitel.html#gruppieren",
