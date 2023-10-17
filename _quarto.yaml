@@ -18,8 +18,7 @@ crossref:
 book:
   title: Einführung in die Datenwissenschaft mit R
   author: 
-  - family: Glahn
-    given: Christian  
+  - name: Christian Glahn
   page-navigation: true
 
   repo-url: https://github.com/dxiai/dxi-r
