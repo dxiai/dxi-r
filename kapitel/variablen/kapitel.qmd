@@ -261,6 +261,7 @@ Alle R-Operatoren sind Funktionen. R kennt 29 vordefinierte Operatoren, die zwei
 | `$`, `[[`	| Listenzugriff, binär | Index |
 | `~`	| funktionale Abhängigkeit, sowohl unär als auch binär | Funktionen |
 | `:`	| Sequenz (in Modellen: Interaktion), binär | Funktionen |
+| `|>` | Funktionsverkettung |
 | `?`	| Hilfe | spezial |
 
 : Liste der Base R Operatoren {#tbl-r-operatorem}
