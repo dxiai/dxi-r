@@ -337,14 +337,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" id="toc-alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" class="nav-link" data-scroll-target="#alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen"><span class="header-section-number">11.5.4</span> Alle Vektoren zwischen zwei benannten Vektoren auswählen</a></li>
   </ul></li>
   <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">11.6</span> Sortieren</a></li>
-  <li><a href="#randomisieren" id="toc-randomisieren" class="nav-link" data-scroll-target="#randomisieren"><span class="header-section-number">11.7</span> Randomisieren</a>
-  <ul class="collapse">
-  <li><a href="#schritt-1-auswahl-der-vektoren" id="toc-schritt-1-auswahl-der-vektoren" class="nav-link" data-scroll-target="#schritt-1-auswahl-der-vektoren"><span class="header-section-number">11.7.1</span> Schritt 1: Auswahl der Vektoren</a></li>
-  <li><a href="#schritt-2-erzeugung-eines-eindeutigen-vektors" id="toc-schritt-2-erzeugung-eines-eindeutigen-vektors" class="nav-link" data-scroll-target="#schritt-2-erzeugung-eines-eindeutigen-vektors"><span class="header-section-number">11.7.2</span> Schritt 2: Erzeugung eines eindeutigen Vektors</a></li>
-  <li><a href="#schritt-3-mischen" id="toc-schritt-3-mischen" class="nav-link" data-scroll-target="#schritt-3-mischen"><span class="header-section-number">11.7.3</span> Schritt 3: Mischen</a></li>
-  <li><a href="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" id="toc-schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" class="nav-link" data-scroll-target="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten"><span class="header-section-number">11.7.4</span> Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten</a></li>
-  <li><a href="#vollständige-lösung" id="toc-vollständige-lösung" class="nav-link" data-scroll-target="#vollständige-lösung"><span class="header-section-number">11.7.5</span> Vollständige Lösung</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -1028,93 +1020,8 @@ Warnung
 </div>
 </div>
 </div>
-</section>
-<section id="randomisieren" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="randomisieren"><span class="header-section-number">11.7</span> Randomisieren</h2>
-<p>Wenn wir mit Teilstichproben arbeiten und diese mit anderen teilen, müssen wir vermeiden, dass zwei Stichproben leicht zusammengesetzt werden können und so Rückschlüsse über die Probanden möglich werden.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Achtung
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Sobald personenbezogene Daten statistisch ausgewertet und zur Publikation vorbereitet werden, <strong>müssen</strong> die Daten randomisiert werden!</p>
-</div>
-</div>
-<p>Dieses Rezept beschreibt eine Technik zur Anonymisierung von Daten durch Mischen. Entscheidend bei dieser Technik ist, dass wir die Werte für unsere Analyse zusammenhalten möchten, sodass unsere Ergebnisse nachvollziehbar bleiben. Gleichzeitig soll es unmöglich werden, diese Daten mit anderen Teilen unserer Studien in Verbindung zu bringen.</p>
-<p>Die Technik der Anonymisierung durch Mischen besteht aus vier Schritten:</p>
-<ol type="1">
-<li>Auswahl der Vektoren, die wir in einer Publikation teilen möchten,</li>
-<li>Erzeugung eines eindeutigen Vektors,</li>
-<li>zufälliges Mischen,</li>
-<li>Entfernen der eindeutigen Vektoren und exportieren der Daten.</li>
-</ol>
-<section id="schritt-1-auswahl-der-vektoren" class="level3" data-number="11.7.1">
-<h3 data-number="11.7.1" class="anchored" data-anchor-id="schritt-1-auswahl-der-vektoren"><span class="header-section-number">11.7.1</span> Schritt 1: Auswahl der Vektoren</h3>
-<p>Die zu veröffentlichenden Vektoren werde mit der <code>select()</code>-Funktion selektiert.</p>
-</section>
-<section id="schritt-2-erzeugung-eines-eindeutigen-vektors" class="level3" data-number="11.7.2">
-<h3 data-number="11.7.2" class="anchored" data-anchor-id="schritt-2-erzeugung-eines-eindeutigen-vektors"><span class="header-section-number">11.7.2</span> Schritt 2: Erzeugung eines eindeutigen Vektors</h3>
-<p>Alle Werte müssen zusammengehalten werden,damit nachgereihte Analysen nachvollziehbar bleiben. Dazu werden die Datensätze nummeriert.</p>
-</section>
-<section id="schritt-3-mischen" class="level3" data-number="11.7.3">
-<h3 data-number="11.7.3" class="anchored" data-anchor-id="schritt-3-mischen"><span class="header-section-number">11.7.3</span> Schritt 3: Mischen</h3>
-<p>Dieser Schritt greift auf die Funktion <code>sample()</code> zurück. Wir erzeugen aus den ursprünglichen Nummerierungen eine neue Nummerierung durch <code>daten |&gt; mutate( id_neu = sample(id) )</code>. Nach dieser neuen Nummerierung sind unsere Datensätze aber immer noch in der gleichen Reihenfolge und noch nicht gemischt. Wir müssen also die Reihenfolge so anpassen, dass die neue Nummerierung gilt. Das erreichen wir mit dem Funktionsaufruf <code>daten |&gt; arrange( id_neu )</code>.</p>
-</section>
-<section id="schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" class="level3" data-number="11.7.4">
-<h3 data-number="11.7.4" class="anchored" data-anchor-id="schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten"><span class="header-section-number">11.7.4</span> Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten</h3>
-<p>Abschliessend müssen wir <strong>unbedingt</strong> die beiden Hilfsvektoren, die wir zum Mischen verwendet haben, aus unserer Stichprobe wieder entfernen. Das erreichen wir mit einer Vektorauswahl: <code>daten |&gt; select(-c(id, id_neu))</code>.</p>
-</section>
-<section id="vollständige-lösung" class="level3" data-number="11.7.5">
-<h3 data-number="11.7.5" class="anchored" data-anchor-id="vollständige-lösung"><span class="header-section-number">11.7.5</span> Vollständige Lösung</h3>
-<p>Wir greifen hier auf eine Stichprobe zurück, die Geschlechtsinformationen, Alter und digitale Nutzungsgewohnheiten umfasst. Wir erstellen zwei getrennte Teilstichproben, von denen eine nur die Nutzungsgewohnheiten und das Geschlecht und eine nur die Nutzungsgewohnheiten und das Alter beinhaltet.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_delim</span>(</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"daten/befragung_digitales_umfeld/befragung.csv"</span>, </span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_col_types =</span> F)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mischen Funktion aus einer Funktionskette erstellen, damit </span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    wir nicht so viel tippen müssen.</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>mischen <span class="ot">=</span> . <span class="sc">%&gt;%</span> </span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( </span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">row_number</span>(), </span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">id_neu =</span> <span class="fu">sample</span>(id) <span class="co"># wählt zufällig eine id aus.</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(id_neu) <span class="sc">%&gt;%</span></span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(id, id_neu))</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_2, <span class="fu">starts_with</span>(<span class="st">"q15"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mischen</span>() <span class="sc">|&gt;</span></span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="st">"teilstichprobe_geschlecht_technik.csv"</span>)</span>
-<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(kurs, <span class="fu">starts_with</span>(<span class="st">"q18"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mischen</span>() <span class="sc">|&gt;</span></span>
-<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="st">"teilstichprobe_alter_sozial.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hinweis
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Die Definition der Funktion <code>mischen()</code> verwendet die spezielle Funktionsverkettung von <code>tidyverse</code>, weil damit Funktionen erstellt werden können. In diesem Fall dürfen die Operatoren <code>|&gt;</code> und <code>%&gt;%</code> nicht im gleichen Arbeitsschritt gemischt werden.</p>
-</div>
-</div>
-<p>Die Daten in den beiden Dateien lassen sich nicht mehr zusammenführen. Damit erkennen wir auch die Grenzen dieser Technik: Wenn zwei gemischte Stichproben ausreichend viele gemeinsame oder sehr detaillierte Vektoren haben, die in beiden Teilstichproben vorkommen, dann können diese Stichproben trotz mischen wieder zusammengeführt werden.</p>
-<p>Mit den gemischten Daten ist es nun nicht mehr möglich, die Werte mit einem anderen Teil der Stichprobe zu kombinieren und so tiefere Rückschlüsse über die Teilnehmenden (womöglich unwissend) zuzulassen. Nur noch durch den Zugriff auf die ursprünglichen Daten können diese Zusammenhänge hergestellt werden. Daher sind die ursprünglichen Daten oft besonders schützenswert und sollten ohne Randomisierung nicht weitergegeben werden.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
