@@ -413,9 +413,32 @@ Die Reihenfolge von Vektoren kann durch andere Transformationen geändert werden
 
 ## Sortieren
 
-`sort()` 
+R erlaubt kein Sortieren über logische Ausdrücke. Es ist nur möglich, Werte nach vorgegebenen grösser-kleiner Beziehungen zu sortieren. Deshalb muss für komplexe Sortierungen ein numerischer Hilfsvektor erzeugt werden, der anschliessend sortiert werden kann.  
 
-`arrange()`
+Die Werte eines Vektors werden mit `sort()` sortiert. 
+
+::: {#exm-sort}
+## Vektorsortierung für zufällige Ganzzahlen
+```{r}
+set.seed(10)
+runif(10, min = 1, max = 10) |> trunc() |> sort()
+```
+::: 
+
+Die `sort()`-Funktion kann nur einzelne Vektoren sortieren. Das ist unpraktisch, wenn Daten in einem Datenrahmen vorliegen. In diesem Fall lassen sich die Datensätze mithilfe der Funktion `arrange()` sortieren. Der Funktion werden die Vektoren übergeben, über die eine neue Reihenfolge festgelegt werden soll. Standardmässig sortiert `arrange()` aufsteigend. Mit der Hilfsfunktion `desc()` (engl. descending = absteigen) werden Datensätze entsprechend der Werte im Sortiervektor absteigend sortiert.
+
+
+::: {#exm-sort}
+## Absteigende Datenrahmensortierung mit `arrange()`
+
+```{r}
+mtcars |>
+    as_tibble(rownames = "model") |> 
+    select(model, hp, disp, mpg, am) |> 
+    arrange(desc(hp)) |> 
+    head()
+```
+::: 
 
 ## Randomisieren
 
@@ -456,7 +479,9 @@ Abschliessend müssen wir **unbedingt** die beiden Hilfsvektoren, die wir zum Mi
 Wir greifen hier auf eine Stichprobe zurück, die Geschlechtsinformationen, Alter und digitale Nutzungsgewohnheiten umfasst. Wir erstellen zwei getrennte Teilstichproben, von denen eine nur die Nutzungsgewohnheiten und das Geschlecht und eine nur die Nutzungsgewohnheiten und das Alter beinhaltet. 
 
 ```{r}
-daten = read_delim("daten/befragung_digitales_umfeld/befragung.csv", show_col_types = F)
+daten = read_delim(
+    "daten/befragung_digitales_umfeld/befragung.csv", 
+    show_col_types = F)
 
 # mischen Funktion aus einer Funktionskette erstellen, damit 
 #    wir nicht so viel tippen müssen.
