@@ -10,6 +10,10 @@ abstract: ""
 ## Work in Progress
 ::: 
 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "/Users/glah/code/kurse/dxi-beispiele")
+```
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -154,6 +158,117 @@ Entsprechend der Definition des Existenzvergleichs $\in$ funktioniert R's `%in%`
 
 ### Vektorisierte Unterscheidungen
 
-## Filter
+## Filtern
+
+## Selektieren
+
+::: {.callout-tip}
+## Praxis
+
+Die `tidyverse` Bibliothek umfasst die [`tidyselect`-Funktionen](https://tidyselect.r-lib.org/reference/language.html). Dabei handelt es sich um eine Reihe von Hilfsfunktionen, die die Vektorenauswahl nachvollziehbarer macht. Auf der [`tidyselect`-Homepage](https://tidyselect.r-lib.org/) finden sich ausführliche Code-Beispiele. 
+:::
+
+In R können Vektoren mit der Funktion `select()` selektiert werden. Dieser Funktion werden Regeln übergeben, nach denen die Vektoren auswählt werden sollen. Die einfachste Regel ist die direkte Eingabe der Vektorennamen. Ein typischer Anwendungsfall ist die Datenbereinigung, damit die Funktion `drop_na()` nicht zu viele Datensätze löscht. Diese Situation kommt vor, wenn ein Datenrahmen viele fehlende Werte enthält, die ungleichmässig in den Vektoren vorkommen. Die Analyse muss deshalb auf die gewünschten Vektoren beschränkt werden. 
+
+Für die folgenden Beispiele verwenden wir die Daten der Befragung zum digitalen Umfeld, die mit der `read_delim()`-Funktion eingelesen wird. 
+
+```{r}
+stichprobe = read_delim("daten/befragung_digitales_umfeld/deviceuse.csv") 
+```
+
+### Vektoren direkt selektieren
+
+Wir wollen die Vektoren `q00_demo_gen` (Gender), `q00_demo_studyload` (Studienmodell) und `q01_mob_typ` (Mobile OS des Smartphones) auswählen. 
+
+::: {#exm-select-direkt}
+## Direktes selektieren
+```{r}
+stichprobe |>
+    select(q00_demo_gen, q00_demo_studyload, q01_mob_typ) |>
+    head()
+```
+:::
+
+Durch diesen Aufruf von `select()` wird der Datenrahmen auf die drei ausgewählten Vektoren reduziert. 
+
+### Alle ausser die benannten Vektoren selektieren
+
+Vektoren direkt zu benennen ist eine einfache direkte Methode. Wenn man sehr viele Vektoren auswählen möchte, dann ist es manchmal einfacher, nur die Vektoren anzugeben, die *nicht* in der Ergebnisstichprobe enthalten sein sollen. Mit `select()` erreichen wir das, indem wir ein `-` den ungewollten Vektoren voranstellen. 
+
+Das folgende Beispiel selektiert alle Vektoren ausser `q00_demo_gen` aus der Stichprobe. 
+
+::: {#exm-select-direkt-neg}
+## Selektieren durch Ausschliessen
+```R
+stichprobe |>
+    select(-q00_demo_gen) |>
+    head()
+```
+:::
+
+Wenn  mehrere Vektoren ausgeschlossen werden sollen, dann müssen diese zu einem Vektor zusammengefasst werden. 
+
+::: {#exm-select-direkt-neg-multi}
+## Selektieren durch mehrfaches Ausschliessen
+```R
+stichprobe |>
+    select(- c(q00_demo_gen, q00_demo_studyload)) |>
+    head()
+```
+:::
+
+Diese Vektorenauswahl wählt alle Vektoren ausser das Geschlecht und das Studienmodell. 
+
+### Vektoren mit ähnlichen Namen auswählen
+
+Drei leistungsfähige Hilfsfunktionen für `select()` sind: 
+
+- `starts_with()`,
+- `ends_with()` sowie
+- `contains()`
+
+Diesen Funktionen akzeptieren einen Teilnamen, über den mehrere Vektoren ausgewählt werden, in denen der angegebene Teil im Vektornamen vorkommt. 
+
+Diese Funktionen lassen sich mittels der `iris`-Stichprobe  veranschaulichen.
+
+::: {#exm-select-starts-with}
+## Selektieren mit `starts_with()`
+```{r}
+iris %>%
+    select(starts_with("Sepal")) |>  # wählt die Vektoren Sepal.Width und Sepal.Length aus
+    head()
+```
+:::
+
+::: {#exm-select-ends-with}
+## Selektieren mit `ends_with()`
+
+```{r}
+iris %>%
+    select(ends_with("Length")) |> # wählt die Vektoren Petal.Length und Sepal.Length aus
+    head()
+```
+:::
+
+### Alle Vektoren zwischen zwei benannten Vektoren auswählen
+
+Eine weitere Möglichkeit schneller viele Vektoren auszuwählen ist der `:`-Operator. Damit können wir alle Vektoren zwischen zwei Vektoren inklusive der benannten Vektoren auswählen.
+
+Der folgende Aufruf veranschaulicht dies: 
+::: {#exm-select-range}
+## Vektorenbereich selektieren
+```{r}
+stichprobe |>
+    select(q00_demo_gen:q01_mob_typ) |>
+    head()
+```
+:::
+
+Diese Vektorenauswahl wählt die Vektoren `q00_demo_gen`, `q00_demo_studyload` und `q01_mob_typ` für das Ergebnis aus.
+
+::: {.callout-warning}
+Die Reihenfolge von Vektoren kann durch andere Transformationen geändert werden. Deshalb sollte das Selektieren mit Vektorbereichen vermieden werden.
+:::
+
 
 ## Sortieren
