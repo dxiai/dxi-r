@@ -325,8 +325,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bedingte-operationen" id="toc-bedingte-operationen" class="nav-link" data-scroll-target="#bedingte-operationen"><span class="header-section-number">11.3.1</span> Bedingte Operationen</a></li>
   <li><a href="#vektorisierte-unterscheidungen" id="toc-vektorisierte-unterscheidungen" class="nav-link" data-scroll-target="#vektorisierte-unterscheidungen"><span class="header-section-number">11.3.2</span> Vektorisierte Unterscheidungen</a></li>
   </ul></li>
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">11.4</span> Filter</a></li>
-  <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">11.5</span> Sortieren</a></li>
+  <li><a href="#filtern" id="toc-filtern" class="nav-link" data-scroll-target="#filtern"><span class="header-section-number">11.4</span> Filtern</a>
+  <ul class="collapse">
+  <li><a href="#na-werte-filtern" id="toc-na-werte-filtern" class="nav-link" data-scroll-target="#na-werte-filtern"><span class="header-section-number">11.4.1</span> <code>NA</code>-Werte filtern</a></li>
+  </ul></li>
+  <li><a href="#selektieren" id="toc-selektieren" class="nav-link" data-scroll-target="#selektieren"><span class="header-section-number">11.5</span> Selektieren</a>
+  <ul class="collapse">
+  <li><a href="#vektoren-direkt-selektieren" id="toc-vektoren-direkt-selektieren" class="nav-link" data-scroll-target="#vektoren-direkt-selektieren"><span class="header-section-number">11.5.1</span> Vektoren direkt selektieren</a></li>
+  <li><a href="#alle-ausser-die-benannten-vektoren-selektieren" id="toc-alle-ausser-die-benannten-vektoren-selektieren" class="nav-link" data-scroll-target="#alle-ausser-die-benannten-vektoren-selektieren"><span class="header-section-number">11.5.2</span> Alle ausser die benannten Vektoren selektieren</a></li>
+  <li><a href="#vektoren-mit-ähnlichen-namen-auswählen" id="toc-vektoren-mit-ähnlichen-namen-auswählen" class="nav-link" data-scroll-target="#vektoren-mit-ähnlichen-namen-auswählen"><span class="header-section-number">11.5.3</span> Vektoren mit ähnlichen Namen auswählen</a></li>
+  <li><a href="#alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" id="toc-alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" class="nav-link" data-scroll-target="#alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen"><span class="header-section-number">11.5.4</span> Alle Vektoren zwischen zwei benannten Vektoren auswählen</a></li>
+  </ul></li>
+  <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">11.6</span> Sortieren</a></li>
+  <li><a href="#randomisieren" id="toc-randomisieren" class="nav-link" data-scroll-target="#randomisieren"><span class="header-section-number">11.7</span> Randomisieren</a>
+  <ul class="collapse">
+  <li><a href="#schritt-1-auswahl-der-vektoren" id="toc-schritt-1-auswahl-der-vektoren" class="nav-link" data-scroll-target="#schritt-1-auswahl-der-vektoren"><span class="header-section-number">11.7.1</span> Schritt 1: Auswahl der Vektoren</a></li>
+  <li><a href="#schritt-2-erzeugung-eines-eindeutigen-vektors" id="toc-schritt-2-erzeugung-eines-eindeutigen-vektors" class="nav-link" data-scroll-target="#schritt-2-erzeugung-eines-eindeutigen-vektors"><span class="header-section-number">11.7.2</span> Schritt 2: Erzeugung eines eindeutigen Vektors</a></li>
+  <li><a href="#schritt-3-mischen" id="toc-schritt-3-mischen" class="nav-link" data-scroll-target="#schritt-3-mischen"><span class="header-section-number">11.7.3</span> Schritt 3: Mischen</a></li>
+  <li><a href="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" id="toc-schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" class="nav-link" data-scroll-target="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten"><span class="header-section-number">11.7.4</span> Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten</a></li>
+  <li><a href="#vollständige-lösung" id="toc-vollständige-lösung" class="nav-link" data-scroll-target="#vollständige-lösung"><span class="header-section-number">11.7.5</span> Vollständige Lösung</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -593,18 +611,510 @@ Warnung
 <h2 data-number="11.3" class="anchored" data-anchor-id="fälle-unterscheiden"><span class="header-section-number">11.3</span> Fälle unterscheiden</h2>
 <section id="bedingte-operationen" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="bedingte-operationen"><span class="header-section-number">11.3.1</span> Bedingte Operationen</h3>
+<p>R kennt die beiden Schlüsselworte <code>if</code> und <code>else</code>, um die Ausführung Operationsblöcken an Bedingungen zu knüpfen. Das Schlüsselwort <code>if</code> erwartet einen logischen Ausdruck, der <strong>genau</strong> einen Wahrheitswert zurückgibt. Logische Ausdrücke mit Vektoren sind damit nicht möglich.</p>
+<p>Soll sowohl die Bedingung als auch die Alternative behandelt werden, dann muss das Schlüsselwort <code>else</code> in der gleichen Zeile stehen, wie das Ende des Blocks für die Bedingung.</p>
+<div id="exm-ungueltiges-if" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.6 (Ungültige Vektorbedingung mit <code>if</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>werte <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (werte <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    werte <span class="ot">=</span> werte <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    werte <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in if (werte &gt; 1) {: Bedingung hat Länge &gt; 1</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bedingte Operationen sind in R nur selten notwendig. Die einzige relevandte Anwendung ist Datentypkontrolle für Parameter bevor die eigentliche Operation durchgeführt wird.</p>
+</div>
+</div>
+<div id="exm-datentyppruefung-if" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.7 (Datentypprüfung mit <code>if</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.list</span>(werte)) {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Variable enthält keine Liste"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): Variable enthält keine Liste</code></pre>
+</div>
+</div>
+</div>
 </section>
 <section id="vektorisierte-unterscheidungen" class="level3" data-number="11.3.2">
 <h3 data-number="11.3.2" class="anchored" data-anchor-id="vektorisierte-unterscheidungen"><span class="header-section-number">11.3.2</span> Vektorisierte Unterscheidungen</h3>
+<p>Häufiger als Bedingungen kommen in R vektorisierte Unterscheidungen vor. Dafür stehen zwei Funktionen zur Verfügung:</p>
+<ul>
+<li><code>ifelse()</code></li>
+<li><code>case_when()</code></li>
+</ul>
+<p>Die Funktion <code>ifelse()</code> hat drei Parameter und immer einen Vektor als Ergebnis. Die Parameter sind:</p>
+<ol type="1">
+<li>Einen vektorisierten logischen Ausdruck.</li>
+<li>Eine Operation für den Fall, dass der logische Ausdruck Wahr (<code>TRUE</code>) ergibt.</li>
+<li>Eine Opearation für den Fall, dass der logische Ausdruck Falsch (<code>FALSE</code>) ergibt.</li>
+</ol>
+<p>Die Ergebnisse der beiden Operationen stehen im Ergebnisvektor an den Positionen, an denen der logische Ausdruck Wahr oder Falsch ergab.</p>
+<div id="exm-ifelse" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.8 (Vektorisierte Unterscheidung mit <code>ifelse()</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(werte <span class="sc">&gt;</span> <span class="dv">1</span>, werte <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 4 0 0</code></pre>
+</div>
+</div>
+</div>
+<p>Die Funktion <code>case_when()</code> erlaubt es, mehrere miteinander verbundene vektorisierte Unterscheidungen in einer Operation durchzuführen. Dazu werden logische Ausdrücke mit Ergebnisoperationen bzw. -Werten verknüpft. Eine Ergebnisoperation wird dann ausgeführt, wenn der zugehörige logische Ausdruck Wahr (<code>TRUE</code>) ergibt. Die logischen Ausdrücke werden in der angegebenen Reihenfolge geprüft, wobei die Operation abbricht, sobald ein logischer Ausdruck Wahr ergibt.</p>
+<div id="exm-case-when-default" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.9 (<code>case_when()</code> über einen Vektor) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"positiv"</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"null"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"negativ"</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "negativ" "positiv" "null"    "positiv"</code></pre>
+</div>
+</div>
+</div>
+<p>Für den Fall, dass für einen Wert kein logischer Ausdruck Wahr ergibt, kann ein <strong>Rückfallergebnis</strong> angegeben werden. Dieses Rückfallergebnis muss mit <code>.default =</code> eingeleitet werden.</p>
+<div id="exm-case-when-default" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.10 (<code>case_when()</code> mit Rückfallergebnis) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"positiv"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"negativ"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"null"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "negativ" "positiv" "null"    "positiv"</code></pre>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="filter" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="filter"><span class="header-section-number">11.4</span> Filter</h2>
+<section id="filtern" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="filtern"><span class="header-section-number">11.4</span> Filtern</h2>
+<p>Das Filtern von Werten in Vektoren und Stichproben ist ein zentrales Element von R. Dafür stehen viele Funktionen bereit. Es ist auch möglich über die Index-Operatoren zu filtern.</p>
+<p>In der Praxis wird meistens die Funktion <code>filter()</code> zum Auswählen von Datensätzen verwendet. Diese Funktion ermöglicht es, einen Datenrahmen mittels eines logischen Ausdrucks einzuschränken. Die Funktion <code>filter()</code> hat zwei Parameter:</p>
+<ol type="1">
+<li>Den Datenrahmen und</li>
+<li>Den logischen Ausdruck für die Auswahl der Datensätze.</li>
+</ol>
+<p>Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (<code>TRUE</code>) ergibt.</p>
+<blockquote class="blockquote">
+<div id="exm-filter" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.11 (Filtern) </strong></span>&nbsp;</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><em>Name</em></td>
+<td style="text-align: center;"><em>Sprache</em></td>
+<td style="text-align: center;"><em>Einwohner:innen</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;">Basel</td>
+<td style="text-align: center;">deutsch</td>
+<td style="text-align: center;">173863</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;">Genf</td>
+<td style="text-align: center;">&nbsp;französisch</td>
+<td style="text-align: center;">203856</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;">Lugano</td>
+<td style="text-align: center;">italienisch</td>
+<td style="text-align: center;">62315</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: left;">Zug</td>
+<td style="text-align: center;">deutsch&nbsp;</td>
+<td style="text-align: center;">30934</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;">Zürich</td>
+<td style="text-align: center;">deutsch&nbsp;</td>
+<td style="text-align: center;">421878</td>
+</tr>
+</tbody>
+</table>
+<p>Für diese Stichprobe möchten wir wissen, wie viele Einwohner in Städten mit mehr als 100000 Einwohnenden leben?</p>
+<p>Diese Frage beantworten wir mit der folgenden Logik:</p>
+<ol type="1">
+<li>Alle Städte mit mehr als 100000 Einwohner:innen filtern.<br>
+</li>
+<li>Die Einwohner:innen der gefilterten Städte zusammenzählen.</li>
+</ol>
+<p>Der logische Ausdruck zum Filtern ist <code>`Einwohner:innen` &gt; 100000</code>, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor <code>Einwohner:innen</code> der Wert grösser als <code>100000</code> ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><em>Name</em></td>
+<td style="text-align: center;"><em>Sprache</em></td>
+<td style="text-align: center;"><em>Einwohner:innen</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;">Basel</td>
+<td style="text-align: center;">deutsch</td>
+<td style="text-align: center;">173863</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;">Genf</td>
+<td style="text-align: center;">&nbsp;französisch</td>
+<td style="text-align: center;">203856</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: left;">Zürich</td>
+<td style="text-align: center;">deutsch&nbsp;</td>
+<td style="text-align: center;">421878</td>
+</tr>
+</tbody>
+</table>
+<p>Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor <code>Einwohner:innen</code> gebildet werden.</p>
+<p>Daraus ergibt sich die folgende Funktionskette:</p>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"daten/einwohnende.psv"</span>, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">delim =</span> <span class="st">"|"</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">trim_ws =</span> T, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show_col_types =</span> F) <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">100000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Gesamteinwohnende =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  Gesamteinwohnende
+              &lt;dbl&gt;
+1            799597</code></pre>
+</div>
+</div>
+</div>
+</blockquote>
+<section id="na-werte-filtern" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="na-werte-filtern"><span class="header-section-number">11.4.1</span> <code>NA</code>-Werte filtern</h3>
+<p>Die Funktion <code>drop_na()</code> ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert <code>NA</code> vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (<a href="#exm-drop-na-all">Beispiel&nbsp;<span>11.12</span></a>).</p>
+<div id="exm-drop-na-all" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.12 (<code>drop_na()</code> ohne Effekt) </strong></span>&nbsp;</p>
+</div>
 </section>
-<section id="sortieren" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="sortieren"><span class="header-section-number">11.5</span> Sortieren</h2>
+</section>
+<section id="selektieren" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="selektieren"><span class="header-section-number">11.5</span> Selektieren</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die <code>tidyverse</code> Bibliothek umfasst die <a href="https://tidyselect.r-lib.org/reference/language.html"><code>tidyselect</code>-Funktionen</a>. Dabei handelt es sich um eine Reihe von Hilfsfunktionen, die die Vektorenauswahl nachvollziehbarer macht. Auf der <a href="https://tidyselect.r-lib.org/"><code>tidyselect</code>-Homepage</a> finden sich ausführliche Code-Beispiele.</p>
+</div>
+</div>
+<p>In R können Vektoren mit der Funktion <code>select()</code> selektiert werden. Dieser Funktion werden Regeln übergeben, nach denen die Vektoren auswählt werden sollen. Die einfachste Regel ist die direkte Eingabe der Vektorennamen. Ein typischer Anwendungsfall ist die Datenbereinigung, damit die Funktion <code>drop_na()</code> nicht zu viele Datensätze löscht. Diese Situation kommt vor, wenn ein Datenrahmen viele fehlende Werte enthält, die ungleichmässig in den Vektoren vorkommen. Die Analyse muss deshalb auf die gewünschten Vektoren beschränkt werden.</p>
+<p>Für die folgenden Beispiele verwenden wir die Daten der Befragung zum digitalen Umfeld, die mit der <code>read_delim()</code>-Funktion eingelesen wird.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"daten/befragung_digitales_umfeld/deviceuse.csv"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 76 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<section id="vektoren-direkt-selektieren" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="vektoren-direkt-selektieren"><span class="header-section-number">11.5.1</span> Vektoren direkt selektieren</h3>
+<p>Wir wollen die Vektoren <code>q00_demo_gen</code> (Gender), <code>q00_demo_studyload</code> (Studienmodell) und <code>q01_mob_typ</code> (Mobile OS des Smartphones) auswählen.</p>
+<div id="exm-select-direkt" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.13 (Direktes selektieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_demo_gen, q00_demo_studyload, q01_mob_typ) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  q00_demo_gen q00_demo_studyload q01_mob_typ       
+  &lt;chr&gt;        &lt;chr&gt;              &lt;chr&gt;             
+1 Weiblich     Vollzeit           iPhone            
+2 Weiblich     Vollzeit           iPhone            
+3 Weiblich     Teilzeit           iPhone            
+4 Weiblich     Teilzeit           iPhone            
+5 Männlich     &lt;NA&gt;               Android Smartphone
+6 Weiblich     Vollzeit           iPhone            </code></pre>
+</div>
+</div>
+</div>
+<p>Durch diesen Aufruf von <code>select()</code> wird der Datenrahmen auf die drei ausgewählten Vektoren reduziert.</p>
+</section>
+<section id="alle-ausser-die-benannten-vektoren-selektieren" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="alle-ausser-die-benannten-vektoren-selektieren"><span class="header-section-number">11.5.2</span> Alle ausser die benannten Vektoren selektieren</h3>
+<p>Vektoren direkt zu benennen ist eine einfache direkte Methode. Wenn man sehr viele Vektoren auswählen möchte, dann ist es manchmal einfacher, nur die Vektoren anzugeben, die <em>nicht</em> in der Ergebnisstichprobe enthalten sein sollen. Mit <code>select()</code> erreichen wir das, indem wir ein <code>-</code> den ungewollten Vektoren voranstellen.</p>
+<p>Das folgende Beispiel selektiert alle Vektoren ausser <code>q00_demo_gen</code> aus der Stichprobe.</p>
+<div id="exm-select-direkt-neg" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.14 (Selektieren durch Ausschliessen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>q00_demo_gen) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wenn mehrere Vektoren ausgeschlossen werden sollen, dann müssen diese zu einem Vektor zusammengefasst werden.</p>
+<div id="exm-select-direkt-neg-multi" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.15 (Selektieren durch mehrfaches Ausschliessen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span> <span class="fu">c</span>(q00_demo_gen, q00_demo_studyload)) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Diese Vektorenauswahl wählt alle Vektoren ausser das Geschlecht und das Studienmodell.</p>
+</section>
+<section id="vektoren-mit-ähnlichen-namen-auswählen" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="vektoren-mit-ähnlichen-namen-auswählen"><span class="header-section-number">11.5.3</span> Vektoren mit ähnlichen Namen auswählen</h3>
+<p>Drei leistungsfähige Hilfsfunktionen für <code>select()</code> sind:</p>
+<ul>
+<li><code>starts_with()</code>,</li>
+<li><code>ends_with()</code> sowie</li>
+<li><code>contains()</code></li>
+</ul>
+<p>Diesen Funktionen akzeptieren einen Teilnamen, über den mehrere Vektoren ausgewählt werden, in denen der angegebene Teil im Vektornamen vorkommt.</p>
+<p>Diese Funktionen lassen sich mittels der <code>iris</code>-Stichprobe veranschaulichen.</p>
+<div id="exm-select-starts-with" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.16 (Selektieren mit <code>starts_with()</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>)) <span class="sc">|&gt;</span>  <span class="co"># wählt die Vektoren Sepal.Width und Sepal.Length aus</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width
+1          5.1         3.5
+2          4.9         3.0
+3          4.7         3.2
+4          4.6         3.1
+5          5.0         3.6
+6          5.4         3.9</code></pre>
+</div>
+</div>
+</div>
+<div id="exm-select-ends-with" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.17 (Selektieren mit <code>ends_with()</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"Length"</span>)) <span class="sc">|&gt;</span> <span class="co"># wählt die Vektoren Petal.Length und Sepal.Length aus</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Petal.Length
+1          5.1          1.4
+2          4.9          1.4
+3          4.7          1.3
+4          4.6          1.5
+5          5.0          1.4
+6          5.4          1.7</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen"><span class="header-section-number">11.5.4</span> Alle Vektoren zwischen zwei benannten Vektoren auswählen</h3>
+<p>Eine weitere Möglichkeit schneller viele Vektoren auszuwählen ist der <code>:</code>-Operator. Damit können wir alle Vektoren zwischen zwei Vektoren inklusive der benannten Vektoren auswählen.</p>
+<p>Der folgende Aufruf veranschaulicht dies: ::: {#exm-select-range} ## Vektorenbereich selektieren</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_demo_gen<span class="sc">:</span>q01_mob_typ) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  q00_demo_gen q00_demo_studyload q01_mob_typ       
+  &lt;chr&gt;        &lt;chr&gt;              &lt;chr&gt;             
+1 Weiblich     Vollzeit           iPhone            
+2 Weiblich     Vollzeit           iPhone            
+3 Weiblich     Teilzeit           iPhone            
+4 Weiblich     Teilzeit           iPhone            
+5 Männlich     &lt;NA&gt;               Android Smartphone
+6 Weiblich     Vollzeit           iPhone            </code></pre>
+</div>
+</div>
+<p>:::</p>
+<p>Diese Vektorenauswahl wählt die Vektoren <code>q00_demo_gen</code>, <code>q00_demo_studyload</code> und <code>q01_mob_typ</code> für das Ergebnis aus.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Reihenfolge von Vektoren kann durch andere Transformationen geändert werden. Deshalb sollte das Selektieren mit Vektorbereichen vermieden werden.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sortieren" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="sortieren"><span class="header-section-number">11.6</span> Sortieren</h2>
+<p>R erlaubt kein Sortieren über logische Ausdrücke. Es ist nur möglich, Werte nach vorgegebenen grösser-kleiner Beziehungen zu sortieren. Deshalb muss für komplexe Sortierungen ein numerischer Hilfsvektor erzeugt werden, der anschliessend sortiert werden kann.</p>
+<p>Die Werte eines Vektors werden mit <code>sort()</code> sortiert.</p>
+<div id="exm-sort" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.18 (Vektorsortierung für zufällige Ganzzahlen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">10</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">trunc</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 3 3 3 3 4 4 5 6 7</code></pre>
+</div>
+</div>
+</div>
+<p>Die <code>sort()</code>-Funktion kann nur einzelne Vektoren sortieren. Das ist unpraktisch, wenn Daten in einem Datenrahmen vorliegen. In diesem Fall lassen sich die Datensätze mithilfe der Funktion <code>arrange()</code> sortieren. Der Funktion werden die Vektoren übergeben, über die eine neue Reihenfolge festgelegt werden soll. Standardmässig sortiert <code>arrange()</code> aufsteigend. Mit der Hilfsfunktion <code>desc()</code> (engl. descending = absteigen) werden Datensätze entsprechend der Werte im Sortiervektor absteigend sortiert.</p>
+<div id="exm-sort" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.19 (Absteigende Datenrahmensortierung mit <code>arrange()</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(model, hp, disp, mpg, am) <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(hp)) <span class="sc">|&gt;</span> </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  model                  hp  disp   mpg    am
+  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Maserati Bora         335   301  15       1
+2 Ford Pantera L        264   351  15.8     1
+3 Duster 360            245   360  14.3     0
+4 Camaro Z28            245   350  13.3     0
+5 Chrysler Imperial     230   440  14.7     0
+6 Lincoln Continental   215   460  10.4     0</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="randomisieren" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="randomisieren"><span class="header-section-number">11.7</span> Randomisieren</h2>
+<p>Wenn wir mit Teilstichproben arbeiten und diese mit anderen teilen, müssen wir vermeiden, dass zwei Stichproben leicht zusammengesetzt werden können und so Rückschlüsse über die Probanden möglich werden.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sobald personenbezogene Daten statistisch ausgewertet und zur Publikation vorbereitet werden, <strong>müssen</strong> die Daten randomisiert werden!</p>
+</div>
+</div>
+<p>Dieses Rezept beschreibt eine Technik zur Anonymisierung von Daten durch Mischen. Entscheidend bei dieser Technik ist, dass wir die Werte für unsere Analyse zusammenhalten möchten, sodass unsere Ergebnisse nachvollziehbar bleiben. Gleichzeitig soll es unmöglich werden, diese Daten mit anderen Teilen unserer Studien in Verbindung zu bringen.</p>
+<p>Die Technik der Anonymisierung durch Mischen besteht aus vier Schritten:</p>
+<ol type="1">
+<li>Auswahl der Vektoren, die wir in einer Publikation teilen möchten,</li>
+<li>Erzeugung eines eindeutigen Vektors,</li>
+<li>zufälliges Mischen,</li>
+<li>Entfernen der eindeutigen Vektoren und exportieren der Daten.</li>
+</ol>
+<section id="schritt-1-auswahl-der-vektoren" class="level3" data-number="11.7.1">
+<h3 data-number="11.7.1" class="anchored" data-anchor-id="schritt-1-auswahl-der-vektoren"><span class="header-section-number">11.7.1</span> Schritt 1: Auswahl der Vektoren</h3>
+<p>Die zu veröffentlichenden Vektoren werde mit der <code>select()</code>-Funktion selektiert.</p>
+</section>
+<section id="schritt-2-erzeugung-eines-eindeutigen-vektors" class="level3" data-number="11.7.2">
+<h3 data-number="11.7.2" class="anchored" data-anchor-id="schritt-2-erzeugung-eines-eindeutigen-vektors"><span class="header-section-number">11.7.2</span> Schritt 2: Erzeugung eines eindeutigen Vektors</h3>
+<p>Alle Werte müssen zusammengehalten werden,damit nachgereihte Analysen nachvollziehbar bleiben. Dazu werden die Datensätze nummeriert.</p>
+</section>
+<section id="schritt-3-mischen" class="level3" data-number="11.7.3">
+<h3 data-number="11.7.3" class="anchored" data-anchor-id="schritt-3-mischen"><span class="header-section-number">11.7.3</span> Schritt 3: Mischen</h3>
+<p>Dieser Schritt greift auf die Funktion <code>sample()</code> zurück. Wir erzeugen aus den ursprünglichen Nummerierungen eine neue Nummerierung durch <code>daten |&gt; mutate( id_neu = sample(id) )</code>. Nach dieser neuen Nummerierung sind unsere Datensätze aber immer noch in der gleichen Reihenfolge und noch nicht gemischt. Wir müssen also die Reihenfolge so anpassen, dass die neue Nummerierung gilt. Das erreichen wir mit dem Funktionsaufruf <code>daten |&gt; arrange( id_neu )</code>.</p>
+</section>
+<section id="schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" class="level3" data-number="11.7.4">
+<h3 data-number="11.7.4" class="anchored" data-anchor-id="schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten"><span class="header-section-number">11.7.4</span> Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten</h3>
+<p>Abschliessend müssen wir <strong>unbedingt</strong> die beiden Hilfsvektoren, die wir zum Mischen verwendet haben, aus unserer Stichprobe wieder entfernen. Das erreichen wir mit einer Vektorauswahl: <code>daten |&gt; select(-c(id, id_neu))</code>.</p>
+</section>
+<section id="vollständige-lösung" class="level3" data-number="11.7.5">
+<h3 data-number="11.7.5" class="anchored" data-anchor-id="vollständige-lösung"><span class="header-section-number">11.7.5</span> Vollständige Lösung</h3>
+<p>Wir greifen hier auf eine Stichprobe zurück, die Geschlechtsinformationen, Alter und digitale Nutzungsgewohnheiten umfasst. Wir erstellen zwei getrennte Teilstichproben, von denen eine nur die Nutzungsgewohnheiten und das Geschlecht und eine nur die Nutzungsgewohnheiten und das Alter beinhaltet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_delim</span>(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"daten/befragung_digitales_umfeld/befragung.csv"</span>, </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_col_types =</span> F)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># mischen Funktion aus einer Funktionskette erstellen, damit </span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#    wir nicht so viel tippen müssen.</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>mischen <span class="ot">=</span> . <span class="sc">%&gt;%</span> </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( </span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">id =</span> <span class="fu">row_number</span>(), </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">id_neu =</span> <span class="fu">sample</span>(id) <span class="co"># wählt zufällig eine id aus.</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(id_neu) <span class="sc">%&gt;%</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(id, id_neu))</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_2, <span class="fu">starts_with</span>(<span class="st">"q15"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mischen</span>() <span class="sc">|&gt;</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="st">"teilstichprobe_geschlecht_technik.csv"</span>)</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(kurs, <span class="fu">starts_with</span>(<span class="st">"q18"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mischen</span>() <span class="sc">|&gt;</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="st">"teilstichprobe_alter_sozial.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Definition der Funktion <code>mischen()</code> verwendet die spezielle Funktionsverkettung von <code>tidyverse</code>, weil damit Funktionen erstellt werden können. In diesem Fall dürfen die Operatoren <code>|&gt;</code> und <code>%&gt;%</code> nicht im gleichen Arbeitsschritt gemischt werden.</p>
+</div>
+</div>
+<p>Die Daten in den beiden Dateien lassen sich nicht mehr zusammenführen. Damit erkennen wir auch die Grenzen dieser Technik: Wenn zwei gemischte Stichproben ausreichend viele gemeinsame oder sehr detaillierte Vektoren haben, die in beiden Teilstichproben vorkommen, dann können diese Stichproben trotz mischen wieder zusammengeführt werden.</p>
+<p>Mit den gemischten Daten ist es nun nicht mehr möglich, die Werte mit einem anderen Teil der Stichprobe zu kombinieren und so tiefere Rückschlüsse über die Teilnehmenden (womöglich unwissend) zuzulassen. Nur noch durch den Zugriff auf die ursprünglichen Daten können diese Zusammenhänge hergestellt werden. Daher sind die ursprünglichen Daten oft besonders schützenswert und sollten ohne Randomisierung nicht weitergegeben werden.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
