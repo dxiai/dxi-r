@@ -156,9 +156,122 @@ Entsprechend der Definition des Existenzvergleichs $\in$ funktioniert R's `%in%`
 
 ### Bedingte Operationen
 
+R kennt die beiden Schlüsselworte `if` und `else`, um die Ausführung Operationsblöcken an Bedingungen zu knüpfen. Das Schlüsselwort `if` erwartet einen logischen Ausdruck, der **genau** einen Wahrheitswert zurückgibt. Logische Ausdrücke mit Vektoren sind damit nicht möglich. 
+
+Soll sowohl die Bedingung als auch die Alternative behandelt werden, dann muss das Schlüsselwort `else` in der gleichen Zeile stehen, wie das Ende des Blocks für die Bedingung.
+
+::: {#exm-ungueltiges-if}
+## Ungültige Vektorbedingung mit `if`
+```{r, error=TRUE}
+werte = c(-1, 2, 0, 1)
+if (werte > 1) {
+    werte = werte - 1
+} else {
+    werte = 0
+}
+```
+:::
+
+::: {.callout-tip}
+## Praxis
+Bedingte Operationen sind in R nur selten notwendig. Die einzige relevandte Anwendung ist Datentypkontrolle für Parameter bevor die eigentliche Operation durchgeführt wird. 
+:::
+
+::: {#exm-datentyppruefung-if}
+## Datentypprüfung mit `if`
+```{r, error=TRUE}
+
+if (!is.list(werte)) {
+    stop("Variable enthält keine Liste")
+}
+```
+:::
+
 ### Vektorisierte Unterscheidungen
 
+Häufiger als Bedingungen kommen in R vektorisierte Unterscheidungen vor. Dafür stehen zwei Funktionen zur Verfügung:
+
+- `ifelse()`
+- `case_when()`
+
+Die Funktion `ifelse()` hat drei Parameter und immer einen Vektor als Ergebnis. Die Parameter sind:
+
+1. Einen vektorisierten logischen Ausdruck.
+2. Eine Operation für den Fall, dass der logische Ausdruck Wahr (`TRUE`) ergibt.
+3. Eine Opearation für den Fall, dass der logische Ausdruck Falsch (`FALSE`) ergibt.
+
+Die Ergebnisse der beiden Operationen stehen im Ergebnisvektor an den Positionen, an denen der logische Ausdruck Wahr oder Falsch ergab. 
+
+::: {#exm-ifelse}
+## Vektorisierte Unterscheidung mit `ifelse()`
+```{r}
+ifelse(werte > 1, werte * 2, 0)
+```
+:::
+
 ## Filtern
+
+Das Filtern von Werten in Vektoren und Stichproben ist ein zentrales Element von R. Dafür stehen viele Funktionen bereit. Es ist auch möglich über die Index-Operatoren zu filtern.
+
+In der Praxis wird meistens die Funktion `filter()` zum Auswählen von Datensätzen verwendet. Diese Funktion ermöglicht es, einen Datenrahmen mittels eines logischen Ausdrucks einzuschränken. Die Funktion `filter()` hat zwei Parameter: 
+
+1. Den Datenrahmen und
+2. Den logischen Ausdruck für die Auswahl der Datensätze. 
+
+Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (`TRUE`) ergibt.
+
+> ::: {#exm-filter}
+> ## Filtern
+> 
+> | | A | B | C |
+> | :---: | :---| :---: |  :---: | 
+> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
+> | **2** | Basel | deutsch | 173863| 
+> | **3** | Genf | französisch | 203856 | 
+> | **4** | Lugano | italienisch | 62315 | 
+> | **5** | Zug | deutsch | 30934 | 
+> | **6** | Zürich | deutsch | 421878 | 
+> 
+> Für diese Stichprobe möchten wir wissen, wie viele Einwohner in Städten mit mehr als 100000 Einwohnenden leben?
+> 
+> Diese Frage beantworten wir mit der folgenden Logik:
+> 
+> 1. Alle Städte mit mehr als 100000 Einwohner:innen filtern.  
+> 2. Die Einwohner:innen der gefilterten Städte zusammenzählen. 
+> 
+> Der logische Ausdruck zum Filtern ist `` `Einwohner:innen` > 100000 ``, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor `Einwohner:innen` der Wert grösser als `100000` ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor: 
+> 
+> | | A | B | C |
+> | :---: | :---| :---: |  :---: | 
+> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
+> | **2** | Basel | deutsch | 173863 | 
+> | **3** | Genf | französisch | 203856 | 
+> | **6** | Zürich | deutsch | 421878 | 
+> 
+> Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor `Einwohner:innen` gebildet werden. 
+> 
+> Daraus ergibt sich die folgende Funktionskette: 
+> 
+> ```{r, warnings=FALSE}
+> read_delim("daten/einwohnende.psv", 
+>            delim = "|", 
+>            trim_ws = T, 
+>            show_col_types = F) |> 
+>     filter(`Einwohner:innen` > 100000) |>
+>     summarise(
+>         Gesamteinwohnende = sum(`Einwohner:innen`)
+>     )
+> ```
+> :::
+
+
+### `NA`-Werte filtern 
+
+Die Funktion `drop_na()` ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert `NA` vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (@exm-drop-na-all).
+
+::: {#exm-drop-na-all}
+## `drop_na()` ohne Effekt
+:::
 
 ## Selektieren
 
@@ -234,7 +347,7 @@ Diese Funktionen lassen sich mittels der `iris`-Stichprobe  veranschaulichen.
 ::: {#exm-select-starts-with}
 ## Selektieren mit `starts_with()`
 ```{r}
-iris %>%
+iris |>
     select(starts_with("Sepal")) |>  # wählt die Vektoren Sepal.Width und Sepal.Length aus
     head()
 ```
@@ -244,7 +357,7 @@ iris %>%
 ## Selektieren mit `ends_with()`
 
 ```{r}
-iris %>%
+iris |>
     select(ends_with("Length")) |> # wählt die Vektoren Petal.Length und Sepal.Length aus
     head()
 ```
