@@ -11,7 +11,7 @@ abstract: ""
 ::: 
 
 ```{r, setup, include=FALSE}
-knitr::opts_knit$set(root.dir = "/Users/glah/code/kurse/dxi-beispiele")
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
 ```
 
 ```{r}

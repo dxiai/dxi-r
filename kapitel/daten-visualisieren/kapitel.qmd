@@ -12,6 +12,10 @@ execute:
 ## Work in Progress
 :::
 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
+```
+
 In R erstellen wir Plots mit Hilfe der `ggplot2`-Funktionen. Anders als in Excel werden mit diesen Funktionen Plots schrittweise aufgebaut und können auf diese Weise einheitlich reproduziert werden. 
 
 Als Erstes laden wir wie immer die `tidyverse`-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.
@@ -173,27 +177,29 @@ Das folgende Beispiel veranschaulicht die Situation.
 
 Wir verwenden die Stichprobe `digitales_umfeld1.csv`. In dieser Stichprobe gibt es den Vektor `tage`, der das Alter der beantwortenden Person in Tagen festhält. Dabei handelt es sich rein formell um *diskrete Werte*. Wenn wir die Verteilung dieser Werte in einem Histogramm für *diskrete Werte* darstellen würden, dann erhalten wir das folgende Histogramm: 
 
-```R
-digitales_umfeld = read_delim("digitales_umfeld1.csv")
+```{R}
+#| label: fig-tage-barplot
+#| fig-cap: Tage-Histogram Diskrete Werte
+digitales_umfeld = read_delim("befragung_digitales_umfeld/digitales_umfeld1.csv")
 
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_bar()
 ```
 
-![Tage-Histogram Diskrete Werte](figures/tage_barplot.png){#fig-tage-barplot}
-
 Auf diesem Histogramm kann man keine Verteilung erkennen. Es scheint, als ob alle Werte genau einmal vorkommen. Der Wertebereich der y-Achse deutet aber darauf hin, dass einzelne Werte bis zu drei Mal vorkommen. Diese Balken sind jedoch so dünn, dass sie nicht im Diagramm dargestellt werden können. 
 
 Die Werte in diesem Vektore verhalten sich also wie *kontinuierliche Werte*. Deshalb verwenden wir die Funktion `geom_histogram()`, um die Daten darzustellen. 
 
-```R
+```{R}
+#| label: fig-tage-histo
+#| fig-cap: Tage-Histogram
+#| warning: FALSE
+
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_histogram()
 ```
-
-![Tage-Histogram](figures/tage_histogram.png){#fig-tage-histo}
 
 Aus diesem Histogramm können wir wesentlich besser die Verteilung des Alters in Tagen ablesen, weil der Wertebereich in grössere Segmente gegliedert wurde und die Datensätze in diesen Segmenten gezählt wurden.
 
@@ -218,17 +224,20 @@ Beim Box-Plot wird der Median als dicke Linie dargestellt. Der Interquartilsabst
 
 Wiederholen wir die Visualisierung für unsere Alterstage mit einem Boxplot, dann erhalten wir folgendes Ergebnis: 
 
-```R
+```{R}
+#| label: fig-tage-boxplot
+#| fig-cap: Tage-Boxplot
+#| warning: FALSE
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_boxplot()
 ```
 
-![Tage-Boxplot](figures/tage_boxplot.png){#fig-tage-boxplot}
-
 Wir erkennen jetzt leicht, dass der Grossteil der Gruppe unter 10000 Tagen alt ist und dass es sechs Ausreisser gibt, die deutlich älter als der Grossteil der Gruppe sind. 
 
-### Ausgleichsgeraden
+### Punkt- und Jitter-Diagramme
+
+
 
 Die dritte wichtige visuelle Analysetechnik sind Punktwolken. Bei Punktwolken stellen wir die Werte von zwei Vektoren ähnlich einer Kreuztabelle gegenüber und überprüfen das gemeinsame Auftreten von Werten in den Vektoren unserer Messungen.
 
@@ -237,38 +246,53 @@ Für Punktwolken stehen zwei Funktionen zur Verfügung:
 1. `geom_point()` für kontinuierliche Werte.
 2. `geom_jitter()` für diskrete Werte.
 
-```R
-daten = read_delim("digitales_umfeld_geraete_fm_att.csv");
+Mit Punktdiagrammen werden zwei Merkmale mit kontinuierlichen Daten gegenübergestellt. Punktdiagramme bilden **Beziehungen zwischen Merkmalen** ab. 
 
-daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+```{r}
+#| label: fig-iris-points
+#| fig-cap: Punktdiagramm der `iris`-Daten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
         geom_point()
 ```
 
-![](figures/interpretieren/output_27_0.png){}
+```{R}
+#| label: fig-attitude-point
+#| fig-cap: Beispiel eines Punktdiagramms mit diskreten Daten
+#| warning: FALSE
+daten = read_delim("befragung_digitales_umfeld/befragung.csv");
+
+daten |>
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
+        geom_point()
+```
     
 In diesem Beispiel sehen wir, dass alle Werte genau an den gleichen Punkten im Koordinatensystem liegen. Ein solcher Plot ist ein gutes Beispiel für *diskrete Werte*. Bei diskreten Werten fallen alle Messungen genau auf bestimmte Punkte im Wertebereich. Kontinuierliche Werte weichen oft ein wenig voneinander ab, sodass wir eine Wolke sehen würden. 
 
 Um Punktwolken für diskrete Werte zu erzeugen, verwenden wir die `geom_jitter()`-Funktion. Diese Funktion erzeugt einen kleinen Bereich um den diskreten (echten) Messwert und verteilt die einzelnen Datensätze mit einem zufälligen Abstand vom echten Messwert. Dadurch wird das gemeinsame Auftreten von Werten deutlich sichtbar, sofern es Gemeinsamkeiten gibt.
 
-
-```R
+```{R}
+#| label: fig-attitude-jitter
+#| fig-cap: Beispiel eines Jitter-Diagramms
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
         geom_jitter()
 ```
 
-![](figures/interpretieren/output_29_0.png){}
-
 Durch den leichten Versatz sind nun gehäufte Wertepaare leichter zu erkennen. Bei Jitter-Plots dürfen wir aber nie vergessen, dass die Punkte zwar Messungen repräsentieren, aber leicht vom echten Messpunkt versetzt dargestellt wurden.
 
-In diesem Beispiel können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf *Korrelationen* hin. 
+### Ausgleichsgeraden
+
+Im vorigen Abschnitt können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf *Korrelationen* hin. 
 
 ::: {#def-korrelation}
 Eine **Korrelation** bezeichnet das wiederholte Auftreten von Wertepaaren in Stichproben. Korrelationen deuten auf Zusammenhänge zwischen zwei Vektoren hin.
@@ -276,33 +300,34 @@ Eine **Korrelation** bezeichnet das wiederholte Auftreten von Wertepaaren in Sti
 
 Ähnlich wie beim Vergleichen mit Histogrammen ist es bei Punktwolken hilfreich, für die Wolke eine Referenz zur Orientierung zu haben. Das erreichen wir mit der `geom_smooth()`-Funktion. Die Methode `lm` steht für "lineares Modell". In diesem Modell versteckt sich das Wort Linie und deshalb *erzeugt ein lineares Modell immer eine Ausgleichsgerade*. Der graue Bereich zeigt uns die Spanne des Fehlerbereichs für diese Gerade. Bei einer linearen Korrelation sollte diese Gerade den Häufungen in unserem Plot ungefähr folgen.
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth
+#| fig-cap: Beispiel eines Jitter-Diagramms mit Ausgleichsgerade
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
         geom_jitter() +
-        geom_smooth(method="lm")
+        geom_smooth(method=lm)
 ```
-
-![](figures/interpretieren/output_31_1.png){}
-
 
 Das folgende Beispiel zeigt eine Punktwolke, bei der die Wertepaare zufällig über den gesamten Wertebereich gestreut sind. In diesem Fall ist eine Korrelation kaum wahrscheinlich. 
 
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth2
+#| fig-cap: Beispiel eines Jitter-Diagramms mit flacher Ausgleichsgerade
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde  >= -1 & 
-           sozial_freundschaftsanfragen_aus_netzwerk >= -1 ) |>
-    ggplot(aes(x = sozial_like_freunde, 
-               y = sozial_freundschaftsanfragen_aus_netzwerk)) + 
+    filter(q18_3 > 0 & 
+           q18_29  > 0 ) |>
+    ggplot(aes(x = q18_3 , 
+               y = q18_29)) + 
         geom_jitter() +
         geom_smooth(method="lm")
 ```
-
-![](figures/interpretieren/output_33_1.png){}
 
     
 Im Beispiel ist die Ausgleichsgerade fast waagerecht. Wenn eine Ausgleichsgerade fast waagerecht ist, dann liegt in der Regel auch keine *Korrelation* vor.
@@ -312,17 +337,18 @@ Es gibt auch nicht-lineare Korrelationen. In diesem Fall sehen wir Häufungen in
 Wenn eine Ausgleichskurve fast gerade ist, dann sollten wir eine lineare Korrelation annehmen. Ein Beispiel für eine fast gerade Ausgleichskurve zeigt uns der nächste Plot. 
 
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth-loess
+#| fig-cap: Beispiel eines Jitter-Diagramms mit nicht linearer Ausgleichslinie
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y= sozial_like_freunde)) + 
+    filter(q18_3 > 0 & 
+           q18_29  > 0 ) |>
+    ggplot(aes(x = q18_3 , 
+               y = q18_29)) + 
         geom_jitter() +
         geom_smooth(method = "loess")
 ```
-
-![](figures/interpretieren/output_35_1.png){}
 
 ## Mehrdimensionale Plots mit `aes`
 
@@ -347,7 +373,7 @@ R kann auch Plots erstellen, die nur einen Datenvektor umfassen. In diesem Fall 
 Nehmen wir das folgende Beispiel: Wir erstellen ein Stichprobenobjekt mit einem Vektor `q00_demo_gen`, der die Werte `1 : Keine Angabe`, `2 : Weiblich` und `3 : Männlich` enthält.
 
 
-```R
+```{r}
 daten2 = tibble(
     q00_demo_gen = c("2 : Weiblich", "2 : Weiblich", "3 : Männlich", 
 "2 : Weiblich", "2 : Weiblich", "2 : Weiblich", "2 : Weiblich", 
@@ -407,7 +433,7 @@ Uns interessiert nun: ***Wie oft kommen die drei möglichen Werte in unserer Sti
 
 Wir können die Werte mit `count()` selbst berechnen oder `ggplot` die Arbeit überlassen. Anstelle der `geom_col()`-Funktion verwenden wir nun die `geom_bar()`-Funktion. `geom_bar()` erwartet einen Vektor für die x-Achse und berechnet für die y-Achse das Auftreten der Werte, so wie wir es mit der `count()`-Funktion auch bestimmen würden.
 
-```R
+```{r}
 daten2 |>
     count(q00_demo_gen)
 
@@ -415,57 +441,34 @@ daten2 |>
     ggplot(aes(x = q00_demo_gen)) +
         geom_bar()
 ```
-
-<div class?="alert alert-secondary">
-<table>
-<thead>
-	<tr><th scope=col>q00_demo_gen</th><th scope=col>n</th></tr>
-	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>1 : Keine Angabe</td><td>  1</td></tr>
-	<tr><td>2 : Weiblich    </td><td> 95</td></tr>
-	<tr><td>3 : Männlich    </td><td>104</td></tr>
-</tbody>
-</table>
-</div>
-    
-![](figures/output_11_1.png){}
-    
-
+   
 Mit diesem Plot können wir die Unterschiede in unserer Werteverteilung leichter erkennen. 
 
 Für Präsentationen ist so ein Plot aber nicht wahnsinnig attraktiv. Färben wir den Plot also ein. Das machen wir, indem wir den Vektornamen auch  für die Füllung der Balken verwenden. `ggplot` wählt nun für jeden Wert in diesem Vektor eine eigene Farbe aus. Dadurch färben sich unsere Balken ein. 
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar()
 ```
-
-![](figures/output_13_0.png){}
     
 
 Für Histogramme verwenden wir normalerweise ein kartesisches Koordinatensystem. Wir können aber auch ein anderes Koordinatensystem wählen. Eine Variante sind **polare Koordinaten**. Mit einem polaren Koordinatensystem erreichen wir kreisförmige Darstellungen. Wir müssen dazu die Dimension, die auf das Zentrum des Diagramms zeigt, festlegen und als Parameter übergeben. In unserem Fall ist das die y-Dimension.
 
 Wir stellen unsere Daten in einem polaren Koordinatensystem dar, indem wir mit der `coord_polar()`-Funktion ggplot mitteilen, dass wir ein anderes Koordinatensystem wünschen. 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
         coord_polar("y") 
 ```
 
-
-    
-![](figures/output_15_0.png){}
-
 Unser Plot hat jetzt unschöne Beschriftungen. Die werden wir mit einem Formatierungsthema los. `ggplot` hat verschiedenen Formatierungen als Thema vordefiniert. Eines davon ist das Thema `void`. Diese Formatierung entfernt alle Hintergründe, Achsen und Beschriftungen ausser Legenden.
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
@@ -473,9 +476,6 @@ daten2 |>
         theme_void()
 ```
 
-
-![](figures/output_17_0.png){}
- 
 Das sieht doch gleich viel besser aus.
 
 ::: {.callout-note}
@@ -486,32 +486,26 @@ Solche ringartigen Visualisierungen werden  als Zielscheiben- oder  **Donut-Diag
 Manchmal wollen wir alle Balken  übereinander stapeln. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So vermeiden wir, dass eine merkwürdige Beschriftung in unserem Diagramm auftaucht. Damit wir die Balken auseinanderhalten können, färben wir sie wie oben ein. 
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() 
 ```
 
-
-![](figures/output_19_0.png){}    
-    
 Mit der Funktion `coord_flip` vertauschen wir die Achsen und drehen so unser Diagramm.
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
         coord_flip()
 ```
 
-![](figures/output_21_0.png){}
-    
 Wir erkennen nun deutlich, dass `ggplot` immer versucht möglichst viel Fläche zu nutzen. 
 
 Das Interessante an dieser Darstellung ist aber nicht dieses Format, sondern dass wir dieses Diagramm ebenfalls in einem polaren Koordinatensystem darstellen können. 
 
-
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
@@ -519,11 +513,9 @@ daten2 |>
         theme_void()
 ```
 
-![](figures/output_23_0.png){}
-   
-
 Auf diese Weise erzeugen wir Tortendiagramme. 
 
 ### Bubble-Plots
 
+Bubble-Plots sind spezielle Punktdiagramme. Dabei wird eine dritte Variable über die Grösse der Punkte kodiert. 
 
