@@ -6,11 +6,6 @@ execute:
 ---
 # Zeichenketten {#sec-chapter-zeichenketten}
 
-::: {.callout-warning}
-## Work in Progress
-:::
-
-
 Bisher haben wir Zeichenketten als atomare Werte behandelt. In diesem Kapitel geht es die Operationen für Zeichenketten. 
 
 Eine Zeichenkette hat eine Länge, die der Anzahl der Symbole in der Zeichenkette entspricht und jedes Symbol in einer Zeichenkette kann über dessen Position identifiziert werden.

@@ -1,12 +1,5 @@
 # Faktoren {#sec-chapter-faktoren}
 
-
-
-::: {.callout-warning}
-## Work in Progress
-:::
-
-
 R kennt diskrete Daten in zwei Varianten. 
 
 1. Diskrete Daten als Abfolge von Werten in einem Vektor.

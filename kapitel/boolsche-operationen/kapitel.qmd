@@ -6,10 +6,6 @@ abstract: ""
 
 # Boole'sche Operationen {#sec-chapter-booleans}
 
-::: {.callout-warning}
-## Work in Progress
-::: 
-
 ```{r, setup, include=FALSE}
 knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
 ```
