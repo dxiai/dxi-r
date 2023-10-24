@@ -8,10 +8,6 @@ execute:
 ---
 # Daten visualisieren {#sec-chapter-daten-visualisieren}
 
-::: {.callout-warning}
-## Work in Progress
-:::
-
 ```{r, setup, include=FALSE}
 knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
 ```
@@ -427,11 +423,12 @@ Darstellungsbereich |>
                   aes(colour = "f1(x) = x ^ 2 - 3 * x")) +  # <1>
         geom_line(stat = "function", 
                   fun = f2, 
-                  aes(colour = "f2(x) = 4 * x + 2")) +      # <1>
+                  aes(colour = "f2(x) = 4 * x + 2")) +      # <2>
         labs(colour = "Funktion")
 ```
 
-1. Farbliche Hervorhebung
+1. Farbliche Hervorhebung der ersten Funktion
+2. Farbliche Hervorhebung der zweiten Funktion
 
 ::: {.callout-warning}
 `ggplot` unterstützt Farbcodes zur Konfiguration von Füll- und Linienfarben ausserhalb der normalen Ästhetikparameter. Mit diesen Farbcodes wird die normale Füll- oder Linienfarbe auf ***eine*** andere Farbe geändert. Diese Methode zur Anpassung von Farbe sollte **vermieden** werden, weil für solche Farben keine Legende erzeugt wird. 
@@ -449,24 +446,99 @@ Die Grössenkodierung eignet sich am Besten für *kontinuierliche Daten*.
 Die Grössenkodierung lässt sich auf Linien oder Punkte anwenden. Flächen lassen sich nicht zusätzlich grössenkodieren, weil sie bereits Werte über die Grösse kodieren.
 :::
 
-Die Grössenkodierung von Punkten erfolgt über die Ästhetik `size`. 
+Die Grössenkodierung von Punkten erfolgt über die Ästhetik `size`. Auf diese Weise werden **Bubble-Charts** (Blasendiagramme) erstellt.
 
-Die Grössenkodierung von Linien erfolgt über die Ästhetik `linewidth`.
+```{r}
+#| label: fig-coding-points-size
+#| fig-cap: Grössenkodierung am Beispiel des Männeranteils in Schweizer Städten 
+#| warning: FALSE
+read_csv("geschlechter_schweizer_staedte.csv") -> 
+    geschlechteranteile_ch
+
+geschlechteranteile_ch |>
+    ggplot(aes(x = S, y = N, size = Gesamt)) + 
+        geom_point() +
+        xlab("Männeranteil der ständigen Wohnbevölkerung") +
+        ylab("Manneranteil der nicht-ständigen Wohnbevölkerung")
+```
+
+Die Grössenkodierung von Linien erfolgt über die Ästhetik `linewidth`. Die Linienbreite funktioniert analog zur Punktgrösse im Punktdiagramm. 
+
+::: {.callout-note}
+## Merke
+Die Ästhetik `size` wird in Kombination mit `geom_point()`, `geom_text()` oder `geom_label()` verwendet.
+
+Die Ästhetik `linewidth` wird in Kombination mit `geom_line()` verwendet.
+:::
 
 ### Formkodierung
+
+Die Formkodierung kodiert die Werte einer Variable über die Form (engl. `shape`). 
 
 ::: {.callout-note}
 ## Merke
 Die Formkodierung eignet sich nur für *diskrete Daten*!
 :::
 
-Die Formkodierung erfolgt über die Ästhetik `shape`. 
+::: {.callout-note}
+## Merke
+Die Formkodierung kann nur ein Punkt- oder Jitter-Diagramm ergänzen. 
+:::
+
+Die Formkodierung erfolgt über die Ästhetik `shape`.
+
+```{r}
+#| label: fig-coding-points-shape
+#| fig-cap: Anwendung von `facet_wrap()` 
+#| 
+mtcars |> 
+    mutate(am = am |> factor()) |>
+    ggplot(aes(
+        x = mpg, 
+        y = hp, 
+        shape = am # <1>
+    )) + 
+    geom_point()
+```
+
+1.  Formkodierung über das Merkmal `am`.
+
+Eine Variante der Formkodierung ist die Linienart. Die Kodierung der Linienart erfolgt äber die Ästhetik `linetype`. Diese Formatierung prinzipiell mit allen Diagrammentypen verwendet werden, die Linien darstellen. Für Boxplots oder Balkendiagramme sollte eine Kodierung über die Linienart vermieden werden.
+
+```{r}
+#| label: fig-linetrype
+#| fig-cap: Kodierung über Linienarten 
+#| 
+iris |>
+    ggplot(aes(x = Sepal.Length, 
+               y = Sepal.Width, 
+               linetype = Species)) +
+        geom_point() +
+        geom_smooth(method = "lm")
+```
+
+Eine weitere Variante der Formkodierung sind Textmarkierungen. Textmarkierungen werden über die Ästhetik `label` zugewiesen. Für eine Textmarkierung wird der Wert des gewählten Merkmals im Diagramm angezeigt.
+
+
+```{r}
+#| label: fig-textlabel
+#| fig-cap: Textmarkierungen über den Männeranteil an der ständigen und nicht-ständigen Wohnbevölkerung Schweizer Städte
+#| warning: FALSE
+geschlechteranteile_ch |>
+    ggplot(aes(x = S, y = N, label = Ort)) +
+        geom_text() +
+        xlab("Männeranteil der ständigen Wohnbevölkerung") +
+        ylab("Manneranteil der nicht-ständigen Wohnbevölkerung")
+```
+
 
 ### Facetted Plots
 
+Ein **Facetted Plot** gliedern die Darstellung von Werten in mehrere Teildiagramme. Diese Teildiagramme enthalten in der Regel nur die Werte 
+
 ::: {.callout-note}
 ## Merke
-Facetten können nu mit *diskreten Daten* erstellt werden!
+Facetten können nur mit *diskreten Daten* erstellt werden!
 :::
 
 Facetten sind **keine** Ästhetik, sondern eine Steuerung. 
@@ -474,16 +546,32 @@ Facetten sind **keine** Ästhetik, sondern eine Steuerung.
 ```{r}
 #| label: fig-visual-facets
 #| fig-cap: Anwendung von `facet_wrap()` 
+
+mtcars |> 
+    ggplot(aes(mpg, hp)) + 
+    geom_point() +
+    facet_wrap(~ gear) # <1>
+```
+
+1. Facetten folgen den Werten des Merkmals `gear`.
+
+Eine Variante von `facet_wrap()` ist `facet_grid()`. Diese Funktion erstellt eine visuelle Matrix entlang der Werte zweier diskreter Merkmale. 
+
+```{r}
+#| label: fig-visual-facet-grid
+#| fig-cap: Anwendung von `facet_grid()` 
 #| 
 mtcars |> 
     ggplot(aes(mpg, hp)) + 
     geom_point() +
-    facet_wrap(~gear)
+    facet_grid(carb ~ gear) # <1>
 ```
+
+1. Facetten über die Werte der Merkmale `gear` (horizontal) und `carb` (vertikal).
 
 ## Spezielle Visualisierungen
 
-### Torten- und Donut-Diagramme
+### Donut-Diagramme
 
 ::: {.callout-important} 
 Tortendiagramme und Donut-Diagramme werden oft falsch interpretiert, weil Kreisflächen schwerer verglichen werden können als die Höhen von Balken. Sie sollten nur zur Illustration, aber nie zur Argumentation verwendet werden.
@@ -603,8 +691,9 @@ Das sieht doch gleich viel besser aus.
 Solche ringartigen Visualisierungen werden  als Zielscheiben- oder  **Donut-Diagramme** bezeichnet.
 :::
 
+### Torten-Diagramme
 
-Manchmal wollen wir alle Balken  übereinander stapeln. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So vermeiden wir, dass eine merkwürdige Beschriftung in unserem Diagramm auftaucht. Damit wir die Balken auseinanderhalten können, färben wir sie wie oben ein. 
+Für Torten- bzw. Kreisdiagramme müssen alle Balken eines Balkendiagramms übereinander gestapelt werden. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So werden merkwürdige Beschriftungen im Diagramm vermieden. Damit wir die Balken auseinanderhalten können, färben wir sie ein. 
 
 
 ```{r}
@@ -613,7 +702,7 @@ daten2 |>
         geom_bar() 
 ```
 
-Mit der Funktion `coord_flip` vertauschen wir die Achsen und drehen so unser Diagramm.
+Mit der Funktion `coord_flip` werden die Achsen vertauscht und das Diagramm gedreht.
 
 ```{r}
 daten2 |>
@@ -635,8 +724,3 @@ daten2 |>
 ```
 
 Auf diese Weise erzeugen wir Tortendiagramme. 
-
-### Bubble-Plots
-
-Bubble-Plots sind spezielle Punktdiagramme. Dabei wird eine dritte Variable über die Grösse der Punkte kodiert. 
-
