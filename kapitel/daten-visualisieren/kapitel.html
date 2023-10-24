@@ -316,24 +316,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#technischer-aufbau-von-visualisierungen" id="toc-technischer-aufbau-von-visualisierungen" class="nav-link active" data-scroll-target="#technischer-aufbau-von-visualisierungen"><span class="header-section-number">18.1</span> Technischer Aufbau von Visualisierungen</a></li>
-  <li><a href="#mathematische-funktionen-visualisieren" id="toc-mathematische-funktionen-visualisieren" class="nav-link" data-scroll-target="#mathematische-funktionen-visualisieren"><span class="header-section-number">18.2</span> Mathematische Funktionen visualisieren</a></li>
+  <li><a href="#sec-visualisation-math-func" id="toc-sec-visualisation-math-func" class="nav-link" data-scroll-target="#sec-visualisation-math-func"><span class="header-section-number">18.2</span> Mathematische Funktionen visualisieren</a></li>
   <li><a href="#berechnete-visualisierungen" id="toc-berechnete-visualisierungen" class="nav-link" data-scroll-target="#berechnete-visualisierungen"><span class="header-section-number">18.3</span> Berechnete Visualisierungen</a>
   <ul class="collapse">
   <li><a href="#histogramm" id="toc-histogramm" class="nav-link" data-scroll-target="#histogramm"><span class="header-section-number">18.3.1</span> Histogramm</a></li>
   <li><a href="#box-plot" id="toc-box-plot" class="nav-link" data-scroll-target="#box-plot"><span class="header-section-number">18.3.2</span> Box-Plot</a></li>
-  <li><a href="#ausgleichsgeraden" id="toc-ausgleichsgeraden" class="nav-link" data-scroll-target="#ausgleichsgeraden"><span class="header-section-number">18.3.3</span> Ausgleichsgeraden</a></li>
+  <li><a href="#punkt--und-jitter-diagramme" id="toc-punkt--und-jitter-diagramme" class="nav-link" data-scroll-target="#punkt--und-jitter-diagramme"><span class="header-section-number">18.3.3</span> Punkt- und Jitter-Diagramme</a></li>
+  <li><a href="#ausgleichsgeraden" id="toc-ausgleichsgeraden" class="nav-link" data-scroll-target="#ausgleichsgeraden"><span class="header-section-number">18.3.4</span> Ausgleichsgeraden</a></li>
   </ul></li>
   <li><a href="#mehrdimensionale-plots-mit-aes" id="toc-mehrdimensionale-plots-mit-aes" class="nav-link" data-scroll-target="#mehrdimensionale-plots-mit-aes"><span class="header-section-number">18.4</span> Mehrdimensionale Plots mit <code>aes</code></a>
   <ul class="collapse">
   <li><a href="#farbkodierung" id="toc-farbkodierung" class="nav-link" data-scroll-target="#farbkodierung"><span class="header-section-number">18.4.1</span> Farbkodierung</a></li>
   <li><a href="#grössenkodierung" id="toc-grössenkodierung" class="nav-link" data-scroll-target="#grössenkodierung"><span class="header-section-number">18.4.2</span> Grössenkodierung</a></li>
-  <li><a href="#formenkodierung" id="toc-formenkodierung" class="nav-link" data-scroll-target="#formenkodierung"><span class="header-section-number">18.4.3</span> Formenkodierung</a></li>
+  <li><a href="#formkodierung" id="toc-formkodierung" class="nav-link" data-scroll-target="#formkodierung"><span class="header-section-number">18.4.3</span> Formkodierung</a></li>
   <li><a href="#facetted-plots" id="toc-facetted-plots" class="nav-link" data-scroll-target="#facetted-plots"><span class="header-section-number">18.4.4</span> Facetted Plots</a></li>
   </ul></li>
   <li><a href="#spezielle-visualisierungen" id="toc-spezielle-visualisierungen" class="nav-link" data-scroll-target="#spezielle-visualisierungen"><span class="header-section-number">18.5</span> Spezielle Visualisierungen</a>
   <ul class="collapse">
-  <li><a href="#torten--und-donut-diagramme" id="toc-torten--und-donut-diagramme" class="nav-link" data-scroll-target="#torten--und-donut-diagramme"><span class="header-section-number">18.5.1</span> Torten- und Donut-Diagramme</a></li>
-  <li><a href="#bubble-plots" id="toc-bubble-plots" class="nav-link" data-scroll-target="#bubble-plots"><span class="header-section-number">18.5.2</span> Bubble-Plots</a></li>
+  <li><a href="#donut-diagramme" id="toc-donut-diagramme" class="nav-link" data-scroll-target="#donut-diagramme"><span class="header-section-number">18.5.1</span> Donut-Diagramme</a></li>
+  <li><a href="#torten-diagramme" id="toc-torten-diagramme" class="nav-link" data-scroll-target="#torten-diagramme"><span class="header-section-number">18.5.2</span> Torten-Diagramme</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
@@ -358,19 +359,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Work in Progress
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
-</div>
-</div>
 <p>In R erstellen wir Plots mit Hilfe der <code>ggplot2</code>-Funktionen. Anders als in Excel werden mit diesen Funktionen Plots schrittweise aufgebaut und können auf diese Weise einheitlich reproduziert werden.</p>
 <p>Als Erstes laden wir wie immer die <code>tidyverse</code>-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.</p>
 <div class="cell">
@@ -439,8 +427,8 @@ Hinweis
 <p>Mit der dritten Zeile legen wir die <strong><em>Geometrie</em></strong> der Datenpunkte fest. Alle <code>ggplot2</code>-Funktionsnamen zur Darstellung von Datenpunkten beginnen mit <code>geom_</code> (für Geometrie). In diesem Beispiel wollen wir unsere Datenpunkte mit Punkten (engl. Points) darstellen. Deshalb verwenden wir die Funktion <code>geom_point()</code>.</p>
 <p>Diese drei Schritte zeigen die grundsätzliche Logik zum Erstellen von Plots mit R.</p>
 </section>
-<section id="mathematische-funktionen-visualisieren" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="mathematische-funktionen-visualisieren"><span class="header-section-number">18.2</span> Mathematische Funktionen visualisieren</h2>
+<section id="sec-visualisation-math-func" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="sec-visualisation-math-func"><span class="header-section-number">18.2</span> Mathematische Funktionen visualisieren</h2>
 <p>In der Mathematik werden regelmässig Funktionen besprochen. Diese Funktionen können wir mit R leicht visualisieren.</p>
 <p>Dabei nutzen wir aus, dass wir in R neue Funktionen mit dem Schlüsselwort <code>function</code> definieren können. Im folgenden Beispiel verwenden wir die beiden Funktionen.</p>
 <p><span class="math display">
@@ -496,8 +484,10 @@ f2(x) \to 4x + 2
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Darstellungsbereich <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1, <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f1(x) = x ^ 2 - 3 * x"</span>)) <span class="sc">+</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2, <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f1(x) = x ^ 2 - 3 * x"</span>)) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kapitel_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -506,9 +496,11 @@ f2(x) \to 4x + 2
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Darstellungsbereich <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1, <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f1(x) = x ^ 2 - 3 * x"</span>)) <span class="sc">+</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2, <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"Funktion"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f1(x) = x ^ 2 - 3 * x"</span>)) <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"Funktion"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kapitel_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -533,27 +525,44 @@ f2(x) \to 4x + 2
 <p>Gelegentlich sind unserer Werte so verteilt, dass nur selten zwei oder mehr Datensätze gleiche Werte haben. In solchen Fällen verwenden wir die Funktion <code>geom_histogram()</code>. Diese Funktion teilt den gesamten Wertebereich in gleichmässige Intervalle und zählt die Anzahl der Datensätze im jeweiligen Intervall.</p>
 <p>Das folgende Beispiel veranschaulicht die Situation.</p>
 <p>Wir verwenden die Stichprobe <code>digitales_umfeld1.csv</code>. In dieser Stichprobe gibt es den Vektor <code>tage</code>, der das Alter der beantwortenden Person in Tagen festhält. Dabei handelt es sich rein formell um <em>diskrete Werte</em>. Wenn wir die Verteilung dieser Werte in einem Histogramm für <em>diskrete Werte</em> darstellen würden, dann erhalten wir das folgende Histogramm:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"digitales_umfeld1.csv"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"befragung_digitales_umfeld/digitales_umfeld1.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 135 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): mobilgeraet
+dbl (4): alter, tage, monate, digitalisiert
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div id="fig-tage-barplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/tage_barplot.png" class="img-fluid figure-img"></p>
+<p><img src="kapitel_files/figure-html/fig-tage-barplot-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;18.1: Tage-Histogram Diskrete Werte</figcaption>
 </figure>
 </div>
+</div>
+</div>
 <p>Auf diesem Histogramm kann man keine Verteilung erkennen. Es scheint, als ob alle Werte genau einmal vorkommen. Der Wertebereich der y-Achse deutet aber darauf hin, dass einzelne Werte bis zu drei Mal vorkommen. Diese Balken sind jedoch so dünn, dass sie nicht im Diagramm dargestellt werden können.</p>
 <p>Die Werte in diesem Vektore verhalten sich also wie <em>kontinuierliche Werte</em>. Deshalb verwenden wir die Funktion <code>geom_histogram()</code>, um die Daten darzustellen.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div id="fig-tage-histo" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/tage_histogram.png" class="img-fluid figure-img"></p>
+<p><img src="kapitel_files/figure-html/fig-tage-histo-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;18.2: Tage-Histogram</figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>Aus diesem Histogramm können wir wesentlich besser die Verteilung des Alters in Tagen ablesen, weil der Wertebereich in grössere Segmente gegliedert wurde und die Datensätze in diesen Segmenten gezählt wurden.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -582,98 +591,518 @@ Merke
 <p>Box-Plots werden mit der <code>geom_boxplot()</code> Funktion dargestellt.</p>
 <p>Beim Box-Plot wird der Median als dicke Linie dargestellt. Der Interquartilsabstand wird als Rechteck (<em>Box</em>) um den Median visualisiert (2. und 3. Quartil). Dabei liegt die Hälfte der aller gemessenen Werte innerhalb der dargestelltn Box. Der gesamte Umfang wird durch Linien links (1. Quartil) und rechts (4. Quartil) vom Interquartilsabstand dargestellt. Manchmal werden Punkte an den äusseren Rändern dargestellt. Diese Punkte stellen sog. Ausreisser dar.</p>
 <p>Wiederholen wir die Visualisierung für unsere Alterstage mit einem Boxplot, dann erhalten wir folgendes Ergebnis:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_boxplot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_boxplot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div id="fig-tage-boxplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/tage_boxplot.png" class="img-fluid figure-img"></p>
+<p><img src="kapitel_files/figure-html/fig-tage-boxplot-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;18.3: Tage-Boxplot</figcaption>
 </figure>
 </div>
+</div>
+</div>
 <p>Wir erkennen jetzt leicht, dass der Grossteil der Gruppe unter 10000 Tagen alt ist und dass es sechs Ausreisser gibt, die deutlich älter als der Grossteil der Gruppe sind.</p>
 </section>
-<section id="ausgleichsgeraden" class="level3" data-number="18.3.3">
-<h3 data-number="18.3.3" class="anchored" data-anchor-id="ausgleichsgeraden"><span class="header-section-number">18.3.3</span> Ausgleichsgeraden</h3>
+<section id="punkt--und-jitter-diagramme" class="level3" data-number="18.3.3">
+<h3 data-number="18.3.3" class="anchored" data-anchor-id="punkt--und-jitter-diagramme"><span class="header-section-number">18.3.3</span> Punkt- und Jitter-Diagramme</h3>
 <p>Die dritte wichtige visuelle Analysetechnik sind Punktwolken. Bei Punktwolken stellen wir die Werte von zwei Vektoren ähnlich einer Kreuztabelle gegenüber und überprüfen das gemeinsame Auftreten von Werten in den Vektoren unserer Messungen.</p>
 <p>Für Punktwolken stehen zwei Funktionen zur Verfügung:</p>
 <ol type="1">
 <li><code>geom_point()</code> für kontinuierliche Werte.</li>
 <li><code>geom_jitter()</code> für diskrete Werte.</li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"digitales_umfeld_geraete_fm_att.csv"</span>);</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sozial_like_freunde <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>           sozial_like_unbekannt <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">|&gt;</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sozial_like_unbekannt, </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> sozial_like_freunde)) <span class="sc">+</span> </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/interpretieren/output_27_0.png" class="img-fluid"></p>
+<p>Mit Punktdiagrammen werden zwei Merkmale mit kontinuierlichen Daten gegenübergestellt. Punktdiagramme bilden <strong>Beziehungen zwischen Merkmalen</strong> ab.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-iris-points" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-iris-points-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.4: Punktdiagramm der <code>iris</code>-Daten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"befragung_digitales_umfeld/befragung.csv"</span>);</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_6 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>           q18_7  <span class="sc">&gt;</span> <span class="dv">0</span> ) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q18_6 , </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_7)) <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-attitude-point" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-attitude-point-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.5: Beispiel eines Punktdiagramms mit diskreten Daten</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>In diesem Beispiel sehen wir, dass alle Werte genau an den gleichen Punkten im Koordinatensystem liegen. Ein solcher Plot ist ein gutes Beispiel für <em>diskrete Werte</em>. Bei diskreten Werten fallen alle Messungen genau auf bestimmte Punkte im Wertebereich. Kontinuierliche Werte weichen oft ein wenig voneinander ab, sodass wir eine Wolke sehen würden.</p>
 <p>Um Punktwolken für diskrete Werte zu erzeugen, verwenden wir die <code>geom_jitter()</code>-Funktion. Diese Funktion erzeugt einen kleinen Bereich um den diskreten (echten) Messwert und verteilt die einzelnen Datensätze mit einem zufälligen Abstand vom echten Messwert. Dadurch wird das gemeinsame Auftreten von Werten deutlich sichtbar, sofern es Gemeinsamkeiten gibt.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sozial_like_freunde <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>           sozial_like_unbekannt <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">|&gt;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sozial_like_unbekannt, </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> sozial_like_freunde)) <span class="sc">+</span> </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/interpretieren/output_29_0.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_6 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           q18_7  <span class="sc">&gt;</span> <span class="dv">0</span> ) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q18_6 , </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_7)) <span class="sc">+</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-attitude-jitter" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-attitude-jitter-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.6: Beispiel eines Jitter-Diagramms</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>Durch den leichten Versatz sind nun gehäufte Wertepaare leichter zu erkennen. Bei Jitter-Plots dürfen wir aber nie vergessen, dass die Punkte zwar Messungen repräsentieren, aber leicht vom echten Messpunkt versetzt dargestellt wurden.</p>
-<p>In diesem Beispiel können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf <em>Korrelationen</em> hin.</p>
+</section>
+<section id="ausgleichsgeraden" class="level3" data-number="18.3.4">
+<h3 data-number="18.3.4" class="anchored" data-anchor-id="ausgleichsgeraden"><span class="header-section-number">18.3.4</span> Ausgleichsgeraden</h3>
+<p>Im vorigen Abschnitt können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf <em>Korrelationen</em> hin.</p>
 <div id="def-korrelation" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 18.3 </strong></span>Eine <strong>Korrelation</strong> bezeichnet das wiederholte Auftreten von Wertepaaren in Stichproben. Korrelationen deuten auf Zusammenhänge zwischen zwei Vektoren hin.</p>
 </div>
 <p>Ähnlich wie beim Vergleichen mit Histogrammen ist es bei Punktwolken hilfreich, für die Wolke eine Referenz zur Orientierung zu haben. Das erreichen wir mit der <code>geom_smooth()</code>-Funktion. Die Methode <code>lm</code> steht für “lineares Modell”. In diesem Modell versteckt sich das Wort Linie und deshalb <em>erzeugt ein lineares Modell immer eine Ausgleichsgerade</em>. Der graue Bereich zeigt uns die Spanne des Fehlerbereichs für diese Gerade. Bei einer linearen Korrelation sollte diese Gerade den Häufungen in unserem Plot ungefähr folgen.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sozial_like_freunde <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>           sozial_like_unbekannt <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">|&gt;</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sozial_like_unbekannt, </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> sozial_like_freunde)) <span class="sc">+</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/interpretieren/output_31_1.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_6 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           q18_7  <span class="sc">&gt;</span> <span class="dv">0</span> ) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q18_6 , </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_7)) <span class="sc">+</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-attitude-jitter-smooth" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.7: Beispiel eines Jitter-Diagramms mit Ausgleichsgerade</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>Das folgende Beispiel zeigt eine Punktwolke, bei der die Wertepaare zufällig über den gesamten Wertebereich gestreut sind. In diesem Fall ist eine Korrelation kaum wahrscheinlich.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sozial_like_freunde  <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>           sozial_freundschaftsanfragen_aus_netzwerk <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sozial_like_freunde, </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> sozial_freundschaftsanfragen_aus_netzwerk)) <span class="sc">+</span> </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/interpretieren/output_33_1.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_3 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>           q18_29  <span class="sc">&gt;</span> <span class="dv">0</span> ) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q18_3 , </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_29)) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-attitude-jitter-smooth2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.8: Beispiel eines Jitter-Diagramms mit flacher Ausgleichsgerade</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>Im Beispiel ist die Ausgleichsgerade fast waagerecht. Wenn eine Ausgleichsgerade fast waagerecht ist, dann liegt in der Regel auch keine <em>Korrelation</em> vor.</p>
 <p>Es gibt auch nicht-lineare Korrelationen. In diesem Fall sehen wir Häufungen in bestimmten Teilen unserer Punktwolken oder unsere Punkte folgen einer Kurve. Solche Korrelationen müssten einer entsprechenden “Ausgleichskurve” folgen. Eine solche Ausgleichskurve erzeugen wir mit <code>loess</code> als Ausgleichsmethode.</p>
 <p>Wenn eine Ausgleichskurve fast gerade ist, dann sollten wir eine lineare Korrelation annehmen. Ein Beispiel für eine fast gerade Ausgleichskurve zeigt uns der nächste Plot.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sozial_like_freunde <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           sozial_like_unbekannt <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">|&gt;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sozial_like_unbekannt, </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span> sozial_like_freunde)) <span class="sc">+</span> </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/interpretieren/output_35_1.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_3 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>           q18_29  <span class="sc">&gt;</span> <span class="dv">0</span> ) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q18_3 , </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_29)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-attitude-jitter-smooth-loess" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-loess-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.9: Beispiel eines Jitter-Diagramms mit nicht linearer Ausgleichslinie</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="mehrdimensionale-plots-mit-aes" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="mehrdimensionale-plots-mit-aes"><span class="header-section-number">18.4</span> Mehrdimensionale Plots mit <code>aes</code></h2>
 <section id="farbkodierung" class="level3" data-number="18.4.1">
 <h3 data-number="18.4.1" class="anchored" data-anchor-id="farbkodierung"><span class="header-section-number">18.4.1</span> Farbkodierung</h3>
+<p>Mit der Farbkodierung können zusätzliche Merkmale in einer Visualisierung kodiert werden. ggplot unterscheidet für die Farbkodierung zwischen diskreten und kontinuierlichen Daten. Bei diskreten Daten verwendet R Farben, die sich gut voneinander unterscheiden lassen. Bei kontinuierlichen Daten werden Farbverläufe zwischen mehreren Farben verwendet. Ausserdem hängt die Färbung von der Art der Visualisierung ab. Flächige Darstellungselemente, wie die Balken von Balkendiagrammen, wird eine <em>Füllfarbe</em> gesetzt. Die Füllfarbe wird über die Ästhetik <code>fill</code> kontrolliert. Darstellungselemente wie Linien oder Punkte wird eine <em>Linienfarbe</em> gesetzt. Die Linienfarbe wird über die Ästhetik <code>colour</code> festgelegt.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Färbung von Punkten wird über die Linienfarbe gesteuert.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-20"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-20-1"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-20-2"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>( <span class="at">x =</span> Sepal.Length, </span>
+<span id="annotated-cell-20-3"><a href="#annotated-cell-20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> Sepal.Width, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-20-4" class="code-annotation-target"><a href="#annotated-cell-20-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> Species)) <span class="sc">+</span></span>
+<span id="annotated-cell-20-5"><a href="#annotated-cell-20-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-20" data-code-lines="4">Farbliche Hervorhebung</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-iris-points-color" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-iris-points-color-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.10: Punktdiagramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Balkendiagramme und Histogramme benötigen eine Flächenfärbung.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-21-1"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-21-2"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>( <span class="at">x =</span> Sepal.Length, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-21-3" class="code-annotation-target"><a href="#annotated-cell-21-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="annotated-cell-21-4"><a href="#annotated-cell-21-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-21" data-code-lines="3">Farbliche Hervorhebung</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-iris-histo-color" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-iris-histo-color-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.11: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Histogramme oder Balkendiagramme eine zusätzliche farbliche Kodierung erhalten, verbirgt eine gestapelte Balkendarstellung die Verteilungen. Mit dem Parameter <code>position</code> lässt sich die Positionierung der Balken steuern. Dies wird beispielsweise durch die Funktion <code>position_dodge()</code> vereinfacht.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-22"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-22-1"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-22-2"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>( <span class="at">x =</span> Sepal.Length, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-22-3" class="code-annotation-target"><a href="#annotated-cell-22-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-22-4" class="code-annotation-target"><a href="#annotated-cell-22-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>())</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-22" data-code-lines="3">Farbliche Hervorhebung</span>
+</dd>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-annotation="2" data-code-cell="annotated-cell-22" data-code-lines="4">Positionierung der hervorgehobenen Balken</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-iris-histo-color-dodge" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-iris-histo-color-dodge-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.12: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Die Ästhetik kann auch in den Geometriefunktionen angepasst werden. Wird hier für die Farbästhetik jeweils ein einzelner Wert angegeben, erzeugt <code>ggplot()</code> einen Vektor mit diskreten Werten und weist die Farben dynamisch zu.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-23"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-23-1"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a>Darstellungsbereich <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-23-2"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
+<span id="annotated-cell-23-3"><a href="#annotated-cell-23-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, </span>
+<span id="annotated-cell-23-4"><a href="#annotated-cell-23-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fun =</span> f1, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-23-5" class="code-annotation-target"><a href="#annotated-cell-23-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f1(x) = x ^ 2 - 3 * x"</span>)) <span class="sc">+</span></span>
+<span id="annotated-cell-23-6"><a href="#annotated-cell-23-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, </span>
+<span id="annotated-cell-23-7"><a href="#annotated-cell-23-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fun =</span> f2, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-23-8" class="code-annotation-target"><a href="#annotated-cell-23-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>)) <span class="sc">+</span></span>
+<span id="annotated-cell-23-9"><a href="#annotated-cell-23-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"Funktion"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-23" data-code-lines="5">Farbliche Hervorhebung der ersten Funktion</span>
+</dd>
+<dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-annotation="2" data-code-cell="annotated-cell-23" data-code-lines="8">Farbliche Hervorhebung der zweiten Funktion</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-mfunc-line-colored" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-mfunc-line-colored-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.13: Angepasste Ästhetik mit Einzelwerten in Geometriefunktionen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>ggplot</code> unterstützt Farbcodes zur Konfiguration von Füll- und Linienfarben ausserhalb der normalen Ästhetikparameter. Mit diesen Farbcodes wird die normale Füll- oder Linienfarbe auf <strong><em>eine</em></strong> andere Farbe geändert. Diese Methode zur Anpassung von Farbe sollte <strong>vermieden</strong> werden, weil für solche Farben keine Legende erzeugt wird.</p>
+</div>
+</div>
 </section>
 <section id="grössenkodierung" class="level3" data-number="18.4.2">
 <h3 data-number="18.4.2" class="anchored" data-anchor-id="grössenkodierung"><span class="header-section-number">18.4.2</span> Grössenkodierung</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Grössenkodierung eignet sich am Besten für <em>kontinuierliche Daten</em>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Grössenkodierung lässt sich auf Linien oder Punkte anwenden. Flächen lassen sich nicht zusätzlich grössenkodieren, weil sie bereits Werte über die Grösse kodieren.</p>
+</div>
+</div>
+<p>Die Grössenkodierung von Punkten erfolgt über die Ästhetik <code>size</code>. Auf diese Weise werden <strong>Bubble-Charts</strong> (Blasendiagramme) erstellt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"geschlechter_schweizer_staedte.csv"</span>) <span class="ot">-&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    geschlechteranteile_ch</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>geschlechteranteile_ch <span class="sc">|&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> N, <span class="at">size =</span> Gesamt)) <span class="sc">+</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Männeranteil der ständigen Wohnbevölkerung"</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Manneranteil der nicht-ständigen Wohnbevölkerung"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-coding-points-size" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-coding-points-size-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.14: Grössenkodierung am Beispiel des Männeranteils in Schweizer Städten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Die Grössenkodierung von Linien erfolgt über die Ästhetik <code>linewidth</code>. Die Linienbreite funktioniert analog zur Punktgrösse im Punktdiagramm.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Ästhetik <code>size</code> wird in Kombination mit <code>geom_point()</code>, <code>geom_text()</code> oder <code>geom_label()</code> verwendet.</p>
+<p>Die Ästhetik <code>linewidth</code> wird in Kombination mit <code>geom_line()</code> verwendet.</p>
+</div>
+</div>
 </section>
-<section id="formenkodierung" class="level3" data-number="18.4.3">
-<h3 data-number="18.4.3" class="anchored" data-anchor-id="formenkodierung"><span class="header-section-number">18.4.3</span> Formenkodierung</h3>
+<section id="formkodierung" class="level3" data-number="18.4.3">
+<h3 data-number="18.4.3" class="anchored" data-anchor-id="formkodierung"><span class="header-section-number">18.4.3</span> Formkodierung</h3>
+<p>Die Formkodierung kodiert die Werte einer Variable über die Form (engl. <code>shape</code>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Formkodierung eignet sich nur für <em>diskrete Daten</em>!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Formkodierung kann nur ein Punkt- oder Jitter-Diagramm ergänzen.</p>
+</div>
+</div>
+<p>Die Formkodierung erfolgt über die Ästhetik <code>shape</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-25"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-25-2"><a href="#annotated-cell-25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">am =</span> am <span class="sc">|&gt;</span> <span class="fu">factor</span>()) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-25-3"><a href="#annotated-cell-25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="annotated-cell-25-4"><a href="#annotated-cell-25-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> mpg, </span>
+<span id="annotated-cell-25-5"><a href="#annotated-cell-25-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> hp, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-25-6" class="code-annotation-target"><a href="#annotated-cell-25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape =</span> am</span>
+<span id="annotated-cell-25-7"><a href="#annotated-cell-25-7" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span> </span>
+<span id="annotated-cell-25-8"><a href="#annotated-cell-25-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-25" data-code-lines="6">Formkodierung über das Merkmal <code>am</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-coding-points-shape" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-coding-points-shape-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.15: Anwendung von <code>facet_wrap()</code></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Eine Variante der Formkodierung ist die Linienart. Die Kodierung der Linienart erfolgt äber die Ästhetik <code>linetype</code>. Diese Formatierung prinzipiell mit allen Diagrammentypen verwendet werden, die Linien darstellen. Für Boxplots oder Balkendiagramme sollte eine Kodierung über die Linienart vermieden werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> Sepal.Width, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> Species)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-linetrype" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-linetrype-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.16: Kodierung über Linienarten</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Eine weitere Variante der Formkodierung sind Textmarkierungen. Textmarkierungen werden über die Ästhetik <code>label</code> zugewiesen. Für eine Textmarkierung wird der Wert des gewählten Merkmals im Diagramm angezeigt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>geschlechteranteile_ch <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> S, <span class="at">y =</span> N, <span class="at">label =</span> Ort)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_text</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Männeranteil der ständigen Wohnbevölkerung"</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Manneranteil der nicht-ständigen Wohnbevölkerung"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-textlabel" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-textlabel-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.17: Textmarkierungen über den Männeranteil an der ständigen und nicht-ständigen Wohnbevölkerung Schweizer Städte</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="facetted-plots" class="level3" data-number="18.4.4">
 <h3 data-number="18.4.4" class="anchored" data-anchor-id="facetted-plots"><span class="header-section-number">18.4.4</span> Facetted Plots</h3>
+<p>Ein <strong>Facetted Plot</strong> gliedern die Darstellung von Werten in mehrere Teildiagramme. Diese Teildiagramme enthalten in der Regel nur die Werte</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Facetten können nur mit <em>diskreten Daten</em> erstellt werden!</p>
+</div>
+</div>
+<p>Facetten sind <strong>keine</strong> Ästhetik, sondern eine Steuerung.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(mpg, hp)) <span class="sc">+</span> </span>
+<span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-4" class="code-annotation-target"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> gear)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-28" data-code-lines="4">Facetten folgen den Werten des Merkmals <code>gear</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-visual-facets" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-visual-facets-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.18: Anwendung von <code>facet_wrap()</code></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Eine Variante von <code>facet_wrap()</code> ist <code>facet_grid()</code>. Diese Funktion erstellt eine visuelle Matrix entlang der Werte zweier diskreter Merkmale.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(mpg, hp)) <span class="sc">+</span> </span>
+<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-4" class="code-annotation-target"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(carb <span class="sc">~</span> gear)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-29" data-code-lines="4">Facetten über die Werte der Merkmale <code>gear</code> (horizontal) und <code>carb</code> (vertikal).</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<div id="fig-visual-facet-grid" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/fig-visual-facet-grid-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;18.19: Anwendung von <code>facet_grid()</code></figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="spezielle-visualisierungen" class="level2" data-number="18.5">
 <h2 data-number="18.5" class="anchored" data-anchor-id="spezielle-visualisierungen"><span class="header-section-number">18.5</span> Spezielle Visualisierungen</h2>
-<section id="torten--und-donut-diagramme" class="level3" data-number="18.5.1">
-<h3 data-number="18.5.1" class="anchored" data-anchor-id="torten--und-donut-diagramme"><span class="header-section-number">18.5.1</span> Torten- und Donut-Diagramme</h3>
+<section id="donut-diagramme" class="level3" data-number="18.5.1">
+<h3 data-number="18.5.1" class="anchored" data-anchor-id="donut-diagramme"><span class="header-section-number">18.5.1</span> Donut-Diagramme</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -689,118 +1118,113 @@ Wichtig
 </div>
 <p>R kann auch Plots erstellen, die nur einen Datenvektor umfassen. In diesem Fall wird der zweite Vektor für die y-Achse aus den Werten des Vektors berechnet. Diese Möglichkeit haben wir schon bei der Erstellung von Histogrammen kennengelernt.</p>
 <p>Nehmen wir das folgende Beispiel: Wir erstellen ein Stichprobenobjekt mit einem Vektor <code>q00_demo_gen</code>, der die Werte <code>1 : Keine Angabe</code>, <code>2 : Weiblich</code> und <code>3 : Männlich</code> enthält.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">q00_demo_gen =</span> <span class="fu">c</span>(<span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"1 : Keine Angabe"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>)</span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">q00_demo_gen =</span> <span class="fu">c</span>(<span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"1 : Keine Angabe"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"2 : Weiblich"</span>, </span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a><span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, <span class="st">"2 : Weiblich"</span>, <span class="st">"3 : Männlich"</span>, </span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a><span class="st">"2 : Weiblich"</span>)</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Uns interessiert nun: <strong><em>Wie oft kommen die drei möglichen Werte in unserer Stichprobe vor?</em></strong></p>
 <p>Wir können die Werte mit <code>count()</code> selbst berechnen oder <code>ggplot</code> die Arbeit überlassen. Anstelle der <code>geom_col()</code>-Funktion verwenden wir nun die <code>geom_bar()</code>-Funktion. <code>geom_bar()</code> erwartet einen Vektor für die x-Achse und berechnet für die y-Achse das Auftreten der Werte, so wie wir es mit der <code>count()</code>-Funktion auch bestimmen würden.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(q00_demo_gen)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class?="alert alert-secondary">
-
-<table data-quarto-postprocess="true" class="table">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th" scope="col">q00_demo_gen</th>
-<th data-quarto-table-cell-role="th" scope="col">n</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1 : Keine Angabe</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>2 : Weiblich</td>
-<td>95</td>
-</tr>
-<tr class="odd">
-<td>3 : Männlich</td>
-<td>104</td>
-</tr>
-</tbody>
-</table>
-
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(q00_demo_gen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  q00_demo_gen         n
+  &lt;chr&gt;            &lt;int&gt;
+1 1 : Keine Angabe     1
+2 2 : Weiblich        95
+3 3 : Männlich       104</code></pre>
 </div>
-<p><img src="figures/output_11_1.png" class="img-fluid"></p>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Mit diesem Plot können wir die Unterschiede in unserer Werteverteilung leichter erkennen.</p>
 <p>Für Präsentationen ist so ein Plot aber nicht wahnsinnig attraktiv. Färben wir den Plot also ein. Das machen wir, indem wir den Vektornamen auch für die Füllung der Balken verwenden. <code>ggplot</code> wählt nun für jeden Wert in diesem Vektor eine eigene Farbe aus. Dadurch färben sich unsere Balken ein.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_13_0.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Für Histogramme verwenden wir normalerweise ein kartesisches Koordinatensystem. Wir können aber auch ein anderes Koordinatensystem wählen. Eine Variante sind <strong>polare Koordinaten</strong>. Mit einem polaren Koordinatensystem erreichen wir kreisförmige Darstellungen. Wir müssen dazu die Dimension, die auf das Zentrum des Diagramms zeigt, festlegen und als Parameter übergeben. In unserem Fall ist das die y-Dimension.</p>
 <p>Wir stellen unsere Daten in einem polaren Koordinatensystem dar, indem wir mit der <code>coord_polar()</code>-Funktion ggplot mitteilen, dass wir ein anderes Koordinatensystem wünschen.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_15_0.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Unser Plot hat jetzt unschöne Beschriftungen. Die werden wir mit einem Formatierungsthema los. <code>ggplot</code> hat verschiedenen Formatierungen als Thema vordefiniert. Eines davon ist das Thema <code>void</code>. Diese Formatierung entfernt alle Hintergründe, Achsen und Beschriftungen ausser Legenden.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_17_0.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Das sieht doch gleich viel besser aus.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -815,29 +1239,41 @@ Hinweis
 <p>Solche ringartigen Visualisierungen werden als Zielscheiben- oder <strong>Donut-Diagramme</strong> bezeichnet.</p>
 </div>
 </div>
-<p>Manchmal wollen wir alle Balken übereinander stapeln. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So vermeiden wir, dass eine merkwürdige Beschriftung in unserem Diagramm auftaucht. Damit wir die Balken auseinanderhalten können, färben wir sie wie oben ein.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_19_0.png" class="img-fluid"></p>
-<p>Mit der Funktion <code>coord_flip</code> vertauschen wir die Achsen und drehen so unser Diagramm.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_flip</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_21_0.png" class="img-fluid"></p>
+</section>
+<section id="torten-diagramme" class="level3" data-number="18.5.2">
+<h3 data-number="18.5.2" class="anchored" data-anchor-id="torten-diagramme"><span class="header-section-number">18.5.2</span> Torten-Diagramme</h3>
+<p>Für Torten- bzw. Kreisdiagramme müssen alle Balken eines Balkendiagramms übereinander gestapelt werden. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So werden merkwürdige Beschriftungen im Diagramm vermieden. Damit wir die Balken auseinanderhalten können, färben wir sie ein.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Mit der Funktion <code>coord_flip</code> werden die Achsen vertauscht und das Diagramm gedreht.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_flip</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Wir erkennen nun deutlich, dass <code>ggplot</code> immer versucht möglichst viel Fläche zu nutzen.</p>
 <p>Das Interessante an dieser Darstellung ist aber nicht dieses Format, sondern dass wir dieses Diagramm ebenfalls in einem polaren Koordinatensystem darstellen können.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span> </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="figures/output_23_0.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>daten2 <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Auf diese Weise erzeugen wir Tortendiagramme.</p>
-</section>
-<section id="bubble-plots" class="level3" data-number="18.5.2">
-<h3 data-number="18.5.2" class="anchored" data-anchor-id="bubble-plots"><span class="header-section-number">18.5.2</span> Bubble-Plots</h3>
 
 
 </section>
