@@ -62,7 +62,7 @@ Mit der dritten Zeile legen wir die ***Geometrie*** der Datenpunkte fest. Alle `
 
 Diese drei Schritte zeigen die grundsätzliche Logik zum Erstellen von Plots mit R.  
 
-## Mathematische Funktionen visualisieren
+## Mathematische Funktionen visualisieren {#sec-visualisation-math-func}
 
 In der Mathematik werden regelmässig Funktionen besprochen. Diese Funktionen können wir mit R leicht visualisieren.
 
@@ -135,8 +135,10 @@ Wir wollen die beiden Graphen noch visuell hervorheben, damit wir wissen, welche
 ```{R}
 Darstellungsbereich |>
     ggplot(aes(x)) + 
-        geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
-        geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2"))
+        geom_line(stat = "function", fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
+        geom_line(stat = "function", fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2"))
 ```
 
 Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir noch schnell mit der `labs()`-Funktion(für *labels* bzw. *Beschriftungen*) an. Dort geben wir für den ästhetischen Parameter die richtige Beschriftung an. In unserem Fall ist das `colour`.
@@ -145,8 +147,10 @@ Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir n
 ```{R}
 Darstellungsbereich |>
     ggplot(aes(x)) + 
-        geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
-        geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2")) +
+        geom_line(stat = "function", fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
+        geom_line(stat = "function", fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2")) +
         labs(colour = "Funktion")
 ```
 
@@ -354,11 +358,128 @@ daten |>
 
 ### Farbkodierung
 
+Mit der Farbkodierung können zusätzliche Merkmale in einer Visualisierung kodiert werden. ggplot unterscheidet für die Farbkodierung zwischen diskreten und kontinuierlichen Daten. Bei diskreten Daten verwendet R Farben, die sich gut voneinander unterscheiden lassen. Bei kontinuierlichen Daten werden Farbverläufe zwischen mehreren Farben verwendet. Ausserdem hängt die Färbung von der Art der Visualisierung ab. Flächige Darstellungselemente, wie die Balken von Balkendiagrammen, wird eine *Füllfarbe* gesetzt. Die Füllfarbe wird über die Ästhetik `fill` kontrolliert. Darstellungselemente wie Linien oder Punkte wird eine *Linienfarbe* gesetzt. Die Linienfarbe wird über die Ästhetik `colour` festgelegt.
+
+::: {.callout-note}
+## Merke
+Die Färbung von Punkten wird über die Linienfarbe gesteuert.
+:::
+
+```{r}
+#| label: fig-iris-points-color
+#| fig-cap: Punktdiagramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                y = Sepal.Width, 
+                colour = Species)) + # <1>
+        geom_point()
+```
+
+1. Farbliche Hervorhebung
+
+Balkendiagramme und Histogramme benötigen eine Flächenfärbung.
+
+```{r}
+#| label: fig-iris-histo-color
+#| fig-cap: Histogramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                fill = Species)) + # <1>
+        geom_histogram()
+```
+
+1. Farbliche Hervorhebung
+
+::: {.callout-tip}
+## Praxis
+Wenn Histogramme oder Balkendiagramme eine zusätzliche farbliche Kodierung erhalten, verbirgt eine gestapelte Balkendarstellung die Verteilungen. Mit dem Parameter `position` lässt sich die Positionierung der Balken steuern. Dies wird beispielsweise durch die Funktion `position_dodge()` vereinfacht. 
+:::
+
+```{r}
+#| label: fig-iris-histo-color-dodge
+#| fig-cap: Histogramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                fill = Species)) + # <1>
+        geom_histogram(position = position_dodge()) # <2>
+```
+
+1. Farbliche Hervorhebung
+2. Positionierung der hervorgehobenen Balken
+
+Die Ästhetik kann auch in den Geometriefunktionen angepasst werden. Wird hier für die Farbästhetik jeweils ein einzelner Wert angegeben, erzeugt `ggplot()` einen Vektor mit diskreten Werten und weist die Farben dynamisch zu. 
+
+```{R}
+#| label: fig-mfunc-line-colored
+#| fig-cap: Angepasste Ästhetik mit Einzelwerten in Geometriefunktionen 
+#| warning: FALSE
+
+Darstellungsbereich |>
+    ggplot(aes(x)) + 
+        geom_line(stat = "function", 
+                  fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) +  # <1>
+        geom_line(stat = "function", 
+                  fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2")) +      # <1>
+        labs(colour = "Funktion")
+```
+
+1. Farbliche Hervorhebung
+
+::: {.callout-warning}
+`ggplot` unterstützt Farbcodes zur Konfiguration von Füll- und Linienfarben ausserhalb der normalen Ästhetikparameter. Mit diesen Farbcodes wird die normale Füll- oder Linienfarbe auf ***eine*** andere Farbe geändert. Diese Methode zur Anpassung von Farbe sollte **vermieden** werden, weil für solche Farben keine Legende erzeugt wird. 
+:::
+
 ### Grössenkodierung
 
-### Formenkodierung
+::: {.callout-note}
+## Merke
+Die Grössenkodierung eignet sich am Besten für *kontinuierliche Daten*.
+:::
+
+::: {.callout-note}
+## Merke
+Die Grössenkodierung lässt sich auf Linien oder Punkte anwenden. Flächen lassen sich nicht zusätzlich grössenkodieren, weil sie bereits Werte über die Grösse kodieren.
+:::
+
+Die Grössenkodierung von Punkten erfolgt über die Ästhetik `size`. 
+
+Die Grössenkodierung von Linien erfolgt über die Ästhetik `linewidth`.
+
+### Formkodierung
+
+::: {.callout-note}
+## Merke
+Die Formkodierung eignet sich nur für *diskrete Daten*!
+:::
+
+Die Formkodierung erfolgt über die Ästhetik `shape`. 
 
 ### Facetted Plots
+
+::: {.callout-note}
+## Merke
+Facetten können nu mit *diskreten Daten* erstellt werden!
+:::
+
+Facetten sind **keine** Ästhetik, sondern eine Steuerung. 
+
+```{r}
+#| label: fig-visual-facets
+#| fig-cap: Anwendung von `facet_wrap()` 
+#| 
+mtcars |> 
+    ggplot(aes(mpg, hp)) + 
+    geom_point() +
+    facet_wrap(~gear)
+```
 
 ## Spezielle Visualisierungen
 
