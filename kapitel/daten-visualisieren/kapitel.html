@@ -526,7 +526,7 @@ f2(x) \to 4x + 2
 <p>Das folgende Beispiel veranschaulicht die Situation.</p>
 <p>Wir verwenden die Stichprobe <code>digitales_umfeld1.csv</code>. In dieser Stichprobe gibt es den Vektor <code>tage</code>, der das Alter der beantwortenden Person in Tagen festhält. Dabei handelt es sich rein formell um <em>diskrete Werte</em>. Wenn wir die Verteilung dieser Werte in einem Histogramm für <em>diskrete Werte</em> darstellen würden, dann erhalten wir das folgende Histogramm:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"befragung_digitales_umfeld/digitales_umfeld1.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"befragung_digitales_umfeld/digitales_umfeld1.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 135 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -629,7 +629,7 @@ Merke
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"befragung_digitales_umfeld/befragung.csv"</span>);</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"befragung_digitales_umfeld/befragung.csv"</span>);</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(q18_6 <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> </span>
@@ -758,7 +758,7 @@ Merke
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-annotation="1" data-code-lines="4">Farbliche Hervorhebung</span>
+<span data-code-annotation="1" data-code-lines="4" data-code-cell="annotated-cell-20">Farbliche Hervorhebung</span>
 </dd>
 </dl>
 </div>
@@ -781,7 +781,7 @@ Merke
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-21" data-code-annotation="1" data-code-lines="3">Farbliche Hervorhebung</span>
+<span data-code-annotation="1" data-code-lines="3" data-code-cell="annotated-cell-21">Farbliche Hervorhebung</span>
 </dd>
 </dl>
 </div>
@@ -816,11 +816,11 @@ Praxis
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-22" data-code-annotation="1" data-code-lines="3">Farbliche Hervorhebung</span>
+<span data-code-annotation="1" data-code-lines="3" data-code-cell="annotated-cell-22">Farbliche Hervorhebung</span>
 </dd>
 <dt data-target-cell="annotated-cell-22" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-22" data-code-annotation="2" data-code-lines="4">Positionierung der hervorgehobenen Balken</span>
+<span data-code-annotation="2" data-code-lines="4" data-code-cell="annotated-cell-22">Positionierung der hervorgehobenen Balken</span>
 </dd>
 </dl>
 </div>
@@ -848,11 +848,11 @@ Praxis
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-23" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-23" data-code-annotation="1" data-code-lines="5">Farbliche Hervorhebung der ersten Funktion</span>
+<span data-code-annotation="1" data-code-lines="5" data-code-cell="annotated-cell-23">Farbliche Hervorhebung der ersten Funktion</span>
 </dd>
 <dt data-target-cell="annotated-cell-23" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-23" data-code-annotation="2" data-code-lines="8">Farbliche Hervorhebung der zweiten Funktion</span>
+<span data-code-annotation="2" data-code-lines="8" data-code-cell="annotated-cell-23">Farbliche Hervorhebung der zweiten Funktion</span>
 </dd>
 </dl>
 </div>
@@ -985,7 +985,7 @@ Merke
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-25" data-code-annotation="1" data-code-lines="6">Formkodierung über das Merkmal <code>am</code>.</span>
+<span data-code-annotation="1" data-code-lines="6" data-code-cell="annotated-cell-25">Formkodierung über das Merkmal <code>am</code>.</span>
 </dd>
 </dl>
 </div>
@@ -1061,7 +1061,7 @@ Merke
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-28" data-code-annotation="1" data-code-lines="4">Facetten folgen den Werten des Merkmals <code>gear</code>.</span>
+<span data-code-annotation="1" data-code-lines="4" data-code-cell="annotated-cell-28">Facetten folgen den Werten des Merkmals <code>gear</code>.</span>
 </dd>
 </dl>
 </div>
@@ -1084,7 +1084,7 @@ Merke
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-annotation="1" data-code-lines="4">Facetten über die Werte der Merkmale <code>gear</code> (horizontal) und <code>carb</code> (vertikal).</span>
+<span data-code-annotation="1" data-code-lines="4" data-code-cell="annotated-cell-29">Facetten über die Werte der Merkmale <code>gear</code> (horizontal) und <code>carb</code> (vertikal).</span>
 </dd>
 </dl>
 </div>

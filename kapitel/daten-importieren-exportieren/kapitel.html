@@ -349,11 +349,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Diese Dateien können wir mit den folgenden Funktionen einlesen.</p>
 <table class="table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Format</th>
@@ -379,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>csv (mit <code>;</code> als Trennzeichen)</td>
-<td><code>read_delim()</code> oder <code>read_csv2()</code></td>
+<td><code>read_csv2()</code></td>
 <td><code>read.csv2()</code></td>
 </tr>
 <tr class="odd">
@@ -417,11 +412,7 @@ Achtung
 <div class="callout-body-container callout-body">
 <p>In der Schweiz kann das CSV-Format zu Verwirrung führen, weil sehr häufig das Semikolon als Spaltentrennzeichen und der Punkt als Dezimaltrennzeichen verwendet werden. Die Ursache für diese Situation sind CSV-Dateien, die aus Excel exportiert wurden.</p>
 <p>Die normalerweise für dieses Format empfohlene Funktion <code>read_csv2()</code> behandelt Dezimalzahlen fälschlich als Ganzzahlen. Um dieses Problem zu beheben, sollte das Dezimaltrennzeichen laut Dokumentation wie folgt angepasst werden:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv2</span>(datei_name, <span class="at">locale =</span> <span class="fu">local</span>(<span class="at">decimal_mark =</span> <span class="st">"."</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Dieser Aufruf funktioniert jedoch nicht!</strong></p>
-<p>Hier greift die Funktion <code>read_delim()</code>. Wird dieser Funktion nur ein Dateiname übergeben, dann prüft die Funktion auf die verschiedenen Trennzeichen. Dieser (undokumentierte) Algorithmus erkennt Schweizer CSV-Dateien korrekt.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(datei_name)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Dieser Aufruf importiert die Werte wie erwartet.</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv2</span>(datei_name, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">"."</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Bei der modernen <code>read_</code> Variante können wir uns leicht an der Dateiendung orientieren, um die richtige <code>read_</code>-Funktion auszuwählen.</p>
@@ -429,7 +420,7 @@ Achtung
 </section>
 <section id="dateien-mit-einer-spalte" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="dateien-mit-einer-spalte"><span class="header-section-number">7.1.2</span> Dateien mit einer Spalte</h3>
-<p><strong>CSV</strong>-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Die Funktion <code>read_delim()</code> liest diese Dateien meistens korrekt ein. Falls eine Datei mit nur <strong>einem</strong> <em>Datenvektor</em> importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle <strong>muss</strong> die Datei mit der <code>read_csv()</code> oder <code>read_csv2()</code>-Funktion noch einmal eingelesen werden.</p>
+<p><strong>CSV</strong>-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Falls eine Datei mit nur <strong>einem</strong> <em>Datenvektor</em> importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle <strong>muss</strong> die Datei mit der <code>read_csv()</code> oder <code>read_csv2()</code>-Funktion noch einmal eingelesen werden.</p>
 <p>Für Spalten mit Zeichenketten oder Ganzzahlen wird immer die Funktion <code>read_csv()</code> verwendet.</p>
 <p>Für Gleitkommazahlen erfolgt die Auswahl auf Grundlage des verwendeten Dezimaltrennzeichens. Wird der Dezimalpunkt verwendet, dann <strong>muss</strong> die Funktion <code>read_csv()</code> benutzt werden. Wird das Dezimalkomma verwendet, dann <strong>muss</strong> die Funktion <code>read_csv2()</code> eingesetzt werden.</p>
 <blockquote class="blockquote">
@@ -530,12 +521,12 @@ Achtung
 <p>Mit den <code>readxl</code>-Funktionen können keine Formeln aus den Zellen ausgelesen werden.</p>
 <div id="exm-read-arbeitsmappe" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 7.2 (Excel-Arbeitsmappe importieren) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Arbeitsblaetter <span class="ot">=</span> <span class="fu">excel_sheets</span>(<span class="st">"Bestellungen_2.xlsx"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Arbeitsblatt "Daten" sollte vorhanden sein.</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"Bestellungen_2.xlsx"</span>, <span class="st">"Daten"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Arbeitsblaetter <span class="ot">=</span> <span class="fu">excel_sheets</span>(<span class="st">"Bestellungen_2.xlsx"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Arbeitsblatt "Daten" sollte vorhanden sein.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Daten <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"Bestellungen_2.xlsx"</span>, <span class="st">"Daten"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Funktion <code>read_excel()</code> importiert alle Daten auf einem Arbeitsblatt. Enthält nur ein bestimmter Bereich auf einem Arbeitsblatt die Daten von Interesse, dann muss dieser Bereich als Excel-Bereichsadresse angegeben werden.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -560,12 +551,14 @@ Warnung
 <p>Die Import- und Export-Funktionen lassen sich zu einfachen Konvertierungsprogrammen verknüpfen. <a href="#exm-korrect-swiss-csv">Beispiel&nbsp;<span>7.3</span></a> korrigert von Excel exportierte CSV-Dateien in ein gültiges CSV-Format.</p>
 <div id="exm-korrect-swiss-csv" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 7.3 (“Schweizer” CSV-Format korrigieren) </strong></span>&nbsp;</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_delim</span>(<span class="st">"Bestellungen_Excel.csv"</span>), </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bestellungen_korrigiert.csv"</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv2</span>(<span class="st">"Bestellungen_2.csv"</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bestellungen_korrigiert.csv"</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>oder eleganter mit Funktionsverkettung:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv2</span>(<span class="st">"Bestellungen_2.csv"</span>) <span class="sc">|&gt;</span>  <span class="fu">write_csv</span>(<span class="st">"Bestellungen_korrigiert.csv"</span> )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
