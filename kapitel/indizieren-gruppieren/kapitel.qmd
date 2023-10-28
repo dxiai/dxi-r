@@ -134,7 +134,7 @@ Abschliessend müssen wir **unbedingt** die beiden Hilfsvektoren, die wir zum Mi
 Wir greifen hier auf eine Stichprobe zurück, die Geschlechtsinformationen, Alter und digitale Nutzungsgewohnheiten umfasst. Wir erstellen zwei getrennte Teilstichproben, von denen eine nur die Nutzungsgewohnheiten und das Geschlecht und eine nur die Nutzungsgewohnheiten und das Alter beinhaltet. 
 
 ```{r}
-daten = read_delim(
+daten = read_csv(
     "daten/befragung_digitales_umfeld/befragung.csv", 
     show_col_types = F)
 

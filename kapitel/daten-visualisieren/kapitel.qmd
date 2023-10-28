@@ -180,7 +180,7 @@ Wir verwenden die Stichprobe `digitales_umfeld1.csv`. In dieser Stichprobe gibt 
 ```{R}
 #| label: fig-tage-barplot
 #| fig-cap: Tage-Histogram Diskrete Werte
-digitales_umfeld = read_delim("befragung_digitales_umfeld/digitales_umfeld1.csv")
+digitales_umfeld = read_csv("befragung_digitales_umfeld/digitales_umfeld1.csv")
 
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
@@ -262,7 +262,7 @@ iris |>
 #| label: fig-attitude-point
 #| fig-cap: Beispiel eines Punktdiagramms mit diskreten Daten
 #| warning: FALSE
-daten = read_delim("befragung_digitales_umfeld/befragung.csv");
+daten = read_csv("befragung_digitales_umfeld/befragung.csv");
 
 daten |>
     filter(q18_6 > 0 & 

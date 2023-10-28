@@ -16,7 +16,7 @@ Neben der Bedeutung für die Empirie sind Faktoren in R auch für die Darstellun
 Die folgenden Beispiele verwenden  die Stichprobe `digitales_umfeld.csv`
 
 ```R
-digitales_umfeld = read_delim("digitales_umfeld.csv")
+digitales_umfeld = read_csv("digitales_umfeld1.csv")
 ```
 
 Wenn wir zum Beispiel die Anzahl der Mobilgerätetypen bestimmen möchten, dann können wir naiv vorgehen: 

@@ -603,15 +603,15 @@ mtcars |>
 R bietet sog. Meta-Bibliotheken an, mit denen mehrere Bibliotheken gemeinsam verwendet werden können. Funktionen können nur nicht über den Namen einer Meta-Bibliothek, sondern immer nur über die Bibliothek, die einer Funktion definiert. 
 :::
 
-Die `tidyverse`-Bibliothek ist eine solche Meta-Bibliothek. @exm-fkt-dir-ansprechen-meta zeigt wie die Funktion `read_delim()` direkt angesprochen werden kann, wenn die `tidyverse`-Bibliotheken nicht mit `library(tidyverse)` eingebunden wurden. `read_delim()` wird in der Bibliothek `readr` definiert. Entsprechend kann die Funktion nur über `readr::read_delim()` aufgerufen werden.
+Die `tidyverse`-Bibliothek ist eine solche Meta-Bibliothek. @exm-fkt-dir-ansprechen-meta zeigt wie die Funktion `read_csv()` direkt angesprochen werden kann, wenn die `tidyverse`-Bibliotheken nicht mit `library(tidyverse)` eingebunden wurden. `read_csv()` wird in der Bibliothek `readr` definiert. Entsprechend kann die Funktion nur über `readr::read_csv()` aufgerufen werden.
 
 ::: {#exm-fkt-dir-ansprechen-meta}
 ## Funktion aus Unterbibliothek direkt ansprechen
 ```r
-readr::read_delim("meine_daten.csv")
+readr::read_csv("meine_daten.csv")
 # entspricht:
 #   library(tidyverse)
-#   read_delim("meine_daten.csv")
+#   read_csv("meine_daten.csv")
 ```
 :::
 

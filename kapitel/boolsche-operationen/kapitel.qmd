@@ -277,15 +277,18 @@ Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der log
 > Daraus ergibt sich die folgende Funktionskette: 
 > 
 > ```{r, warnings=FALSE}
-> read_delim("daten/einwohnende.psv", 
->            delim = "|", 
->            trim_ws = T, 
->            show_col_types = F) |> 
->     filter(`Einwohner:innen` > 100000) |>
+> read_delim("daten/einwohnende.psv", # <1>
+>            delim = "|",  # <1>
+>            trim_ws = T,  # <1>
+>            show_col_types = F) |> # <1>
+>     filter(`Einwohner:innen` > 100000) |> # <2>
 >     summarise(
 >         Gesamteinwohnende = sum(`Einwohner:innen`)
 >     )
 > ```
+>
+> 1. `read_delim()` muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.
+> 2. Filter operation.
 > :::
 
 
@@ -307,10 +310,10 @@ Die `tidyverse` Bibliothek umfasst die [`tidyselect`-Funktionen](https://tidysel
 
 In R können Vektoren mit der Funktion `select()` selektiert werden. Dieser Funktion werden Regeln übergeben, nach denen die Vektoren auswählt werden sollen. Die einfachste Regel ist die direkte Eingabe der Vektorennamen. Ein typischer Anwendungsfall ist die Datenbereinigung, damit die Funktion `drop_na()` nicht zu viele Datensätze löscht. Diese Situation kommt vor, wenn ein Datenrahmen viele fehlende Werte enthält, die ungleichmässig in den Vektoren vorkommen. Die Analyse muss deshalb auf die gewünschten Vektoren beschränkt werden. 
 
-Für die folgenden Beispiele verwenden wir die Daten der Befragung zum digitalen Umfeld, die mit der `read_delim()`-Funktion eingelesen wird. 
+Für die folgenden Beispiele verwenden wir die Daten der Befragung zum digitalen Umfeld, die mit der `read_csv()`-Funktion eingelesen wird. 
 
 ```{r}
-stichprobe = read_delim("daten/befragung_digitales_umfeld/deviceuse.csv") 
+stichprobe = read_csv("daten/befragung_digitales_umfeld/deviceuse.csv") 
 ```
 
 ### Vektoren direkt selektieren
