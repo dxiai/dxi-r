@@ -1,17 +1,20 @@
 ---
 abstract: ""
-
-execute: 
-  echo: false
 ---
 
 # Matrix-Operationen {#sec-chapter-matrix-operationen}
+
+
+```{r, include=FALSE}
+library(tidyverse)
+library(Matrix)
+```
 
 ::: {.callout-warning}
 ## Work in Progress
 :::
 
-## `Matrix`-Bibliothek
+## Matrizen erstellen
 
 ## Vektorform einer Matrix
 
@@ -29,8 +32,6 @@ execute:
 
 ## Matrixmultiplikation/Kreuzprodukt
 
-### Inverse Matrix
-
 ### Zeilen- und Spaltensummen
 
 ## Äusseres Vektorprodukt
@@ -41,4 +42,14 @@ execute:
 ### Vorgänger- und Nachfolgersummen
 
 ## Co-Occurence Matrizen
+
+Eine Co-Occurence Matrix aus zwei Vektoren lässt sich am leichtesten mit der `table()` Funktion erstellen.
+
+
+
+## `Matrix`-Bibliothek
+
+### Determinanten
+
+### Inverse Matrix
 

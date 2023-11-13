@@ -52,7 +52,7 @@ book:
     - kapitel/faktoren/kapitel.qmd
     - kapitel/boolsche-operationen/kapitel.qmd
     - kapitel/vektor-operationen/kapitel.qmd
-    - kapitel/matrix-operationen/kapitel.md
+    - kapitel/matrix-operationen/kapitel.qmd
     - kapitel/indizieren-gruppieren/kapitel.qmd
     - kapitel/daten-kodieren/kapitel.md
     - kapitel/daten-formen/kapitel.md
