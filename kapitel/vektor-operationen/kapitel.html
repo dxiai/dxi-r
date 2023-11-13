@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -265,23 +318,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#sequenzen" id="toc-sequenzen" class="nav-link active" data-scroll-target="#sequenzen"><span class="header-section-number">12.1</span> Sequenzen</a>
+  <li><a href="#konkatenation" id="toc-konkatenation" class="nav-link active" data-scroll-target="#konkatenation"><span class="header-section-number">12.1</span> Konkatenation</a></li>
+  <li><a href="#vektorlänge" id="toc-vektorlänge" class="nav-link" data-scroll-target="#vektorlänge"><span class="header-section-number">12.2</span> Vektorlänge</a></li>
+  <li><a href="#wertereferenzierung" id="toc-wertereferenzierung" class="nav-link" data-scroll-target="#wertereferenzierung"><span class="header-section-number">12.3</span> Wertereferenzierung</a>
   <ul class="collapse">
-  <li><a href="#nullvektor" id="toc-nullvektor" class="nav-link" data-scroll-target="#nullvektor"><span class="header-section-number">12.1.1</span> Nullvektor</a></li>
-  <li><a href="#einsvektor" id="toc-einsvektor" class="nav-link" data-scroll-target="#einsvektor"><span class="header-section-number">12.1.2</span> Einsvektor</a></li>
+  <li><a href="#indexreferenz" id="toc-indexreferenz" class="nav-link" data-scroll-target="#indexreferenz"><span class="header-section-number">12.3.1</span> Indexreferenz</a></li>
+  <li><a href="#negative-indexreferenz" id="toc-negative-indexreferenz" class="nav-link" data-scroll-target="#negative-indexreferenz"><span class="header-section-number">12.3.2</span> Negative Indexreferenz</a></li>
+  <li><a href="#referenz-durch-wahrheitsvektoren" id="toc-referenz-durch-wahrheitsvektoren" class="nav-link" data-scroll-target="#referenz-durch-wahrheitsvektoren"><span class="header-section-number">12.3.3</span> Referenz durch Wahrheitsvektoren</a></li>
   </ul></li>
-  <li><a href="#konkatenation" id="toc-konkatenation" class="nav-link" data-scroll-target="#konkatenation"><span class="header-section-number">12.2</span> Konkatenation</a></li>
-  <li><a href="#transformationen" id="toc-transformationen" class="nav-link" data-scroll-target="#transformationen"><span class="header-section-number">12.3</span> Transformationen</a>
+  <li><a href="#sequenzen" id="toc-sequenzen" class="nav-link" data-scroll-target="#sequenzen"><span class="header-section-number">12.4</span> Sequenzen</a></li>
+  <li><a href="#wiederholungen" id="toc-wiederholungen" class="nav-link" data-scroll-target="#wiederholungen"><span class="header-section-number">12.5</span> Wiederholungen</a></li>
+  <li><a href="#sec-transformationen" id="toc-sec-transformationen" class="nav-link" data-scroll-target="#sec-transformationen"><span class="header-section-number">12.6</span> Transformationen</a></li>
+  <li><a href="#aggregationen" id="toc-aggregationen" class="nav-link" data-scroll-target="#aggregationen"><span class="header-section-number">12.7</span> Aggregationen</a></li>
+  <li><a href="#zählen" id="toc-zählen" class="nav-link" data-scroll-target="#zählen"><span class="header-section-number">12.8</span> Zählen</a>
   <ul class="collapse">
-  <li><a href="#transformationen-mit-einem-skalar" id="toc-transformationen-mit-einem-skalar" class="nav-link" data-scroll-target="#transformationen-mit-einem-skalar"><span class="header-section-number">12.3.1</span> Transformationen mit einem Skalar</a></li>
-  <li><a href="#transformationen-mit-einem-vektor" id="toc-transformationen-mit-einem-vektor" class="nav-link" data-scroll-target="#transformationen-mit-einem-vektor"><span class="header-section-number">12.3.2</span> Transformationen mit einem Vektor</a></li>
-  </ul></li>
-  <li><a href="#aggregationen" id="toc-aggregationen" class="nav-link" data-scroll-target="#aggregationen"><span class="header-section-number">12.4</span> Aggregationen</a></li>
-  <li><a href="#zählen" id="toc-zählen" class="nav-link" data-scroll-target="#zählen"><span class="header-section-number">12.5</span> Zählen</a>
-  <ul class="collapse">
-  <li><a href="#zählen-durch-summieren" id="toc-zählen-durch-summieren" class="nav-link" data-scroll-target="#zählen-durch-summieren"><span class="header-section-number">12.5.1</span> Zählen durch Summieren</a></li>
-  <li><a href="#zählen-durch-filtern" id="toc-zählen-durch-filtern" class="nav-link" data-scroll-target="#zählen-durch-filtern"><span class="header-section-number">12.5.2</span> Zählen durch Filtern</a></li>
-  <li><a href="#zählen-durch-nummerieren" id="toc-zählen-durch-nummerieren" class="nav-link" data-scroll-target="#zählen-durch-nummerieren"><span class="header-section-number">12.5.3</span> Zählen durch Nummerieren</a></li>
+  <li><a href="#zählen-durch-summieren" id="toc-zählen-durch-summieren" class="nav-link" data-scroll-target="#zählen-durch-summieren"><span class="header-section-number">12.8.1</span> Zählen durch Summieren</a></li>
+  <li><a href="#zählen-durch-filtern" id="toc-zählen-durch-filtern" class="nav-link" data-scroll-target="#zählen-durch-filtern"><span class="header-section-number">12.8.2</span> Zählen durch Filtern</a></li>
+  <li><a href="#zählen-durch-nummerieren" id="toc-zählen-durch-nummerieren" class="nav-link" data-scroll-target="#zählen-durch-nummerieren"><span class="header-section-number">12.8.3</span> Zählen durch Nummerieren</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
@@ -319,21 +372,20 @@ Work in Progress
 
 </div>
 </div>
-<section id="sequenzen" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="sequenzen"><span class="header-section-number">12.1</span> Sequenzen</h2>
-<section id="nullvektor" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="nullvektor"><span class="header-section-number">12.1.1</span> Nullvektor</h3>
-</section>
-<section id="einsvektor" class="level3" data-number="12.1.2">
-<h3 data-number="12.1.2" class="anchored" data-anchor-id="einsvektor"><span class="header-section-number">12.1.2</span> Einsvektor</h3>
-</section>
-</section>
-<section id="konkatenation" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="konkatenation"><span class="header-section-number">12.2</span> Konkatenation</h2>
-<p><code>c()</code></p>
-</section>
-<section id="transformationen" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="transformationen"><span class="header-section-number">12.3</span> Transformationen</h2>
+<p><strong>Vektoren</strong> sind zusammengesetzte Datenstrukturen, die Werte vom gleichen Datentyp enthalten. In R bilden Vektoren die Basisstruktur für <em>alle Daten</em>. R unterscheidet zwischen Listen und Vektoren, wobei für Vektoren immer sichergestellt wird, dass alle Werte vom gleichen Datentyp sind.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vektoren haben in R keine Orientierung, d.h. R unterscheidet nicht zwischen Zeilen- und Spaltenvektoren.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -344,18 +396,176 @@ Merke
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Beliebige Transformationen lassen sich mit <code>MAP()</code> umsetzen.</p>
+<p>Alle R-Vektoren werden grundsätzlich als Spaltenvektoren behandelt.</p>
 </div>
 </div>
-<section id="transformationen-mit-einem-skalar" class="level3" data-number="12.3.1">
-<h3 data-number="12.3.1" class="anchored" data-anchor-id="transformationen-mit-einem-skalar"><span class="header-section-number">12.3.1</span> Transformationen mit einem Skalar</h3>
+<section id="konkatenation" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="konkatenation"><span class="header-section-number">12.1</span> Konkatenation</h2>
+<p>Vektoren werden in R mit der Funktion <code>c()</code> erzeugt (<a href="#exm-vektor-erstellen">Beispiel&nbsp;<span>12.1</span></a>).</p>
+<div id="exm-vektor-erstellen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.1 (Einen Vektor aus Skalaren erstellen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 1 5 4 6</code></pre>
+</div>
+</div>
+</div>
+<p>Die Funktion <code>c()</code> dient nicht nur zum erzeugen von Vektoren, sondern auch zur Konkatenation von Vektoren (<a href="#exm-konkatenation">Beispiel&nbsp;<span>12.2</span></a>). Anders als mit der <code>list</code>-Funktion, können mit der <code>c()</code>-Funktion keine komplexen Datenstrukturen erzeugt werden.</p>
+<div id="exm-konkatenation" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.2 (Konkatenation von Vektoren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(vektor, <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 1 5 4 6 6 7</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Funktion <code>c()</code> sollte nur zur Konkatenation von alleinstehenden Vektoren eingesetzt werden und nie für Vektoren, die zu einem Datenrahmen gehören!</p>
+</div>
+</div>
 </section>
-<section id="transformationen-mit-einem-vektor" class="level3" data-number="12.3.2">
-<h3 data-number="12.3.2" class="anchored" data-anchor-id="transformationen-mit-einem-vektor"><span class="header-section-number">12.3.2</span> Transformationen mit einem Vektor</h3>
+<section id="vektorlänge" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="vektorlänge"><span class="header-section-number">12.2</span> Vektorlänge</h2>
+<p>Die Länge eines R-Vektors wird mit der Funktion <code>length()</code> bestimmt. Diese Funktion liefert immer eine ganze Zahl mit der Anzahl der Vektorelemente (<a href="#exm-vektorlaenge">Beispiel&nbsp;<span>12.3</span></a>).</p>
+<div id="exm-vektorlaenge" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.3 (Vektorlänge bestimmen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</div>
+<p>R kennt den leeren Vektor. Dieser Vektor hat die Länge <code>0</code>. Er wird durch den argumentlosen Aufruf der Funktion <code>c()</code> erzeugt (<a href="#exm-vektorlaenge-zerovector">Beispiel&nbsp;<span>12.4</span></a>).</p>
+<div id="exm-vektorlaenge-zerovector" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.4 (Vektorlänge des leeren Vektors) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</div>
 </section>
+<section id="wertereferenzierung" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="wertereferenzierung"><span class="header-section-number">12.3</span> Wertereferenzierung</h2>
+<p>Jeder Wert in einem Vektor hat eine eindeutige Position. Der erste Wert hat die Position <code>1</code> und alle weiteren Positionen sind fortlaufend nummeriert. Der Wert der Position wird auch als <em>Vektorindex</em> bezeichnet.</p>
+<p>Der Index eines Vektors wird in eckigen Klammern (bzw. Blockklammern: <code>[</code> und <code>]</code>) gerahmt angegeben. Die Blockklammern sind R’s <em>Indexoperator</em>. Ein Index wird als <strong><em>Referenz</em></strong> für einen Wert verwendet. Ein Wert in einem Vektor wird über den Index referenziert.</p>
+<p>Es werden drei Varianten der Wertereferenzierung unterschieden. Alle Varianten sind gleichwertig, dürfen aber nicht gemischt werden.</p>
+<ul>
+<li>Die Indexreferenz</li>
+<li>Die negative Indexreferenz</li>
+<li>Die Referenz mit Wahrheitsvektoren</li>
+</ul>
+<section id="indexreferenz" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="indexreferenz"><span class="header-section-number">12.3.1</span> Indexreferenz</h3>
+<div id="exm-wertezugriff-einzeln" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.5 (Index eines Vektors) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="dv">2</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+</div>
+<p>Weil alle Werte gleichzeitig Vektoren sind, können Indizes ebenfalls als Vektoren angegeben werden, um mehrere Vektorwerte gleichzeitig abzufragen. Der Ergebnisvektor enthält die Werte in der Reihenfolge</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Werden ungültige Indizes angegeben, füllt R diese nicht existierenden Werte mit <code>NA</code> auf.</p>
+</div>
+</div>
+<div id="exm-wertezugriff-vektor" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.6 (Vektorwerte über einen Indexvektor abfragen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  3 NA  5</code></pre>
+</div>
+</div>
+</div>
+<p>Ein Indexvektor kann länger als der Wertevektor sein, ausserdem können Indexwerte wiederholt werden. Dadurch lassen sich Vektoren systematisch erzeugen.</p>
+<div id="exm-wertezugriff-vektor-wiederholung" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.7 (Vektorwerte über einen Indexvektor wiederholt abfragen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 5 5 3</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="aggregationen" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="aggregationen"><span class="header-section-number">12.4</span> Aggregationen</h2>
+<section id="negative-indexreferenz" class="level3" data-number="12.3.2">
+<h3 data-number="12.3.2" class="anchored" data-anchor-id="negative-indexreferenz"><span class="header-section-number">12.3.2</span> Negative Indexreferenz</h3>
+<p>Alternativ können <em>negative</em> Indizes verwendet werden. Das Vorzeichen bedeutet in diesem Fall <em>“ausser”</em>. Es werden also alle Indizes, ausser dem angegebenen, zurückgegeben <span class="citation" data-cites="r_core_team_introduction_2023">(<a href="../../references.html#ref-r_core_team_introduction_2023" role="doc-biblioref">R Core Team et al., 2023</a>)</span>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Negative und positive Indizes dürfen nicht gemischt werden!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Jargon
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Verwendung von negativen Referenzen ist eine Eigenheit von R und wird in den meisten anderen Programmiersprachen nicht bzw. nicht so unterstützt.</p>
+</div>
+</div>
+<div id="exm-wertezugriff-negativindex" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.8 (Negative Indizes) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 1 5 4 6</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="referenz-durch-wahrheitsvektoren" class="level3" data-number="12.3.3">
+<h3 data-number="12.3.3" class="anchored" data-anchor-id="referenz-durch-wahrheitsvektoren"><span class="header-section-number">12.3.3</span> Referenz durch Wahrheitsvektoren</h3>
+<p>Die letzte Variante des Wertezugriffs ist der Zugriff mit einem Wahrheitsvektor. Ein Wahrheitsvektor zum Wertezugriff <strong>muss</strong> die gleiche Länge haben, wie der Wertevektor. Das Ergebnis dieser Operation ist ein Vektor, der nur Werte enthält, die an den Positionen stehen, an welchen im Wahrheitsvektor <code>TRUE</code> steht.</p>
+<div id="exm-wertezugriff-wahrheitsvektor" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.9 (Negative Indizes) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 1 4 6</code></pre>
+</div>
+</div>
+</div>
+<p>Diese Art des Wertereferenzierung wird häufig mit einer Transformation (<a href="#sec-transformationen">Abschnitt&nbsp;<span>12.6</span></a>) als Teil eines logischen Ausdrucks kombiniert. <a href="#exm-ref-transform">Beispiel&nbsp;<span>12.10</span></a> referenziert nur die gereaden Werte in <code>vektor</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -366,22 +576,327 @@ Merke
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Beliebige Aggregationen lassen sich mit <code>REDUCE()</code> umsetzen.</p>
+<p>Das Referenzieren mit einem logischen Ausdruck ist eine Variante des Filterns.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Das Filtern durch Referenzieren sollte nur für alleinstehende Vektoren eingesetzt werden. Zum Filtern von Vektoren in Datenrahmen sollte <strong>immer</strong> die <code>dplyr</code>-Funktion <code>filter()</code> verwendet werden.</p>
+</div>
+</div>
+<div id="exm-ref-transform" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.10 (Gerade Werte aus einem Vektor auswählen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>vektor[vektor <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 4 6</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sequenzen" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="sequenzen"><span class="header-section-number">12.4</span> Sequenzen</h2>
+<p>Sequenzen werden mit der Funktion <code>seq()</code> erstellt. Die Funktion hat fünf Parameter. Die drei wichtigsten Parameter sind:</p>
+<ul>
+<li><code>from</code>: Der Initialwert der Sequenz.</li>
+<li><code>length</code>: Die Länge der Sequenz.</li>
+<li><code>by</code>: Die Schrittweite der Sequenz.</li>
+</ul>
+<p>Neben diesen Parameter gibt es noch die beiden Parameter:</p>
+<ul>
+<li><code>to</code>: Der Endwert der Sequenz</li>
+<li><code>along.with</code>: Übernimmt die Länge der Sequenz der Länge des angegebenen Vektors.</li>
+</ul>
+<div id="exm-sequenzen-erstellen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.11 (Sequenzen erstellen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">5</span>) <span class="co"># seq(length = 5)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">5</span>) <span class="co"># seq(from = 2, to = 5)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 4 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">length =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10</code></pre>
+</div>
+</div>
+</div>
+<p>Neben der <code>seq()</code>-Funktion kennt R den Sequenzoperator <code>:</code>. Die Operanden des Squenzoperators sind der Initial- und Endwert, wobei eine Schrittweite von <code>1</code> angenommen wird (<a href="#exm-sequenzen-erstellen">Beispiel&nbsp;<span>12.12</span></a>).</p>
+<div id="exm-sequenzen-erstellen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.12 (Sequenzoperator verwenden) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>  <span class="co"># identisch mit seq(from = 3, to = 8, by = 1)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 4 5 6 7 8</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="wiederholungen" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="wiederholungen"><span class="header-section-number">12.5</span> Wiederholungen</h2>
+<p>Vektoren mit gleichen Werten an allen Positionen können als Sequenzen mit der Schrittweite von <code>0</code> verstanden werden. Genauso lassen sich solche Vektoren als Wiederholungen eines Werts beschreiben. Diesen Weg geht R mit der <code>rep()</code>-Funktion (rep für engl. <em>repeat</em>).</p>
+<p>Die <code>rep()</code>-Funktion hat zwei Parameter:</p>
+<ul>
+<li><code>x</code>: Der Wiederholungswert</li>
+<li><code>length</code>: Die Länge des Zielvektors</li>
+</ul>
+<p>Mit dieser Funktion lassen sich Vektoren wie der Nullvektor oder der Einsvektor leicht erzeugen (<a href="#exm-repeat-vektor-erzeugen">Beispiel&nbsp;<span>12.13</span></a>).</p>
+<div id="exm-repeat-vektor-erzeugen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.13 (Null- und Einsvektor der Länge fünf erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 1 1</code></pre>
+</div>
+</div>
+</div>
+<p>Weil die Datengrundstruktur in R Vektoren sind, können Vektoren mit der <code>rep()</code>-Funktion vervielfacht werden. So lassen sich Vektoren mit Wertemustern erzeugen (<a href="#exm-repeat-vektor">Beispiel&nbsp;<span>12.14</span></a>).</p>
+<div id="exm-repeat-vektor" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.14 (Mustervektor erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 0 1 0 1 0</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-transformationen" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="sec-transformationen"><span class="header-section-number">12.6</span> Transformationen</h2>
+<p>Vektortransformationen bedeuten in R das wiederholte Ausführen einer Funktion für jeden Wert eines Vektors. Alle arithmetischen, logischen und Vergleichsoperatoren sind automatisch Vektortransformationen (<a href="#exm-vector-transform">Beispiel&nbsp;<span>12.15</span></a>).</p>
+<div id="exm-vector-transform" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.15 (Einfache Vektortransformationen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arithmetische Operationen</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">+</span> <span class="dv">4</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  5  9  8 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">%%</span> <span class="dv">2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 1 1 1 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logische und Vergleichsoperationen</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">&lt;=</span> <span class="dv">3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">&lt;</span> vektor <span class="sc">&amp;</span> vektor <span class="sc">&lt;</span> <span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE FALSE FALSE  TRUE FALSE</code></pre>
+</div>
+</div>
+</div>
+<p>Eine Besonderheit von R ist die Verallgemeinerung von Skalaroperationen auf Vektoren mit <em>unterschiedlicher</em> Länge. Dabei wird der kürzere Vektor auf die Länge des längeren Vektors durch Wiederholung erweitert, so dass eine Vektortransforamtion möglich wird (<a href="#exm-vector-vector-transform">Beispiel&nbsp;<span>12.16</span></a>). Bei einer Vektortransformation werden die Werte an den gleichen Positionen aus zwei Vektoren paarweise miteinander verknüpft.</p>
+<div id="exm-vector-vector-transform" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.16 (Erweiterte Vektortransformationen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 1 5 4 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">+</span> <span class="dv">4</span> <span class="co"># vektor + rep(4, length(vektor))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  5  9  8 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># vektor + rep(c(1, 2), 3)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 5 2 7 5 8</code></pre>
+</div>
+</div>
+</div>
+<p>Im <a href="#exm-vector-vector-transform">Beispiel&nbsp;<span>12.16</span></a> werden Vektoren mit Längen, die Vielfache des kürzesten Vektors sind. Dadurch ist sichergestellt, dass keine überzähligen Werte bleiben. Die Wiederholung des kürzeren Vektors wird auch dann ausgeführt, wenn die Vektorenlängen keine Vielfachen voneinander sind. Dabei wird die Operation nur für alle die Werte im ursprünglich längsten Vektor ausgeführt. Dadurch bleiben nicht verwendete Werte im wiederholten Vektor. Diese überbleibenden Werte erzeugen eine Warnmeldung (<a href="#exm-vector-vector-transform-incomplete">Beispiel&nbsp;<span>12.17</span></a>).</p>
+<div id="exm-vector-vector-transform-incomplete" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.17 (Unvollständige Vektortransformationen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 1 5 4 6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># vektor + c(1, 2, 3, 4, 5, 1)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in vektor + c(1, 2, 3, 4, 5): Länge des längeren Objektes
+     ist kein Vielfaches der Länge des kürzeren Objektes</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 5 4 9 9 7</code></pre>
+</div>
+</div>
+</div>
+<p>Die Vektoroperationen von R sind sehr flexibel und leistungsfähig. Allerdings lassen sich auch damit nicht alle beliebigen Vektortransformationen durchführen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beliebige Transformationen lassen sich mit <code>map()</code> aus der Bibliothek <code>purrr()</code> umsetzen.</p>
+</div>
+</div>
+<p>Die <code>map()</code>-Funktion hat immer eine Liste als Ergebnis einer Vektortransforamtion. Der eigentliche Vektor ist in dieser Liste geschachtelt und muss mit <code>unlist()</code> extrahiert werden (<a href="../variablen/kapitel.html#exm-map">Beispiel&nbsp;<span>8.22</span></a>).</p>
+</section>
+<section id="aggregationen" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="aggregationen"><span class="header-section-number">12.7</span> Aggregationen</h2>
+<p>Aggregationen fassen mehrere Werte eines Vektors zusammen.Das Ergebnis ist ein Vekter, der höchstens so lang ist, wie der aggregierte Vektor. Alle Aggregationen werden in R durch Funktionen realisiert. Eine solche Funktion heisst <em>Aggregator</em>.</p>
+<p>Häufig verwendete Aggregatoren sind:</p>
+<ul>
+<li><code>sum()</code>, zum Addieren aller Werte eines Vektors.</li>
+<li><code>mean()</code>, zur Mittelwertbildung.</li>
+<li><code>max()</code>, zum Finden des grössten Werts eines numerischen Vektors</li>
+<li><code>min()</code>, zum Finden des kleinsten Werts eines numerischen Vektors</li>
+</ul>
+<p>Das Filtern ist eine spezielle Aggregation, die zu einem neuen und oft kürzeren Vektor führt. Das Filtern von Werten eines einzelnen Vektors erfolgt über die Wertereferenzierung mit einem logischen Ausdruck (<a href="#exm-ref-transform">Beispiel&nbsp;<span>12.10</span></a>).</p>
+<p>Für häufig verwendete Aggregationen finden sich in R eigene Funktionen. Sollte eine spezielle Aggregation ausnahmsweise nicht existieren, dann kann eine spezieller Aggregator implementiert werden.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beliebige Vektoraggregationen lassen sich mit <code>reduce()</code> aus der Bibliothek <code>purrr</code> umsetzen.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Implementieren Sie keinen Aggregator, falls eine entsprechende Funktion bereits existiert. Die meisten vordefinierten Aggregatoren sind effizienter umgesetzt, als es mit einer naiven Umsetzung in R möglich wäre.</p>
+</div>
+</div>
+<p>Beim Reduzieren wird eine Reduktionsfunktion nacheinander auf die Werte eines Vektors ausgeführt, wobei das Zwischenergebnis im nächsten Schritt als Argument verwendet wird.</p>
+<p>Die <code>reduce()</code>-Funktion erwartet einen Vektor <code>.x</code> und eine Reduktionsfunktion <code>.f</code> als Parameter. Die Reduktionsfunktion ist eine zwei-parametrige Funktion (bzw. Operator), wobei der erste Parameter als <strong>Akkumulator</strong> bezeichnet wird und das Zwischenergebnis des vorangegangenen Reduktionsschritts enthält.</p>
+<div id="exm-sum-als-reduktion" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.18 (Summe als Reduktion) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="cf">function</span>(acc, wert) { acc <span class="sc">+</span> wert }) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;oder kürzer </span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+</div>
+</div>
+<p>Falls die Reduktionsfunktion auch für den ersten Wert in einem Vektor ausfgeführt werden soll, muss zusätzlich ein Initialwert angegeben werden. Typische Initialwerte für eine Reduktionsfunktion sind die neutralen Elemente der wichtigsten Operationen:</p>
+<ul>
+<li><code>0</code> (neutrales Element der Addition)</li>
+<li><code>1</code> (neutrales Element der Multiplikation)</li>
+<li><code>TRUE</code> (neutrales Element des logischen Und)</li>
+<li><code>FALSE</code> (neutrales Element des logischen Oder)</li>
+<li><code>""</code> (leere Zeichenkette, neutrales Element der Textverkettung)</li>
+<li><code>c()</code> (leerer Vektor, neutrales Element der Konkatenation)</li>
+</ul>
+<p>Eine spezielle Form der Reduktion steht mit der <code>purrr</code>-Funktion <code>accumulate()</code>. Während <code>reduce()</code> nur das Endergebnis der Reduktion liefert, gibt <code>accumulate()</code> auch die Zwischenergebnisse. Das Ergebnis der <code>accumulate()</code> Funktion ist immer ein Vektor mit der gleichen Länge wie der ursprüngliche Vektor.</p>
+<div id="exm-sum-als-reduktion" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 12.19 (Laufende Summe als Reduktion mit <code>accumulate()</code>) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">|&gt;</span> <span class="fu">accumulate</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  5  6 11 15 21</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="zählen" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="zählen"><span class="header-section-number">12.8</span> Zählen</h2>
+<p>Mit der Funktion <code>length()</code> lassen sich die Werte in einem Vektor zählen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In der Literatur wird das Zählen von Werten regelmässig hinter komplexen Algorithmen verborgen. Gelegentlich müssen Werte als Teil einer komplexen Analyse gezählt werden. Um unnötigen Code zu vermeiden oder um übermässig komplexe formulierte Arbeitsschritte zu erkennen, ist es notwendig die wichtigsten Varianten des Zählens zu kennen.</p>
+</div>
+</div>
+<section id="zählen-durch-summieren" class="level3" data-number="12.8.1">
+<h3 data-number="12.8.1" class="anchored" data-anchor-id="zählen-durch-summieren"><span class="header-section-number">12.8.1</span> Zählen durch Summieren</h3>
+<p>Beim Zählen durch Summieren werden zählbare Einheiten durch eine <code>1</code> markiert und von nicht-zählbaren Einheiten getrennt, die mit einer <code>0</code> markiert wurden. Dadurch entsteht ein Vektor, der nur aus den Werten <code>0</code> und <code>1</code> besteht. Durch das Bilden der Summe ergibt sich die Anzahl der zählbaren Elemente.</p>
+<p>Der erste Schritt lässt sich durch einen logischen Ausdruck umsetzen. Der zweite Schritt wird mit R’s Summe-Funktion <code>sum()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(vektor <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">sum</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
 </div>
 </div>
 </section>
-<section id="zählen" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="zählen"><span class="header-section-number">12.5</span> Zählen</h2>
-<section id="zählen-durch-summieren" class="level3" data-number="12.5.1">
-<h3 data-number="12.5.1" class="anchored" data-anchor-id="zählen-durch-summieren"><span class="header-section-number">12.5.1</span> Zählen durch Summieren</h3>
+<section id="zählen-durch-filtern" class="level3" data-number="12.8.2">
+<h3 data-number="12.8.2" class="anchored" data-anchor-id="zählen-durch-filtern"><span class="header-section-number">12.8.2</span> Zählen durch Filtern</h3>
+<p>Beim Zählen durch Filtern werden die zählbaren Einheiten in einem separaten Vektor isoliert. Anschliessend muss nur die Länge dieses Vektors ermittelt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>vektor[vektor <span class="sc">&gt;</span> <span class="dv">3</span>] <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
 </section>
-<section id="zählen-durch-filtern" class="level3" data-number="12.5.2">
-<h3 data-number="12.5.2" class="anchored" data-anchor-id="zählen-durch-filtern"><span class="header-section-number">12.5.2</span> Zählen durch Filtern</h3>
-</section>
-<section id="zählen-durch-nummerieren" class="level3" data-number="12.5.3">
-<h3 data-number="12.5.3" class="anchored" data-anchor-id="zählen-durch-nummerieren"><span class="header-section-number">12.5.3</span> Zählen durch Nummerieren</h3>
+<section id="zählen-durch-nummerieren" class="level3" data-number="12.8.3">
+<h3 data-number="12.8.3" class="anchored" data-anchor-id="zählen-durch-nummerieren"><span class="header-section-number">12.8.3</span> Zählen durch Nummerieren</h3>
+<p>Beim Zählen durch Nummerieren wird ein zweiter Vektor mit den Nummern der zählbaren Einheiten verwendet. Das Maximum der Nummerierung entspricht der Anzahl der nummerierten Elemente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>vektor2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">:</span> <span class="fu">length</span>(vektor)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(vektor2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In der Regel wird dieser Vektor nicht für das Zählen neu erzeugt. Stattdessen wird dieser Vektor oft für eine andere Operation erzeugt und zum Zählen wiederverwendet.</p>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-r_core_team_introduction_2023" class="csl-entry" role="listitem">
+R Core Team, Mechler, M., Gentleman, R., Ihaka, R., Venables, W. N., &amp; Smith, D. M. (2023). <em>An Introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/R-intro.htm">https://cran.r-project.org/doc/manuals/R-intro.htm</a>
+</div>
+</div>
 </section>
 </section>
 
