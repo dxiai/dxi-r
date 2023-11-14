@@ -69,6 +69,17 @@ matrix(
 ::: 
 
 
+### Identitätsmatrix erzeugen
+
+Die Identitätsmatrix ist eine quadratische Diagonalmatrix, wobei an allen Positionen der Hauptdiagonalen der Wert `1` steht. Diese Matrix wird in R mit der Funktion `diag()` erzeugt (@exm-identitätsmatrix). 
+
+::: {#exm-identitätsmatrix}
+## 5x5 Identitätsmatrix
+```{r}
+diag(5)
+```
+:::
+
 ## Matrixdimensionen
 
 Die *Länge* einer Matrix entspricht der Anzahl der Positionen in der Matrix und kann wie bei Vektoren mit der Funktion `length()` ermittelt werden. Diese Information ist jedoch nicht sehr nützlich.
@@ -91,6 +102,10 @@ matrixA |> nrow()
 matrixA |> ncol()
 ```
 :::
+
+## Zeilen- und Spaltenüberschriften
+
+Die Zeilen- und Spalten einer Matrix können
 
 ## Matrixwerte referenzieren
 
@@ -179,7 +194,6 @@ matrixA |> t() |> c()
 ```
 :::
 
-
 ## Skalar- und Vektortransformationen
 
 Bei Skalartransformationen wird ein einzelner Wert mit jedem Wert in der Matrix verknüpft. 
@@ -192,6 +206,8 @@ Bei Skalartransformationen wird ein einzelner Wert mit jedem Wert in der Matrix 
 :::
 
 
+Dieses Prinzip lässt sich auf Vektoren und Matrizen verallgemeinern. Bei Vektoren muss der Vektor die gleiche Länge wie die Zeilen der Matrix haben. Der Vektor wird dann *spaltenweise* mit der Matrix verknüpft (@exm-vektor-matrix-transformation). 
+
 ::: {#exm-vektor-matrix-transformation}
 ## Vektoraddition mit einer Matrix
 ```{r}
@@ -199,30 +215,113 @@ matrixA + 1:2
 ```
 :::
 
-## Vektoraddition
+::: {.callout-warning}
+## Achtung!
 
+Hat der Vektor keine passende Länge, dann wird die Länge des Vektors durch Wiederholung an die Länge der Matrix angepasst. Die Transformation erfolgt in diesem Fall wie eine Vektortransformation, wobei die Zeilen- und Spaltenstruktur der Matrix erhalten bleibt (@exm-vektor-matrix-transformation-upscaling). 
+:::
 
+::: {#exm-vektor-matrix-transformation-upscaling}
+## Vektoraddition mit einer Matrix und einem inkompatiblen Vektor
+```{r}
+matrixA + 1:3
+```
+:::
+
+Für die Transformation einer Matrix mit einer anderen Matrix mit R *müssen* beide Matrizen die gleiche Dimensionalität haben. Ist diese Voraussetzung gegeben, dann werden die Werte mit dem gleichen Index paarweise miteinander verknüpft (@exm-matrix-matrix-skalartransformation).
+
+::: {.callout-warning}
+## Achtung!
+
+Werden zwei Matrizen unterschiedlicher Dimensionalität verknüpft, dann erweitert R die kleinere der beiden Matrizen **nicht**! 
+:::
+
+::: {#exm-matrix-matrix-skalartransformation}
+## Verknüpfung von zwei Matrizen
+```{r}
+matrixB = matrix(c(1, 2, 2, 1, 1, 2), nrow = 2)
+
+matrixA + matrixB
+```
+:::
 
 ### Matrizen vergleichen
 
-## Einheitsmatrix erzeugen
+Um die Gleichheit zwischen zwei Matrizen zu vergleichen, müssen zwei Bedingungen erfüllt sein:
 
+1. Die Länge der beiden Matrizen muss gleich sein.
+2. Die Dimensionalität der beiden Matrizen muss gleich sein.
+3. An allen Positionen müssen die Werte gleich sein. 
 
+Diese Prüfung übernimmt in R die Funktion `all.equal()`. Damit diese Funktion in logischen Ausdrücken verwendet werden kann, muss der Wert an der ersten Position des Ergebnisvektors ausgewertet werden, weil diese Funktion alle Unterschiede zwischen zwei Matrizen zurückgibt (@exm-all-equal).
 
+::: {#exm-all-equal}
+## Zwei Matrizen vergleichen
 
+```{r}
+all.equal(matrixA, matrixB)
 
-## Skalarmultiplikation
+# Für logische Ausdrücke
+all.equal(matrixA, matrixB)[1] == TRUE
+```
+:::
 
-## Matrixmultiplikation/Kreuzprodukt
+## Kreuzprodukt
+
+`%*%`
 
 ### Zeilen- und Spaltensummen
 
 ## Äusseres Vektorprodukt
 
+Das äussere Vektorprodukt erlaubt es Matrizen aus den Werte von zwei Vektoren mit einem *beliebigen Operators* zu erzeugen. Im Gegensatz zum Kreuzprodukt ist die Orientierung der beiden Vektoren durch das äussere Produkt vorgegeben: Der zweite Vektor wird immer als Zeilenvektor angenommen. 
+
+Der Operator des äusseren Produkts ist `%o%`, wobei als Verknüpfung die Multiplikation verwendet wird. Mit der Funktion `outer()` können beliebige Operatoren (d.h. Funktionen mit zwei Operatoren) angegeben werden.
+
+::: {#exm-outerprodukt}
+## Äusseres Produkt mit der Addition als Operator
+
+```{r}
+outer(rep(1, 3), 0:5, `+`)
+```
+:::
+
+In der Anwendung sind logische Ausdrücke als Operatoren für das äussere Produkt von besonderer Bedeutung. In R müssen alle logischen Ausdrücke, die nicht nur eine Vergleichsoperation umfassen, als Funktion der `outer()`-Funktion übergeben werden (s. @exm-vorgängersumme).
+
+::: {.callout-tip}
+## Praxis
+
+Mit dem äusseren Produkt über logische Ausdrücle lassen sich beliebige Matrizenstrukturen aus Sequenzen erzeugen. 
+:::
 
 ### Dreieckmatrizen erzeugen
 
+Dreiecksmatrizen werden in der Regel über das äussere Produkt zweier Sequenzen erzeugt. Es wird zwischen oberen und unteren Dreiecksmatrizen unterschieden. Bei einer oberen Dreiecksmatrix sind alle Positionen mit Zeilenindizes, welche kleiner als der jeweilige Spaltenindex sind, mit dem Wert `1` und alle anderen Position mit `0` belegt. Bei einer unteren Dreieckmatrix sind die Positionen mit dem Wert `1` belegt, an denen der Zeilenindex grösser als der Spaltenindex ist. Alternativ erzeugen die beiden Funktionen `upper.tri()` und `lower.tri()` die gewünschte Dreiecksmatrix aus einer existierenden Matrix.
+
+::: {#exm-triangle-matrix}
+## Erzeugen einer unteren Dreiecksmatrix
+```{r}
+1 * outer(1:4, 1:4, `>=`)
+
+# etwas expressiver
+1 * lower.tri(diag(4), diag = TRUE)
+```
+:::
+
 ### Vorgänger- und Nachfolgersummen
+
+Vorgänger- und Nachfolgersummen bilden die Summe aus aufeinanderfolgenden Werten eines Vektors. Diese Summe kann durch die Kombination einer Matrixmultiplikation mit dem äusseren Produkt errreicht werden. Für diese Summen wird eine Matrix benötigt, in welcher an allen zu summierenden Positionen der Wert `1` (das neutrale Element der Multiplikation) steht. 
+
+@exm-vorgängersumme bestimmt die Summe vom Wert und den beiden Vorgängern einer bestimmten Position in einem Vektor. Die Subtraktion mit `2` zeigt an, wie viele Werte vor der aktuellen Position berücksichtigt werden sollen.
+
+::: {#exm-vorgängersumme}
+## Vorgängersumme für einen Vektor der Länge 10
+
+```{r}
+vektor = 1:10
+vektor %*% outer(1:10, 1:10, \(a, b) (b >= a & a >= b - 2))
+```
+::: 
 
 ## Co-Occurence Matrizen
 
