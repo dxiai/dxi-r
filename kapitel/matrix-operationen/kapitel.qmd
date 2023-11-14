@@ -4,7 +4,6 @@ abstract: ""
 
 # Matrix-Operationen {#sec-chapter-matrix-operationen}
 
-
 ```{r, include=FALSE}
 library(tidyverse)
 library(Matrix)
@@ -14,19 +13,203 @@ library(Matrix)
 ## Work in Progress
 :::
 
+Matrizen sind in R 2-dimensionale *numerische* Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die *Dimensionalität* der Matrix an. Allgemein wird von einer $m\timesn$-Matrix gesprochen, wobei $m$ für die Anzahl der Zeilen und $n$ für die Anzahl der Spalten steht. 
+
+::: {.callout-note}
+## Merke
+Bei Matrizen werden immer zuerst die Zeilen und dann die Spalten angegeben.
+:::
+
 ## Matrizen erstellen
 
-## Vektorform einer Matrix
+Eine Matrix wird in R mit der Funktion `matrix()` erstellt. Diese Funktion erwartet einen Vektor als erstes Argument. Zusätzlich muss mit `ncol` oder `nrow` angegeben werden, wie viele Spalten bzw. Zeilen die Matrix haben soll. Der optionale Paramter `byrow` zeigt an, ob die Werte zeilen- oder spaltenweise in die Matrix übernommen werden sollen. Die Zeilenschreibweise erleichtert die Eingabe einer Matrix (@exm-matrix-erstellen-komplett). 
 
-## Matrizen vergleichen
+::: {#exm-matrix-erstellen-komplett}
+# Matrix in Zeilenschreibweise erzeugen
+```{r}
+( # Diese Klammer gibt das Ergebnis der Operation aus.
+    matrixA = matrix( 
+    c( 
+        1, 2, 3,
+        3, 2, 1
+    ), ncol = 3, nrow = 2, byrow = TRUE)
+)
+```
+::: 
+
+Ist die Länge des Eingabevektors grösser als die gewünschten Zeilen- oder Spaltenanzahl erlauben, dann werden alle überzähligen Werte verworfen (@exm-matrix-erstellen-überzählig) und eine Warnung erzeugt. 
+
+::: {.callout-tip}
+## Praxis
+Es muss nur die Anzahl der Spalten oder der Zeilen beim Erzeugen einer Matrix angegeben werden. Der jeweils andere Wert wird aus der Länge und dem angegebenen Wert ermittelt. 
+:::
+
+::: {#exm-matrix-erstellen-überzählig}
+## Matrix mit überlangem Eingabevektor erzeugen
+```{r}
+matrix( 
+    c( 
+        1, 2, 3,
+        3, 2, 1,
+        4, 5, 6
+    ), ncol = 3, nrow = 2, byrow = TRUE)
+```
+::: 
+
+Ist die Länge des Eingabevektors kürzer als für eine Matrix mit den gewünschten Dimensionen notwendig wäre, dann wird der Vektor wie bei einer Vektortransformation solange wiederholt, bis alle Positionen in der Matrix besetzt sind (@exm-matrix-exm-matrix-erstellen-auffüllen). Ist der Vektor kein Vielfaches der Zeilen- oder der Spaltenzahl, dann werden alle überzähligen Werte mit einer entsprechenden Warnung verworfen. 
+
+::: {#exm-matrix-erstellen-auffüllen}
+## Matrix durch Auffüllen des Eingabevektors erzeugen
+```{r}
+matrix( 
+    c( 
+        1, 2, 3
+    ), ncol = 4, nrow = 3, byrow = TRUE)
+```
+::: 
+
+
+## Matrixdimensionen
+
+Die *Länge* einer Matrix entspricht der Anzahl der Positionen in der Matrix und kann wie bei Vektoren mit der Funktion `length()` ermittelt werden. Diese Information ist jedoch nicht sehr nützlich.
+
+Die Dimensionalität einer Matrix wird mit der Funktion `dim()` ausgegeben. Das Ergebnis dieser Funktion gibt einen Vektor der Länge `2` zurück. Das erste Element dieses Vektors enthält die Anzahl der Zeilen und das zweite Element enthält die Anzahl der Spalten der Matrix. 
+
+::: {#exm-matrix-dimensions}
+## Matrixdimensionen mit `dim()` abfragen
+```{r}
+matrixA |> dim()
+```
+:::
+
+Die beiden Werte können separat mit den beiden Funktionen `nrow()` und `ncol()` abgefragt werden.
+
+::: {#exm-matrix-dimensions-separate}
+## Matrixdimensionen mit `nrow()` und `ncol()` abfragen
+```{r}
+matrixA |> nrow()
+matrixA |> ncol()
+```
+:::
+
+## Matrixwerte referenzieren
+
+Das Referenzieren von Werten einer Matrix erfolgt analog zum Referenzieren von Vektorwerten. Der Index eines Werts einer Matrix ist über die Zeilen und die Spalten definiert. 
+
+::: {#exm-matrix-werte-referenzieren}
+## Matrixwerte referenzieren
+
+```{r}
+matrixA[2,1]
+```
+:::
+
+Über diese Notation ist es möglich eine ganze Zeile oder eine ganze Spalte einer Matrix zu referenzieren.
+
+::: {#exm-matrix-spalte-referenzieren}
+## Matrixspalten und -zeilen referenzieren
+
+```{r}
+matrixA[2,]  # Zeile 2
+matrixA[, 2] # Spalte 2
+```
+:::
+
+::: {.callout-warning}
+## Achtung
+
+Eine Matrix bleibt im Hintergrund eine Vektorstruktur. Wird der Separator zwischen den Zeilen- und Spaltenindex weggelassen und nur *ein* Index angegeben, dann behandelt R die Matrix als Vektor in der spaltenweisen Form. Die Reihenfolge der Werte kann mit der Funktion `as.vector()` angezeigt werden. Das gleiche gilt für die Verwendung der Konkatenation ohne das dimensionstrennende Komma.
+
+```{r}
+matrixA |> as.vector()
+matrixA[2,3]
+matrixA[c(2,3)] 
+matrixA[,c(2,3)]
+```
+::: 
+
+## Matrizen transponieren
+
+Beim Transponieren einer Matrix werden die Indizes für alle Werte vertauscht. Diese Operation übernimmt die R-Funktion `t()`.
+
+::: {#exm-matrix-transponieren}
+## Eine Matrix transponieren
+
+```{r}
+matrixA |> t()
+```
+:::
+
+::: {.callout-note}
+## Merke
+
+Beim **Transponieren einer Matrix** werden die Spalten in Zeilen bzw. die Zeilen in Spalten umgewandelt.
+:::
+
+## Vektorform
+
+Matrizen kennen zwei Arten der Vektorform:
+
+- Die spaltenweise Vektorform, bei der die Spaltenvektoren einer Matrix zu einem  Vektor konkateniert werden. 
+- Die zeilenweise Vektorform, bei der die Zeilenvektoren einer Matrix zu einem Vektor konkateniert werden. 
+
+R speichert eine Matrix intern in ihrer spaltenweisen Vektorform. Die spaltenweise Vektorform kann also direkt über die Funktion `as.vector()` ermittelt werden. Das gleiche Ergebnis wird erzeugt, wenn die Matrix der Vektorkonkatenation `c()` als Argument übergeben wird (@exm-column-vectorform).
+
+::: {.callout-tip}
+## Praxis
+
+Weil bei der Verwendung der Funktion `c()` nicht leicht ersichtlich ist, dass die Vektorform ermittelt wird, sollte für diese Operation immer die Funktion  `as.vector()`  verwendet werden.
+:::
+
+::: {#exm-column-vectorform}
+## Spaltenweise Vektorform einer Matrix
+```{r}
+matrixA |> as.vector()
+matrixA |> c()
+```
+:::
+
+Beim Umwandeln einer Matrix in ihre **zeilenweise Vektorform** wird in R ausgenutzt, dass diese Vektorform identisch mit der spaltenweisen Vektorform ihrer transponierten Matrix ist. Diese Gleichheit ergibt sich aus dem Transponieren, bei der Zeilen in Spalten umgewandelt werden (@exm-row-vectorform).
+
+::: {#exm-row-vectorform}
+## Zeilenweise Vektorform einer Matrix
+```{r}
+matrixA |> t() |> as.vector()
+matrixA |> t() |> c()
+```
+:::
+
+
+## Skalar- und Vektortransformationen
+
+Bei Skalartransformationen wird ein einzelner Wert mit jedem Wert in der Matrix verknüpft. 
+
+::: {#exm-skalar-matrix-transformation}
+## Skalaraddition mit einer Matrix
+```{r}
+2 * matrixA
+```
+:::
+
+
+::: {#exm-vektor-matrix-transformation}
+## Vektoraddition mit einer Matrix
+```{r}
+matrixA + 1:2
+```
+:::
+
+## Vektoraddition
+
+
+
+### Matrizen vergleichen
 
 ## Einheitsmatrix erzeugen
 
-## Matrizen Transponieren
 
-## Matrixaddition
 
-## Vektoraddition
+
 
 ## Skalarmultiplikation
 
@@ -43,9 +226,22 @@ library(Matrix)
 
 ## Co-Occurence Matrizen
 
-Eine Co-Occurence Matrix aus zwei Vektoren lässt sich am leichtesten mit der `table()` Funktion erstellen.
+Eine Co-Occurence Matrix oder **Kontingenztabelle** aus zwei Vektoren lässt sich am leichtesten mit der `table()`-Funktion erstellen. Diese Funktion zählt das gemeinsame Auftreten von Werten in zwei *gleichlangen* Vektoren von beliebigen Datentyp.
 
+Das Ergebnis ist eine benannte Matrix, wobei die Zeilen den Werten im ersten Vektor und die Spalten den Werten im zweiten Vektor entsprechen.
 
+::: {#exm-coocmatrix-table}
+## Kontingenztabelle für zwei Vektoren
+```{r}
+v1 = c(1, 2, 4, 3, 2, 1, 1, 2, 4)
+v2 = c(9, 8, 7, 7, 7, 8, 9, 9, 8)
+
+(ctable = table(v1, v2))
+
+ctable[,2]
+ctable[3,]
+```
+:::
 
 ## `Matrix`-Bibliothek
 

@@ -366,7 +366,7 @@ Wird lässt sich der Ausgangsvektor nicht in die angegebene Zeilen- oder Spalten
 Eine Matrix wird über das äussere Matrixprodukt (@sec-chapter-matrix-operationen) aus zwei Vektoren erstetllt. 
 
 ::: {#exm-matrix-dt-outer}
-## eine -Matrix aus einem Vektor erstellen
+## eine -Matrix aus Vektoren erstellen
 ```r
 c(1, 2, 3) %o% c(3, 4, 5)
 ```
