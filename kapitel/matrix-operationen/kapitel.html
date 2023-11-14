@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -62,6 +96,22 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -265,25 +315,34 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#matrix-bibliothek" id="toc-matrix-bibliothek" class="nav-link active" data-scroll-target="#matrix-bibliothek"><span class="header-section-number">13.1</span> <code>Matrix</code>-Bibliothek</a></li>
-  <li><a href="#vektorform-einer-matrix" id="toc-vektorform-einer-matrix" class="nav-link" data-scroll-target="#vektorform-einer-matrix"><span class="header-section-number">13.2</span> Vektorform einer Matrix</a></li>
-  <li><a href="#matrizen-vergleichen" id="toc-matrizen-vergleichen" class="nav-link" data-scroll-target="#matrizen-vergleichen"><span class="header-section-number">13.3</span> Matrizen vergleichen</a></li>
-  <li><a href="#einheitsmatrix-erzeugen" id="toc-einheitsmatrix-erzeugen" class="nav-link" data-scroll-target="#einheitsmatrix-erzeugen"><span class="header-section-number">13.4</span> Einheitsmatrix erzeugen</a></li>
-  <li><a href="#matrizen-transponieren" id="toc-matrizen-transponieren" class="nav-link" data-scroll-target="#matrizen-transponieren"><span class="header-section-number">13.5</span> Matrizen Transponieren</a></li>
-  <li><a href="#matrixaddition" id="toc-matrixaddition" class="nav-link" data-scroll-target="#matrixaddition"><span class="header-section-number">13.6</span> Matrixaddition</a></li>
-  <li><a href="#vektoraddition" id="toc-vektoraddition" class="nav-link" data-scroll-target="#vektoraddition"><span class="header-section-number">13.7</span> Vektoraddition</a></li>
-  <li><a href="#skalarmultiplikation" id="toc-skalarmultiplikation" class="nav-link" data-scroll-target="#skalarmultiplikation"><span class="header-section-number">13.8</span> Skalarmultiplikation</a></li>
-  <li><a href="#matrixmultiplikationkreuzprodukt" id="toc-matrixmultiplikationkreuzprodukt" class="nav-link" data-scroll-target="#matrixmultiplikationkreuzprodukt"><span class="header-section-number">13.9</span> Matrixmultiplikation/Kreuzprodukt</a>
+  <li><a href="#matrizen-erstellen" id="toc-matrizen-erstellen" class="nav-link active" data-scroll-target="#matrizen-erstellen"><span class="header-section-number">13.1</span> Matrizen erstellen</a>
   <ul class="collapse">
-  <li><a href="#inverse-matrix" id="toc-inverse-matrix" class="nav-link" data-scroll-target="#inverse-matrix"><span class="header-section-number">13.9.1</span> Inverse Matrix</a></li>
-  <li><a href="#zeilen--und-spaltensummen" id="toc-zeilen--und-spaltensummen" class="nav-link" data-scroll-target="#zeilen--und-spaltensummen"><span class="header-section-number">13.9.2</span> Zeilen- und Spaltensummen</a></li>
+  <li><a href="#identitätsmatrix-erzeugen" id="toc-identitätsmatrix-erzeugen" class="nav-link" data-scroll-target="#identitätsmatrix-erzeugen"><span class="header-section-number">13.1.1</span> Identitätsmatrix erzeugen</a></li>
   </ul></li>
-  <li><a href="#äusseres-vektorprodukt" id="toc-äusseres-vektorprodukt" class="nav-link" data-scroll-target="#äusseres-vektorprodukt"><span class="header-section-number">13.10</span> Äusseres Vektorprodukt</a>
+  <li><a href="#matrixdimensionen" id="toc-matrixdimensionen" class="nav-link" data-scroll-target="#matrixdimensionen"><span class="header-section-number">13.2</span> Matrixdimensionen</a></li>
+  <li><a href="#zeilen--und-spaltenüberschriften" id="toc-zeilen--und-spaltenüberschriften" class="nav-link" data-scroll-target="#zeilen--und-spaltenüberschriften"><span class="header-section-number">13.3</span> Zeilen- und Spaltenüberschriften</a></li>
+  <li><a href="#matrixwerte-referenzieren" id="toc-matrixwerte-referenzieren" class="nav-link" data-scroll-target="#matrixwerte-referenzieren"><span class="header-section-number">13.4</span> Matrixwerte referenzieren</a></li>
+  <li><a href="#matrizen-transponieren" id="toc-matrizen-transponieren" class="nav-link" data-scroll-target="#matrizen-transponieren"><span class="header-section-number">13.5</span> Matrizen transponieren</a></li>
+  <li><a href="#vektorform" id="toc-vektorform" class="nav-link" data-scroll-target="#vektorform"><span class="header-section-number">13.6</span> Vektorform</a></li>
+  <li><a href="#skalar--und-vektortransformationen" id="toc-skalar--und-vektortransformationen" class="nav-link" data-scroll-target="#skalar--und-vektortransformationen"><span class="header-section-number">13.7</span> Skalar- und Vektortransformationen</a>
   <ul class="collapse">
-  <li><a href="#dreieckmatrizen-erzeugen" id="toc-dreieckmatrizen-erzeugen" class="nav-link" data-scroll-target="#dreieckmatrizen-erzeugen"><span class="header-section-number">13.10.1</span> Dreieckmatrizen erzeugen</a></li>
-  <li><a href="#vorgänger--und-nachfolgersummen" id="toc-vorgänger--und-nachfolgersummen" class="nav-link" data-scroll-target="#vorgänger--und-nachfolgersummen"><span class="header-section-number">13.10.2</span> Vorgänger- und Nachfolgersummen</a></li>
+  <li><a href="#matrizen-vergleichen" id="toc-matrizen-vergleichen" class="nav-link" data-scroll-target="#matrizen-vergleichen"><span class="header-section-number">13.7.1</span> Matrizen vergleichen</a></li>
   </ul></li>
-  <li><a href="#co-occurence-matrizen" id="toc-co-occurence-matrizen" class="nav-link" data-scroll-target="#co-occurence-matrizen"><span class="header-section-number">13.11</span> Co-Occurence Matrizen</a></li>
+  <li><a href="#kreuzprodukt" id="toc-kreuzprodukt" class="nav-link" data-scroll-target="#kreuzprodukt"><span class="header-section-number">13.8</span> Kreuzprodukt</a>
+  <ul class="collapse">
+  <li><a href="#zeilen--und-spaltensummen" id="toc-zeilen--und-spaltensummen" class="nav-link" data-scroll-target="#zeilen--und-spaltensummen"><span class="header-section-number">13.8.1</span> Zeilen- und Spaltensummen</a></li>
+  </ul></li>
+  <li><a href="#äusseres-vektorprodukt" id="toc-äusseres-vektorprodukt" class="nav-link" data-scroll-target="#äusseres-vektorprodukt"><span class="header-section-number">13.9</span> Äusseres Vektorprodukt</a>
+  <ul class="collapse">
+  <li><a href="#dreieckmatrizen-erzeugen" id="toc-dreieckmatrizen-erzeugen" class="nav-link" data-scroll-target="#dreieckmatrizen-erzeugen"><span class="header-section-number">13.9.1</span> Dreieckmatrizen erzeugen</a></li>
+  <li><a href="#vorgänger--und-nachfolgersummen" id="toc-vorgänger--und-nachfolgersummen" class="nav-link" data-scroll-target="#vorgänger--und-nachfolgersummen"><span class="header-section-number">13.9.2</span> Vorgänger- und Nachfolgersummen</a></li>
+  </ul></li>
+  <li><a href="#co-occurence-matrizen" id="toc-co-occurence-matrizen" class="nav-link" data-scroll-target="#co-occurence-matrizen"><span class="header-section-number">13.10</span> Co-Occurence Matrizen</a></li>
+  <li><a href="#matrix-bibliothek" id="toc-matrix-bibliothek" class="nav-link" data-scroll-target="#matrix-bibliothek"><span class="header-section-number">13.11</span> <code>Matrix</code>-Bibliothek</a>
+  <ul class="collapse">
+  <li><a href="#determinanten" id="toc-determinanten" class="nav-link" data-scroll-target="#determinanten"><span class="header-section-number">13.11.1</span> Determinanten</a></li>
+  <li><a href="#inverse-matrix" id="toc-inverse-matrix" class="nav-link" data-scroll-target="#inverse-matrix"><span class="header-section-number">13.11.2</span> Inverse Matrix</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -320,52 +379,503 @@ Work in Progress
 
 </div>
 </div>
-<section id="matrix-bibliothek" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="matrix-bibliothek"><span class="header-section-number">13.1</span> <code>Matrix</code>-Bibliothek</h2>
+<p>Matrizen sind in R 2-dimensionale <em>numerische</em> Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die <em>Dimensionalität</em> der Matrix an. Allgemein wird von einer <span class="math inline">m \times n</span>-Matrix gesprochen, wobei <span class="math inline">m</span> für die Anzahl der Zeilen und <span class="math inline">n</span> für die Anzahl der Spalten steht.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bei Matrizen werden immer zuerst die Zeilen und dann die Spalten angegeben.</p>
+</div>
+</div>
+<section id="matrizen-erstellen" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="matrizen-erstellen"><span class="header-section-number">13.1</span> Matrizen erstellen</h2>
+<p>Eine Matrix wird in R mit der Funktion <code>matrix()</code> erstellt. Diese Funktion erwartet einen Vektor als erstes Argument. Zusätzlich muss mit <code>ncol</code> oder <code>nrow</code> angegeben werden, wie viele Spalten bzw. Zeilen die Matrix haben soll. Der optionale Paramter <code>byrow</code> zeigt an, ob die Werte zeilen- oder spaltenweise in die Matrix übernommen werden sollen. Die Zeilenschreibweise erleichtert die Eingabe einer Matrix (<a href="#exm-matrix-erstellen-komplett">Beispiel&nbsp;<span>13.1</span></a>).</p>
+<div id="exm-matrix-erstellen-komplett" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.1 (Matrix in Zeilenschreibweise erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>( <span class="co"># Diese Klammer gibt das Ergebnis der Operation aus.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">matrixA =</span> <span class="fu">matrix</span>( </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>( </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    3    2    1</code></pre>
+</div>
+</div>
+</div>
+<p>Ist die Länge des Eingabevektors grösser als die gewünschten Zeilen- oder Spaltenanzahl erlauben, dann werden alle überzähligen Werte verworfen (<a href="#exm-matrix-erstellen-überzählig">Beispiel&nbsp;<span>13.2</span></a>) und eine Warnung erzeugt.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es muss nur die Anzahl der Spalten oder der Zeilen beim Erzeugen einer Matrix angegeben werden. Der jeweils andere Wert wird aus der Länge und dem angegebenen Wert ermittelt.</p>
+</div>
+</div>
+<div id="exm-matrix-erstellen-überzählig" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.2 (Matrix mit überlangem Eingabevektor erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>( </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>( </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in matrix(c(1, 2, 3, 3, 2, 1, 4, 5, 6), ncol = 3, nrow = 2, byrow =
+TRUE): Datenlänge [9] ist kein Teiler oder Vielfaches der Anzahl der Zeilen [2]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    3    2    1</code></pre>
+</div>
+</div>
+</div>
+<p>Ist die Länge des Eingabevektors kürzer als für eine Matrix mit den gewünschten Dimensionen notwendig wäre, dann wird der Vektor wie bei einer Vektortransformation solange wiederholt, bis alle Positionen in der Matrix besetzt sind (<a href="#exm-matrix-erstellen-auffüllen">Beispiel&nbsp;<span>13.3</span></a>). Ist der Vektor kein Vielfaches der Zeilen- oder der Spaltenzahl, dann werden alle überzähligen Werte mit einer entsprechenden Warnung verworfen.</p>
+<div id="exm-matrix-erstellen-auffüllen" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.3 (Matrix durch Auffüllen des Eingabevektors erzeugen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>( </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>( </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    1
+[2,]    2    3    1    2
+[3,]    3    1    2    3</code></pre>
+</div>
+</div>
+</div>
+<section id="identitätsmatrix-erzeugen" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="identitätsmatrix-erzeugen"><span class="header-section-number">13.1.1</span> Identitätsmatrix erzeugen</h3>
+<p>Die Identitätsmatrix ist eine quadratische Diagonalmatrix, wobei an allen Positionen der Hauptdiagonalen der Wert <code>1</code> steht. Diese Matrix wird in R mit der Funktion <code>diag()</code> erzeugt (<a href="#exm-identitätsmatrix">Beispiel&nbsp;<span>13.4</span></a>).</p>
+<div id="exm-identitätsmatrix" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.4 (5x5 Identitätsmatrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(<span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    0    0    0    0
+[2,]    0    1    0    0    0
+[3,]    0    0    1    0    0
+[4,]    0    0    0    1    0
+[5,]    0    0    0    0    1</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="vektorform-einer-matrix" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="vektorform-einer-matrix"><span class="header-section-number">13.2</span> Vektorform einer Matrix</h2>
 </section>
-<section id="matrizen-vergleichen" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="matrizen-vergleichen"><span class="header-section-number">13.3</span> Matrizen vergleichen</h2>
+<section id="matrixdimensionen" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="matrixdimensionen"><span class="header-section-number">13.2</span> Matrixdimensionen</h2>
+<p>Die <em>Länge</em> einer Matrix entspricht der Anzahl der Positionen in der Matrix und kann wie bei Vektoren mit der Funktion <code>length()</code> ermittelt werden. Diese Information ist jedoch nicht sehr nützlich.</p>
+<p>Die Dimensionalität einer Matrix wird mit der Funktion <code>dim()</code> ausgegeben. Das Ergebnis dieser Funktion gibt einen Vektor der Länge <code>2</code> zurück. Das erste Element dieses Vektors enthält die Anzahl der Zeilen und das zweite Element enthält die Anzahl der Spalten der Matrix.</p>
+<div id="exm-matrix-dimensions" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.5 (Matrixdimensionen mit <code>dim()</code> abfragen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">dim</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3</code></pre>
+</div>
+</div>
+</div>
+<p>Die beiden Werte können separat mit den beiden Funktionen <code>nrow()</code> und <code>ncol()</code> abgefragt werden.</p>
+<div id="exm-matrix-dimensions-separate" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.6 (Matrixdimensionen mit <code>nrow()</code> und <code>ncol()</code> abfragen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">ncol</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="einheitsmatrix-erzeugen" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="einheitsmatrix-erzeugen"><span class="header-section-number">13.4</span> Einheitsmatrix erzeugen</h2>
+<section id="zeilen--und-spaltenüberschriften" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="zeilen--und-spaltenüberschriften"><span class="header-section-number">13.3</span> Zeilen- und Spaltenüberschriften</h2>
+<p>Die Zeilen- und Spalten einer Matrix können</p>
+</section>
+<section id="matrixwerte-referenzieren" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="matrixwerte-referenzieren"><span class="header-section-number">13.4</span> Matrixwerte referenzieren</h2>
+<p>Das Referenzieren von Werten einer Matrix erfolgt analog zum Referenzieren von Vektorwerten. Der Index eines Werts einer Matrix ist über die Zeilen und die Spalten definiert.</p>
+<div id="exm-matrix-werte-referenzieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.7 (Matrixwerte referenzieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>matrixA[<span class="dv">2</span>,<span class="dv">1</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+</div>
+<p>Über diese Notation ist es möglich eine ganze Zeile oder eine ganze Spalte einer Matrix zu referenzieren.</p>
+<div id="exm-matrix-spalte-referenzieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.8 (Matrixspalten und -zeilen referenzieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>matrixA[<span class="dv">2</span>,]  <span class="co"># Zeile 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 2 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>matrixA[, <span class="dv">2</span>] <span class="co"># Spalte 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 2</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eine Matrix bleibt im Hintergrund eine Vektorstruktur. Wird der Separator zwischen den Zeilen- und Spaltenindex weggelassen und nur <em>ein</em> Index angegeben, dann behandelt R die Matrix als Vektor in der spaltenweisen Form. Die Reihenfolge der Werte kann mit der Funktion <code>as.vector()</code> angezeigt werden. Das gleiche gilt für die Verwendung der Konkatenation ohne das dimensionstrennende Komma.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">as.vector</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 2 2 3 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>matrixA[<span class="dv">2</span>,<span class="dv">3</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>matrixA[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)] </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>matrixA[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    2    3
+[2,]    2    1</code></pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="matrizen-transponieren" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="matrizen-transponieren"><span class="header-section-number">13.5</span> Matrizen Transponieren</h2>
+<h2 data-number="13.5" class="anchored" data-anchor-id="matrizen-transponieren"><span class="header-section-number">13.5</span> Matrizen transponieren</h2>
+<p>Beim Transponieren einer Matrix werden die Indizes für alle Werte vertauscht. Diese Operation übernimmt die R-Funktion <code>t()</code>.</p>
+<div id="exm-matrix-transponieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.9 (Eine Matrix transponieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">t</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    3
+[2,]    2    2
+[3,]    3    1</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beim <strong>Transponieren einer Matrix</strong> werden die Spalten in Zeilen bzw. die Zeilen in Spalten umgewandelt.</p>
+</div>
+</div>
 </section>
-<section id="matrixaddition" class="level2" data-number="13.6">
-<h2 data-number="13.6" class="anchored" data-anchor-id="matrixaddition"><span class="header-section-number">13.6</span> Matrixaddition</h2>
+<section id="vektorform" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="vektorform"><span class="header-section-number">13.6</span> Vektorform</h2>
+<p>Matrizen kennen zwei Arten der Vektorform:</p>
+<ul>
+<li>Die spaltenweise Vektorform, bei der die Spaltenvektoren einer Matrix zu einem Vektor konkateniert werden.</li>
+<li>Die zeilenweise Vektorform, bei der die Zeilenvektoren einer Matrix zu einem Vektor konkateniert werden.</li>
+</ul>
+<p>R speichert eine Matrix intern in ihrer spaltenweisen Vektorform. Die spaltenweise Vektorform kann also direkt über die Funktion <code>as.vector()</code> ermittelt werden. Das gleiche Ergebnis wird erzeugt, wenn die Matrix der Vektorkonkatenation <code>c()</code> als Argument übergeben wird (<a href="#exm-column-vectorform">Beispiel&nbsp;<span>13.10</span></a>).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Weil bei der Verwendung der Funktion <code>c()</code> nicht leicht ersichtlich ist, dass die Vektorform ermittelt wird, sollte für diese Operation immer die Funktion <code>as.vector()</code> verwendet werden.</p>
+</div>
+</div>
+<div id="exm-column-vectorform" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.10 (Spaltenweise Vektorform einer Matrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">as.vector</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 2 2 3 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">c</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 2 2 3 1</code></pre>
+</div>
+</div>
+</div>
+<p>Beim Umwandeln einer Matrix in ihre <strong>zeilenweise Vektorform</strong> wird in R ausgenutzt, dass diese Vektorform identisch mit der spaltenweisen Vektorform ihrer transponierten Matrix ist. Diese Gleichheit ergibt sich aus dem Transponieren, bei der Zeilen in Spalten umgewandelt werden (<a href="#exm-row-vectorform">Beispiel&nbsp;<span>13.11</span></a>).</p>
+<div id="exm-row-vectorform" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.11 (Zeilenweise Vektorform einer Matrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">t</span>() <span class="sc">|&gt;</span> <span class="fu">as.vector</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 3 2 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">|&gt;</span> <span class="fu">t</span>() <span class="sc">|&gt;</span> <span class="fu">c</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 3 2 1</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="vektoraddition" class="level2" data-number="13.7">
-<h2 data-number="13.7" class="anchored" data-anchor-id="vektoraddition"><span class="header-section-number">13.7</span> Vektoraddition</h2>
+<section id="skalar--und-vektortransformationen" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="skalar--und-vektortransformationen"><span class="header-section-number">13.7</span> Skalar- und Vektortransformationen</h2>
+<p>Bei Skalartransformationen wird ein einzelner Wert mit jedem Wert in der Matrix verknüpft.</p>
+<div id="exm-skalar-matrix-transformation" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.12 (Skalaraddition mit einer Matrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> matrixA</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    2    4    6
+[2,]    6    4    2</code></pre>
+</div>
+</div>
+</div>
+<p>Dieses Prinzip lässt sich auf Vektoren und Matrizen verallgemeinern. Bei Vektoren muss der Vektor die gleiche Länge wie die Zeilen der Matrix haben. Der Vektor wird dann <em>spaltenweise</em> mit der Matrix verknüpft (<a href="#exm-vektor-matrix-transformation">Beispiel&nbsp;<span>13.13</span></a>).</p>
+<div id="exm-vektor-matrix-transformation" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.13 (Vektoraddition mit einer Matrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    2    3    4
+[2,]    5    4    3</code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hat der Vektor keine passende Länge, dann wird die Länge des Vektors durch Wiederholung an die Länge der Matrix angepasst. Die Transformation erfolgt in diesem Fall wie eine Vektortransformation, wobei die Zeilen- und Spaltenstruktur der Matrix erhalten bleibt (<a href="#exm-vektor-matrix-transformation-upscaling">Beispiel&nbsp;<span>13.14</span></a>).</p>
+</div>
+</div>
+<div id="exm-vektor-matrix-transformation-upscaling" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.14 (Vektoraddition mit einer Matrix und einem inkompatiblen Vektor) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    2    5    5
+[2,]    5    3    4</code></pre>
+</div>
+</div>
+</div>
+<p>Für die Transformation einer Matrix mit einer anderen Matrix mit R <em>müssen</em> beide Matrizen die gleiche Dimensionalität haben. Ist diese Voraussetzung gegeben, dann werden die Werte mit dem gleichen Index paarweise miteinander verknüpft (<a href="#exm-matrix-matrix-skalartransformation">Beispiel&nbsp;<span>13.15</span></a>).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Werden zwei Matrizen unterschiedlicher Dimensionalität verknüpft, dann erweitert R die kleinere der beiden Matrizen <strong>nicht</strong>!</p>
+</div>
+</div>
+<div id="exm-matrix-matrix-skalartransformation" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.15 (Verknüpfung von zwei Matrizen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>matrixB <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>matrixA <span class="sc">+</span> matrixB</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    2    4    4
+[2,]    5    3    3</code></pre>
+</div>
+</div>
+</div>
+<section id="matrizen-vergleichen" class="level3" data-number="13.7.1">
+<h3 data-number="13.7.1" class="anchored" data-anchor-id="matrizen-vergleichen"><span class="header-section-number">13.7.1</span> Matrizen vergleichen</h3>
+<p>Um die Gleichheit zwischen zwei Matrizen zu vergleichen, müssen zwei Bedingungen erfüllt sein:</p>
+<ol type="1">
+<li>Die Länge der beiden Matrizen muss gleich sein.</li>
+<li>Die Dimensionalität der beiden Matrizen muss gleich sein.</li>
+<li>An allen Positionen müssen die Werte gleich sein.</li>
+</ol>
+<p>Diese Prüfung übernimmt in R die Funktion <code>all.equal()</code>. Damit diese Funktion in logischen Ausdrücken verwendet werden kann, muss der Wert an der ersten Position des Ergebnisvektors ausgewertet werden, weil diese Funktion alle Unterschiede zwischen zwei Matrizen zurückgibt (<a href="#exm-all-equal">Beispiel&nbsp;<span>13.16</span></a>).</p>
+<div id="exm-all-equal" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.16 (Zwei Matrizen vergleichen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(matrixA, matrixB)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean relative difference: 0.5555556"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Für logische Ausdrücke</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(matrixA, matrixB)[<span class="dv">1</span>] <span class="sc">==</span> <span class="cn">TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="skalarmultiplikation" class="level2" data-number="13.8">
-<h2 data-number="13.8" class="anchored" data-anchor-id="skalarmultiplikation"><span class="header-section-number">13.8</span> Skalarmultiplikation</h2>
 </section>
-<section id="matrixmultiplikationkreuzprodukt" class="level2" data-number="13.9">
-<h2 data-number="13.9" class="anchored" data-anchor-id="matrixmultiplikationkreuzprodukt"><span class="header-section-number">13.9</span> Matrixmultiplikation/Kreuzprodukt</h2>
-<section id="inverse-matrix" class="level3" data-number="13.9.1">
-<h3 data-number="13.9.1" class="anchored" data-anchor-id="inverse-matrix"><span class="header-section-number">13.9.1</span> Inverse Matrix</h3>
-</section>
-<section id="zeilen--und-spaltensummen" class="level3" data-number="13.9.2">
-<h3 data-number="13.9.2" class="anchored" data-anchor-id="zeilen--und-spaltensummen"><span class="header-section-number">13.9.2</span> Zeilen- und Spaltensummen</h3>
+<section id="kreuzprodukt" class="level2" data-number="13.8">
+<h2 data-number="13.8" class="anchored" data-anchor-id="kreuzprodukt"><span class="header-section-number">13.8</span> Kreuzprodukt</h2>
+<p><code>%*%</code></p>
+<section id="zeilen--und-spaltensummen" class="level3" data-number="13.8.1">
+<h3 data-number="13.8.1" class="anchored" data-anchor-id="zeilen--und-spaltensummen"><span class="header-section-number">13.8.1</span> Zeilen- und Spaltensummen</h3>
 </section>
 </section>
-<section id="äusseres-vektorprodukt" class="level2" data-number="13.10">
-<h2 data-number="13.10" class="anchored" data-anchor-id="äusseres-vektorprodukt"><span class="header-section-number">13.10</span> Äusseres Vektorprodukt</h2>
-<section id="dreieckmatrizen-erzeugen" class="level3" data-number="13.10.1">
-<h3 data-number="13.10.1" class="anchored" data-anchor-id="dreieckmatrizen-erzeugen"><span class="header-section-number">13.10.1</span> Dreieckmatrizen erzeugen</h3>
+<section id="äusseres-vektorprodukt" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="äusseres-vektorprodukt"><span class="header-section-number">13.9</span> Äusseres Vektorprodukt</h2>
+<p>Das äussere Vektorprodukt erlaubt es Matrizen aus den Werte von zwei Vektoren mit einem <em>beliebigen Operators</em> zu erzeugen. Im Gegensatz zum Kreuzprodukt ist die Orientierung der beiden Vektoren durch das äussere Produkt vorgegeben: Der zweite Vektor wird immer als Zeilenvektor angenommen.</p>
+<p>Der Operator des äusseren Produkts ist <code>%o%</code>, wobei als Verknüpfung die Multiplikation verwendet wird. Mit der Funktion <code>outer()</code> können beliebige Operatoren (d.h. Funktionen mit zwei Operatoren) angegeben werden.</p>
+<div id="exm-outerprodukt" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.17 (Äusseres Produkt mit der Addition als Operator) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outer</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    2    3    4    5    6
+[2,]    1    2    3    4    5    6
+[3,]    1    2    3    4    5    6</code></pre>
+</div>
+</div>
+</div>
+<p>In der Anwendung sind logische Ausdrücke als Operatoren für das äussere Produkt von besonderer Bedeutung. In R müssen alle logischen Ausdrücke, die nicht nur eine Vergleichsoperation umfassen, als Funktion der <code>outer()</code>-Funktion übergeben werden (s. <a href="#exm-vorgängersumme">Beispiel&nbsp;<span>13.19</span></a>).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mit dem äusseren Produkt über logische Ausdrücle lassen sich beliebige Matrizenstrukturen aus Sequenzen erzeugen.</p>
+</div>
+</div>
+<section id="dreieckmatrizen-erzeugen" class="level3" data-number="13.9.1">
+<h3 data-number="13.9.1" class="anchored" data-anchor-id="dreieckmatrizen-erzeugen"><span class="header-section-number">13.9.1</span> Dreieckmatrizen erzeugen</h3>
+<p>Dreiecksmatrizen werden in der Regel über das äussere Produkt zweier Sequenzen erzeugt. Es wird zwischen oberen und unteren Dreiecksmatrizen unterschieden. Bei einer oberen Dreiecksmatrix sind alle Positionen mit Zeilenindizes, welche kleiner als der jeweilige Spaltenindex sind, mit dem Wert <code>1</code> und alle anderen Position mit <code>0</code> belegt. Bei einer unteren Dreieckmatrix sind die Positionen mit dem Wert <code>1</code> belegt, an denen der Zeilenindex grösser als der Spaltenindex ist. Alternativ erzeugen die beiden Funktionen <code>upper.tri()</code> und <code>lower.tri()</code> die gewünschte Dreiecksmatrix aus einer existierenden Matrix.</p>
+<div id="exm-triangle-matrix" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.18 (Erzeugen einer unteren Dreiecksmatrix) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">*</span> <span class="fu">outer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="st">`</span><span class="at">&gt;=</span><span class="st">`</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    1    1    0    0
+[3,]    1    1    1    0
+[4,]    1    1    1    1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># etwas expressiver</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">*</span> <span class="fu">lower.tri</span>(<span class="fu">diag</span>(<span class="dv">4</span>), <span class="at">diag =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    1    1    0    0
+[3,]    1    1    1    0
+[4,]    1    1    1    1</code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="vorgänger--und-nachfolgersummen" class="level3" data-number="13.10.2">
-<h3 data-number="13.10.2" class="anchored" data-anchor-id="vorgänger--und-nachfolgersummen"><span class="header-section-number">13.10.2</span> Vorgänger- und Nachfolgersummen</h3>
+<section id="vorgänger--und-nachfolgersummen" class="level3" data-number="13.9.2">
+<h3 data-number="13.9.2" class="anchored" data-anchor-id="vorgänger--und-nachfolgersummen"><span class="header-section-number">13.9.2</span> Vorgänger- und Nachfolgersummen</h3>
+<p>Vorgänger- und Nachfolgersummen bilden die Summe aus aufeinanderfolgenden Werten eines Vektors. Diese Summe kann durch die Kombination einer Matrixmultiplikation mit dem äusseren Produkt errreicht werden. Für diese Summen wird eine Matrix benötigt, in welcher an allen zu summierenden Positionen der Wert <code>1</code> (das neutrale Element der Multiplikation) steht.</p>
+<p><a href="#exm-vorgängersumme">Beispiel&nbsp;<span>13.19</span></a> bestimmt die Summe vom Wert und den beiden Vorgängern einer bestimmten Position in einem Vektor. Die Subtraktion mit <code>2</code> zeigt an, wie viele Werte vor der aktuellen Position berücksichtigt werden sollen.</p>
+<div id="exm-vorgängersumme" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.19 (Vorgängersumme für einen Vektor der Länge 10) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">%*%</span> <span class="fu">outer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, \(a, b) (b <span class="sc">&gt;=</span> a <span class="sc">&amp;</span> a <span class="sc">&gt;=</span> b <span class="sc">-</span> <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]    1    3    6    9   12   15   18   21   24    27</code></pre>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="co-occurence-matrizen" class="level2" data-number="13.11">
-<h2 data-number="13.11" class="anchored" data-anchor-id="co-occurence-matrizen"><span class="header-section-number">13.11</span> Co-Occurence Matrizen</h2>
+<section id="co-occurence-matrizen" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="co-occurence-matrizen"><span class="header-section-number">13.10</span> Co-Occurence Matrizen</h2>
+<p>Eine Co-Occurence Matrix oder <strong>Kontingenztabelle</strong> aus zwei Vektoren lässt sich am leichtesten mit der <code>table()</code>-Funktion erstellen. Diese Funktion zählt das gemeinsame Auftreten von Werten in zwei <em>gleichlangen</em> Vektoren von beliebigen Datentyp.</p>
+<p>Das Ergebnis ist eine benannte Matrix, wobei die Zeilen den Werten im ersten Vektor und die Spalten den Werten im zweiten Vektor entsprechen.</p>
+<div id="exm-coocmatrix-table" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.20 (Kontingenztabelle für zwei Vektoren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>v1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>v2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>(<span class="at">ctable =</span> <span class="fu">table</span>(v1, v2))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   v2
+v1  7 8 9
+  1 0 1 2
+  2 1 1 1
+  3 1 0 0
+  4 1 1 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ctable[,<span class="dv">2</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 2 3 4 
+1 1 0 1 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>ctable[<span class="dv">3</span>,]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7 8 9 
+1 0 0 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="matrix-bibliothek" class="level2" data-number="13.11">
+<h2 data-number="13.11" class="anchored" data-anchor-id="matrix-bibliothek"><span class="header-section-number">13.11</span> <code>Matrix</code>-Bibliothek</h2>
+<section id="determinanten" class="level3" data-number="13.11.1">
+<h3 data-number="13.11.1" class="anchored" data-anchor-id="determinanten"><span class="header-section-number">13.11.1</span> Determinanten</h3>
+</section>
+<section id="inverse-matrix" class="level3" data-number="13.11.2">
+<h3 data-number="13.11.2" class="anchored" data-anchor-id="inverse-matrix"><span class="header-section-number">13.11.2</span> Inverse Matrix</h3>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
