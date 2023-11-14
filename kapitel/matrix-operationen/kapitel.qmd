@@ -13,7 +13,7 @@ library(Matrix)
 ## Work in Progress
 :::
 
-Matrizen sind in R 2-dimensionale *numerische* Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die *Dimensionalität* der Matrix an. Allgemein wird von einer $m\timesn$-Matrix gesprochen, wobei $m$ für die Anzahl der Zeilen und $n$ für die Anzahl der Spalten steht. 
+Matrizen sind in R 2-dimensionale *numerische* Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die *Dimensionalität* der Matrix an. Allgemein wird von einer $m \times n$-Matrix gesprochen, wobei $m$ für die Anzahl der Zeilen und $n$ für die Anzahl der Spalten steht. 
 
 ::: {.callout-note}
 ## Merke
@@ -56,7 +56,7 @@ matrix(
 ```
 ::: 
 
-Ist die Länge des Eingabevektors kürzer als für eine Matrix mit den gewünschten Dimensionen notwendig wäre, dann wird der Vektor wie bei einer Vektortransformation solange wiederholt, bis alle Positionen in der Matrix besetzt sind (@exm-matrix-exm-matrix-erstellen-auffüllen). Ist der Vektor kein Vielfaches der Zeilen- oder der Spaltenzahl, dann werden alle überzähligen Werte mit einer entsprechenden Warnung verworfen. 
+Ist die Länge des Eingabevektors kürzer als für eine Matrix mit den gewünschten Dimensionen notwendig wäre, dann wird der Vektor wie bei einer Vektortransformation solange wiederholt, bis alle Positionen in der Matrix besetzt sind (@exm-matrix-erstellen-auffüllen). Ist der Vektor kein Vielfaches der Zeilen- oder der Spaltenzahl, dann werden alle überzähligen Werte mit einer entsprechenden Warnung verworfen. 
 
 ::: {#exm-matrix-erstellen-auffüllen}
 ## Matrix durch Auffüllen des Eingabevektors erzeugen
