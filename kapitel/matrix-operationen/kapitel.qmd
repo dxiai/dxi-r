@@ -6,12 +6,7 @@ abstract: ""
 
 ```{r, include=FALSE}
 library(tidyverse)
-library(Matrix)
 ```
-
-::: {.callout-warning}
-## Work in Progress
-:::
 
 Matrizen sind in R 2-dimensionale *numerische* Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die *Dimensionalität* der Matrix an. Allgemein wird von einer $m \times n$-Matrix gesprochen, wobei $m$ für die Anzahl der Zeilen und $n$ für die Anzahl der Spalten steht. 
 
@@ -103,10 +98,6 @@ matrixA |> ncol()
 ```
 :::
 
-## Zeilen- und Spaltenüberschriften
-
-Die Zeilen- und Spalten einer Matrix können
-
 ## Matrixwerte referenzieren
 
 Das Referenzieren von Werten einer Matrix erfolgt analog zum Referenzieren von Vektorwerten. Der Index eines Werts einer Matrix ist über die Zeilen und die Spalten definiert. 
@@ -143,6 +134,71 @@ matrixA[,c(2,3)]
 ```
 ::: 
 
+### Zeilen- und Spaltenüberschriften
+
+Die Zeilen- und Spalten einer Matrix können in R mit Überschriften ***benannt*** werden. Das Benennen erfolgt über einen sog. Namensvektor. Diese Vektor muss die gleiche Länge haben, wie die Anzahl der zu benennenden Zeilen bzw. Spalten der Matrix, wobei die Zeilen und Spalten nicht gleichzeitig benannt werden können. 
+
+::: {.callout-note}
+## Merke
+Die Zeilen- und Spaltennamen gehören nicht zu den Werten einer Matrix und werden in Operationen in der Regel nicht berücksichtigt.
+:::
+
+::: {#exm-zeilennamen-zuweisen}
+## Zeilennamen zuweisen
+```{r}
+rownames(matrixA) <- c("oben", "unten")
+colnames(matrixA) <- c("links", "mitte", "rechts")
+
+matrixA
+```
+:::
+
+::: {.callout-tip}
+## Praxis
+
+Grundsätzlich kann auch die Funktionsverkettung beim Benennen der Zeilen oder Spalten einer Matrix verwendet werden. 
+
+```r
+matrixA |> rownames() <- c("oben", "unten")
+```
+
+Diese Verwendung sollte allerdings vermieden werden, weil die Zuweisung und der Datenstrom in diesen Fällen gegenläufig wären. 
+:::
+
+Nachdem eine Zeile oder eine Spalte benannt wurde, werden die Namen in allen nachfolgenden Zugriffen immer in das Ergebnis aufgenommen. Ausserdem können die Namen zur Referenzierung der Werte verwendet werden (@exm-zeilennamen-referenzierung). 
+
+::: {#exm-zeilennamen-referenzierung}
+## Zeilennamen zur Rerferenzierung verwenden
+```{r}
+matrixA["oben",]
+matrixA["unten", "mitte"]
+```
+:::
+
+Es ist möglich einzelne Zeilen- oder Spaltennamen zuzuweisen oder zu ändern (@exm-zeilennamen-ändern).
+
+::: {#exm-zeilennamen-ändern}
+## Zeilennamen ändern
+```{r}
+colnames(matrixA)[2] <- "zentrum"
+
+matrixA
+```
+:::
+
+Die Namen einer Matrix lassen sich entfernen, indem den Zeilen- oder Spaltennamen der Wert `NULL` zugewiesen wird. 
+
+::: {#exm-zeilennamen-entfernen}
+## Zeilennamen entfernen
+
+```{r}
+rownames(matrixA) <- NULL
+colnames(matrixA) <- NULL
+
+matrixA
+```
+:::
+
 ## Matrizen transponieren
 
 Beim Transponieren einer Matrix werden die Indizes für alle Werte vertauscht. Diese Operation übernimmt die R-Funktion `t()`.
@@ -159,6 +215,10 @@ matrixA |> t()
 ## Merke
 
 Beim **Transponieren einer Matrix** werden die Spalten in Zeilen bzw. die Zeilen in Spalten umgewandelt.
+:::
+
+::: {.callout-tip}
+Beim Transponieren werden vorhandene Zeilen- und Spaltennamen mittransponiert.
 :::
 
 ## Vektorform
@@ -268,9 +328,76 @@ all.equal(matrixA, matrixB)[1] == TRUE
 
 ## Kreuzprodukt
 
-`%*%`
+Das Kreuzprodukt (oder Matrixmultiplikation) ist eine Erweiterung der bekannten Multiplikation für Matrizen. Beim Kreuzprodukt muss die linke Matrix genausoviele Spalten haben, wie Zeilenanzahl der rechten Matrix. Das Kreuzprodukt ist dann wie folgt definiert: 
+
+$$
+\begin{aligned}
+A \times B &= \begin{bmatrix} 
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn} \\
+\end{bmatrix} 
+\times
+\begin{bmatrix} 
+b_{11} & b_{12} & \cdots & b_{1p} \\
+b_{21} & b_{22} & \cdots & b_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+b_{n1} & b_{n2} & \cdots & b_{np} \\
+\end{bmatrix} \\\
+\\\
+&= \begin{bmatrix} 
+\sum_{i=1}^{n}{a_{1i} \cdot b_{i1}} & \sum_{i=1}^{n}{a_{1i} \cdot b_{i2}} & \cdots & \sum_{i=1}^{n}{a_{1i} \cdot b_{ip}} \\
+\sum_{i=1}^{n}{a_{2i} \cdot b_{i1}} & \sum_{i=1}^{n}{a_{2i} \cdot b_{i2}} & \cdots & \sum_{i=1}^{n}{a_{2i} \cdot b_{ip}} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sum_{i=1}^{n}{a_{mi} \cdot b_{i1}} & \sum_{i=1}^{n}{a_{mi} \cdot b_{i2}} & \cdots & \sum_{i=1}^{n}{a_{mi} \cdot b_{ip}} \\
+\end{bmatrix} 
+\end{aligned}
+$$
+
+In R wird das Kreuzprodukt mit dem `%*%`-Operator durchgeführt.  
+
+```{r}
+matrixA 
+(matrixC = matrix(
+    c(3, 2, 2, 3, 
+      1, 2, 3, 1, 
+      1, 2, 1, 1), 
+    ncol = 4, 
+    byrow = TRUE)
+)
+
+matrixA %*% matrixC
+
+```
+
+::: {.callout-tip}
+## Praxis
+
+Werden mehrere Matrizen nacheinander multipliziert, so können bekannte Matrizen vorab miteinander multipliziert werden, wenn sie in der Berechnung direkt aufeinanderfolgen. 
+:::
 
 ### Zeilen- und Spaltensummen
+
+Für die Zeilensumme ist ein Spaltenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixspalten**. Wegen der Regeln für das Kreuzprodukt muss der Einsvektor der rechte Operand des Kreuzprodukts sein (@exm-matrix-zeilensumme). 
+
+::: {#exm-matrix-zeilensumme}
+## Zeilensumme
+
+```{r}
+matrixA %*% rep(1, ncol(matrixA))
+```
+:::
+
+Für die Spaltensumme ist ein Zeilenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixzeilen**. Weil R-Vektoren keine Orientierung haben, sondern immer als Spaltenvektoren behandelt werden, muss der Vektor noch transponiert werden. Bei der Zeilensumme ist ausserdem zu beachten, dass der Einsvektor der linke Operand des Kreuzprodukts sein muss (@exm-matrix-spaltensumme). 
+
+::: {#exm-matrix-spaltensumme}
+## Zeilensumme
+
+```{r}
+t(rep(1, nrow(matrixA))) %*% matrixA
+```
+:::
 
 ## Äusseres Vektorprodukt
 
@@ -282,7 +409,7 @@ Der Operator des äusseren Produkts ist `%o%`, wobei als Verknüpfung die Multip
 ## Äusseres Produkt mit der Addition als Operator
 
 ```{r}
-outer(rep(1, 3), 0:5, `+`)
+outer(1:3, 0:5, `+`)
 ```
 :::
 
@@ -319,7 +446,11 @@ Vorgänger- und Nachfolgersummen bilden die Summe aus aufeinanderfolgenden Werte
 
 ```{r}
 vektor = 1:10
-vektor %*% outer(1:10, 1:10, \(a, b) (b >= a & a >= b - 2))
+vektor %*% outer(
+    1:10, 
+    1:10, 
+    function (a, b) (b >= a & a >= b - 2)
+)
 ```
 ::: 
 
@@ -327,7 +458,7 @@ vektor %*% outer(1:10, 1:10, \(a, b) (b >= a & a >= b - 2))
 
 Eine Co-Occurence Matrix oder **Kontingenztabelle** aus zwei Vektoren lässt sich am leichtesten mit der `table()`-Funktion erstellen. Diese Funktion zählt das gemeinsame Auftreten von Werten in zwei *gleichlangen* Vektoren von beliebigen Datentyp.
 
-Das Ergebnis ist eine benannte Matrix, wobei die Zeilen den Werten im ersten Vektor und die Spalten den Werten im zweiten Vektor entsprechen.
+Das Ergebnis ist eine *benannte Matrix*, wobei die Zeilen den Werten im ersten Vektor und die Spalten den Werten im zweiten Vektor entsprechen.
 
 ::: {#exm-coocmatrix-table}
 ## Kontingenztabelle für zwei Vektoren
@@ -342,9 +473,81 @@ ctable[3,]
 ```
 :::
 
-## `Matrix`-Bibliothek
+## Determinanten
 
-### Determinanten
+Die Determinante einer **quadratischen Matrix** $A$ wird mit der `det()`-Funktion ermittelt. 
 
-### Inverse Matrix
+::: {#exm-matrix-determinant}
+## Determinante einer Matrix bestimmen
+```{r}
+# Eine quadratische Matrix aus matrixA erzeugen
+(matrixQ = matrixA %*% t(matrixA))
+
+det(matrixQ)
+```
+:::
+
+## Eigenwerte
+
+Die Eigenwerte $\lambda$ und Eigenvektoren einer **quadratischen Matrix** $A$ werden mit der Funktion `eigen()` bestimmt. Diese Funktion gibt eine benannte Liste zurück. Unter `values` finden sich die Eigenwerte der Matrix und unter `vectors` sind die Eigenvektoren als *Spaltenvektoren* gespeichert.
+
+::: {#exm-matrix-eigenvalues}
+## Eigenwerte und Eigenvektoren einer Matrix bestimmen
+```{r}
+basisQ = eigen(matrixQ)
+
+basisQ[["values"]] # oder basisQ$values
+basisQ[["vectors"]] # oder basisQ$vectors
+```
+:::
+
+## Inversematrix
+
+Die Inverse $A^{-1}$ einer **quadratischen Matrix** $A$ wird in R mit der Funktion `solve()` bestimmt (@exm-inverse-matrix).
+
+::: {#exm-inverse-matrix}
+## Inverse Matrix berechnen
+```{r}
+solve(matrixQ)
+```
+:::
+
+## `Matrix`-Bibliothek {#sec-matrix-bibliothek}
+
+Das Kreuzprodukt, das äussere Produkt und das Transponieren werden durch R automatisch bereitgestellt. Für komplexere Aufgaben oder sehr grossere Matrizen dient die Bibliothek `Matrix` [@bates_r_2023]. Diese Bibliothek gehört zur R-Standardinstallation und ist auf jedem System vorhanden. Die Bibliothek stellt alle relevanten Funktionen für Matrix-Operationen, die für mathematische Matrix-Operationen benötigt werden. 
+
+Diese Bibliothek sollte immer geladen werden, wenn sehr grosse Matrizen oder Matrizen mit vielen `0`-Werten verwendet werden. Besonders für den zweiten Fall ist die sog. **Sparse Matrix** (deutsch "dünnbesetzte Matrix") von besonderer Bedeutung. Eine dünnbesetzte Matrix ist eine Matrix mit vielen `0`-Werten, wobei *viel* "mehr als ein Drittel der Positionen" bedeutet. In solchen Matrizen lässt R die `0`-Werte weg, so dass diese Werte keinen Speicher benötigen und keine Berechnungen für die entsprechenden Operationen (insbesondere beim Kreuzprodukt) durchgeführt werden. Abgesehen von dieser speziellen Behandlung der `0`-Werte unterscheiden sich dünnbesetzte Matrizen in R nicht von anderen Matrizen.
+
+::: {#exm-sparsematrix-erzeugen}
+## Dünnbesetzte Matrix erzeugen 
+
+```{r}
+library(Matrix)
+
+Matrix( matrix(c(0, 1, 0, 0, 0, 1, 2, 0, 0), ncol = 3), sparse = TRUE)
+```
+:::
+
+Die `Matrix`-Bibloiothek stellt ausserdem viele Hilfreiche Funktionen für die Arbeit mit Matrizen bereit. Dazu gehören beispielsweise die Funktionen `colSums()` und `rowSums()`, mit denen die Spalten- bzw. die Zeilensummen berechnet werden. @exm-matrix-spaltensumme und @exm-matrix-zeilensumme lassen sich so vereinfachen (@exm-matrix-spaltensumme-colsums).
+
+::: {#exm-matrix-spaltensumme-colsums}
+## Zeilen- und Spaltensumme mit der `Matrix`-Bibliothek
+
+```{r}
+colSums(matrixA)
+rowSums(matrixA)
+```
+:::
+
+Die Bibliothek stellt ausserdem mit der `band()`-Funktion eine komfortable Methode für diagonale Band-Matrizen bereit. Eine Bandmatrix heisst eine quadratische Matrix, die ein diagonales Werteband enthält. Mit dieser Funktion lassen sich Band-Matrize für gleitende Summen (@exm-vorgängersumme) leichter erzeugen (@exm-bandmatrix)
+
+::: {#exm-bandmatrix}
+## Vorgängersumme mit der `band()`-
+
+```{r}
+band(Matrix(1, 10, 10, sparse = TRUE), 0, 2)
+
+vektor %*% band(Matrix(1, 10, 10, sparse = TRUE), 0, 2)
+```
+:::
 
