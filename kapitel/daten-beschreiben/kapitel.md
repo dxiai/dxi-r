@@ -21,7 +21,7 @@ execute:
 
 ### Median
 
-### Mittelwert
+### Mittelwert
 
 ## Streumasse
 
