@@ -1,0 +1,62 @@
+---
+# bibliography: references.bib
+
+abstract: ""
+
+execute: 
+  echo: false
+---
+
+# Daten beschreiben {#sec-chapter-daten-beschreiben}
+
+::: {.callout-warning}
+## Work in Progress
+:::
+
+## Universelle Kennwerte
+
+
+In R ergibt sich dieser Wert direkt aus dem Stichprobenobjekt: Der **Stichprobenumfang** entspricht der **Anzahl der Datensätze** in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der `count()`-Funktion oder innerrhalb einer Transforrmation mit `mutate()` mit Hilfe der `n()`-Funktion.
+
+Der *Stichprobenumfang* ist einer der drei allgemeinen Kennwerte, die jede Stichprobe beschreiben. Wir bestimmen zuerst die numerischen Kennwerte unserer Beispielstichprobe.
+
+```R
+# Stichprobenumfang
+stichprobe |> 
+    count() |> 
+    pull() -> stichprobenumfang
+
+stichprobenumfang
+
+stichprobe |> 
+    names() |> 
+    length()
+```
+
+Dabei erkennen wir, dass der Stichprobenumfang 27 beträgt. Wir erkennen zusätzlich, dass wir 53 Vektoren in unserem Stichprobenobjekt vorliegen haben.
+
+Neben dem *Stichprobenumfang* unterscheiden wir zusätzlich den *Variablenumfang*. Der **Variablenumfang** bezeichnet  die **Anzahl der gemessenen Merkmalsausprägungen**. Damit ist die Gesamtzahl der gemessenen Werte für eine Variable gemeint. Für diesen Wert müssen wir für eine Variable *nicht vorhandene* Werte aus der Variable entfernen. Diese Werte sind in R mit dem Wert `NA` gekennzeichnet. Wir entfernen die `NA`-Werte mit Hilfe der `drop_na()`-Funktion.
+
+
+## Fehlende Werte
+
+
+### Fehlende Werte entfernen 
+
+## Lagemasse 
+
+### Modus
+
+### Median
+
+### Mittelwert
+
+## Streumasse
+
+### Varianz und Standardabweichung
+
+### Interquatilsabstand
+
+### MAD
+
+

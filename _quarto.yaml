@@ -60,7 +60,7 @@ book:
   - part: "Deskriptive Datenanalyse"
     chapters:
    
-    - kapitel/daten-beschreiben/kapitel.md
+    - kapitel/daten-beschreiben/kapitel.qmd
     - kapitel/daten-visualisieren/kapitel.qmd
     # - kapitel/lineare-modelle/kapitel.md
     
