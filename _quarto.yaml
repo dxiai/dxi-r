@@ -54,7 +54,7 @@ book:
     - kapitel/vektor-operationen/kapitel.qmd
     - kapitel/matrix-operationen/kapitel.qmd
     - kapitel/indizieren-gruppieren/kapitel.qmd
-    - kapitel/daten-kodieren/kapitel.md
+    - kapitel/daten-kodieren/kapitel.qmd
     - kapitel/daten-formen/kapitel.md
 
   - part: "Deskriptive Datenanalyse"

@@ -207,7 +207,7 @@ daten |>
 ```
 :::
 
-Das gruppierte Zählen hat gegenüber der Funktion `table()` den Vorteil, dass mehr als zwei Vektoren zusammengefasst werden können. 
+Das gruppierte Zählen hat gegenüber der Funktion `table()` den Vorteil, dass mehr als zwei Vektoren berücksichtigt werden können. 
 
 ### Gruppiertes Nummerieren
 
