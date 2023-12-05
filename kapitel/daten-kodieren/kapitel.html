@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 15&nbsp; Daten kodieren</title>
+<title>Einführung in die Datenwissenschaft mit R - 15&nbsp; Daten kombinieren und kodieren</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -74,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-kodieren/kapitel.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kodieren</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-kodieren/kapitel.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kombinieren und kodieren</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -215,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../kapitel/daten-kodieren/kapitel.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kombinieren und kodieren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -265,8 +284,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#kodierungstabellen" id="toc-kodierungstabellen" class="nav-link active" data-scroll-target="#kodierungstabellen"><span class="header-section-number">15.1</span> Kodierungstabellen</a></li>
-  <li><a href="#mit-faktoren-kodieren" id="toc-mit-faktoren-kodieren" class="nav-link" data-scroll-target="#mit-faktoren-kodieren"><span class="header-section-number">15.2</span> Mit Faktoren kodieren</a></li>
+  <li><a href="#kombinieren" id="toc-kombinieren" class="nav-link active" data-scroll-target="#kombinieren"><span class="header-section-number">15.1</span> Kombinieren</a>
+  <ul class="collapse">
+  <li><a href="#konkatenation" id="toc-konkatenation" class="nav-link" data-scroll-target="#konkatenation"><span class="header-section-number">15.1.1</span> Konkatenation</a></li>
+  <li><a href="#vereinigung" id="toc-vereinigung" class="nav-link" data-scroll-target="#vereinigung"><span class="header-section-number">15.1.2</span> Vereinigung</a></li>
+  <li><a href="#schnittmenge" id="toc-schnittmenge" class="nav-link" data-scroll-target="#schnittmenge"><span class="header-section-number">15.1.3</span> Schnittmenge</a></li>
+  <li><a href="#differenz" id="toc-differenz" class="nav-link" data-scroll-target="#differenz"><span class="header-section-number">15.1.4</span> Differenz</a></li>
+  </ul></li>
+  <li><a href="#kodierungstabellen" id="toc-kodierungstabellen" class="nav-link" data-scroll-target="#kodierungstabellen"><span class="header-section-number">15.2</span> Kodierungstabellen</a></li>
+  <li><a href="#kodierung-durch-kombination" id="toc-kodierung-durch-kombination" class="nav-link" data-scroll-target="#kodierung-durch-kombination"><span class="header-section-number">15.3</span> Kodierung durch Kombination</a></li>
+  <li><a href="#mit-faktoren-kodieren" id="toc-mit-faktoren-kodieren" class="nav-link" data-scroll-target="#mit-faktoren-kodieren"><span class="header-section-number">15.4</span> Mit Faktoren kodieren</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -275,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-chapter-daten-kodieren" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kodieren</span></span></h1>
+<h1 class="title"><span id="sec-chapter-daten-kodieren" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Daten kombinieren und kodieren</span></span></h1>
 </div>
 
 
@@ -303,13 +330,115 @@ Work in Progress
 
 </div>
 </div>
-<section id="kodierungstabellen" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="kodierungstabellen"><span class="header-section-number">15.1</span> Kodierungstabellen</h2>
+<p>Das Kombinieren und kodieren von Daten haben in R eine enge Beziehung. Die notwendigen Funktionen werden durch die <code>tidyverse</code>-Bibliothek <code>dplyr</code> <span class="citation" data-cites="wickham_dplyr_2023">(<a href="../../references.html#ref-wickham_dplyr_2023" role="doc-biblioref">Wickham et al., 2023</a>)</span> bereitgestellt.</p>
+<section id="kombinieren" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="kombinieren"><span class="header-section-number">15.1</span> Kombinieren</h2>
+<section id="konkatenation" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="konkatenation"><span class="header-section-number">15.1.1</span> Konkatenation</h3>
+<p>Die Bibliothek <code>dplyr</code> stellt zwei Funktionen zur Konkatenation von Datenrahmen bereit:</p>
+<ol type="1">
+<li>Die Funktion <code>bind_rows()</code> und</li>
+<li>Die Funktion <code>bind_cols()</code></li>
+</ol>
+<p>Die Funktion <code>bind_rows()</code> kombiniert zwei Datenrahmen, indem alle Vektoren der beiden Datenrahmen konkateniert werden. Dabei muss beachtet werden, dass alle zu konkatenierenden Vektoren in beiden Datenrahmen <em>gleich benannt</em> sind.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Funktion <code>bind_rows()</code> sollte nur dann eingesetzt werden, wenn eine normale Vereinigung mithilfe von Indizes nicht möglich ist.</p>
+</div>
+</div>
+<p>Oft soll nach dem Konkatenieren der Datensätze die ursprünglichen Datenrahmen nachvollziehbar bleiben. Die Funktion <code>bind_row()</code> bietet hierzu den optionalen Parameter <code>.id</code> an. Dieser Parameter erwartet einen <em>Vektornamen</em>. Ist dieser Parameter gesetzt, dann erzeugt die Funktion eine Sequenz für die Datenrahmen und ergänzt alle Datensätze um den entsprechenden Wert.</p>
+<p>Sollen andere Werte zur Identifikation der Datenrahmen verwendet werden, so müssen die Datenrahmen als benannte Liste übergeben werden <strong><em>und</em></strong> der Parameter <code>.id</code> muss gesetzt sein.</p>
+<p>Die Funktion <code>bind_cols()</code> kombiniert zwei Datenrahmen, indem alle Datensätze der beiden Datenrahmen konkateniert werden. Dabei muss beachtet werden, dass die erzeugten Datensätze nach dem Konkatenieren auch zusammengehörende Werte umgfassen. Dazu müssen die Datensätze in beiden Datenrahmen tatsächlich in der gleichen Reihenfolge vorliegen.</p>
+<p>Sollten die konkatenierten Datenrahmen nicht genau passen, weil entweder unterschiedlich benannte Vektoren oder unterschiedliche viele Datensätze in den beiden Datenrahmen existieren, dann erzeugt für die jeweils fehlenden Werte <code>NA</code>-Werte. Das ist oft unerwünscht. Deshalb sollte <em>vor</em> der Verwendung von <code>bind_rows()</code> oder <code>bind_cols()</code> geprüft werden, ob die Datenrahmen für die konkatenation geeignet sind.</p>
 </section>
-<section id="mit-faktoren-kodieren" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="mit-faktoren-kodieren"><span class="header-section-number">15.2</span> Mit Faktoren kodieren</h2>
+<section id="vereinigung" class="level3" data-number="15.1.2">
+<h3 data-number="15.1.2" class="anchored" data-anchor-id="vereinigung"><span class="header-section-number">15.1.2</span> Vereinigung</h3>
+<p>R kennt neben der Spaltenkonkatenation mit <code>bind_rows()</code> noch drei weitere Formen der Vereinigung:</p>
+<ol type="1">
+<li>Die vollständige Vereinigung (<code>full_join()</code>)</li>
+<li>Die linksseitige Vereinigung (<code>left_join()</code>)</li>
+<li>Die rechtsseitige Vereinigung (<code>right_join()</code>)</li>
+</ol>
+<p>Diese Funktionen kommen immer dann zum Einsatz, wenn die Datensätze in den Datenrahmen nicht in der gleichen Reihenfolge vorliegen und die Verknüpfung über einen Index erfolgen soll. Dieser Index muss in <strong>beiden</strong> Datenrahmen existieren.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wird bei der vollständigen Vereinigung mit <code>full_join()</code> kein Index für die Kombination angegeben, dann erzeugt R für das Ergebnis alle Permutationen der Datensätze in beiden Datenrahmen. Diese Operation ist sehr speicherhungrig und kann selbst bei Datenrahmen mit vergleichsweise wenig Datensätzen zu unerwarteten Programmabstürzen führen, wenn das Ergebnis nicht mehr in den Arbeitsspeicher des Rechners passt.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Funktionen <code>left_join()</code> und <code>right_join()</code> erlauben die <strong><em>partielle Vereinigung</em></strong> der beiden Datenrahmen.</p>
+</div>
+</div>
+</section>
+<section id="schnittmenge" class="level3" data-number="15.1.3">
+<h3 data-number="15.1.3" class="anchored" data-anchor-id="schnittmenge"><span class="header-section-number">15.1.3</span> Schnittmenge</h3>
+<p>Die Schnittmenge bzw. <em>inner join</em> zweier Datenrahmen wird in R mit der Funktion <code>inner_join()</code> gebildet. Das Ergebnis der Schnittmenge enthält Datensätze, die für den verknüpfenden Index eine Entsprechung in <em>beiden</em> Datensätzen haben. Alle anderen Datensätze werden entfernt.</p>
+</section>
+<section id="differenz" class="level3" data-number="15.1.4">
+<h3 data-number="15.1.4" class="anchored" data-anchor-id="differenz"><span class="header-section-number">15.1.4</span> Differenz</h3>
+<p>Gelegentlich sollen vorgegebene Werte entfernt werden. Dazu kommt eine spezielle <em>Kodierungstabelle</em> zum Einsatz. Diese Tabelle legt fest, welche Werte aus den Daten entfernt oder ausgeschlossen werden sollen. Entsprechend heisst diese Tabelle eine <strong>Ausschlusstabelle</strong>.</p>
+<p>In R lassen sich Ausschlusstabellen mit der Funktion <code>anti_join()</code> verwenden.</p>
+</section>
+</section>
+<section id="kodierungstabellen" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="kodierungstabellen"><span class="header-section-number">15.2</span> Kodierungstabellen</h2>
+<p>Eine Kodierungstabelle ist ein Datenrahmen, mit der Werte in andere Werte überführt werden. In der Regel werden Kodierungstabellen für die Neukodierung von diskreten Daten verwendet. Eine Kodierungstabelle enthält dazu den ursprünglichen zu kodierenden Wert und die jeweiligige neue Kodierung.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die zu kodierenden Werte dürfen in einer Kodierungstabelle genau <strong>einmal</strong> vorkommen. Deshalb sind die zu kodierenden Werte in der Kodierungstabelle ein <strong>Primärindex</strong>.</p>
+</div>
+</div>
+</section>
+<section id="kodierung-durch-kombination" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="kodierung-durch-kombination"><span class="header-section-number">15.3</span> Kodierung durch Kombination</h2>
+<p>Der einfachste Weg, um Werte in einem Datenrahmen in R mithilfe einer Kodierungstabelle neu zu kodieren, ist die Kombination der Daten mit einer Kodierungstabelle. Dabei wird der zu kodierende Vektor als Sekundärindex verwendet, der mit dem Primärindex der Kodierungstabelle über die Schnittmenge mithilfe der Funktion <code>inner_join()</code> kombiniert wird. Durch diese Kombination werden gleichzeitig alle ungültigen Werte (inkl. <code>NA</code>) entfernt.</p>
+</section>
+<section id="mit-faktoren-kodieren" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="mit-faktoren-kodieren"><span class="header-section-number">15.4</span> Mit Faktoren kodieren</h2>
+<p><strong>Ordinalskalierte Daten</strong> werden sehr oft als Zahlen kodiert. In R ist für diese Aufgabe <em>keine</em> Kodierungstabelle notwendig. Stattdessen werden die Werte als Faktor (<a href="../faktoren/kapitel.html"><span>Kapitel&nbsp;10</span></a>) behandelt, für den die Reihenfolge des Wertebereichs mit den geeigneten Funktionen der Bibliothek <code>forcats</code> <span class="citation" data-cites="wickham_forcats_2023">(<a href="../../references.html#ref-wickham_forcats_2023" role="doc-biblioref">Wickham, 2023</a>)</span> festgelegt wird. Für die Kodierung in Zahlen wird ausgenutzt, dass R die Faktorstufen intern bereits Zahlenwerten zuweist. Diese Zuweisung verwendet die Funktion <code>as.numeric()</code>, um aus einem Faktor numerische Werte abzuleiten.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-wickham_forcats_2023" class="csl-entry" role="listitem">
+Wickham, H. (2023). <em>forcats: Tools for Working with Categorical Variables (Factors)</em>. <a href="https://forcats.tidyverse.org/">https://forcats.tidyverse.org/</a>
+</div>
+<div id="ref-wickham_dplyr_2023" class="csl-entry" role="listitem">
+Wickham, H., François, R., Henry, L., Müller, K., &amp; Vaughan, D. (2023). <em>dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
