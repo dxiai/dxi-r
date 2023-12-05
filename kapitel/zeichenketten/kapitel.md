@@ -8,9 +8,11 @@ execute:
 
 Bisher haben wir Zeichenketten als atomare Werte behandelt. In diesem Kapitel geht es die Operationen für Zeichenketten. 
 
-Eine Zeichenkette hat eine Länge, die der Anzahl der Symbole in der Zeichenkette entspricht und jedes Symbol in einer Zeichenkette kann über dessen Position identifiziert werden.
+Eine Zeichenkette hat eine Länge, die der Anzahl der Symbole in der Zeichenkette entspricht und jedes Symbol in einer Zeichenkette kann über dessen Position identifiziert werden. 
 
 Wenn Daten als Zeichenketten vorliegen, dann handelt es sich immer um **diskrete Daten**.
+
+Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der `tidyverse`-Bibliothek `stringr` [@wickham_stringr_2023] bearbeiten. 
 
 | Name | R |
 |:---|:---|
