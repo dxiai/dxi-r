@@ -169,3 +169,60 @@ Mit den gemischten Daten ist es nun nicht mehr möglich, die Werte mit einem and
 
 ## Gruppieren
 
+In R lassen sich grundsätzlich alle Opeationen auch als gruppierte Operationen über einen Datenrahmen durchführen. Dazu wird die `group_by()`-Funktion verwendet, um gruppierte Operationen anzuzeigen. Dieser Funktion können ein oder mehrere Sekundärindizes als Parameter übergeben werden, die zum Gruppieren verwendet werden.
+
+::: {#exm-gruppieren}
+## Gruppierte Summe und Mittelwert
+```r
+daten |> 
+    group_by(index) |>
+    summarise(
+        summe = sum(werte)
+        mittelwert = mean(werte)
+    ) |>
+    ungroup() 
+```
+:::
+
+::: {.callout-warning}
+## Achtung
+Wird eine Funktion `group_by()` ohne eine nachfolgende Operation ausgeführt, dann hat die Funktionen **keinen** erkennbaren Effekt auf das Ergebnis. 
+:::
+
+::: {.callout-tip}
+## Praxis
+Nach eine gruppierten Operation sollte die Gruppierung **immer** mit `ungroup()` aufgehoben werden, damit nachfolgende nichtgruppierte Operationen nicht versehentlich als gruppierte Operationen durchgeführt werden.
+:::
+
+### Gruppiertes Zählen
+
+R verfügt mit der Funktion `table()` das gemeinsame Auftreten von Werten in zwei diskretskalierten Vektoren zu zählen. Diese Funktion erfordert jedoch zwei voneinander unabhängige Vektoren. Die Funktion `count()` bietet eine elegante Alternative für Vektoren in Datenrahmen. In diesem Fall werden die Vektoren als Sekundärindizes behandelt. 
+
+
+::: {#exm-gruppiertes-nummerieren}
+## Gruppiertes Zählen
+```r
+daten |> 
+    count(index)
+```
+:::
+
+Das gruppierte Zählen hat gegenüber der Funktion `table()` den Vorteil, dass mehr als zwei Vektoren zusammengefasst werden können. 
+
+### Gruppiertes Nummerieren
+
+Nummerieren ist eine hilfreiche Funktion, um die Position von Werten zu bestimmen. Das Ergebnis ist ein eindeutige Nummer für jeden Datensatz. Beim Gruppierten Nummerieren werden die Datensätze innerhalb ihrer Gruppe nummeriert.
+
+::: {#exm-gruppiertes-nummerieren}
+## Gruppiertes Nummerieren
+```r
+daten |>
+    group_by(index) |>
+    mutate(
+        nr = row_number()
+    ) |>
+    ungroup()
+``` 
+:::
+
+
