@@ -532,11 +532,18 @@
     "text": "15.4 Mit Faktoren kodieren\nOrdinalskalierte Daten werden sehr oft als Zahlen kodiert. In R ist für diese Aufgabe keine Kodierungstabelle notwendig. Stattdessen werden die Werte als Faktor (Kapitel 10) behandelt, für den die Reihenfolge des Wertebereichs mit den geeigneten Funktionen der Bibliothek forcats (Wickham, 2023) festgelegt wird. Für die Kodierung in Zahlen wird ausgenutzt, dass R die Faktorstufen intern bereits Zahlenwerten zuweist. Diese Zuweisung verwendet die Funktion as.numeric(), um aus einem Faktor numerische Werte abzuleiten.\n\n\n\n\nWickham, H. (2023). forcats: Tools for Working with Categorical Variables (Factors). https://forcats.tidyverse.org/\n\n\nWickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org"
   },
   {
-    "objectID": "kapitel/daten-formen/kapitel.html",
-    "href": "kapitel/daten-formen/kapitel.html",
+    "objectID": "kapitel/daten-formen/kapitel.html#transponieren",
+    "href": "kapitel/daten-formen/kapitel.html#transponieren",
     "title": "16  Daten formen",
-    "section": "",
-    "text": "Work in Progress"
+    "section": "16.1 Transponieren",
+    "text": "16.1 Transponieren\npivot_longer()\npivot_wider()\n\n16.1.1 Rezept: Operationen zusammenfassen"
+  },
+  {
+    "objectID": "kapitel/daten-formen/kapitel.html#hierarchisieren",
+    "href": "kapitel/daten-formen/kapitel.html#hierarchisieren",
+    "title": "16  Daten formen",
+    "section": "16.2 Hierarchisieren",
+    "text": "16.2 Hierarchisieren\nnest()\nunnest()\n## Transponieren mit Zeichenketten\nEin spezieller Fall ist gegeben, wenn die Daten in Zeichenketten kodiert sind. Streng genommen handelt es sich hierbei nicht um eine Transponierenoperation, sondern um eine normale Transformation. Die entsprechenden Funktionen für diese Operation wurden aber nach dem gleichen Prinzip wie beim Hierarchisieren bzw. beim Transponieren angepasst.\nseparate_longer_delim()\nseparate_wider_delim()\nGelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als regulärer Ausdruck der Funktion separate_longer_regex() bzw. separate_wider_regex() übergeben werden.\nDie Umkehrfunktion ist die Funktion unite(), mit der sich mehrere Vektoren zu einer Zeichenkette verketten lassen."
   },
   {
     "objectID": "kapitel/daten-beschreiben/kapitel.html#universelle-kennwerte",

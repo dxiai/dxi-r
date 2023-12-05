@@ -261,7 +261,17 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#transponieren" id="toc-transponieren" class="nav-link active" data-scroll-target="#transponieren"><span class="header-section-number">16.1</span> Transponieren</a>
+  <ul class="collapse">
+  <li><a href="#rezept-operationen-zusammenfassen" id="toc-rezept-operationen-zusammenfassen" class="nav-link" data-scroll-target="#rezept-operationen-zusammenfassen"><span class="header-section-number">16.1.1</span> Rezept: Operationen zusammenfassen</a></li>
+  </ul></li>
+  <li><a href="#hierarchisieren" id="toc-hierarchisieren" class="nav-link" data-scroll-target="#hierarchisieren"><span class="header-section-number">16.2</span> Hierarchisieren</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,8 +306,28 @@ Work in Progress
 
 </div>
 </div>
+<p>Die Funktionen zum Formen von Datenrahmen werden durch die <code>tidyverse</code>-Bibliothek <code>tidyr</code> bereitgestellt.</p>
+<section id="transponieren" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="transponieren"><span class="header-section-number">16.1</span> Transponieren</h2>
+<p><code>pivot_longer()</code></p>
+<p><code>pivot_wider()</code></p>
+<section id="rezept-operationen-zusammenfassen" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="rezept-operationen-zusammenfassen"><span class="header-section-number">16.1.1</span> Rezept: Operationen zusammenfassen</h3>
+</section>
+</section>
+<section id="hierarchisieren" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="hierarchisieren"><span class="header-section-number">16.2</span> Hierarchisieren</h2>
+<p><code>nest()</code></p>
+<p><code>unnest()</code></p>
+<p>##&nbsp;Transponieren mit Zeichenketten</p>
+<p>Ein spezieller Fall ist gegeben, wenn die Daten in Zeichenketten kodiert sind. Streng genommen handelt es sich hierbei nicht um eine Transponierenoperation, sondern um eine normale Transformation. Die entsprechenden Funktionen für diese Operation wurden aber nach dem gleichen Prinzip wie beim Hierarchisieren bzw. beim Transponieren angepasst.</p>
+<p><code>separate_longer_delim()</code></p>
+<p><code>separate_wider_delim()</code></p>
+<p>Gelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als <em>regulärer Ausdruck</em> der Funktion <code>separate_longer_regex()</code> bzw. <code>separate_wider_regex()</code> übergeben werden.</p>
+<p>Die Umkehrfunktion ist die Funktion <code>unite()</code>, mit der sich mehrere Vektoren zu einer Zeichenkette verketten lassen.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -549,4 +579,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></div></div></footer></body></html>
+</body></html>
