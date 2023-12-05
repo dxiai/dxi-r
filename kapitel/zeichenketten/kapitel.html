@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -373,6 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Bisher haben wir Zeichenketten als atomare Werte behandelt. In diesem Kapitel geht es die Operationen für Zeichenketten.</p>
 <p>Eine Zeichenkette hat eine Länge, die der Anzahl der Symbole in der Zeichenkette entspricht und jedes Symbol in einer Zeichenkette kann über dessen Position identifiziert werden.</p>
 <p>Wenn Daten als Zeichenketten vorliegen, dann handelt es sich immer um <strong>diskrete Daten</strong>.</p>
+<p>Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der <code>tidyverse</code>-Bibliothek <code>stringr</code> <span class="citation" data-cites="wickham_stringr_2023">(<a href="../../references.html#ref-wickham_stringr_2023" role="doc-biblioref">Wickham, 2023</a>)</span> bearbeiten.</p>
 <div id="tbl-zeichenketten-opeartionen" class="anchored">
 <table class="table">
 <caption>Tabelle&nbsp;9.1: Die wichtigsten Zeichenketten-Operationen</caption>
@@ -1689,6 +1709,11 @@ Warnung
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> eingeleseneTexte</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-wickham_stringr_2023" class="csl-entry" role="listitem">
+Wickham, H. (2023). <em>stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://stringr.tidyverse.org">https://stringr.tidyverse.org</a>
+</div>
+</div>
 </section>
 </section>
 </section>

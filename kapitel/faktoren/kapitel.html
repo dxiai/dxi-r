@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -344,6 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="verwendung-von-faktoren-in-r" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="verwendung-von-faktoren-in-r"><span class="header-section-number">10.1</span> Verwendung von Faktoren in R</h2>
 <p>Neben der Bedeutung für die Empirie sind Faktoren in R auch für die Darstellung von Daten von Bedeutung. Dabei wird die Ordnung der Faktorstufen für die Anordnung von Ergebnissen verwendet, die mit Hilfe eines Faktors berechnet wurden. Diese Ordnung wird von <code>ggplot()</code> und für die Sortierung der Ergebnisse gruppierter Daten verwendet. Die Verwendung von Faktoren für solche Aufgaben hat den Vorteil, dass die Reihenfolge der Datensätze nicht verändert werden muss.</p>
+<p>Im folgenden werden die Funktionen der <code>tidyverse</code>-Bibliothek <code>forcats</code> <span class="citation" data-cites="wickham_forcats_2023">(<a href="../../references.html#ref-wickham_forcats_2023" role="doc-biblioref">Wickham, 2023</a>)</span> vorgestellt.</p>
 <p>Die folgenden Beispiele verwenden die Stichprobe <code>digitales_umfeld.csv</code></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>digitales_umfeld <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"digitales_umfeld1.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Wenn wir zum Beispiel die Anzahl der Mobilgerätetypen bestimmen möchten, dann können wir naiv vorgehen:</p>
@@ -707,6 +727,11 @@ Warnung
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-wickham_forcats_2023" class="csl-entry" role="listitem">
+Wickham, H. (2023). <em>forcats: Tools for Working with Categorical Variables (Factors)</em>. <a href="https://forcats.tidyverse.org/">https://forcats.tidyverse.org/</a>
+</div>
+</div>
 </section>
 </section>
 

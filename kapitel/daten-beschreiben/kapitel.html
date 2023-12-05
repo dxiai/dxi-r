@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -266,15 +300,21 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#universelle-kennwerte" id="toc-universelle-kennwerte" class="nav-link active" data-scroll-target="#universelle-kennwerte"><span class="header-section-number">17.1</span> Universelle Kennwerte</a></li>
-  <li><a href="#lagemasse" id="toc-lagemasse" class="nav-link" data-scroll-target="#lagemasse"><span class="header-section-number">17.2</span> Lagemasse</a>
+  <li><a href="#fehlende-werte" id="toc-fehlende-werte" class="nav-link" data-scroll-target="#fehlende-werte"><span class="header-section-number">17.2</span> Fehlende Werte</a>
   <ul class="collapse">
-  <li><a href="#modus" id="toc-modus" class="nav-link" data-scroll-target="#modus"><span class="header-section-number">17.2.1</span> Modus</a></li>
-  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">17.2.2</span> Median</a></li>
+  <li><a href="#fehlende-werte-entfernen" id="toc-fehlende-werte-entfernen" class="nav-link" data-scroll-target="#fehlende-werte-entfernen"><span class="header-section-number">17.2.1</span> Fehlende Werte entfernen</a></li>
   </ul></li>
-  <li><a href="#streumasse" id="toc-streumasse" class="nav-link" data-scroll-target="#streumasse"><span class="header-section-number">17.3</span> Streumasse</a>
+  <li><a href="#lagemasse" id="toc-lagemasse" class="nav-link" data-scroll-target="#lagemasse"><span class="header-section-number">17.3</span> Lagemasse</a>
   <ul class="collapse">
-  <li><a href="#interquatilsabstand" id="toc-interquatilsabstand" class="nav-link" data-scroll-target="#interquatilsabstand"><span class="header-section-number">17.3.1</span> Interquatilsabstand</a></li>
-  <li><a href="#varianz-und-standardabweichung" id="toc-varianz-und-standardabweichung" class="nav-link" data-scroll-target="#varianz-und-standardabweichung"><span class="header-section-number">17.3.2</span> Varianz und Standardabweichung</a></li>
+  <li><a href="#modus" id="toc-modus" class="nav-link" data-scroll-target="#modus"><span class="header-section-number">17.3.1</span> Modus</a></li>
+  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">17.3.2</span> Median</a></li>
+  <li><a href="#mittelwert" id="toc-mittelwert" class="nav-link" data-scroll-target="#mittelwert"><span class="header-section-number">17.3.3</span> Mittelwert</a></li>
+  </ul></li>
+  <li><a href="#streumasse" id="toc-streumasse" class="nav-link" data-scroll-target="#streumasse"><span class="header-section-number">17.4</span> Streumasse</a>
+  <ul class="collapse">
+  <li><a href="#varianz-und-standardabweichung" id="toc-varianz-und-standardabweichung" class="nav-link" data-scroll-target="#varianz-und-standardabweichung"><span class="header-section-number">17.4.1</span> Varianz und Standardabweichung</a></li>
+  <li><a href="#interquatilsabstand" id="toc-interquatilsabstand" class="nav-link" data-scroll-target="#interquatilsabstand"><span class="header-section-number">17.4.2</span> Interquatilsabstand</a></li>
+  <li><a href="#mad" id="toc-mad" class="nav-link" data-scroll-target="#mad"><span class="header-section-number">17.4.3</span> MAD</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
@@ -314,24 +354,49 @@ Work in Progress
 </div>
 <section id="universelle-kennwerte" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="universelle-kennwerte"><span class="header-section-number">17.1</span> Universelle Kennwerte</h2>
+<p>In R ergibt sich dieser Wert direkt aus dem Stichprobenobjekt: Der <strong>Stichprobenumfang</strong> entspricht der <strong>Anzahl der Datensätze</strong> in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der <code>count()</code>-Funktion oder innerrhalb einer Transforrmation mit <code>mutate()</code> mit Hilfe der <code>n()</code>-Funktion.</p>
+<p>Der <em>Stichprobenumfang</em> ist einer der drei allgemeinen Kennwerte, die jede Stichprobe beschreiben. Wir bestimmen zuerst die numerischen Kennwerte unserer Beispielstichprobe.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stichprobenumfang</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>() <span class="ot">-&gt;</span> stichprobenumfang</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stichprobenumfang</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dabei erkennen wir, dass der Stichprobenumfang 27 beträgt. Wir erkennen zusätzlich, dass wir 53 Vektoren in unserem Stichprobenobjekt vorliegen haben.</p>
+<p>Neben dem <em>Stichprobenumfang</em> unterscheiden wir zusätzlich den <em>Variablenumfang</em>. Der <strong>Variablenumfang</strong> bezeichnet die <strong>Anzahl der gemessenen Merkmalsausprägungen</strong>. Damit ist die Gesamtzahl der gemessenen Werte für eine Variable gemeint. Für diesen Wert müssen wir für eine Variable <em>nicht vorhandene</em> Werte aus der Variable entfernen. Diese Werte sind in R mit dem Wert <code>NA</code> gekennzeichnet. Wir entfernen die <code>NA</code>-Werte mit Hilfe der <code>drop_na()</code>-Funktion.</p>
 </section>
-<section id="lagemasse" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="lagemasse"><span class="header-section-number">17.2</span> Lagemasse</h2>
-<section id="modus" class="level3" data-number="17.2.1">
-<h3 data-number="17.2.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">17.2.1</span> Modus</h3>
-</section>
-<section id="median" class="level3" data-number="17.2.2">
-<h3 data-number="17.2.2" class="anchored" data-anchor-id="median"><span class="header-section-number">17.2.2</span> Median</h3>
-<p>###&nbsp;Mittelwert</p>
+<section id="fehlende-werte" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="fehlende-werte"><span class="header-section-number">17.2</span> Fehlende Werte</h2>
+<section id="fehlende-werte-entfernen" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="fehlende-werte-entfernen"><span class="header-section-number">17.2.1</span> Fehlende Werte entfernen</h3>
 </section>
 </section>
-<section id="streumasse" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="streumasse"><span class="header-section-number">17.3</span> Streumasse</h2>
-<section id="interquatilsabstand" class="level3" data-number="17.3.1">
-<h3 data-number="17.3.1" class="anchored" data-anchor-id="interquatilsabstand"><span class="header-section-number">17.3.1</span> Interquatilsabstand</h3>
+<section id="lagemasse" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="lagemasse"><span class="header-section-number">17.3</span> Lagemasse</h2>
+<section id="modus" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">17.3.1</span> Modus</h3>
 </section>
-<section id="varianz-und-standardabweichung" class="level3" data-number="17.3.2">
-<h3 data-number="17.3.2" class="anchored" data-anchor-id="varianz-und-standardabweichung"><span class="header-section-number">17.3.2</span> Varianz und Standardabweichung</h3>
+<section id="median" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="median"><span class="header-section-number">17.3.2</span> Median</h3>
+</section>
+<section id="mittelwert" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="mittelwert"><span class="header-section-number">17.3.3</span> Mittelwert</h3>
+</section>
+</section>
+<section id="streumasse" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="streumasse"><span class="header-section-number">17.4</span> Streumasse</h2>
+<section id="varianz-und-standardabweichung" class="level3" data-number="17.4.1">
+<h3 data-number="17.4.1" class="anchored" data-anchor-id="varianz-und-standardabweichung"><span class="header-section-number">17.4.1</span> Varianz und Standardabweichung</h3>
+</section>
+<section id="interquatilsabstand" class="level3" data-number="17.4.2">
+<h3 data-number="17.4.2" class="anchored" data-anchor-id="interquatilsabstand"><span class="header-section-number">17.4.2</span> Interquatilsabstand</h3>
+</section>
+<section id="mad" class="level3" data-number="17.4.3">
+<h3 data-number="17.4.3" class="anchored" data-anchor-id="mad"><span class="header-section-number">17.4.3</span> MAD</h3>
 
 
 </section>

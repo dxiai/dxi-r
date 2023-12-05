@@ -313,7 +313,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" id="toc-schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten" class="nav-link" data-scroll-target="#schritt-4-entfernen-des-eindeutigen-vektors-und-exportieren-der-daten"><span class="header-section-number">14.2.4</span> Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten</a></li>
   <li><a href="#vollständige-lösung" id="toc-vollständige-lösung" class="nav-link" data-scroll-target="#vollständige-lösung"><span class="header-section-number">14.2.5</span> Vollständige Lösung</a></li>
   </ul></li>
-  <li><a href="#gruppieren" id="toc-gruppieren" class="nav-link" data-scroll-target="#gruppieren"><span class="header-section-number">14.3</span> Gruppieren</a></li>
+  <li><a href="#gruppieren" id="toc-gruppieren" class="nav-link" data-scroll-target="#gruppieren"><span class="header-section-number">14.3</span> Gruppieren</a>
+  <ul class="collapse">
+  <li><a href="#gruppiertes-zählen" id="toc-gruppiertes-zählen" class="nav-link" data-scroll-target="#gruppiertes-zählen"><span class="header-section-number">14.3.1</span> Gruppiertes Zählen</a></li>
+  <li><a href="#gruppiertes-nummerieren" id="toc-gruppiertes-nummerieren" class="nav-link" data-scroll-target="#gruppiertes-nummerieren"><span class="header-section-number">14.3.2</span> Gruppiertes Nummerieren</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -547,8 +551,68 @@ Hinweis
 </section>
 <section id="gruppieren" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="gruppieren"><span class="header-section-number">14.3</span> Gruppieren</h2>
+<p>In R lassen sich grundsätzlich alle Opeationen auch als gruppierte Operationen über einen Datenrahmen durchführen. Dazu wird die <code>group_by()</code>-Funktion verwendet, um gruppierte Operationen anzuzeigen. Dieser Funktion können ein oder mehrere Sekundärindizes als Parameter übergeben werden, die zum Gruppieren verwendet werden.</p>
+<div id="exm-gruppieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 14.2 (Gruppierte Summe und Mittelwert) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(index) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">summe =</span> <span class="fu">sum</span>(werte)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">mittelwert =</span> <span class="fu">mean</span>(werte)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wird eine Funktion <code>group_by()</code> ohne eine nachfolgende Operation ausgeführt, dann hat die Funktionen <strong>keinen</strong> erkennbaren Effekt auf das Ergebnis.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nach eine gruppierten Operation sollte die Gruppierung <strong>immer</strong> mit <code>ungroup()</code> aufgehoben werden, damit nachfolgende nichtgruppierte Operationen nicht versehentlich als gruppierte Operationen durchgeführt werden.</p>
+</div>
+</div>
+<section id="gruppiertes-zählen" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="gruppiertes-zählen"><span class="header-section-number">14.3.1</span> Gruppiertes Zählen</h3>
+<p>R verfügt mit der Funktion <code>table()</code> das gemeinsame Auftreten von Werten in zwei diskretskalierten Vektoren zu zählen. Diese Funktion erfordert jedoch zwei voneinander unabhängige Vektoren. Die Funktion <code>count()</code> bietet eine elegante Alternative für Vektoren in Datenrahmen. In diesem Fall werden die Vektoren als Sekundärindizes behandelt.</p>
+<div id="exm-gruppiertes-nummerieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 14.3 (Gruppiertes Zählen) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(index)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das gruppierte Zählen hat gegenüber der Funktion <code>table()</code> den Vorteil, dass mehr als zwei Vektoren zusammengefasst werden können.</p>
+</section>
+<section id="gruppiertes-nummerieren" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="gruppiertes-nummerieren"><span class="header-section-number">14.3.2</span> Gruppiertes Nummerieren</h3>
+<p>Nummerieren ist eine hilfreiche Funktion, um die Position von Werten zu bestimmen. Das Ergebnis ist ein eindeutige Nummer für jeden Datensatz. Beim Gruppierten Nummerieren werden die Datensätze innerhalb ihrer Gruppe nummeriert.</p>
+<div id="exm-gruppiertes-nummerieren" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 14.4 (Gruppiertes Nummerieren) </strong></span>&nbsp;</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(index) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">nr =</span> <span class="fu">row_number</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
