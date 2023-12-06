@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -270,6 +289,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#rezept-operationen-zusammenfassen" id="toc-rezept-operationen-zusammenfassen" class="nav-link" data-scroll-target="#rezept-operationen-zusammenfassen"><span class="header-section-number">16.1.1</span> Rezept: Operationen zusammenfassen</a></li>
   </ul></li>
   <li><a href="#hierarchisieren" id="toc-hierarchisieren" class="nav-link" data-scroll-target="#hierarchisieren"><span class="header-section-number">16.2</span> Hierarchisieren</a></li>
+  <li><a href="#transponieren-mit-zeichenketten" id="toc-transponieren-mit-zeichenketten" class="nav-link" data-scroll-target="#transponieren-mit-zeichenketten"><span class="header-section-number">16.3</span> Transponieren mit Zeichenketten</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -317,16 +337,29 @@ Work in Progress
 </section>
 <section id="hierarchisieren" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="hierarchisieren"><span class="header-section-number">16.2</span> Hierarchisieren</h2>
-<p><code>nest()</code></p>
-<p><code>unnest()</code></p>
-<p>##&nbsp;Transponieren mit Zeichenketten</p>
+<p>Beim Hierarchisieren werden ausgewählte Vektoren eines Datenrahmens entlang eines Sekundärinzes zu separaten Datenrahmen organisiert und in den ursprünglichen Datenrahmen eingebettet. Über solche eingebettete Datenrahmen lassen sich hierarchische Datenstrukturen erzeugen, die beispielsweise in einem JSON- oder YAML-Dokument (s. <a href="../daten-importieren-exportieren/kapitel.html"><span>Kapitel&nbsp;7</span></a>) gespeichert werden können. In R übernimmt diese Aufgabe die Funktion <code>nest()</code>.</p>
+<p>Weil R jedoch keine Vektoren mit Datenrahmen erlaubt, müssen diese Datenrahmen zusätzlich in eine Liste geschachtelt werden. Diese Liste dient nur zur Ablage in einem Vektor und besteht immer nur aus einem Element, nämlich dem eingebetteten Datenrahmen.</p>
+<p>Mit der Funktion <code>unnest()</code> lassen sich eingebettete Datenrahmen wieder ausbetten. Diese Operation funktioniert jedoch nur dann zuverlässig, wenn alle eingebetteten Datenrahmen einheitliche Vektoren haben. Ist diese Bedingung nicht gegeben, dann erzeugt R zusätzliche Vektoren mit <code>NA</code> für alle Datensätze, die die Vektoren ursprünglich nicht enthielten. Die Funktion <code>unnest()</code> führt mehrere Spaltenkonkatenationen aus und ähnelt damit im Ergebnis der Funktion <code>bind_rows()</code>.</p>
+<p>Die beiden Funktionen <code>nest()</code> und <code>unnest()</code> sind speziell zur Erzeugung bzw. zum Auflösen von eingebetteten Datenrahmen gedacht. Gelegentlich enthält ein Datenrahmen einen Vektor mit einfachen Listen oder benannten Listen. Solche Vektoren sind vom Typ <code>list</code> und sollten mit den Funktionn <code>unnest_longer()</code> für einfache Listen sowie <code>unnest_wider()</code> für einheitlich benannte Listen <span class="citation" data-cites="wickham_tidyr_2023">(<a href="../../references.html#ref-wickham_tidyr_2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>.</p>
+</section>
+<section id="transponieren-mit-zeichenketten" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="transponieren-mit-zeichenketten"><span class="header-section-number">16.3</span> Transponieren mit Zeichenketten</h2>
 <p>Ein spezieller Fall ist gegeben, wenn die Daten in Zeichenketten kodiert sind. Streng genommen handelt es sich hierbei nicht um eine Transponierenoperation, sondern um eine normale Transformation. Die entsprechenden Funktionen für diese Operation wurden aber nach dem gleichen Prinzip wie beim Hierarchisieren bzw. beim Transponieren angepasst.</p>
-<p><code>separate_longer_delim()</code></p>
-<p><code>separate_wider_delim()</code></p>
+<p>Wie beim Transponieren kann ein Vektor in die Lang- oder die Breitform getrennt werden. Für die meisten Anwendungen eignen sich zwei Funktionen:</p>
+<ul>
+<li><code>separate_longer_delim()</code></li>
+<li><code>separate_wider_delim()</code></li>
+</ul>
 <p>Gelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als <em>regulärer Ausdruck</em> der Funktion <code>separate_longer_regex()</code> bzw. <code>separate_wider_regex()</code> übergeben werden.</p>
-<p>Die Umkehrfunktion ist die Funktion <code>unite()</code>, mit der sich mehrere Vektoren zu einer Zeichenkette verketten lassen.</p>
+<p>Für festkodierte Werte stehen die beiden Funktionen <code>separate_longer_position()</code> und <code>separate_wider_position()</code> zur Verfügung. Diese Funktionen erwarten einen Vektor mit den Feldbreiten, um die Werte trennen zu können.</p>
+<p>Die Umkehrfunktion für alle <code>separate_</code>-Funktionen ist die Funktion <code>unite()</code>, mit der sich die Werte aus einer Lang- oder Breitform zu einem Zeichenkettevektor verketten lassen.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-wickham_tidyr_2023" class="csl-entry" role="listitem">
+Wickham, H., Vaughan, D., &amp; Girlich, M. (2023). <em>tidyr: Tidy Messy Data</em>. <a href="https://tidyr.tidyverse.org">https://tidyr.tidyverse.org</a>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
