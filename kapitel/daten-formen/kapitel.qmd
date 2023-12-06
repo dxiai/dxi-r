@@ -1,6 +1,4 @@
 ---
-# bibliography: references.bib
-
 abstract: ""
 
 execute: 
@@ -13,19 +11,67 @@ execute:
 ## Work in Progress
 :::
 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
+```
+
 Die Funktionen zum Formen von Datenrahmen werden durch die `tidyverse`-Bibliothek `tidyr` bereitgestellt. 
 
 ## Transponieren
 
+Beim Transponieren von Datenrahmen werden die Spalten und Zeilen von Merkmalen neu ausgerichtet. 
 
+Das Transponieren von Datenrahmen ist keine vollständige Operation, sondern unterliegt je nach Ausgangsorientierung unterschiedlichen Anforderungen.
 
-`pivot_longer()`
+Die Funktion `pivot_longer()` überführt Vektoren von der Matrixform (Breitform) in die Vektorform (Langform). Alle der transponierten Vektoren müssen dafür vom **gleichen Datentyp** sein. Beim Transponieren in die Vektorform werden immer zwei Vektoren erzeugt: 
 
-`pivot_wider()`
+- Der Wertevektor, der die Werte der ursprünglichen Vektoren aufnimmt und 
+- Der Namenvektor für die ursprünglichen Vektorennamen.
+
+Falls keine anderen Angaben gemacht werden, heisst der Wertevektor `value` und der Namenvektor `name`. 
+
+::: {.callout-note}
+## Merke
+Der Namenvektor ist gleichzeitig ein **Sekundärindex**.
+:::
+
+Fall nicht alle Vektoren transponiert werden, dann werden die nicht transponierten Teile der Datensätze auf alle Datensätze der transponierten Vektoren erweitert. 
+
+::: {.callout-note}
+## Merke
+
+Ein Primärindex wird nach dem Transponieren zum Sekundärindex.
+:::
+
+::: {#exm-pivot_longer}
+## Transponieren in die Vektorform
+
+```{r}
+
+```
+:::
+
+Die Funktion `pivot_wider()` transponiert einen Datenrahmen von der Vektorform (Langform) in die Matrixform (Breitform). Damit diese Operation durchführbar ist, muss neben dem Wertevektor ein Sekundärindex für die Vektorennamen **und** ein Sekundärindex für die *zeilenweise Zuordnung* der Werte vorliegen. Dieser Index wird von R verwendet, um die Vektorennamen zu erzeugen: Die Operation erzeugt für jeden diskreten Wert im Sekundärindex einen Vektor für die Matrixform. Der zweite Sekundärindex wird nach dem Transponieren zum Primärindex. 
+
+Existieren weitere Vektoren im Datenrahmen, dann werden diese beim Transponieren zusammengefasst, so dass die Werte nach dem Transponieren nur noch einmal im Ergebnis erscheinen.
+
+::: {.callout-warning}
+## Achtung
+Existiert kein zweiter Sekundärindex beim Transponieren in die Breitform, dann fasst R alle Datensätze zusammen, bei denen alle Werte in den zusätzlichen Vektoren gleich sind. Dieses Verhalten **kann** dazuführen, dass mehr Werte transponiert werden müssen als Zieldatensätze erzeugt werden können. In solchen Fällen werden die überzähligen Werte als Listenvektor abgelegt. Dieses Verhalten ist normalerweise *unerwünscht*. 
+:::
+
+::: {#exm-pivot_wider}
+## Transponieren in die Matrixform
+
+```{r}
+
+```
+:::
 
 ### Rezept: Operationen zusammenfassen
 
 
+### Rezept: Gruppiertes Zählen schöner präsentieren
 
 ## Hierarchisieren 
 
