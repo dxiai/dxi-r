@@ -1,8 +1,5 @@
 ---
 abstract: ""
-
-execute: 
-  echo: false
 ---
 
 # Daten formen {#sec-chapter-daten-formen}
@@ -16,6 +13,10 @@ knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
 ```
 
 Die Funktionen zum Formen von Datenrahmen werden durch die `tidyverse`-Bibliothek `tidyr` bereitgestellt. 
+
+```{r}
+library(tidyverse)
+```
 
 ## Transponieren
 
@@ -48,30 +49,145 @@ Ein Primärindex wird nach dem Transponieren zum Sekundärindex.
 
 ```{r}
 
+# Ursprünglich Daten
+(schweizerStaedte = 
+    read_csv("geschlechter_schweizer_staedte.csv") |>
+    select(-c(S, N)))
+
+# Transponieren in die Vektorform
+(schweizerStaedte |>
+    pivot_longer(- c(Ort, Gesamt)) ->
+        schweizerStaedteLang)
 ```
 :::
 
 Die Funktion `pivot_wider()` transponiert einen Datenrahmen von der Vektorform (Langform) in die Matrixform (Breitform). Damit diese Operation durchführbar ist, muss neben dem Wertevektor ein Sekundärindex für die Vektorennamen **und** ein Sekundärindex für die *zeilenweise Zuordnung* der Werte vorliegen. Dieser Index wird von R verwendet, um die Vektorennamen zu erzeugen: Die Operation erzeugt für jeden diskreten Wert im Sekundärindex einen Vektor für die Matrixform. Der zweite Sekundärindex wird nach dem Transponieren zum Primärindex. 
 
-Existieren weitere Vektoren im Datenrahmen, dann werden diese beim Transponieren zusammengefasst, so dass die Werte nach dem Transponieren nur noch einmal im Ergebnis erscheinen.
-
-::: {.callout-warning}
-## Achtung
-Existiert kein zweiter Sekundärindex beim Transponieren in die Breitform, dann fasst R alle Datensätze zusammen, bei denen alle Werte in den zusätzlichen Vektoren gleich sind. Dieses Verhalten **kann** dazuführen, dass mehr Werte transponiert werden müssen als Zieldatensätze erzeugt werden können. In solchen Fällen werden die überzähligen Werte als Listenvektor abgelegt. Dieses Verhalten ist normalerweise *unerwünscht*. 
-:::
-
 ::: {#exm-pivot_wider}
 ## Transponieren in die Matrixform
 
 ```{r}
+# Daten transponieren
+schweizerStaedteLang |> 
+    select(-Gesamt) |>
+    pivot_wider(names_from = Ort)
+```
+:::
 
+Existieren weitere Vektoren im Datenrahmen, dann werden diese beim Transponieren zusammengefasst, so dass die Werte nach dem Transponieren nur noch einmal im Ergebnis erscheinen.
+
+::: {.callout-warning}
+## Achtung
+
+Existiert kein zweiter Sekundärindex beim Transponieren in die Breitform, dann fasst R alle Datensätze zusammen, bei denen alle Werte in den zusätzlichen Vektoren gleich sind. Dieses Verhalten **kann** dazuführen, dass mehr Werte transponiert werden müssen als Zieldatensätze erzeugt werden können. In solchen Fällen werden die überzähligen Werte als Listenvektor abgelegt (@exm-bad-pivot_wider). Dieses Verhalten ist normalerweise *unerwünscht*. 
+:::
+
+::: {#exm-bad-pivot_wider}
+## Transponieren mehrdeutiger Werte in die Matrixform
+
+```{r}
+# Ursprüngliche Daten einlesen
+(abDaten = read_csv2("data_ab_semi.csv")) 
+
+# Daten transponieren
+abDaten |> 
+    pivot_wider(names_from = Angebot, values_from = Punkte)
 ```
 :::
 
 ### Rezept: Operationen zusammenfassen
 
+#### Problem
+
+Es sollen mehrere Vektoren eines Datenrahmens auf die gleiche Art transformiert oder aggregiert werden. 
+
+#### Lösung
+
+Die Vektoren werden zuerst in die Vektorform (Langform) *transponiert*. Anschliessend wird eine (gruppierte) Transformation oder gruppierte Aggregation durchgeführt.
+
+::: {#exm-pivot_longer-aggregate}
+## Zusammengefasstes Aggregieren
+```{r}
+schweizerStaedte |> 
+    pivot_longer(-c(Ort, Gesamt)) |>
+    group_by(Ort, Gesamt) |>
+    summarise(
+        sum(value)
+    )
+```
+:::
+
+#### Erklärung
+
+Durch das transponieren entstehen ein Namenvektor und ein Wertevektor, wobei der Namenvektor auch als Sekundärindex behandelt werden kann. Sich wiederholende Operationen lassen sich so in einer gruppierten Operation zusammenfassen. Durch das Transponieren lässt sich die Code-Komplexität reduzieren, wodurch die Lösung insgesamt weniger fehleranfällig wird. 
+
+Diese Logik lässt sich auf alle Datenoperationen anwenden. Im @exm-pivot_longer-mutate werden die Anteile am Gesamtvolumen von vier Merkmalen berechnet. Ohne das Transponieren würden repetitive Codeteile entstehen (@exm-no-pivot_longer-mutate). Die sich wiederholenden Codeteile entfallen durch das Transponieren und können in einer Operation behandelt werden. 
+
+::: {#exm-no-pivot_longer-mutate}
+## Bestimmung des Anteils mehrerer Merkmale ohne Transponieren
+```{r}
+schweizerStaedte |> 
+    mutate(
+        Anteil_S_M = S_M / Gesamt,
+        Anteil_S_F = S_F / Gesamt, 
+        Anteil_N_M = N_M / Gesamt,
+        Anteil_N_F = N_F / Gesamt
+    ) |>
+    select(c(Ort, starts_with("Anteil")))
+```
+:::
+
+
+::: {#exm-pivot_longer-mutate}
+## Bestimmung des Anteils mehrerer Merkmale
+```{r}
+schweizerStaedte |> 
+    pivot_longer(- c(Ort, Gesamt)) |>
+    mutate(
+        value = value / Gesamt
+    ) |>
+    # Anpassen des Ergebnisses zur Präsentation
+    select(- Gesamt) |>
+    pivot_wider(names_prefix = "Anteil_")
+```
+:::
+
 
 ### Rezept: Gruppiertes Zählen schöner präsentieren
+
+#### Problem
+
+Beim gruppierten Zählen werden die Sekundärindizes und die Ergebnisse nebeneinander dargestellt, so dass sich die Ergebnisse nur schwer vergleichen lassen. 
+
+#### Lösung
+
+Nach dem gruppierten Zählen wird das Ergebnis in die Matrixform transponiert.
+
+::: {#exm-gruppiertes-zaehlen-pivot}
+## Lesbarere Präsentation des gruppierten Zählen
+```{r}
+
+daten = read_csv2("data_ab_semi.csv")
+
+daten |>
+    count(Angebot, Interesse) |>
+    pivot_wider(
+        names_from = Angebot, 
+        values_from = n, 
+        values_fill = 0
+    )
+```
+:::
+
+#### Erklärung
+
+Werden beim Zählen über einen Datenrahmen mehrere Sekundärindizes verwendet, ist das Ergebnis nur schwer interpretierbar. Damit das Ergebnis für Menschen leichter zu lesen ist, muss die spaltenweise Darstellung in ein eleganteres Format überführt werden. Mit der Funktion `pivot_wider()` lassen sich die Daten in eine Kreuztabelle überführen. Das Ergebnis ähnelt nach dem Transponieren dem Ergebnis der `table()`-Funktion. Auf diese Weise lassen sich Häufungen in den Werten leichter erkennen. 
+
+In der Lösung werden drei besondere Parameter eingesetzt: 
+
+1. Der Parameter `names_from` zeigt an, aus welchem Index die neuen Vektornamen  erzeugt werden sollen. 
+2. Der Parameter `values_from` zeigt an, in welchem Vektor die zu transponierenden Werte stehen. 
+3. der Parameter `values_fill` kommt zur Anwendung, wenn für eine Position kein Wert bereitsteht. Für die Zählung bedeutet das, dass nichts gezählt wurde. Deshalb wurde der Wert im Beispiel auf den Wert `0` gesetzt.
 
 ## Hierarchisieren 
 
