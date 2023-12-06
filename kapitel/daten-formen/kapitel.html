@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -287,6 +321,7 @@ div.csl-indent {
   <li><a href="#transponieren" id="toc-transponieren" class="nav-link active" data-scroll-target="#transponieren"><span class="header-section-number">16.1</span> Transponieren</a>
   <ul class="collapse">
   <li><a href="#rezept-operationen-zusammenfassen" id="toc-rezept-operationen-zusammenfassen" class="nav-link" data-scroll-target="#rezept-operationen-zusammenfassen"><span class="header-section-number">16.1.1</span> Rezept: Operationen zusammenfassen</a></li>
+  <li><a href="#rezept-gruppiertes-zählen-schöner-präsentieren" id="toc-rezept-gruppiertes-zählen-schöner-präsentieren" class="nav-link" data-scroll-target="#rezept-gruppiertes-zählen-schöner-präsentieren"><span class="header-section-number">16.1.2</span> Rezept: Gruppiertes Zählen schöner präsentieren</a></li>
   </ul></li>
   <li><a href="#hierarchisieren" id="toc-hierarchisieren" class="nav-link" data-scroll-target="#hierarchisieren"><span class="header-section-number">16.2</span> Hierarchisieren</a></li>
   <li><a href="#transponieren-mit-zeichenketten" id="toc-transponieren-mit-zeichenketten" class="nav-link" data-scroll-target="#transponieren-mit-zeichenketten"><span class="header-section-number">16.3</span> Transponieren mit Zeichenketten</a></li>
@@ -327,12 +362,373 @@ Work in Progress
 </div>
 </div>
 <p>Die Funktionen zum Formen von Datenrahmen werden durch die <code>tidyverse</code>-Bibliothek <code>tidyr</code> bereitgestellt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
 <section id="transponieren" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="transponieren"><span class="header-section-number">16.1</span> Transponieren</h2>
-<p><code>pivot_longer()</code></p>
-<p><code>pivot_wider()</code></p>
+<p>Beim Transponieren von Datenrahmen werden die Spalten und Zeilen von Merkmalen neu ausgerichtet.</p>
+<p>Das Transponieren von Datenrahmen ist keine vollständige Operation, sondern unterliegt je nach Ausgangsorientierung unterschiedlichen Anforderungen.</p>
+<p>Die Funktion <code>pivot_longer()</code> überführt Vektoren von der Matrixform (Breitform) in die Vektorform (Langform). Alle der transponierten Vektoren müssen dafür vom <strong>gleichen Datentyp</strong> sein. Beim Transponieren in die Vektorform werden immer zwei Vektoren erzeugt:</p>
+<ul>
+<li>Der Wertevektor, der die Werte der ursprünglichen Vektoren aufnimmt und</li>
+<li>Der Namenvektor für die ursprünglichen Vektorennamen.</li>
+</ul>
+<p>Falls keine anderen Angaben gemacht werden, heisst der Wertevektor <code>value</code> und der Namenvektor <code>name</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Der Namenvektor ist gleichzeitig ein <strong>Sekundärindex</strong>.</p>
+</div>
+</div>
+<p>Fall nicht alle Vektoren transponiert werden, dann werden die nicht transponierten Teile der Datensätze auf alle Datensätze der transponierten Vektoren erweitert.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ein Primärindex wird nach dem Transponieren zum Sekundärindex.</p>
+</div>
+</div>
+<div id="exm-pivot_longer" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.1 (Transponieren in die Vektorform) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;Ursprünglich Daten</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">schweizerStaedte =</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"geschlechter_schweizer_staedte.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(S, N)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 10 Columns: 8
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): Ort
+dbl (7): Gesamt, S_M, S_F, N_M, N_F, S, N
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   Ort         Gesamt    S_M    S_F   N_M   N_F
+   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Winterthur  118681  57832  59074   817   958
+ 2 Zürich      435319 214943 212778  3858  3740
+ 3 Biel/Bienne  55600  27243  27827   232   298
+ 4 Bern        137529  65215  69291  1580  1443
+ 5 Luzern       85840  40576  43264   837  1163
+ 6 Basel       178270  84896  88656  2586  2132
+ 7 St. Gallen   78109  38303  38628   529   649
+ 8 Lugano       63796  30116  32348   548   784
+ 9 Lausanne    145524  68516  72902  2119  1987
+10 Genève      207630  97990 105850  1496  2294</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transponieren in die Vektorform</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>(schweizerStaedte <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">-</span> <span class="fu">c</span>(Ort, Gesamt)) <span class="ot">-&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        schweizerStaedteLang)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40 × 4
+   Ort         Gesamt name   value
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 Winterthur  118681 S_M    57832
+ 2 Winterthur  118681 S_F    59074
+ 3 Winterthur  118681 N_M      817
+ 4 Winterthur  118681 N_F      958
+ 5 Zürich      435319 S_M   214943
+ 6 Zürich      435319 S_F   212778
+ 7 Zürich      435319 N_M     3858
+ 8 Zürich      435319 N_F     3740
+ 9 Biel/Bienne  55600 S_M    27243
+10 Biel/Bienne  55600 S_F    27827
+# ℹ 30 more rows</code></pre>
+</div>
+</div>
+</div>
+<p>Die Funktion <code>pivot_wider()</code> transponiert einen Datenrahmen von der Vektorform (Langform) in die Matrixform (Breitform). Damit diese Operation durchführbar ist, muss neben dem Wertevektor ein Sekundärindex für die Vektorennamen <strong>und</strong> ein Sekundärindex für die <em>zeilenweise Zuordnung</em> der Werte vorliegen. Dieser Index wird von R verwendet, um die Vektorennamen zu erzeugen: Die Operation erzeugt für jeden diskreten Wert im Sekundärindex einen Vektor für die Matrixform. Der zweite Sekundärindex wird nach dem Transponieren zum Primärindex.</p>
+<div id="exm-pivot_wider" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.2 (Transponieren in die Matrixform) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten transponieren</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>schweizerStaedteLang <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>Gesamt) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Ort)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 11
+  name  Winterthur Zürich `Biel/Bienne`  Bern Luzern Basel `St. Gallen` Lugano
+  &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1 S_M        57832 214943         27243 65215  40576 84896        38303  30116
+2 S_F        59074 212778         27827 69291  43264 88656        38628  32348
+3 N_M          817   3858           232  1580    837  2586          529    548
+4 N_F          958   3740           298  1443   1163  2132          649    784
+# ℹ 2 more variables: Lausanne &lt;dbl&gt;, Genève &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+<p>Existieren weitere Vektoren im Datenrahmen, dann werden diese beim Transponieren zusammengefasst, so dass die Werte nach dem Transponieren nur noch einmal im Ergebnis erscheinen.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Existiert kein zweiter Sekundärindex beim Transponieren in die Breitform, dann fasst R alle Datensätze zusammen, bei denen alle Werte in den zusätzlichen Vektoren gleich sind. Dieses Verhalten <strong>kann</strong> dazuführen, dass mehr Werte transponiert werden müssen als Zieldatensätze erzeugt werden können. In solchen Fällen werden die überzähligen Werte als Listenvektor abgelegt (<a href="#exm-bad-pivot_wider">Beispiel&nbsp;<span>16.3</span></a>). Dieses Verhalten ist normalerweise <em>unerwünscht</em>.</p>
+</div>
+</div>
+<div id="exm-bad-pivot_wider" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.3 (Transponieren mehrdeutiger Werte in die Matrixform) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ursprüngliche Daten einlesen</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">abDaten =</span> <span class="fu">read_csv2</span>(<span class="st">"data_ab_semi.csv"</span>)) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 136 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (1): Angebot
+dbl (3): Punkte, Interesse, Bedeutung
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 136 × 4
+   Punkte Angebot Interesse Bedeutung
+    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1   207. B               5         5
+ 2   101. A               2         3
+ 3   312. A               5         5
+ 4   242. B               3         2
+ 5   256. A               2         2
+ 6   188. B               6         2
+ 7   343. B               3         6
+ 8   202. A               5         5
+ 9   175. A               3         3
+10   213. B               3         2
+# ℹ 126 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten transponieren</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>abDaten <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Angebot, <span class="at">values_from =</span> Punkte)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Values from `Punkte` are not uniquely identified; output will contain
+list-cols.
+• Use `values_fn = list` to suppress this warning.
+• Use `values_fn = {summary_fun}` to summarise duplicates.
+• Use the following dplyr code to identify duplicates.
+  {data} %&gt;%
+  dplyr::group_by(Interesse, Bedeutung, Angebot) %&gt;%
+  dplyr::summarise(n = dplyr::n(), .groups = "drop") %&gt;%
+  dplyr::filter(n &gt; 1L)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 31 × 4
+   Interesse Bedeutung B         A        
+       &lt;dbl&gt;     &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   
+ 1         5         5 &lt;dbl [4]&gt; &lt;dbl [4]&gt;
+ 2         2         3 &lt;dbl [4]&gt; &lt;dbl [4]&gt;
+ 3         3         2 &lt;dbl [6]&gt; &lt;dbl [2]&gt;
+ 4         2         2 &lt;dbl [1]&gt; &lt;dbl [6]&gt;
+ 5         6         2 &lt;dbl [2]&gt; &lt;NULL&gt;   
+ 6         3         6 &lt;dbl [4]&gt; &lt;dbl [3]&gt;
+ 7         3         3 &lt;dbl [8]&gt; &lt;dbl [2]&gt;
+ 8         2         4 &lt;dbl [2]&gt; &lt;dbl [2]&gt;
+ 9         4         2 &lt;dbl [2]&gt; &lt;dbl [2]&gt;
+10         5         6 &lt;dbl [1]&gt; &lt;dbl [1]&gt;
+# ℹ 21 more rows</code></pre>
+</div>
+</div>
+</div>
 <section id="rezept-operationen-zusammenfassen" class="level3" data-number="16.1.1">
 <h3 data-number="16.1.1" class="anchored" data-anchor-id="rezept-operationen-zusammenfassen"><span class="header-section-number">16.1.1</span> Rezept: Operationen zusammenfassen</h3>
+<section id="problem" class="level4" data-number="16.1.1.1">
+<h4 data-number="16.1.1.1" class="anchored" data-anchor-id="problem"><span class="header-section-number">16.1.1.1</span> Problem</h4>
+<p>Es sollen mehrere Vektoren eines Datenrahmens auf die gleiche Art transformiert oder aggregiert werden.</p>
+</section>
+<section id="lösung" class="level4" data-number="16.1.1.2">
+<h4 data-number="16.1.1.2" class="anchored" data-anchor-id="lösung"><span class="header-section-number">16.1.1.2</span> Lösung</h4>
+<p>Die Vektoren werden zuerst in die Vektorform (Langform) <em>transponiert</em>. Anschliessend wird eine (gruppierte) Transformation oder gruppierte Aggregation durchgeführt.</p>
+<div id="exm-pivot_longer-aggregate" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.4 (Zusammengefasstes Aggregieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>schweizerStaedte <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(Ort, Gesamt)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Ort, Gesamt) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sum</span>(value)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Ort'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+# Groups:   Ort [10]
+   Ort         Gesamt `sum(value)`
+   &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Basel       178270       178270
+ 2 Bern        137529       137529
+ 3 Biel/Bienne  55600        55600
+ 4 Genève      207630       207630
+ 5 Lausanne    145524       145524
+ 6 Lugano       63796        63796
+ 7 Luzern       85840        85840
+ 8 St. Gallen   78109        78109
+ 9 Winterthur  118681       118681
+10 Zürich      435319       435319</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="erklärung" class="level4" data-number="16.1.1.3">
+<h4 data-number="16.1.1.3" class="anchored" data-anchor-id="erklärung"><span class="header-section-number">16.1.1.3</span> Erklärung</h4>
+<p>Durch das transponieren entstehen ein Namenvektor und ein Wertevektor, wobei der Namenvektor auch als Sekundärindex behandelt werden kann. Sich wiederholende Operationen lassen sich so in einer gruppierten Operation zusammenfassen. Durch das Transponieren lässt sich die Code-Komplexität reduzieren, wodurch die Lösung insgesamt weniger fehleranfällig wird.</p>
+<p>Diese Logik lässt sich auf alle Datenoperationen anwenden. Im <a href="#exm-pivot_longer-mutate">Beispiel&nbsp;<span>16.6</span></a> werden die Anteile am Gesamtvolumen von vier Merkmalen berechnet. Ohne das Transponieren würden repetitive Codeteile entstehen (<a href="#exm-no-pivot_longer-mutate">Beispiel&nbsp;<span>16.5</span></a>). Die sich wiederholenden Codeteile entfallen durch das Transponieren und können in einer Operation behandelt werden.</p>
+<div id="exm-no-pivot_longer-mutate" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.5 (Bestimmung des Anteils mehrerer Merkmale ohne Transponieren) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>schweizerStaedte <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">Anteil_S_M =</span> S_M <span class="sc">/</span> Gesamt,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">Anteil_S_F =</span> S_F <span class="sc">/</span> Gesamt, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">Anteil_N_M =</span> N_M <span class="sc">/</span> Gesamt,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">Anteil_N_F =</span> N_F <span class="sc">/</span> Gesamt</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">c</span>(Ort, <span class="fu">starts_with</span>(<span class="st">"Anteil"</span>)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   Ort         Anteil_S_M Anteil_S_F Anteil_N_M Anteil_N_F
+   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Winterthur       0.487      0.498    0.00688    0.00807
+ 2 Zürich           0.494      0.489    0.00886    0.00859
+ 3 Biel/Bienne      0.490      0.500    0.00417    0.00536
+ 4 Bern             0.474      0.504    0.0115     0.0105 
+ 5 Luzern           0.473      0.504    0.00975    0.0135 
+ 6 Basel            0.476      0.497    0.0145     0.0120 
+ 7 St. Gallen       0.490      0.495    0.00677    0.00831
+ 8 Lugano           0.472      0.507    0.00859    0.0123 
+ 9 Lausanne         0.471      0.501    0.0146     0.0137 
+10 Genève           0.472      0.510    0.00721    0.0110 </code></pre>
+</div>
+</div>
+</div>
+<div id="exm-pivot_longer-mutate" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.6 (Bestimmung des Anteils mehrerer Merkmale) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>schweizerStaedte <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">-</span> <span class="fu">c</span>(Ort, Gesamt)) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">value =</span> value <span class="sc">/</span> Gesamt</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Anpassen des Ergebnisses zur Präsentation</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span> Gesamt) <span class="sc">|&gt;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_prefix =</span> <span class="st">"Anteil_"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   Ort         Anteil_S_M Anteil_S_F Anteil_N_M Anteil_N_F
+   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Winterthur       0.487      0.498    0.00688    0.00807
+ 2 Zürich           0.494      0.489    0.00886    0.00859
+ 3 Biel/Bienne      0.490      0.500    0.00417    0.00536
+ 4 Bern             0.474      0.504    0.0115     0.0105 
+ 5 Luzern           0.473      0.504    0.00975    0.0135 
+ 6 Basel            0.476      0.497    0.0145     0.0120 
+ 7 St. Gallen       0.490      0.495    0.00677    0.00831
+ 8 Lugano           0.472      0.507    0.00859    0.0123 
+ 9 Lausanne         0.471      0.501    0.0146     0.0137 
+10 Genève           0.472      0.510    0.00721    0.0110 </code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="rezept-gruppiertes-zählen-schöner-präsentieren" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="rezept-gruppiertes-zählen-schöner-präsentieren"><span class="header-section-number">16.1.2</span> Rezept: Gruppiertes Zählen schöner präsentieren</h3>
+<section id="problem-1" class="level4" data-number="16.1.2.1">
+<h4 data-number="16.1.2.1" class="anchored" data-anchor-id="problem-1"><span class="header-section-number">16.1.2.1</span> Problem</h4>
+<p>Beim gruppierten Zählen werden die Sekundärindizes und die Ergebnisse nebeneinander dargestellt, so dass sich die Ergebnisse nur schwer vergleichen lassen.</p>
+</section>
+<section id="lösung-1" class="level4" data-number="16.1.2.2">
+<h4 data-number="16.1.2.2" class="anchored" data-anchor-id="lösung-1"><span class="header-section-number">16.1.2.2</span> Lösung</h4>
+<p>Nach dem gruppierten Zählen wird das Ergebnis in die Matrixform transponiert.</p>
+<div id="exm-gruppiertes-zaehlen-pivot" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 16.7 (Lesbarere Präsentation des gruppierten Zählen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>daten <span class="ot">=</span> <span class="fu">read_csv2</span>(<span class="st">"data_ab_semi.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 136 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (1): Angebot
+dbl (3): Punkte, Interesse, Bedeutung
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>daten <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(Angebot, Interesse) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_from =</span> Angebot, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_from =</span> n, </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  Interesse     A     B
+      &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
+1         1     3     2
+2         2    13    11
+3         3    13    25
+4         4    17    22
+5         5     9    10
+6         6     4     6
+7         7     0     1</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="erklärung-1" class="level4" data-number="16.1.2.3">
+<h4 data-number="16.1.2.3" class="anchored" data-anchor-id="erklärung-1"><span class="header-section-number">16.1.2.3</span> Erklärung</h4>
+<p>Werden beim Zählen über einen Datenrahmen mehrere Sekundärindizes verwendet, ist das Ergebnis nur schwer interpretierbar. Damit das Ergebnis für Menschen leichter zu lesen ist, muss die spaltenweise Darstellung in ein eleganteres Format überführt werden. Mit der Funktion <code>pivot_wider()</code> lassen sich die Daten in eine Kreuztabelle überführen. Das Ergebnis ähnelt nach dem Transponieren dem Ergebnis der <code>table()</code>-Funktion. Auf diese Weise lassen sich Häufungen in den Werten leichter erkennen.</p>
+<p>In der Lösung werden drei besondere Parameter eingesetzt:</p>
+<ol type="1">
+<li>Der Parameter <code>names_from</code> zeigt an, aus welchem Index die neuen Vektornamen erzeugt werden sollen.</li>
+<li>Der Parameter <code>values_from</code> zeigt an, in welchem Vektor die zu transponierenden Werte stehen.</li>
+<li>der Parameter <code>values_fill</code> kommt zur Anwendung, wenn für eine Position kein Wert bereitsteht. Für die Zählung bedeutet das, dass nichts gezählt wurde. Deshalb wurde der Wert im Beispiel auf den Wert <code>0</code> gesetzt.</li>
+</ol>
+</section>
 </section>
 </section>
 <section id="hierarchisieren" class="level2" data-number="16.2">
