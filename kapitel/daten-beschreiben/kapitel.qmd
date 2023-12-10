@@ -3,8 +3,6 @@
 
 abstract: ""
 
-execute: 
-  echo: false
 ---
 
 # Daten beschreiben {#sec-chapter-daten-beschreiben}
@@ -13,13 +11,41 @@ execute:
 ## Work in Progress
 :::
 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
+```
+ie Funktionen zur Ermittlung der Kennzahlen von Datenrahmen werden durch die Bibliothek `rstatix` bereitgestellt. `rstatix` ist eine Bibliothek, die die am häufigsten verwendeten statistischen Operationen und Tests in Abstimmung mit den `tidyverse`-Bibliotheken bereitstellt. 
+
+::: {.callout-important}
+## Achtung
+
+`rstatix` ist eine eigenständige Bibliothek und muss separat mit `install.packages()` oder `pak::pkg_install()` installiert werden.
+::: 
+
+```{r}
+library(tidyverse)
+library(rstatix)
+```
+
 ## Universelle Kennwerte
 
-In R ergibt sich dieser Wert direkt aus dem Stichprobenobjekt: Der **Stichprobenumfang** entspricht der **Anzahl der Datensätze** in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der `count()`-Funktion oder innerrhalb einer Transforrmation mit `mutate()` mit Hilfe der `n()`-Funktion.
+In R ergibt sich dieser Wert direkt aus dem Datenrahmen: Der **Stichprobenumfang** entspricht der **Anzahl der Datensätze** in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der `count()`-Funktion oder innerrhalb einer Transforrmation mit `mutate()` mit Hilfe der `n()`-Funktion.
+
+::: {#exm-univ-kennwerte-daten}
+## Beispieldaten für die universellen Kennwerte
+```{r}
+stichprobe = read_csv2('data_ab_missing.csv')
+```
+::: 
 
 Der *Stichprobenumfang* ist einer der drei allgemeinen Kennwerte, die jede Stichprobe beschreiben. Wir bestimmen zuerst die numerischen Kennwerte unserer Beispielstichprobe.
 
-```R
+::: {.callout-warning}
+## Wichtig
+Die beiden universellen Kennwerte werden beim Import ebenfalls **angezeigt**. Diese Werte stehen für das automatisierte Reporting nicht zur Verfügung. Deshalb müssen diese Kennwerte noch einmal bestimmt werden.
+:::
+
+```{R}
 # Stichprobenumfang
 stichprobe |> 
     count() |> 
@@ -32,30 +58,190 @@ stichprobe |>
     length()
 ```
 
-Dabei erkennen wir, dass der Stichprobenumfang 27 beträgt. Wir erkennen zusätzlich, dass wir 53 Vektoren in unserem Stichprobenobjekt vorliegen haben.
+Dabei erkennen wir, dass der Stichprobenumfang 156 beträgt. Wir erkennen zusätzlich, dass wir 4 Vektoren in unserem Stichprobenobjekt vorliegen haben. Die Funktion `dim()` funktioniert auch für Datenrahmen, so dass die beiden Kennwerte auch mit dieser Funktion bestimmt werden können. Das Ergebnis `dim()` Funktion gibt als ersten Wert immer den Stichprobenumfang und als zweiten Wert den Umfang der Umfang der Vektoren zurück.
 
-Neben dem *Stichprobenumfang* unterscheiden wir zusätzlich den *Variablenumfang*. Der **Variablenumfang** bezeichnet  die **Anzahl der gemessenen Merkmalsausprägungen**. Damit ist die Gesamtzahl der gemessenen Werte für eine Variable gemeint. Für diesen Wert müssen wir für eine Variable *nicht vorhandene* Werte aus der Variable entfernen. Diese Werte sind in R mit dem Wert `NA` gekennzeichnet. Wir entfernen die `NA`-Werte mit Hilfe der `drop_na()`-Funktion.
+```{r}
+stichprobe |> 
+    dim()
+```
 
+## Variablenumfang und fehlende Werte
 
-## Fehlende Werte
+Neben dem *Stichprobenumfang* werden zusätzlich die *Variablenumfänge* ermittelt. Der **Variablenumfang** bezeichnet die **Anzahl der *gemessenen* Merkmalsausprägungen**. Damit ist die Gesamtzahl der gemessenen Werte für ein Merkmal in einem Vektor gemeint. Für diesen Wert müssen die *nicht vorhandene* Werte aus der Variable entfernt werden. Diese Werte sind in R mit dem Wert `NA` gekennzeichnet. 
 
+Die `NA`-Werte werden in R mithilfe der `drop_na()`-Funktion aus einem Datenrahmen entfernt. Die Funktion `drop_na()` entfernt alle *Datensätze*, in denen ein Vektor keinen Wert enthält. Das ist für den Variblenumfang nicht erwünscht. 
 
-### Fehlende Werte entfernen 
+Statdessen werden die fehlenden Werte bei einer *Aggregaion* mit `na.omit()` ausgeblendet. 
+
+```{r}
+stichprobe |>
+    summarise(
+        n_Punkte = Punkte |> na.omit() |> length(),
+        n_Angebot = Angebot |> na.omit() |> length(),
+        n_Interesse = Interesse |> na.omit() |> length(),
+        n_Bedeutung = Bedeutung |> na.omit() |> length()
+    )
+```
 
 ## Lagemasse 
 
-### Modus
+R stellt als Programmiersprache für die Data Sciences zentrale Funktionen zur Beschreibung von Daten direkt bereit. Es ist deshalb *in der Regel* nicht notwendig, die Formeln für die Lagemasse zu implementieren. @tbl-lagemasse liestet die Funktionen für die einzelnen Lagemasse.
 
-### Median
+::: {.callout-note}
+## Merke
 
-### Mittelwert
+Alle Lagemasse sind Aggregationen.
+::: 
 
-## Streumasse
+| Mass | Funktion |
+| :--- | :--- |
+| Mittelwert | `mean()` |
+| Median | `median()` |
+| Standardabweichung | `sd()` |
+| Varianz | `var()` |
+| Interquartilsabstand | `IQR()` |
+| Mittlere Absolute Abweichung | `mad()` |
+| Quartile | `quantile()` |
+| Standardfehler | `sd(x) / sqrt(length(x))` |
 
-### Varianz und Standardabweichung
+: R-Funktionen für die Lagemasse {#tbl-lagemasse}
 
-### Interquatilsabstand
+Der Standardfehler hat in Base-R keine eigene Funktion, sondern muss über die Standardabweichung hergeleitet werden. 
 
-### MAD
+Die statistischen Kennwerte lassen sich also leicht mit der Aggregation in @exm-alle-kennwerte bestimmen.
 
+::: {#exm-alle-kennwerte}
+## Alle Kennwerte bestimmen
+```{r}
+stichprobe |>
+    summarise(
+        n = Punkte |> na.omit() |> length(),
+        mn = Punkte |> mean(na.rm = TRUE),
+        sd = Punkte |> sd(na.rm = TRUE),
+        se = sd/sqrt(n),
+        min = Punkte |> min(na.rm = TRUE),
+        max = Punkte |> max(na.rm = TRUE),
+        q1 = Punkte |> quantile(.25, na.rm = TRUE),
+        md = Punkte |> median(na.rm = TRUE),
+        q3 = Punkte |> quantile(.75, na.rm = TRUE),
+        mad = Punkte |> mad(na.rm = TRUE),
+        iqr = Punkte |> IQR(na.rm = TRUE)
+    )
+```
+::: 
 
+Noch einfacher lassen sich die Kennwerte mit der Funktion `get_summary_stats()` aus der Bibliothek `rstatix` ermitteln (@exm-alle-kennwerte-rstatix). Ein wichtiger Vorteil dieser Funktion ist, dass sie ungültige Werte korrekt entfernt.
+
+::: {#exm-alle-kennwerte-rstatix}
+## Alle Kennwerte mit rstatix bestimmen
+```{r}
+stichprobe |>
+    get_summary_stats(Punkte)
+```
+:::
+
+Für ordinalskalierte Daten sind nicht alle Kennwerte zulässig. Deshalb dürfen für diese Daten nur die zulässigen Werte berichtet werden. Der Funktion `get_summary_stats()` müssen deshalb die zulässigen Kennwerte angegeben werden (@exm-kennwerte-ordskala-rstatix).
+
+::: {#exm-kennwerte-ordskala-rstatix}
+## Alle Kennwerte für ordinalskalierte Daten bestimmen
+```{r}
+kennwerte_ordinal = c(
+    "n", "min", "max", "median", "mad", "iqr", "q1", "q3"
+)
+
+stichprobe |>
+    get_summary_stats(
+        -Punkte, # Alle Vektoren ausser Punkte
+        show = kennwerte_ordinal
+    )
+```
+:::
+
+::: {.callout-warning}
+## Wichtig
+
+Ordinalskalierte Daten müssen als numerische Werte *kodiert* vorliegen, damit die Kennwerte bestimmt werden können. Damit die Kennwerte interpretiert werden können, müssen alle verwendeten Kodierungstabelle ebenfalls berichtet werden. 
+:::
+
+### Kennwerte über das Datenschema bestimmen
+
+Das Datenschema ist ein zentraler Teil der technischen Dokumentation eines Projekts. Liegt das Datenschema als Tabelle vor und die Skalierungen sind in einer eigenen Spalte dokumentiert, dann kann das Datenschema zur Beschreibung der Daten eingesetzt werden.
+
+@exm-datenschema-dataab zeigt ein reduziertes Datenschema für die geladenen Daten. Normalerweise würde dieses Schema aus einer Datei geladen werden. 
+
+::: {#exm-datenschema-dataab}
+## Reduziertes Datenschema für die Daten
+```{r}
+# datenSchema = read_csv("datenschema.csv")
+datenSchema = tribble( 
+    ~Name, ~Skalierung,
+    "Punkte", "metrisch",
+    "Angebot", "nominal",
+    "Interesse", "ordinal",
+    "Bedeutung", "ordinal"
+)
+```
+:::
+
+Nachdem das Schema geladen wurde, können die Namen der Vektoren des gleichen Skalenniveaus gefiltert werden und an die Selektorfunktion `all_of()` übergeben werden (s. @exm-stats-with-schema). Auf diese Weise wird der Funktion `get_summary_stats()` mitgeteilt, für welche Vektoren die Kennwerte bestimmt werden sollen.
+
+::: {#exm-stats-with-schema}
+## Verwendung des Datenschames zur Beschreibung der Daten
+```{r}
+# Metrisch-skalierte Kennwerte
+stichprobe |> 
+    get_summary_stats(
+        datenSchema |> 
+            filter(Skalierung == "metrisch") |> 
+            pull(Name) |>
+            all_of()
+    )
+
+# Ordinalskalierte Kennwerte
+stichprobe |> 
+    get_summary_stats(
+        datenSchema |> 
+            filter(Skalierung == "ordinal") |> 
+            pull(Name) |>
+            all_of()
+        ,
+        show = kennwerte_ordinal
+    )
+```
+:::
+
+## Kontinenztabellen erstellen
+
+In @sec-chapter-matrix-operationen wurden Kontingenztabellen eingeführt und die Funktion `table()` für zwei unabhängige Vektoren vorgestellt.
+
+Für Datenrahmen ist die Funktion `freq_table()` etwas flexibler und unterliegt nicht der Beschränkung auf zwei Vektoren. Ausserdem bestimmt die Funktion `freq_table()` automatisch die relativen Häufigkeiten. 
+
+::: {#exm-kontingenztabelle-einzeln}
+## Kontingenztabelle für ein Merkmal
+
+```{r}
+stichprobe |>
+    freq_table(Angebot)
+```
+:::
+
+::: {#exm-kontingenztabelle-mehrfach}
+## Kontingenztabelle für zwei Merkmale
+
+```{r}
+stichprobe |>
+    freq_table(Angebot, Bedeutung)
+```
+:::
+
+Vorteilhaft ist auch, dass das Ergebnis der Funktion `freq_table()` ein Datenrahmen ist. Dadurch können weitere Datenrahmen-Operationen verkettet werden. Im @exm-kontingenztabelle-mehrfach2 werden die relativen Werte in einer Kreuztabelle so gegenübergestellt, dass die unterschiedliche Bewertung der Bedeutung für die beiden Angebote leichter verglichen werden können.
+
+::: {#exm-kontingenztabelle-mehrfach2}
+## Kontingenztabelle für zwei Merkmale als Kreuztabelle
+```{r}
+stichprobe |>
+    freq_table(Angebot, Bedeutung) |>
+    select(-n) |>
+    pivot_wider(names_from = Angebot, values_from = prop)
+```
+::: 
