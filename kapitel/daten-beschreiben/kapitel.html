@@ -300,22 +300,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#universelle-kennwerte" id="toc-universelle-kennwerte" class="nav-link active" data-scroll-target="#universelle-kennwerte"><span class="header-section-number">17.1</span> Universelle Kennwerte</a></li>
-  <li><a href="#fehlende-werte" id="toc-fehlende-werte" class="nav-link" data-scroll-target="#fehlende-werte"><span class="header-section-number">17.2</span> Fehlende Werte</a>
-  <ul class="collapse">
-  <li><a href="#fehlende-werte-entfernen" id="toc-fehlende-werte-entfernen" class="nav-link" data-scroll-target="#fehlende-werte-entfernen"><span class="header-section-number">17.2.1</span> Fehlende Werte entfernen</a></li>
-  </ul></li>
+  <li><a href="#variablenumfang-und-fehlende-werte" id="toc-variablenumfang-und-fehlende-werte" class="nav-link" data-scroll-target="#variablenumfang-und-fehlende-werte"><span class="header-section-number">17.2</span> Variablenumfang und fehlende Werte</a></li>
   <li><a href="#lagemasse" id="toc-lagemasse" class="nav-link" data-scroll-target="#lagemasse"><span class="header-section-number">17.3</span> Lagemasse</a>
   <ul class="collapse">
-  <li><a href="#modus" id="toc-modus" class="nav-link" data-scroll-target="#modus"><span class="header-section-number">17.3.1</span> Modus</a></li>
-  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">17.3.2</span> Median</a></li>
-  <li><a href="#mittelwert" id="toc-mittelwert" class="nav-link" data-scroll-target="#mittelwert"><span class="header-section-number">17.3.3</span> Mittelwert</a></li>
+  <li><a href="#kennwerte-über-das-datenschema-bestimmen" id="toc-kennwerte-über-das-datenschema-bestimmen" class="nav-link" data-scroll-target="#kennwerte-über-das-datenschema-bestimmen"><span class="header-section-number">17.3.1</span> Kennwerte über das Datenschema bestimmen</a></li>
   </ul></li>
-  <li><a href="#streumasse" id="toc-streumasse" class="nav-link" data-scroll-target="#streumasse"><span class="header-section-number">17.4</span> Streumasse</a>
-  <ul class="collapse">
-  <li><a href="#varianz-und-standardabweichung" id="toc-varianz-und-standardabweichung" class="nav-link" data-scroll-target="#varianz-und-standardabweichung"><span class="header-section-number">17.4.1</span> Varianz und Standardabweichung</a></li>
-  <li><a href="#interquatilsabstand" id="toc-interquatilsabstand" class="nav-link" data-scroll-target="#interquatilsabstand"><span class="header-section-number">17.4.2</span> Interquatilsabstand</a></li>
-  <li><a href="#mad" id="toc-mad" class="nav-link" data-scroll-target="#mad"><span class="header-section-number">17.4.3</span> MAD</a></li>
-  </ul></li>
+  <li><a href="#kontinenztabellen-erstellen" id="toc-kontinenztabellen-erstellen" class="nav-link" data-scroll-target="#kontinenztabellen-erstellen"><span class="header-section-number">17.4</span> Kontinenztabellen erstellen</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
     </div>
@@ -352,54 +342,400 @@ Work in Progress
 
 </div>
 </div>
+<p>ie Funktionen zur Ermittlung der Kennzahlen von Datenrahmen werden durch die Bibliothek <code>rstatix</code> bereitgestellt. <code>rstatix</code> ist eine Bibliothek, die die am häufigsten verwendeten statistischen Operationen und Tests in Abstimmung mit den <code>tidyverse</code>-Bibliotheken bereitstellt.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Achtung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>rstatix</code> ist eine eigenständige Bibliothek und muss separat mit <code>install.packages()</code> oder <code>pak::pkg_install()</code> installiert werden.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attache Paket: 'rstatix'
+
+Das folgende Objekt ist maskiert 'package:stats':
+
+    filter</code></pre>
+</div>
+</div>
 <section id="universelle-kennwerte" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="universelle-kennwerte"><span class="header-section-number">17.1</span> Universelle Kennwerte</h2>
-<p>In R ergibt sich dieser Wert direkt aus dem Stichprobenobjekt: Der <strong>Stichprobenumfang</strong> entspricht der <strong>Anzahl der Datensätze</strong> in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der <code>count()</code>-Funktion oder innerrhalb einer Transforrmation mit <code>mutate()</code> mit Hilfe der <code>n()</code>-Funktion.</p>
+<p>In R ergibt sich dieser Wert direkt aus dem Datenrahmen: Der <strong>Stichprobenumfang</strong> entspricht der <strong>Anzahl der Datensätze</strong> in unserem Stichprobenobjekt. Diese Anzahl bestimmen wir mit Hilfe der <code>count()</code>-Funktion oder innerrhalb einer Transforrmation mit <code>mutate()</code> mit Hilfe der <code>n()</code>-Funktion.</p>
+<div id="exm-univ-kennwerte-daten" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.1 (Beispieldaten für die universellen Kennwerte) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="ot">=</span> <span class="fu">read_csv2</span>(<span class="st">'data_ab_missing.csv'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 156 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (1): Angebot
+dbl (3): Punkte, Interesse, Bedeutung
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</div>
 <p>Der <em>Stichprobenumfang</em> ist einer der drei allgemeinen Kennwerte, die jede Stichprobe beschreiben. Wir bestimmen zuerst die numerischen Kennwerte unserer Beispielstichprobe.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stichprobenumfang</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>() <span class="ot">-&gt;</span> stichprobenumfang</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stichprobenumfang</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Dabei erkennen wir, dass der Stichprobenumfang 27 beträgt. Wir erkennen zusätzlich, dass wir 53 Vektoren in unserem Stichprobenobjekt vorliegen haben.</p>
-<p>Neben dem <em>Stichprobenumfang</em> unterscheiden wir zusätzlich den <em>Variablenumfang</em>. Der <strong>Variablenumfang</strong> bezeichnet die <strong>Anzahl der gemessenen Merkmalsausprägungen</strong>. Damit ist die Gesamtzahl der gemessenen Werte für eine Variable gemeint. Für diesen Wert müssen wir für eine Variable <em>nicht vorhandene</em> Werte aus der Variable entfernen. Diese Werte sind in R mit dem Wert <code>NA</code> gekennzeichnet. Wir entfernen die <code>NA</code>-Werte mit Hilfe der <code>drop_na()</code>-Funktion.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die beiden universellen Kennwerte werden beim Import ebenfalls <strong>angezeigt</strong>. Diese Werte stehen für das automatisierte Reporting nicht zur Verfügung. Deshalb müssen diese Kennwerte noch einmal bestimmt werden.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stichprobenumfang</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>() <span class="ot">-&gt;</span> stichprobenumfang</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>stichprobenumfang</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 156</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Dabei erkennen wir, dass der Stichprobenumfang 156 beträgt. Wir erkennen zusätzlich, dass wir 4 Vektoren in unserem Stichprobenobjekt vorliegen haben. Die Funktion <code>dim()</code> funktioniert auch für Datenrahmen, so dass die beiden Kennwerte auch mit dieser Funktion bestimmt werden können. Das Ergebnis <code>dim()</code> Funktion gibt als ersten Wert immer den Stichprobenumfang und als zweiten Wert den Umfang der Umfang der Vektoren zurück.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 156   4</code></pre>
+</div>
+</div>
 </section>
-<section id="fehlende-werte" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="fehlende-werte"><span class="header-section-number">17.2</span> Fehlende Werte</h2>
-<section id="fehlende-werte-entfernen" class="level3" data-number="17.2.1">
-<h3 data-number="17.2.1" class="anchored" data-anchor-id="fehlende-werte-entfernen"><span class="header-section-number">17.2.1</span> Fehlende Werte entfernen</h3>
-</section>
+<section id="variablenumfang-und-fehlende-werte" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="variablenumfang-und-fehlende-werte"><span class="header-section-number">17.2</span> Variablenumfang und fehlende Werte</h2>
+<p>Neben dem <em>Stichprobenumfang</em> werden zusätzlich die <em>Variablenumfänge</em> ermittelt. Der <strong>Variablenumfang</strong> bezeichnet die <strong>Anzahl der <em>gemessenen</em> Merkmalsausprägungen</strong>. Damit ist die Gesamtzahl der gemessenen Werte für ein Merkmal in einem Vektor gemeint. Für diesen Wert müssen die <em>nicht vorhandene</em> Werte aus der Variable entfernt werden. Diese Werte sind in R mit dem Wert <code>NA</code> gekennzeichnet.</p>
+<p>Die <code>NA</code>-Werte werden in R mithilfe der <code>drop_na()</code>-Funktion aus einem Datenrahmen entfernt. Die Funktion <code>drop_na()</code> entfernt alle <em>Datensätze</em>, in denen ein Vektor keinen Wert enthält. Das ist für den Variblenumfang nicht erwünscht.</p>
+<p>Statdessen werden die fehlenden Werte bei einer <em>Aggregaion</em> mit <code>na.omit()</code> ausgeblendet.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Praxis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Variablenumfänge werden normalerweise gemeinsam mit den Lagemassen des Merkmals präsentiert.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">n_Punkte =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>(),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">n_Angebot =</span> Angebot <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>(),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">n_Interesse =</span> Interesse <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>(),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">n_Bedeutung =</span> Bedeutung <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  n_Punkte n_Angebot n_Interesse n_Bedeutung
+     &lt;int&gt;     &lt;int&gt;       &lt;int&gt;       &lt;int&gt;
+1      153       152         151         150</code></pre>
+</div>
+</div>
 </section>
 <section id="lagemasse" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="lagemasse"><span class="header-section-number">17.3</span> Lagemasse</h2>
-<section id="modus" class="level3" data-number="17.3.1">
-<h3 data-number="17.3.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">17.3.1</span> Modus</h3>
+<p>R stellt als Programmiersprache für die Data Sciences zentrale Funktionen zur Beschreibung von Daten direkt bereit. Es ist deshalb <em>in der Regel</em> nicht notwendig, die Formeln für die Lagemasse zu implementieren. <a href="#tbl-lagemasse">Tabelle&nbsp;<span>17.1</span></a> liestet die Funktionen für die einzelnen Lagemasse.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Merke
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Alle Lagemasse sind Aggregationen.</p>
+</div>
+</div>
+<div id="tbl-lagemasse" class="anchored">
+<table class="table">
+<caption>Tabelle&nbsp;17.1: R-Funktionen für die Lagemasse</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mass</th>
+<th style="text-align: left;">Funktion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mittelwert</td>
+<td style="text-align: left;"><code>mean()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Median</td>
+<td style="text-align: left;"><code>median()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Standardabweichung</td>
+<td style="text-align: left;"><code>sd()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Varianz</td>
+<td style="text-align: left;"><code>var()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Interquartilsabstand</td>
+<td style="text-align: left;"><code>IQR()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;Mittlere Absolute Abweichung</td>
+<td style="text-align: left;"><code>mad()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quartile</td>
+<td style="text-align: left;"><code>quantile()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standardfehler</td>
+<td style="text-align: left;"><code>sd(x) / sqrt(length(x))</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Der Standardfehler hat in Base-R keine eigene Funktion, sondern muss über die Standardabweichung hergeleitet werden.</p>
+<p>Die statistischen Kennwerte lassen sich also leicht mit der Aggregation in <a href="#exm-alle-kennwerte">Beispiel&nbsp;<span>17.2</span></a> bestimmen.</p>
+<div id="exm-alle-kennwerte" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.2 (Alle Kennwerte bestimmen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">na.omit</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>(),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">mn =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">sd</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">min =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">min</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">max</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">q1 =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">quantile</span>(.<span class="dv">25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">md =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">median</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">q3 =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">quantile</span>(.<span class="dv">75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">mad =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">mad</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">iqr =</span> Punkte <span class="sc">|&gt;</span> <span class="fu">IQR</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 11
+      n    mn    sd    se   min   max    q1    md    q3   mad   iqr
+  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   153  199.  69.7  5.64  16.5  395.  158.  196.  250.  68.8  92.2</code></pre>
+</div>
+</div>
+</div>
+<p>Noch einfacher lassen sich die Kennwerte mit der Funktion <code>get_summary_stats()</code> aus der Bibliothek <code>rstatix</code> ermitteln (<a href="#exm-alle-kennwerte-rstatix">Beispiel&nbsp;<span>17.3</span></a>). Ein wichtiger Vorteil dieser Funktion ist, dass sie ungültige Werte korrekt entfernt.</p>
+<div id="exm-alle-kennwerte-rstatix" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.3 (Alle Kennwerte mit rstatix bestimmen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(Punkte)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 13
+  variable     n   min   max median    q1    q3   iqr   mad  mean    sd    se
+  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Punkte     153  16.5  395.   196.  158.  250.  92.2  68.8  199.  69.7  5.64
+# ℹ 1 more variable: ci &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+<p>Für ordinalskalierte Daten sind nicht alle Kennwerte zulässig. Deshalb dürfen für diese Daten nur die zulässigen Werte berichtet werden. Der Funktion <code>get_summary_stats()</code> müssen deshalb die zulässigen Kennwerte angegeben werden (<a href="#exm-kennwerte-ordskala-rstatix">Beispiel&nbsp;<span>17.4</span></a>).</p>
+<div id="exm-kennwerte-ordskala-rstatix" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.4 (Alle Kennwerte für ordinalskalierte Daten bestimmen) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kennwerte_ordinal <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"median"</span>, <span class="st">"mad"</span>, <span class="st">"iqr"</span>, <span class="st">"q1"</span>, <span class="st">"q3"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">-</span>Punkte, <span class="co"># Alle Vektoren ausser Punkte</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">show =</span> kennwerte_ordinal</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 9
+  variable      n   min   max median   mad   iqr    q1    q3
+  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Interesse   151     1     7      4  1.48   1.5     3   4.5
+2 Bedeutung   150     1     6      3  1.48   2       2   4  </code></pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ordinalskalierte Daten müssen als numerische Werte <em>kodiert</em> vorliegen, damit die Kennwerte bestimmt werden können. Damit die Kennwerte interpretiert werden können, müssen alle verwendeten Kodierungstabelle ebenfalls berichtet werden.</p>
+</div>
+</div>
+<section id="kennwerte-über-das-datenschema-bestimmen" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="kennwerte-über-das-datenschema-bestimmen"><span class="header-section-number">17.3.1</span> Kennwerte über das Datenschema bestimmen</h3>
+<p>Das Datenschema ist ein zentraler Teil der technischen Dokumentation eines Projekts. Liegt das Datenschema als Tabelle vor und die Skalierungen sind in einer eigenen Spalte dokumentiert, dann kann das Datenschema zur Beschreibung der Daten eingesetzt werden.</p>
+<p><a href="#exm-datenschema-dataab">Beispiel&nbsp;<span>17.5</span></a> zeigt ein reduziertes Datenschema für die geladenen Daten. Normalerweise würde dieses Schema aus einer Datei geladen werden.</p>
+<div id="exm-datenschema-dataab" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.5 (Reduziertes Datenschema für die Daten) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># datenSchema = read_csv("datenschema.csv")</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>datenSchema <span class="ot">=</span> <span class="fu">tribble</span>( </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>Name, <span class="sc">~</span>Skalierung,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Punkte"</span>, <span class="st">"metrisch"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Angebot"</span>, <span class="st">"nominal"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Interesse"</span>, <span class="st">"ordinal"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bedeutung"</span>, <span class="st">"ordinal"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Nachdem das Schema geladen wurde, können die Namen der Vektoren des gleichen Skalenniveaus gefiltert werden und an die Selektorfunktion <code>all_of()</code> übergeben werden (s. <a href="#exm-stats-with-schema">Beispiel&nbsp;<span>17.6</span></a>). Auf diese Weise wird der Funktion <code>get_summary_stats()</code> mitgeteilt, für welche Vektoren die Kennwerte bestimmt werden sollen.</p>
+<div id="exm-stats-with-schema" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.6 (Verwendung des Datenschames zur Beschreibung der Daten) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metrisch-skalierte Kennwerte</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        datenSchema <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Skalierung <span class="sc">==</span> <span class="st">"metrisch"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pull</span>(Name) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">all_of</span>()</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 13
+  variable     n   min   max median    q1    q3   iqr   mad  mean    sd    se
+  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Punkte     153  16.5  395.   196.  158.  250.  92.2  68.8  199.  69.7  5.64
+# ℹ 1 more variable: ci &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordinalskalierte Kennwerte</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        datenSchema <span class="sc">|&gt;</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Skalierung <span class="sc">==</span> <span class="st">"ordinal"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">pull</span>(Name) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">all_of</span>()</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        ,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">show =</span> kennwerte_ordinal</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 9
+  variable      n   min   max median   mad   iqr    q1    q3
+  &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Interesse   151     1     7      4  1.48   1.5     3   4.5
+2 Bedeutung   150     1     6      3  1.48   2       2   4  </code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="median" class="level3" data-number="17.3.2">
-<h3 data-number="17.3.2" class="anchored" data-anchor-id="median"><span class="header-section-number">17.3.2</span> Median</h3>
 </section>
-<section id="mittelwert" class="level3" data-number="17.3.3">
-<h3 data-number="17.3.3" class="anchored" data-anchor-id="mittelwert"><span class="header-section-number">17.3.3</span> Mittelwert</h3>
-</section>
-</section>
-<section id="streumasse" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="streumasse"><span class="header-section-number">17.4</span> Streumasse</h2>
-<section id="varianz-und-standardabweichung" class="level3" data-number="17.4.1">
-<h3 data-number="17.4.1" class="anchored" data-anchor-id="varianz-und-standardabweichung"><span class="header-section-number">17.4.1</span> Varianz und Standardabweichung</h3>
-</section>
-<section id="interquatilsabstand" class="level3" data-number="17.4.2">
-<h3 data-number="17.4.2" class="anchored" data-anchor-id="interquatilsabstand"><span class="header-section-number">17.4.2</span> Interquatilsabstand</h3>
-</section>
-<section id="mad" class="level3" data-number="17.4.3">
-<h3 data-number="17.4.3" class="anchored" data-anchor-id="mad"><span class="header-section-number">17.4.3</span> MAD</h3>
+<section id="kontinenztabellen-erstellen" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="kontinenztabellen-erstellen"><span class="header-section-number">17.4</span> Kontinenztabellen erstellen</h2>
+<p>In <a href="../matrix-operationen/kapitel.html"><span>Kapitel&nbsp;13</span></a> wurden Kontingenztabellen eingeführt und die Funktion <code>table()</code> für zwei unabhängige Vektoren vorgestellt.</p>
+<p>Für Datenrahmen ist die Funktion <code>freq_table()</code> etwas flexibler und unterliegt nicht der Beschränkung auf zwei Vektoren. Ausserdem bestimmt die Funktion <code>freq_table()</code> automatisch die relativen Häufigkeiten.</p>
+<div id="exm-kontingenztabelle-einzeln" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.7 (Kontingenztabelle für ein Merkmal) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">freq_table</span>(Angebot)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Angebot     n  prop
+  &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;
+1 A          69  45.4
+2 B          83  54.6</code></pre>
+</div>
+</div>
+</div>
+<div id="exm-kontingenztabelle-mehrfach" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.8 (Kontingenztabelle für zwei Merkmale) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">freq_table</span>(Angebot, Bedeutung)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+   Angebot Bedeutung     n  prop
+   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+ 1 A               1     5   7.5
+ 2 A               2    15  22.4
+ 3 A               3    12  17.9
+ 4 A               4    15  22.4
+ 5 A               5    14  20.9
+ 6 A               6     6   9  
+ 7 B               1    11  13.9
+ 8 B               2    12  15.2
+ 9 B               3    18  22.8
+10 B               4    22  27.8
+11 B               5     8  10.1
+12 B               6     8  10.1</code></pre>
+</div>
+</div>
+</div>
+<p>Vorteilhaft ist auch, dass das Ergebnis der Funktion <code>freq_table()</code> ein Datenrahmen ist. Dadurch können weitere Datenrahmen-Operationen verkettet werden. Im <a href="#exm-kontingenztabelle-mehrfach2">Beispiel&nbsp;<span>17.9</span></a> werden die relativen Werte in einer Kreuztabelle so gegenübergestellt, dass die unterschiedliche Bewertung der Bedeutung für die beiden Angebote leichter verglichen werden können.</p>
+<div id="exm-kontingenztabelle-mehrfach2" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.9 (Kontingenztabelle für zwei Merkmale als Kreuztabelle) </strong></span>&nbsp;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">freq_table</span>(Angebot, Bedeutung) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Angebot, <span class="at">values_from =</span> prop)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Bedeutung     A     B
+      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1         1   7.5  13.9
+2         2  22.4  15.2
+3         3  17.9  22.8
+4         4  22.4  27.8
+5         5  20.9  10.1
+6         6   9    10.1</code></pre>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
