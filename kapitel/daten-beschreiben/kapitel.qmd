@@ -73,6 +73,12 @@ Die `NA`-Werte werden in R mithilfe der `drop_na()`-Funktion aus einem Datenrahm
 
 Statdessen werden die fehlenden Werte bei einer *Aggregaion* mit `na.omit()` ausgeblendet. 
 
+::: {.callout-tip}
+## Praxis
+
+Die Variablenumfänge werden normalerweise gemeinsam mit den Lagemassen des Merkmals präsentiert.
+:::
+
 ```{r}
 stichprobe |>
     summarise(
