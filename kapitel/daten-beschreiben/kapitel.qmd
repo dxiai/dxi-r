@@ -93,6 +93,8 @@ stichprobe |>
 
 R stellt als Programmiersprache für die Data Sciences zentrale Funktionen zur Beschreibung von Daten direkt bereit. Es ist deshalb *in der Regel* nicht notwendig, die Formeln für die Lagemasse zu implementieren. @tbl-lagemasse liestet die Funktionen für die einzelnen Lagemasse.
 
+Werden die Lagemasse für für mehrere Merkmale gleichzeitig bestimmt, dann handelt es sich um eine **gruppierte Operation**. Der Index dieser Operation wird über die Vektornamen gebildet. Dabei dürfen nur Vektoren von *gleichen Datentyp* zusammengefasst werden.
+
 ::: {.callout-note}
 ## Merke
 
