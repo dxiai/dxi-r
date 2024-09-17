@@ -60,7 +60,7 @@ Weicht ein Bezeichner von diesen Regeln ab, dann muss dieser als solcher durch B
 ```
 ::: 
 
-Wird der Bezeichner aus @exm-gekennzeichneter-name nicht markiert, erzeugt R die Fehlermeldung `Fehler: unerwartetes Symbol in "merwürdiger Name"`.
+Wird der Bezeichner aus @exm-gekennzeichneter-name nicht markiert, erzeugt R die Fehlermeldung `Fehler: unerwartetes Symbol in "merkwürdiger Bezeichner"`.
 
 ## Operationen
 

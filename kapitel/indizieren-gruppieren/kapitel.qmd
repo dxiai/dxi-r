@@ -4,6 +4,11 @@
 ## Work in Progress
 ::: 
 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
+```
+
+
 ## Indizieren
 
 Es werden drei Arten von Indizes unterschieden: 
@@ -14,44 +19,39 @@ Es werden drei Arten von Indizes unterschieden:
 
 Weil ein Index Werte über einen Datensatz enthält, gehört ein Index zum jeweiligen Datensatz und wird über einen *Indexvektor* in einer Stichprobe abgebildet.
 
-### Existierende Indexvektoren. 
-
-Häufig liegen Indexvektoren bereits in einer Stichprobe vor.
-
-#### Beispiel bestehende Primär- und Sekundärindizes
-
-```{r}
-mtcars %>% 
-    as_tibble(rownames = "modell")  -> mtcarStichprobe
-
-mtcarStichprobe
-```
-
-Der Vektor `modell` ist der **Primärindex**, weil dieser Vektor nur Werte enthält, die einen Datensatz eindeutig identifizieren.
-
-Die Vektoren `cyl` (Zylinder), `vs` (Motortyp), `am` (Automatikschaltung), `gear` (Anzahl der Gänge), `carb` (Anzahl der Vergaser) sind *Gruppenindizes*, die Modelle nach verschiedenen Kriterien zusammenfassen. 
-
-### Fehlende Indexvektoren
-
-Gelegentlich liegen in einer Stichprobe keine Primär- oder Sekundärindizes vor oder die vorhandenen Indizes erlauben keine Zusammenfassungen für eine konkrete Fragestellung. In solchen Fällen muss ein entsprechender Index erzeugt werden.
-
-<p class="alert alert-primary" markdown="1">
-**Definition:** Eine Funktion, die *Hashes* für Indexvektoren erzeugt, heisst **Hashing-Funktion**.
-</p>
-
-<p class="alert alert-secondary" markdown="1">
-Hashing-Funktionen werden in der Industrie als Unterstützung zur Suche von Datensätzen in Datenbanken eingesetzt. Durch die geschickte Berechnung von Hashes beschleunigen diese Funktionen die Suche einzelner Werte um ein Vielfaches, indem sie den Bereich für die Suche einschränken. Deshalb haben viele Hashing-Funktionen ein anderes **Anwendungsziel** als die hier beschriebenen Hashing-Funktionen. 
-</p>
-
-### Hashing zur Identifikation
+### Hashing eines Primärindex
 
 Die einfachste Technik zur eindeutigen Indizierung ist das ***Durchnummerieren*** der Datensätze einer Stichprobe. Bei dieser Technik wird jedem Datensatz eine Nummer zugewiesen. In R verwenden wir dazu die Funktion `row_number()`. Diese Funktion ist einer *Sequenz* vorzuziehen, weil diese Funktion auch bei leeren Stichproben fehlerfrei arbeitet.
 
-In Excel muss zum Durchnummerieren die `SEQUENZ()`-Funktion verwendet werden. Das erreichen wir mit der folgenden Operation: `=SEQUENZ(ZEILEN(StichprobenBereich))`, wobei `StichprobenBereich` eine Excel-Adresse sein muss. Weil mit Excel keine leeren Stichproben erzeugt werden dürfen, gibt es mit Excel nicht das gleiche Problem wie mit R. Wegen dieser Eigenschaft muss ein entsprechender Bereich mindestens einen Stichprobenumfang von eins haben. Diese Eigenschaft gilt auch für Tabellen, die nur aus Überschriften bestehen. 
+::: {.callout-warning}
+Intuitiv würde man beim Durchnummerieren an seine Sequenz von `1:n()` denken. Diese Sequenz führt aber für leere Datenrahmen zu Fehlermeldungen. Die Funktion `row_number()` kann mit leeren Datenrahmen umgehen und erzeugt dieses Problem nicht.
+::: 
 
-<p class="alert alert-secondary" markdown="1">
-**Fingerübung:** Nummerieren Sie die Stichprobe `mtcars` und speichern Sie die Nummern im Vektor `nr`.
-</p>
+::: {#exm-durchnummerieren}
+## Primärindex erzeugen
+```{r}
+#| echo: false
+#| warning: false
+library(tidyverse)
+```
+
+```{r}
+mtcars |> 
+    as_tibble(rownames = "modell") ->
+        mtcars_df
+
+mtcars_df |> 
+    mutate(
+        nr = row_number()
+    ) -> 
+        mtcars_df_nbr
+
+# Nummerierung zeigen
+mtcars_df_nbr |> 
+    head()
+
+```
+:::
 
 ### Hashing zum Gruppieren
 
@@ -73,9 +73,8 @@ In diesem Beispiel besteht die Hashing-Funktion aus zwei Teilen:
 1. Das Verhältnis zwischen Leistung und Gewicht wird bestimmt und im Vektor `verhaeltnis` abgelegt. 
 2. Die Leistungsklassen werden durch *Kodieren* den oben festgelegten Klassen zugewiesen und im Vektor `klasse` gespeichert.
 
-```r
-mtcars %>% 
-    as_tibble(rownames = "modell") %>% 
+```{r}
+mtcars_df |> 
     mutate(
         verhaeltnis = hp/wt, 
         klasse = case_when( 
@@ -83,13 +82,11 @@ mtcars %>%
             verhaeltnis > 50 ~ "stark", 
             verhaeltnis > 40 ~ "mittel", 
             TRUE ~ "schwach") 
-    )
+    ) |>
+    # nur die relevanten Vektoren zeigen
+    select(modell, hp, wt, verhaeltnis, klasse)
 ```
 
-
-<p class="alert alert-secondary" markdown="1">
-**Fingerübung:** Bestimmen Sie die Effizienz der Modelle in `mtcars` indem Sie den Verbrauch (`mpg`) und den Hubraum (`disp`) berücksichtigen. Legen Sie Effizienzklassen fest.
-</p>
 
 ### Hashing für Querverweise
 
@@ -97,4 +94,135 @@ Beim Hashing für Querverweise gibt es zwei Stichproben. Die erste Stichprobe is
 
 Die Hashing-Funktion muss deshalb einen Verweis zur zweiten Stichprobe herstellen. Diese Verbindung kann mit der gleichen Strategie erzeugt werden, wie beim Gruppieren. Dabei muss jedoch darauf geachtet werden, dass alle Zuordnungen des Primärvektors korrekt abgebildet sind. 
 
+
+## Randomisieren
+
+Wenn wir mit Teilstichproben arbeiten und diese mit anderen teilen, müssen wir vermeiden, dass zwei Stichproben leicht zusammengesetzt werden können und so Rückschlüsse über die Probanden möglich werden. 
+
+::: {.callout-important}
+## Achtung
+Sobald  personenbezogene Daten statistisch ausgewertet und zur Publikation vorbereitet werden, **müssen** die Daten randomisiert werden!
+:::
+
+Dieses Rezept beschreibt eine Technik zur Anonymisierung von Daten durch Mischen. Entscheidend bei dieser Technik ist, dass wir die Werte für unsere Analyse zusammenhalten möchten, sodass unsere Ergebnisse nachvollziehbar bleiben. Gleichzeitig soll es unmöglich werden, diese Daten mit anderen Teilen unserer Studien in Verbindung zu bringen.
+
+Die Technik der Anonymisierung durch Mischen besteht aus vier Schritten: 
+
+1. Auswahl der Vektoren, die wir in einer Publikation teilen möchten,
+2. Erzeugung eines eindeutigen Vektors,
+3. zufälliges Mischen,
+4. Entfernen der eindeutigen Vektoren und exportieren der Daten.
+
+### Schritt 1: Auswahl der Vektoren
+
+Die zu veröffentlichenden Vektoren werde mit der `select()`-Funktion selektiert. 
+
+### Schritt 2: Erzeugung eines eindeutigen Vektors
+
+Alle Werte müssen zusammengehalten werden,damit nachgereihte Analysen nachvollziehbar bleiben. Dazu werden die  Datensätze nummeriert. 
+
+### Schritt 3: Mischen
+
+Dieser Schritt greift auf die Funktion `sample()` zurück. Wir erzeugen aus den ursprünglichen Nummerierungen eine neue Nummerierung durch ``daten |> mutate( id_neu = sample(id) )``. Nach dieser neuen Nummerierung sind unsere Datensätze aber immer noch in der gleichen Reihenfolge und noch nicht gemischt. Wir müssen also die Reihenfolge so anpassen, dass die neue Nummerierung gilt. Das erreichen wir mit dem Funktionsaufruf ``daten |> arrange( id_neu )``. 
+
+### Schritt 4: Entfernen des eindeutigen Vektors und exportieren der Daten
+
+Abschliessend müssen wir **unbedingt** die beiden Hilfsvektoren, die wir zum Mischen verwendet haben, aus unserer Stichprobe wieder entfernen. Das erreichen wir mit einer Vektorauswahl: ``daten |> select(-c(id, id_neu))``. 
+
+### Vollständige Lösung
+
+Wir greifen hier auf eine Stichprobe zurück, die Geschlechtsinformationen, Alter und digitale Nutzungsgewohnheiten umfasst. Wir erstellen zwei getrennte Teilstichproben, von denen eine nur die Nutzungsgewohnheiten und das Geschlecht und eine nur die Nutzungsgewohnheiten und das Alter beinhaltet. 
+
+```{r}
+daten = read_csv(
+    "daten/befragung_digitales_umfeld/befragung.csv", 
+    show_col_types = F)
+
+# mischen Funktion aus einer Funktionskette erstellen, damit 
+#    wir nicht so viel tippen müssen.
+mischen = . %>% 
+    mutate( 
+        id = row_number(), 
+        id_neu = sample(id) # wählt zufällig eine id aus.
+    ) %>%
+    arrange(id_neu) %>%
+    select(-c(id, id_neu))
+
+daten |>
+    select(q00_2, starts_with("q15")) |>
+    mischen() |>
+    write_csv("teilstichprobe_geschlecht_technik.csv")
+
+daten |>
+    select(kurs, starts_with("q18")) |>
+    mischen() |>
+    write_csv("teilstichprobe_alter_sozial.csv")
+```
+
+::: {.callout-note}
+Die Definition der Funktion `mischen()` verwendet die spezielle Funktionsverkettung von `tidyverse`, weil damit Funktionen erstellt werden können. In diesem Fall dürfen die Operatoren `|>` und  `%>%` nicht im gleichen Arbeitsschritt gemischt werden. 
+:::
+
+Die Daten in den beiden Dateien lassen sich nicht mehr zusammenführen. Damit erkennen wir auch die Grenzen dieser Technik: Wenn zwei gemischte Stichproben ausreichend viele gemeinsame oder sehr detaillierte Vektoren haben, die in beiden Teilstichproben vorkommen, dann können diese Stichproben trotz mischen wieder zusammengeführt werden. 
+
+Mit den gemischten Daten ist es nun nicht mehr möglich, die Werte mit einem anderen Teil der Stichprobe zu kombinieren und so tiefere Rückschlüsse über die Teilnehmenden (womöglich unwissend) zuzulassen. Nur noch durch den Zugriff auf die ursprünglichen Daten können diese Zusammenhänge hergestellt werden. Daher sind die ursprünglichen Daten oft besonders schützenswert und sollten ohne Randomisierung nicht weitergegeben werden. 
+
 ## Gruppieren
+
+In R lassen sich grundsätzlich alle Opeationen auch als gruppierte Operationen über einen Datenrahmen durchführen. Dazu wird die `group_by()`-Funktion verwendet, um gruppierte Operationen anzuzeigen. Dieser Funktion können ein oder mehrere Sekundärindizes als Parameter übergeben werden, die zum Gruppieren verwendet werden.
+
+::: {#exm-gruppieren}
+## Gruppierte Summe und Mittelwert
+```r
+daten |> 
+    group_by(index) |>
+    summarise(
+        summe = sum(werte)
+        mittelwert = mean(werte)
+    ) |>
+    ungroup() 
+```
+:::
+
+::: {.callout-warning}
+## Achtung
+Wird eine Funktion `group_by()` ohne eine nachfolgende Operation ausgeführt, dann hat die Funktionen **keinen** erkennbaren Effekt auf das Ergebnis. 
+:::
+
+::: {.callout-tip}
+## Praxis
+Nach eine gruppierten Operation sollte die Gruppierung **immer** mit `ungroup()` aufgehoben werden, damit nachfolgende nichtgruppierte Operationen nicht versehentlich als gruppierte Operationen durchgeführt werden.
+:::
+
+### Gruppiertes Zählen
+
+R verfügt mit der Funktion `table()` das gemeinsame Auftreten von Werten in zwei diskretskalierten Vektoren zu zählen. Diese Funktion erfordert jedoch zwei voneinander unabhängige Vektoren. Die Funktion `count()` bietet eine elegante Alternative für Vektoren in Datenrahmen. In diesem Fall werden die Vektoren als Sekundärindizes behandelt. 
+
+
+::: {#exm-gruppiertes-nummerieren}
+## Gruppiertes Zählen
+```r
+daten |> 
+    count(index)
+```
+:::
+
+Das gruppierte Zählen hat gegenüber der Funktion `table()` den Vorteil, dass mehr als zwei Vektoren berücksichtigt werden können. 
+
+### Gruppiertes Nummerieren
+
+Nummerieren ist eine hilfreiche Funktion, um die Position von Werten zu bestimmen. Das Ergebnis ist ein eindeutige Nummer für jeden Datensatz. Beim Gruppierten Nummerieren werden die Datensätze innerhalb ihrer Gruppe nummeriert.
+
+::: {#exm-gruppiertes-nummerieren}
+## Gruppiertes Nummerieren
+```r
+daten |>
+    group_by(index) |>
+    mutate(
+        nr = row_number()
+    ) |>
+    ungroup()
+``` 
+:::
+
+

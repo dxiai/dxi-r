@@ -1,0 +1,215 @@
+---
+abstract: ""
+---
+
+# Daten formen {#sec-chapter-daten-formen}
+
+::: {.callout-warning}
+## Work in Progress
+:::
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
+```
+
+Die Funktionen zum Formen von Datenrahmen werden durch die `tidyverse`-Bibliothek `tidyr` bereitgestellt. 
+
+```{r}
+library(tidyverse)
+```
+
+## Transponieren
+
+Beim Transponieren von Datenrahmen werden die Spalten und Zeilen von Merkmalen neu ausgerichtet. 
+
+Das Transponieren von Datenrahmen ist keine vollständige Operation, sondern unterliegt je nach Ausgangsorientierung unterschiedlichen Anforderungen.
+
+Die Funktion `pivot_longer()` überführt Vektoren von der Matrixform (Breitform) in die Vektorform (Langform). Alle der transponierten Vektoren müssen dafür vom **gleichen Datentyp** sein. Beim Transponieren in die Vektorform werden immer zwei Vektoren erzeugt: 
+
+- Der Wertevektor, der die Werte der ursprünglichen Vektoren aufnimmt und 
+- Der Namenvektor für die ursprünglichen Vektorennamen.
+
+Falls keine anderen Angaben gemacht werden, heisst der Wertevektor `value` und der Namenvektor `name`. 
+
+::: {.callout-note}
+## Merke
+Der Namenvektor ist gleichzeitig ein **Sekundärindex**.
+:::
+
+Fall nicht alle Vektoren transponiert werden, dann werden die nicht transponierten Teile der Datensätze auf alle Datensätze der transponierten Vektoren erweitert. 
+
+::: {.callout-note}
+## Merke
+
+Ein Primärindex wird nach dem Transponieren zum Sekundärindex.
+:::
+
+::: {#exm-pivot_longer}
+## Transponieren in die Vektorform
+
+```{r}
+
+# Ursprünglich Daten
+(schweizerStaedte = 
+    read_csv("geschlechter_schweizer_staedte.csv") |>
+    select(-c(S, N)))
+
+# Transponieren in die Vektorform
+(schweizerStaedte |>
+    pivot_longer(- c(Ort, Gesamt)) ->
+        schweizerStaedteLang)
+```
+:::
+
+Die Funktion `pivot_wider()` transponiert einen Datenrahmen von der Vektorform (Langform) in die Matrixform (Breitform). Damit diese Operation durchführbar ist, muss neben dem Wertevektor ein Sekundärindex für die Vektorennamen **und** ein Sekundärindex für die *zeilenweise Zuordnung* der Werte vorliegen. Dieser Index wird von R verwendet, um die Vektorennamen zu erzeugen: Die Operation erzeugt für jeden diskreten Wert im Sekundärindex einen Vektor für die Matrixform. Der zweite Sekundärindex wird nach dem Transponieren zum Primärindex. 
+
+::: {#exm-pivot_wider}
+## Transponieren in die Matrixform
+
+```{r}
+# Daten transponieren
+schweizerStaedteLang |> 
+    select(-Gesamt) |>
+    pivot_wider(names_from = Ort)
+```
+:::
+
+Existieren weitere Vektoren im Datenrahmen, dann werden diese beim Transponieren zusammengefasst, so dass die Werte nach dem Transponieren nur noch einmal im Ergebnis erscheinen.
+
+::: {.callout-warning}
+## Achtung
+
+Existiert kein zweiter Sekundärindex beim Transponieren in die Breitform, dann fasst R alle Datensätze zusammen, bei denen alle Werte in den zusätzlichen Vektoren gleich sind. Dieses Verhalten **kann** dazuführen, dass mehr Werte transponiert werden müssen als Zieldatensätze erzeugt werden können. In solchen Fällen werden die überzähligen Werte als Listenvektor abgelegt (@exm-bad-pivot_wider). Dieses Verhalten ist normalerweise *unerwünscht*. 
+:::
+
+::: {#exm-bad-pivot_wider}
+## Transponieren mehrdeutiger Werte in die Matrixform
+
+```{r}
+# Ursprüngliche Daten einlesen
+(abDaten = read_csv2("data_ab_semi.csv")) 
+
+# Daten transponieren
+abDaten |> 
+    pivot_wider(names_from = Angebot, values_from = Punkte)
+```
+:::
+
+### Rezept: Operationen zusammenfassen
+
+#### Problem
+
+Es sollen mehrere Vektoren eines Datenrahmens auf die gleiche Art transformiert oder aggregiert werden. 
+
+#### Lösung
+
+Die Vektoren werden zuerst in die Vektorform (Langform) *transponiert*. Anschliessend wird eine (gruppierte) Transformation oder gruppierte Aggregation durchgeführt.
+
+::: {#exm-pivot_longer-aggregate}
+## Zusammengefasstes Aggregieren
+```{r}
+schweizerStaedte |> 
+    pivot_longer(-c(Ort, Gesamt)) |>
+    group_by(Ort, Gesamt) |>
+    summarise(
+        sum(value)
+    )
+```
+:::
+
+#### Erklärung
+
+Durch das transponieren entstehen ein Namenvektor und ein Wertevektor, wobei der Namenvektor auch als Sekundärindex behandelt werden kann. Sich wiederholende Operationen lassen sich so in einer gruppierten Operation zusammenfassen. Durch das Transponieren lässt sich die Code-Komplexität reduzieren, wodurch die Lösung insgesamt weniger fehleranfällig wird. 
+
+Diese Logik lässt sich auf alle Datenoperationen anwenden. Im @exm-pivot_longer-mutate werden die Anteile am Gesamtvolumen von vier Merkmalen berechnet. Ohne das Transponieren würden repetitive Codeteile entstehen (@exm-no-pivot_longer-mutate). Die sich wiederholenden Codeteile entfallen durch das Transponieren und können in einer Operation behandelt werden. 
+
+::: {#exm-no-pivot_longer-mutate}
+## Bestimmung des Anteils mehrerer Merkmale ohne Transponieren
+```{r}
+schweizerStaedte |> 
+    mutate(
+        Anteil_S_M = S_M / Gesamt,
+        Anteil_S_F = S_F / Gesamt, 
+        Anteil_N_M = N_M / Gesamt,
+        Anteil_N_F = N_F / Gesamt
+    ) |>
+    select(c(Ort, starts_with("Anteil")))
+```
+:::
+
+
+::: {#exm-pivot_longer-mutate}
+## Bestimmung des Anteils mehrerer Merkmale
+```{r}
+schweizerStaedte |> 
+    pivot_longer(- c(Ort, Gesamt)) |>
+    mutate(
+        value = value / Gesamt
+    ) |>
+    # Anpassen des Ergebnisses zur Präsentation
+    select(- Gesamt) |>
+    pivot_wider(names_prefix = "Anteil_")
+```
+:::
+
+
+### Rezept: Gruppiertes Zählen schöner präsentieren
+
+#### Problem
+
+Beim gruppierten Zählen werden die Sekundärindizes und die Ergebnisse nebeneinander dargestellt, so dass sich die Ergebnisse nur schwer vergleichen lassen. 
+
+#### Lösung
+
+Nach dem gruppierten Zählen wird das Ergebnis in die Matrixform transponiert.
+
+::: {#exm-gruppiertes-zaehlen-pivot}
+## Lesbarere Präsentation des gruppierten Zählen
+```{r}
+
+daten = read_csv2("data_ab_semi.csv")
+
+daten |>
+    count(Angebot, Interesse) |>
+    pivot_wider(
+        names_from = Angebot, 
+        values_from = n, 
+        values_fill = 0
+    )
+```
+:::
+
+#### Erklärung
+
+Werden beim Zählen über einen Datenrahmen mehrere Sekundärindizes verwendet, ist das Ergebnis nur schwer interpretierbar. Damit das Ergebnis für Menschen leichter zu lesen ist, muss die spaltenweise Darstellung in ein eleganteres Format überführt werden. Mit der Funktion `pivot_wider()` lassen sich die Daten in eine Kreuztabelle überführen. Das Ergebnis ähnelt nach dem Transponieren dem Ergebnis der `table()`-Funktion. Auf diese Weise lassen sich Häufungen in den Werten leichter erkennen. 
+
+In der Lösung werden drei besondere Parameter eingesetzt: 
+
+1. Der Parameter `names_from` zeigt an, aus welchem Index die neuen Vektornamen  erzeugt werden sollen. 
+2. Der Parameter `values_from` zeigt an, in welchem Vektor die zu transponierenden Werte stehen. 
+3. der Parameter `values_fill` kommt zur Anwendung, wenn für eine Position kein Wert bereitsteht. Für die Zählung bedeutet das, dass nichts gezählt wurde. Deshalb wurde der Wert im Beispiel auf den Wert `0` gesetzt.
+
+## Hierarchisieren 
+
+Beim Hierarchisieren werden ausgewählte Vektoren eines Datenrahmens entlang eines Sekundärinzes zu separaten Datenrahmen organisiert und in den ursprünglichen Datenrahmen eingebettet. Über solche eingebettete Datenrahmen lassen sich hierarchische Datenstrukturen erzeugen, die beispielsweise in einem JSON- oder YAML-Dokument (s. @sec-chapter-daten-importieren) gespeichert werden können. In R übernimmt diese Aufgabe die Funktion `nest()`.
+
+Weil R jedoch keine Vektoren mit Datenrahmen erlaubt, müssen diese Datenrahmen zusätzlich in eine Liste geschachtelt werden. Diese Liste dient nur zur Ablage in einem Vektor und besteht immer nur aus einem Element, nämlich dem eingebetteten Datenrahmen.
+
+Mit der Funktion `unnest()` lassen sich eingebettete Datenrahmen wieder ausbetten. Diese Operation funktioniert jedoch nur dann zuverlässig, wenn alle eingebetteten Datenrahmen einheitliche Vektoren haben. Ist diese Bedingung nicht gegeben, dann erzeugt R zusätzliche Vektoren mit `NA` für alle Datensätze, die die Vektoren ursprünglich nicht enthielten. Die Funktion `unnest()` führt mehrere Spaltenkonkatenationen aus und ähnelt damit im Ergebnis der Funktion `bind_rows()`.
+
+Die beiden Funktionen `nest()` und `unnest()` sind speziell zur Erzeugung bzw. zum Auflösen von eingebetteten Datenrahmen gedacht. Gelegentlich enthält ein Datenrahmen einen Vektor mit einfachen Listen oder benannten Listen. Solche Vektoren sind vom Typ `list` und sollten mit den Funktionn `unnest_longer()` für einfache Listen sowie `unnest_wider()` für einheitlich benannte Listen [@wickham_tidyr_2023]. 
+
+## Transponieren mit Zeichenketten
+
+Ein spezieller Fall ist gegeben, wenn die Daten in Zeichenketten kodiert sind. Streng genommen handelt es sich hierbei nicht um eine Transponierenoperation, sondern um eine normale Transformation. Die entsprechenden Funktionen für diese Operation wurden aber nach dem gleichen Prinzip wie beim Hierarchisieren bzw. beim Transponieren angepasst.
+
+Wie beim Transponieren kann ein Vektor in die Lang- oder die Breitform getrennt werden. Für die meisten Anwendungen eignen sich zwei Funktionen: 
+
+- `separate_longer_delim()`
+- `separate_wider_delim()`
+
+Gelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als *regulärer Ausdruck* der Funktion `separate_longer_regex()` bzw. `separate_wider_regex()` übergeben werden.
+
+Für festkodierte Werte stehen die beiden Funktionen `separate_longer_position()` und `separate_wider_position()` zur Verfügung. Diese Funktionen erwarten einen Vektor mit den Feldbreiten, um die Werte trennen zu können. 
+
+Die Umkehrfunktion für alle `separate_`-Funktionen ist die Funktion `unite()`, mit der sich die Werte aus einer Lang- oder Breitform zu einem Zeichenkettevektor verketten lassen.

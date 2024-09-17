@@ -1,12 +1,5 @@
 # Faktoren {#sec-chapter-faktoren}
 
-
-
-::: {.callout-warning}
-## Work in Progress
-:::
-
-
 R kennt diskrete Daten in zwei Varianten. 
 
 1. Diskrete Daten als Abfolge von Werten in einem Vektor.
@@ -20,10 +13,12 @@ Wir erkennen Faktoren in Stichprobenobjekten von R am Symbol ``<fct>`` für den 
 
 Neben der Bedeutung für die Empirie sind Faktoren in R auch für die Darstellung von Daten von Bedeutung. Dabei wird die Ordnung der Faktorstufen für die Anordnung von Ergebnissen verwendet, die mit Hilfe eines Faktors berechnet wurden. Diese Ordnung wird von `ggplot()` und für die Sortierung der Ergebnisse gruppierter Daten verwendet. Die Verwendung von Faktoren für solche Aufgaben hat den Vorteil, dass die Reihenfolge der Datensätze nicht verändert werden muss.  
 
+Im folgenden werden die Funktionen der `tidyverse`-Bibliothek `forcats` [@wickham_forcats_2023] vorgestellt. 
+
 Die folgenden Beispiele verwenden  die Stichprobe `digitales_umfeld.csv`
 
 ```R
-digitales_umfeld = read_delim("digitales_umfeld.csv")
+digitales_umfeld = read_csv("digitales_umfeld1.csv")
 ```
 
 Wenn wir zum Beispiel die Anzahl der Mobilgerätetypen bestimmen möchten, dann können wir naiv vorgehen: 

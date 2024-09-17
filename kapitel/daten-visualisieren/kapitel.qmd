@@ -8,9 +8,9 @@ execute:
 ---
 # Daten visualisieren {#sec-chapter-daten-visualisieren}
 
-::: {.callout-warning}
-## Work in Progress
-:::
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
+```
 
 In R erstellen wir Plots mit Hilfe der `ggplot2`-Funktionen. Anders als in Excel werden mit diesen Funktionen Plots schrittweise aufgebaut und können auf diese Weise einheitlich reproduziert werden. 
 
@@ -58,7 +58,7 @@ Mit der dritten Zeile legen wir die ***Geometrie*** der Datenpunkte fest. Alle `
 
 Diese drei Schritte zeigen die grundsätzliche Logik zum Erstellen von Plots mit R.  
 
-## Mathematische Funktionen visualisieren
+## Mathematische Funktionen visualisieren {#sec-visualisation-math-func}
 
 In der Mathematik werden regelmässig Funktionen besprochen. Diese Funktionen können wir mit R leicht visualisieren.
 
@@ -131,8 +131,10 @@ Wir wollen die beiden Graphen noch visuell hervorheben, damit wir wissen, welche
 ```{R}
 Darstellungsbereich |>
     ggplot(aes(x)) + 
-        geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
-        geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2"))
+        geom_line(stat = "function", fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
+        geom_line(stat = "function", fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2"))
 ```
 
 Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir noch schnell mit der `labs()`-Funktion(für *labels* bzw. *Beschriftungen*) an. Dort geben wir für den ästhetischen Parameter die richtige Beschriftung an. In unserem Fall ist das `colour`.
@@ -141,8 +143,10 @@ Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir n
 ```{R}
 Darstellungsbereich |>
     ggplot(aes(x)) + 
-        geom_line(stat = "function", fun = f1, aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
-        geom_line(stat = "function", fun = f2, aes(colour = "f2(x) = 4 * x + 2")) +
+        geom_line(stat = "function", fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) + 
+        geom_line(stat = "function", fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2")) +
         labs(colour = "Funktion")
 ```
 
@@ -162,7 +166,7 @@ Wir lernen heute zwei wichtige berechnete Visualisierungen kennen.
 ### Histogramm
 
 ::: {#def-histogramm}
-Also **Histogramm** werden Balkendiagramme bezeichnet, die die *Häufigkeiten* von gemessenen Werte darstellen. 
+Als **Histogramm** werden Balkendiagramme bezeichnet, die die *Häufigkeiten* von gemessenen Werte darstellen. 
 :::
 
 Das übliche Balkendiagramm erzeugen wir mit der Funktion `geom_bar()`. Diese Funktion verwenden wir immer, wenn unsere gemessenen Werte nur auf bestimmte Werte fallen (können). Die `geom_bar()`-Funktion zählt für jeden gemessenen Wert die Anzahl der Datensätze, in denen dieser Wert vorkommt. 
@@ -173,27 +177,29 @@ Das folgende Beispiel veranschaulicht die Situation.
 
 Wir verwenden die Stichprobe `digitales_umfeld1.csv`. In dieser Stichprobe gibt es den Vektor `tage`, der das Alter der beantwortenden Person in Tagen festhält. Dabei handelt es sich rein formell um *diskrete Werte*. Wenn wir die Verteilung dieser Werte in einem Histogramm für *diskrete Werte* darstellen würden, dann erhalten wir das folgende Histogramm: 
 
-```R
-digitales_umfeld = read_delim("digitales_umfeld1.csv")
+```{R}
+#| label: fig-tage-barplot
+#| fig-cap: Tage-Histogram Diskrete Werte
+digitales_umfeld = read_csv("befragung_digitales_umfeld/digitales_umfeld1.csv")
 
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_bar()
 ```
 
-![Tage-Histogram Diskrete Werte](figures/tage_barplot.png){#fig-tage-barplot}
-
 Auf diesem Histogramm kann man keine Verteilung erkennen. Es scheint, als ob alle Werte genau einmal vorkommen. Der Wertebereich der y-Achse deutet aber darauf hin, dass einzelne Werte bis zu drei Mal vorkommen. Diese Balken sind jedoch so dünn, dass sie nicht im Diagramm dargestellt werden können. 
 
 Die Werte in diesem Vektore verhalten sich also wie *kontinuierliche Werte*. Deshalb verwenden wir die Funktion `geom_histogram()`, um die Daten darzustellen. 
 
-```R
+```{R}
+#| label: fig-tage-histo
+#| fig-cap: Tage-Histogram
+#| warning: FALSE
+
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_histogram()
 ```
-
-![Tage-Histogram](figures/tage_histogram.png){#fig-tage-histo}
 
 Aus diesem Histogramm können wir wesentlich besser die Verteilung des Alters in Tagen ablesen, weil der Wertebereich in grössere Segmente gegliedert wurde und die Datensätze in diesen Segmenten gezählt wurden.
 
@@ -218,17 +224,20 @@ Beim Box-Plot wird der Median als dicke Linie dargestellt. Der Interquartilsabst
 
 Wiederholen wir die Visualisierung für unsere Alterstage mit einem Boxplot, dann erhalten wir folgendes Ergebnis: 
 
-```R
+```{R}
+#| label: fig-tage-boxplot
+#| fig-cap: Tage-Boxplot
+#| warning: FALSE
 digitales_umfeld |> 
     ggplot(aes(x = tage)) +
         geom_boxplot()
 ```
 
-![Tage-Boxplot](figures/tage_boxplot.png){#fig-tage-boxplot}
-
 Wir erkennen jetzt leicht, dass der Grossteil der Gruppe unter 10000 Tagen alt ist und dass es sechs Ausreisser gibt, die deutlich älter als der Grossteil der Gruppe sind. 
 
-### Ausgleichsgeraden
+### Punkt- und Jitter-Diagramme
+
+
 
 Die dritte wichtige visuelle Analysetechnik sind Punktwolken. Bei Punktwolken stellen wir die Werte von zwei Vektoren ähnlich einer Kreuztabelle gegenüber und überprüfen das gemeinsame Auftreten von Werten in den Vektoren unserer Messungen.
 
@@ -237,38 +246,53 @@ Für Punktwolken stehen zwei Funktionen zur Verfügung:
 1. `geom_point()` für kontinuierliche Werte.
 2. `geom_jitter()` für diskrete Werte.
 
-```R
-daten = read_delim("digitales_umfeld_geraete_fm_att.csv");
+Mit Punktdiagrammen werden zwei Merkmale mit kontinuierlichen Daten gegenübergestellt. Punktdiagramme bilden **Beziehungen zwischen Merkmalen** ab. 
 
-daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+```{r}
+#| label: fig-iris-points
+#| fig-cap: Punktdiagramm der `iris`-Daten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
         geom_point()
 ```
 
-![](figures/interpretieren/output_27_0.png){}
+```{R}
+#| label: fig-attitude-point
+#| fig-cap: Beispiel eines Punktdiagramms mit diskreten Daten
+#| warning: FALSE
+daten = read_csv("befragung_digitales_umfeld/befragung.csv");
+
+daten |>
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
+        geom_point()
+```
     
 In diesem Beispiel sehen wir, dass alle Werte genau an den gleichen Punkten im Koordinatensystem liegen. Ein solcher Plot ist ein gutes Beispiel für *diskrete Werte*. Bei diskreten Werten fallen alle Messungen genau auf bestimmte Punkte im Wertebereich. Kontinuierliche Werte weichen oft ein wenig voneinander ab, sodass wir eine Wolke sehen würden. 
 
 Um Punktwolken für diskrete Werte zu erzeugen, verwenden wir die `geom_jitter()`-Funktion. Diese Funktion erzeugt einen kleinen Bereich um den diskreten (echten) Messwert und verteilt die einzelnen Datensätze mit einem zufälligen Abstand vom echten Messwert. Dadurch wird das gemeinsame Auftreten von Werten deutlich sichtbar, sofern es Gemeinsamkeiten gibt.
 
-
-```R
+```{R}
+#| label: fig-attitude-jitter
+#| fig-cap: Beispiel eines Jitter-Diagramms
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
         geom_jitter()
 ```
 
-![](figures/interpretieren/output_29_0.png){}
-
 Durch den leichten Versatz sind nun gehäufte Wertepaare leichter zu erkennen. Bei Jitter-Plots dürfen wir aber nie vergessen, dass die Punkte zwar Messungen repräsentieren, aber leicht vom echten Messpunkt versetzt dargestellt wurden.
 
-In diesem Beispiel können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf *Korrelationen* hin. 
+### Ausgleichsgeraden
+
+Im vorigen Abschnitt können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf *Korrelationen* hin. 
 
 ::: {#def-korrelation}
 Eine **Korrelation** bezeichnet das wiederholte Auftreten von Wertepaaren in Stichproben. Korrelationen deuten auf Zusammenhänge zwischen zwei Vektoren hin.
@@ -276,33 +300,34 @@ Eine **Korrelation** bezeichnet das wiederholte Auftreten von Wertepaaren in Sti
 
 Ähnlich wie beim Vergleichen mit Histogrammen ist es bei Punktwolken hilfreich, für die Wolke eine Referenz zur Orientierung zu haben. Das erreichen wir mit der `geom_smooth()`-Funktion. Die Methode `lm` steht für "lineares Modell". In diesem Modell versteckt sich das Wort Linie und deshalb *erzeugt ein lineares Modell immer eine Ausgleichsgerade*. Der graue Bereich zeigt uns die Spanne des Fehlerbereichs für diese Gerade. Bei einer linearen Korrelation sollte diese Gerade den Häufungen in unserem Plot ungefähr folgen.
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth
+#| fig-cap: Beispiel eines Jitter-Diagramms mit Ausgleichsgerade
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y = sozial_like_freunde)) + 
+    filter(q18_6 > 0 & 
+           q18_7  > 0 ) |>
+    ggplot(aes(x = q18_6 , 
+               y = q18_7)) + 
         geom_jitter() +
-        geom_smooth(method="lm")
+        geom_smooth(method=lm)
 ```
-
-![](figures/interpretieren/output_31_1.png){}
-
 
 Das folgende Beispiel zeigt eine Punktwolke, bei der die Wertepaare zufällig über den gesamten Wertebereich gestreut sind. In diesem Fall ist eine Korrelation kaum wahrscheinlich. 
 
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth2
+#| fig-cap: Beispiel eines Jitter-Diagramms mit flacher Ausgleichsgerade
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde  >= -1 & 
-           sozial_freundschaftsanfragen_aus_netzwerk >= -1 ) |>
-    ggplot(aes(x = sozial_like_freunde, 
-               y = sozial_freundschaftsanfragen_aus_netzwerk)) + 
+    filter(q18_3 > 0 & 
+           q18_29  > 0 ) |>
+    ggplot(aes(x = q18_3 , 
+               y = q18_29)) + 
         geom_jitter() +
         geom_smooth(method="lm")
 ```
-
-![](figures/interpretieren/output_33_1.png){}
 
     
 Im Beispiel ist die Ausgleichsgerade fast waagerecht. Wenn eine Ausgleichsgerade fast waagerecht ist, dann liegt in der Regel auch keine *Korrelation* vor.
@@ -312,31 +337,241 @@ Es gibt auch nicht-lineare Korrelationen. In diesem Fall sehen wir Häufungen in
 Wenn eine Ausgleichskurve fast gerade ist, dann sollten wir eine lineare Korrelation annehmen. Ein Beispiel für eine fast gerade Ausgleichskurve zeigt uns der nächste Plot. 
 
 
-```R
+```{R}
+#| label: fig-attitude-jitter-smooth-loess
+#| fig-cap: Beispiel eines Jitter-Diagramms mit nicht linearer Ausgleichslinie
+#| warning: FALSE
 daten |>
-    filter(sozial_like_freunde >= -1 & 
-           sozial_like_unbekannt >= -1 ) |>
-    ggplot(aes(x = sozial_like_unbekannt, 
-               y= sozial_like_freunde)) + 
+    filter(q18_3 > 0 & 
+           q18_29  > 0 ) |>
+    ggplot(aes(x = q18_3 , 
+               y = q18_29)) + 
         geom_jitter() +
         geom_smooth(method = "loess")
 ```
-
-![](figures/interpretieren/output_35_1.png){}
 
 ## Mehrdimensionale Plots mit `aes`
 
 ### Farbkodierung
 
+Mit der Farbkodierung können zusätzliche Merkmale in einer Visualisierung kodiert werden. ggplot unterscheidet für die Farbkodierung zwischen diskreten und kontinuierlichen Daten. Bei diskreten Daten verwendet R Farben, die sich gut voneinander unterscheiden lassen. Bei kontinuierlichen Daten werden Farbverläufe zwischen mehreren Farben verwendet. Ausserdem hängt die Färbung von der Art der Visualisierung ab. Flächige Darstellungselemente, wie die Balken von Balkendiagrammen, wird eine *Füllfarbe* gesetzt. Die Füllfarbe wird über die Ästhetik `fill` kontrolliert. Darstellungselemente wie Linien oder Punkte wird eine *Linienfarbe* gesetzt. Die Linienfarbe wird über die Ästhetik `colour` festgelegt.
+
+::: {.callout-note}
+## Merke
+Die Färbung von Punkten wird über die Linienfarbe gesteuert.
+:::
+
+```{r}
+#| label: fig-iris-points-color
+#| fig-cap: Punktdiagramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                y = Sepal.Width, 
+                colour = Species)) + # <1>
+        geom_point()
+```
+
+1. Farbliche Hervorhebung
+
+Balkendiagramme und Histogramme benötigen eine Flächenfärbung.
+
+```{r}
+#| label: fig-iris-histo-color
+#| fig-cap: Histogramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                fill = Species)) + # <1>
+        geom_histogram()
+```
+
+1. Farbliche Hervorhebung
+
+::: {.callout-tip}
+## Praxis
+Wenn Histogramme oder Balkendiagramme eine zusätzliche farbliche Kodierung erhalten, verbirgt eine gestapelte Balkendarstellung die Verteilungen. Mit dem Parameter `position` lässt sich die Positionierung der Balken steuern. Dies wird beispielsweise durch die Funktion `position_dodge()` vereinfacht. 
+:::
+
+```{r}
+#| label: fig-iris-histo-color-dodge
+#| fig-cap: Histogramm der `iris`-Daten mit farblich hervorgehobenen Spezieswerten
+#| warning: FALSE
+
+iris |>
+    ggplot(aes( x = Sepal.Length, 
+                fill = Species)) + # <1>
+        geom_histogram(position = position_dodge()) # <2>
+```
+
+1. Farbliche Hervorhebung
+2. Positionierung der hervorgehobenen Balken
+
+Die Ästhetik kann auch in den Geometriefunktionen angepasst werden. Wird hier für die Farbästhetik jeweils ein einzelner Wert angegeben, erzeugt `ggplot()` einen Vektor mit diskreten Werten und weist die Farben dynamisch zu. 
+
+```{R}
+#| label: fig-mfunc-line-colored
+#| fig-cap: Angepasste Ästhetik mit Einzelwerten in Geometriefunktionen 
+#| warning: FALSE
+
+Darstellungsbereich |>
+    ggplot(aes(x)) + 
+        geom_line(stat = "function", 
+                  fun = f1, 
+                  aes(colour = "f1(x) = x ^ 2 - 3 * x")) +  # <1>
+        geom_line(stat = "function", 
+                  fun = f2, 
+                  aes(colour = "f2(x) = 4 * x + 2")) +      # <2>
+        labs(colour = "Funktion")
+```
+
+1. Farbliche Hervorhebung der ersten Funktion
+2. Farbliche Hervorhebung der zweiten Funktion
+
+::: {.callout-warning}
+`ggplot` unterstützt Farbcodes zur Konfiguration von Füll- und Linienfarben ausserhalb der normalen Ästhetikparameter. Mit diesen Farbcodes wird die normale Füll- oder Linienfarbe auf ***eine*** andere Farbe geändert. Diese Methode zur Anpassung von Farbe sollte **vermieden** werden, weil für solche Farben keine Legende erzeugt wird. 
+:::
+
 ### Grössenkodierung
 
-### Formenkodierung
+::: {.callout-note}
+## Merke
+Die Grössenkodierung eignet sich am Besten für *kontinuierliche Daten*.
+:::
+
+::: {.callout-note}
+## Merke
+Die Grössenkodierung lässt sich auf Linien oder Punkte anwenden. Flächen lassen sich nicht zusätzlich grössenkodieren, weil sie bereits Werte über die Grösse kodieren.
+:::
+
+Die Grössenkodierung von Punkten erfolgt über die Ästhetik `size`. Auf diese Weise werden **Bubble-Charts** (Blasendiagramme) erstellt.
+
+```{r}
+#| label: fig-coding-points-size
+#| fig-cap: Grössenkodierung am Beispiel des Männeranteils in Schweizer Städten 
+#| warning: FALSE
+read_csv("geschlechter_schweizer_staedte.csv") -> 
+    geschlechteranteile_ch
+
+geschlechteranteile_ch |>
+    ggplot(aes(x = S, y = N, size = Gesamt)) + 
+        geom_point() +
+        xlab("Männeranteil der ständigen Wohnbevölkerung") +
+        ylab("Manneranteil der nicht-ständigen Wohnbevölkerung")
+```
+
+Die Grössenkodierung von Linien erfolgt über die Ästhetik `linewidth`. Die Linienbreite funktioniert analog zur Punktgrösse im Punktdiagramm. 
+
+::: {.callout-note}
+## Merke
+Die Ästhetik `size` wird in Kombination mit `geom_point()`, `geom_text()` oder `geom_label()` verwendet.
+
+Die Ästhetik `linewidth` wird in Kombination mit `geom_line()` verwendet.
+:::
+
+### Formkodierung
+
+Die Formkodierung kodiert die Werte einer Variable über die Form (engl. `shape`). 
+
+::: {.callout-note}
+## Merke
+Die Formkodierung eignet sich nur für *diskrete Daten*!
+:::
+
+::: {.callout-note}
+## Merke
+Die Formkodierung kann nur ein Punkt- oder Jitter-Diagramm ergänzen. 
+:::
+
+Die Formkodierung erfolgt über die Ästhetik `shape`.
+
+```{r}
+#| label: fig-coding-points-shape
+#| fig-cap: Anwendung von `facet_wrap()` 
+#| 
+mtcars |> 
+    mutate(am = am |> factor()) |>
+    ggplot(aes(
+        x = mpg, 
+        y = hp, 
+        shape = am # <1>
+    )) + 
+    geom_point()
+```
+
+1.  Formkodierung über das Merkmal `am`.
+
+Eine Variante der Formkodierung ist die Linienart. Die Kodierung der Linienart erfolgt äber die Ästhetik `linetype`. Diese Formatierung prinzipiell mit allen Diagrammentypen verwendet werden, die Linien darstellen. Für Boxplots oder Balkendiagramme sollte eine Kodierung über die Linienart vermieden werden.
+
+```{r}
+#| label: fig-linetrype
+#| fig-cap: Kodierung über Linienarten 
+#| 
+iris |>
+    ggplot(aes(x = Sepal.Length, 
+               y = Sepal.Width, 
+               linetype = Species)) +
+        geom_point() +
+        geom_smooth(method = "lm")
+```
+
+Eine weitere Variante der Formkodierung sind Textmarkierungen. Textmarkierungen werden über die Ästhetik `label` zugewiesen. Für eine Textmarkierung wird der Wert des gewählten Merkmals im Diagramm angezeigt.
+
+
+```{r}
+#| label: fig-textlabel
+#| fig-cap: Textmarkierungen über den Männeranteil an der ständigen und nicht-ständigen Wohnbevölkerung Schweizer Städte
+#| warning: FALSE
+geschlechteranteile_ch |>
+    ggplot(aes(x = S, y = N, label = Ort)) +
+        geom_text() +
+        xlab("Männeranteil der ständigen Wohnbevölkerung") +
+        ylab("Manneranteil der nicht-ständigen Wohnbevölkerung")
+```
+
 
 ### Facetted Plots
 
+Ein **Facetted Plot** gliedern die Darstellung von Werten in mehrere Teildiagramme. Diese Teildiagramme enthalten in der Regel nur die Werte 
+
+::: {.callout-note}
+## Merke
+Facetten können nur mit *diskreten Daten* erstellt werden!
+:::
+
+Facetten sind **keine** Ästhetik, sondern eine Steuerung. 
+
+```{r}
+#| label: fig-visual-facets
+#| fig-cap: Anwendung von `facet_wrap()` 
+
+mtcars |> 
+    ggplot(aes(mpg, hp)) + 
+    geom_point() +
+    facet_wrap(~ gear) # <1>
+```
+
+1. Facetten folgen den Werten des Merkmals `gear`.
+
+Eine Variante von `facet_wrap()` ist `facet_grid()`. Diese Funktion erstellt eine visuelle Matrix entlang der Werte zweier diskreter Merkmale. 
+
+```{r}
+#| label: fig-visual-facet-grid
+#| fig-cap: Anwendung von `facet_grid()` 
+#| 
+mtcars |> 
+    ggplot(aes(mpg, hp)) + 
+    geom_point() +
+    facet_grid(carb ~ gear) # <1>
+```
+
+1. Facetten über die Werte der Merkmale `gear` (horizontal) und `carb` (vertikal).
+
 ## Spezielle Visualisierungen
 
-### Torten- und Donut-Diagramme
+### Donut-Diagramme
 
 ::: {.callout-important} 
 Tortendiagramme und Donut-Diagramme werden oft falsch interpretiert, weil Kreisflächen schwerer verglichen werden können als die Höhen von Balken. Sie sollten nur zur Illustration, aber nie zur Argumentation verwendet werden.
@@ -347,7 +582,7 @@ R kann auch Plots erstellen, die nur einen Datenvektor umfassen. In diesem Fall 
 Nehmen wir das folgende Beispiel: Wir erstellen ein Stichprobenobjekt mit einem Vektor `q00_demo_gen`, der die Werte `1 : Keine Angabe`, `2 : Weiblich` und `3 : Männlich` enthält.
 
 
-```R
+```{r}
 daten2 = tibble(
     q00_demo_gen = c("2 : Weiblich", "2 : Weiblich", "3 : Männlich", 
 "2 : Weiblich", "2 : Weiblich", "2 : Weiblich", "2 : Weiblich", 
@@ -407,7 +642,7 @@ Uns interessiert nun: ***Wie oft kommen die drei möglichen Werte in unserer Sti
 
 Wir können die Werte mit `count()` selbst berechnen oder `ggplot` die Arbeit überlassen. Anstelle der `geom_col()`-Funktion verwenden wir nun die `geom_bar()`-Funktion. `geom_bar()` erwartet einen Vektor für die x-Achse und berechnet für die y-Achse das Auftreten der Werte, so wie wir es mit der `count()`-Funktion auch bestimmen würden.
 
-```R
+```{r}
 daten2 |>
     count(q00_demo_gen)
 
@@ -415,57 +650,34 @@ daten2 |>
     ggplot(aes(x = q00_demo_gen)) +
         geom_bar()
 ```
-
-<div class?="alert alert-secondary">
-<table>
-<thead>
-	<tr><th scope=col>q00_demo_gen</th><th scope=col>n</th></tr>
-	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>1 : Keine Angabe</td><td>  1</td></tr>
-	<tr><td>2 : Weiblich    </td><td> 95</td></tr>
-	<tr><td>3 : Männlich    </td><td>104</td></tr>
-</tbody>
-</table>
-</div>
-    
-![](figures/output_11_1.png){}
-    
-
+   
 Mit diesem Plot können wir die Unterschiede in unserer Werteverteilung leichter erkennen. 
 
 Für Präsentationen ist so ein Plot aber nicht wahnsinnig attraktiv. Färben wir den Plot also ein. Das machen wir, indem wir den Vektornamen auch  für die Füllung der Balken verwenden. `ggplot` wählt nun für jeden Wert in diesem Vektor eine eigene Farbe aus. Dadurch färben sich unsere Balken ein. 
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar()
 ```
-
-![](figures/output_13_0.png){}
     
 
 Für Histogramme verwenden wir normalerweise ein kartesisches Koordinatensystem. Wir können aber auch ein anderes Koordinatensystem wählen. Eine Variante sind **polare Koordinaten**. Mit einem polaren Koordinatensystem erreichen wir kreisförmige Darstellungen. Wir müssen dazu die Dimension, die auf das Zentrum des Diagramms zeigt, festlegen und als Parameter übergeben. In unserem Fall ist das die y-Dimension.
 
 Wir stellen unsere Daten in einem polaren Koordinatensystem dar, indem wir mit der `coord_polar()`-Funktion ggplot mitteilen, dass wir ein anderes Koordinatensystem wünschen. 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
         coord_polar("y") 
 ```
 
-
-    
-![](figures/output_15_0.png){}
-
 Unser Plot hat jetzt unschöne Beschriftungen. Die werden wir mit einem Formatierungsthema los. `ggplot` hat verschiedenen Formatierungen als Thema vordefiniert. Eines davon ist das Thema `void`. Diese Formatierung entfernt alle Hintergründe, Achsen und Beschriftungen ausser Legenden.
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x=q00_demo_gen, fill = q00_demo_gen)) +
         geom_bar() +
@@ -473,45 +685,37 @@ daten2 |>
         theme_void()
 ```
 
-
-![](figures/output_17_0.png){}
- 
 Das sieht doch gleich viel besser aus.
 
 ::: {.callout-note}
 Solche ringartigen Visualisierungen werden  als Zielscheiben- oder  **Donut-Diagramme** bezeichnet.
 :::
 
+### Torten-Diagramme
 
-Manchmal wollen wir alle Balken  übereinander stapeln. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So vermeiden wir, dass eine merkwürdige Beschriftung in unserem Diagramm auftaucht. Damit wir die Balken auseinanderhalten können, färben wir sie wie oben ein. 
+Für Torten- bzw. Kreisdiagramme müssen alle Balken eines Balkendiagramms übereinander gestapelt werden. Das erreichen wir, indem wir für die x-Achse einen konstanten Wert angeben. Z.B. nehmen wir dazu die leere Zeichenkette. So werden merkwürdige Beschriftungen im Diagramm vermieden. Damit wir die Balken auseinanderhalten können, färben wir sie ein. 
 
 
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() 
 ```
 
+Mit der Funktion `coord_flip` werden die Achsen vertauscht und das Diagramm gedreht.
 
-![](figures/output_19_0.png){}    
-    
-Mit der Funktion `coord_flip` vertauschen wir die Achsen und drehen so unser Diagramm.
-
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
         coord_flip()
 ```
 
-![](figures/output_21_0.png){}
-    
 Wir erkennen nun deutlich, dass `ggplot` immer versucht möglichst viel Fläche zu nutzen. 
 
 Das Interessante an dieser Darstellung ist aber nicht dieses Format, sondern dass wir dieses Diagramm ebenfalls in einem polaren Koordinatensystem darstellen können. 
 
-
-```R
+```{r}
 daten2 |>
     ggplot(aes(x ="", fill = q00_demo_gen)) +
         geom_bar() +
@@ -519,11 +723,4 @@ daten2 |>
         theme_void()
 ```
 
-![](figures/output_23_0.png){}
-   
-
 Auf diese Weise erzeugen wir Tortendiagramme. 
-
-### Bubble-Plots
-
-

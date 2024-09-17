@@ -36,7 +36,7 @@ Diese Dateien können wir mit den folgenden Funktionen einlesen.
 | txt (ganze Datei) | `read_file()` | `readChar()` + `file.info()` |  
 | txt (zeilenweise) | `read_lines()` | `readLines()` + `file()` |
 | csv (mit `,` als Trennzeichen) | `read_csv()` | `read.csv()` |
-| csv (mit `;` als Trennzeichen) | `read_delim()` oder `read_csv2()` | `read.csv2()` |
+| csv (mit `;` als Trennzeichen) | `read_csv2()` | `read.csv2()` |
 | tsv | `read_tsv()` | `read.table()` |
 | xls (Excel Arbeitsmappen mit `readxl`) | `read_excel()` | - |
 | FWF | `read_fwf()` | - |
@@ -52,19 +52,8 @@ In der Schweiz kann das CSV-Format zu Verwirrung führen, weil sehr häufig das 
 Die normalerweise für dieses Format empfohlene Funktion `read_csv2()` behandelt Dezimalzahlen fälschlich als Ganzzahlen. Um dieses Problem zu beheben, sollte das Dezimaltrennzeichen laut Dokumentation wie folgt angepasst werden:
 
 ```r
-read_csv2(datei_name, locale = local(decimal_mark = "."))
+read_csv2(datei_name, locale = locale(decimal_mark = "."))
 ```
-
-**Dieser Aufruf funktioniert jedoch nicht!**
-
-Hier greift die Funktion `read_delim()`. Wird dieser Funktion nur ein Dateiname übergeben, dann prüft die Funktion auf die verschiedenen Trennzeichen. Dieser (undokumentierte) Algorithmus erkennt Schweizer CSV-Dateien korrekt.
-
-```r
-read_delim(datei_name)
-```
-
-**Dieser Aufruf importiert die Werte wie erwartet.**
-
 :::
 
 Bei der modernen `read_` Variante können wir uns leicht an der Dateiendung orientieren, um die richtige `read_`-Funktion auszuwählen. 
@@ -74,7 +63,7 @@ Wenn eine Datei eingelesen wird, dann gibt die jeweilige `read_`-Funktion neben 
 
 ### Dateien mit einer Spalte 
 
-**CSV**-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Die Funktion `read_delim()` liest diese Dateien meistens korrekt ein. Falls eine Datei mit nur **einem** *Datenvektor* importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle **muss** die Datei mit der `read_csv()` oder `read_csv2()`-Funktion noch einmal eingelesen werden.
+**CSV**-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Falls eine Datei mit nur **einem** *Datenvektor* importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle **muss** die Datei mit der `read_csv()` oder `read_csv2()`-Funktion noch einmal eingelesen werden.
 
 Für Spalten mit Zeichenketten oder Ganzzahlen wird immer die Funktion `read_csv()` verwendet.
 
@@ -194,9 +183,15 @@ Die Import- und Export-Funktionen lassen sich zu einfachen Konvertierungsprogram
 library(readr)
 
 write_csv(
-    read_delim("Bestellungen_Excel.csv"), 
+    read_csv2("Bestellungen_2.csv"), 
     "Bestellungen_korrigiert.csv" 
 )
+```
+
+oder eleganter mit Funktionsverkettung: 
+
+```r
+read_csv2("Bestellungen_2.csv") |>  write_csv("Bestellungen_korrigiert.csv" )
 ```
 :::
 

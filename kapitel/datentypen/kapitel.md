@@ -360,13 +360,13 @@ c(1, 2, 3) %*% t(c(3, 4, 5))
 :::
 
 ::: {.callout-warning}
-Wird lässt sich der Ausgangsvektor nicht in die angegebene Zeilen- oder Spaltenzahl gliedern, dann werden die Vektorwerte solange wiederholt, bis die Matrix aufgefüllt wurde und eine eine Warnrmeldung ausgegeben. Dadurch ist das Ergebnis nicht immer klar nachvollziehbar.
+Wird lässt sich der Ausgangsvektor nicht in die angegebene Zeilen- oder Spaltenzahl gliedern, dann werden die Vektorwerte solange wiederholt, bis die Matrix aufgefüllt wurde und eine Warnrmeldung ausgegeben. Dadurch ist das Ergebnis nicht immer klar nachvollziehbar.
 ::: 
 
 Eine Matrix wird über das äussere Matrixprodukt (@sec-chapter-matrix-operationen) aus zwei Vektoren erstetllt. 
 
 ::: {#exm-matrix-dt-outer}
-## eine -Matrix aus einem Vektor erstellen
+## eine -Matrix aus Vektoren erstellen
 ```r
 c(1, 2, 3) %o% c(3, 4, 5)
 ```

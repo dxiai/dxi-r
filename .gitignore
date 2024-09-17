@@ -69,3 +69,13 @@ index.pdf
 index.toc
 index.out
 **/*.rmarkdown
+**/*.html
+_freeze/
+**/*_files/
+**/*.html
+**/*.aux
+**/*.log
+**/*.pdf
+**/*.toc
+
+site_libs/

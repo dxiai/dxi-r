@@ -6,9 +6,9 @@ abstract: ""
 
 # Boole'sche Operationen {#sec-chapter-booleans}
 
-::: {.callout-warning}
-## Work in Progress
-::: 
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
+```
 
 ```{r}
 #| echo: false
@@ -17,7 +17,7 @@ abstract: ""
 library(tidyverse)
 ```
 
-In R stehen die logischen Operationen als *binäre* Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole'sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Opeartoren folgt der gleichen Regel wie die Arithmetik. 
+In R stehen die logischen Operationen als *binäre* Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole'sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Operatoren folgt der gleichen Regel wie die Arithmetik. 
 
 ::: {.callout-note}
 ## Merke
@@ -152,8 +152,289 @@ Entsprechend der Definition des Existenzvergleichs $\in$ funktioniert R's `%in%`
 
 ### Bedingte Operationen
 
+R kennt die beiden Schlüsselworte `if` und `else`, um die Ausführung Operationsblöcken an Bedingungen zu knüpfen. Das Schlüsselwort `if` erwartet einen logischen Ausdruck, der **genau** einen Wahrheitswert zurückgibt. Logische Ausdrücke mit Vektoren sind damit nicht möglich. 
+
+Soll sowohl die Bedingung als auch die Alternative behandelt werden, dann muss das Schlüsselwort `else` in der gleichen Zeile stehen, wie das Ende des Blocks für die Bedingung.
+
+::: {#exm-ungueltiges-if}
+## Ungültige Vektorbedingung mit `if`
+```{r, error=TRUE}
+werte = c(-1, 2, 0, 1)
+
+if (werte > 1) {
+    werte = werte - 1
+} else {
+    werte = 0
+}
+```
+:::
+
+::: {.callout-tip}
+## Praxis
+Bedingte Operationen sind in R nur selten notwendig. Die einzige relevandte Anwendung ist Datentypkontrolle für Parameter bevor die eigentliche Operation durchgeführt wird. 
+:::
+
+::: {#exm-datentyppruefung-if}
+## Datentypprüfung mit `if`
+```{r, error=TRUE}
+
+if (!is.list(werte)) {
+    stop("Variable enthält keine Liste")
+}
+```
+:::
+
 ### Vektorisierte Unterscheidungen
 
-## Filter
+Häufiger als Bedingungen kommen in R vektorisierte Unterscheidungen vor. Dafür stehen zwei Funktionen zur Verfügung:
+
+- `ifelse()`
+- `case_when()`
+
+Die Funktion `ifelse()` hat drei Parameter und immer einen Vektor als Ergebnis. Die Parameter sind:
+
+1. Einen vektorisierten logischen Ausdruck.
+2. Eine Operation für den Fall, dass der logische Ausdruck Wahr (`TRUE`) ergibt.
+3. Eine Operation für den Fall, dass der logische Ausdruck Falsch (`FALSE`) ergibt.
+
+Die Ergebnisse der beiden Operationen stehen im Ergebnisvektor an den Positionen, an denen der logische Ausdruck Wahr oder Falsch ergab. 
+
+::: {#exm-ifelse}
+## Vektorisierte Unterscheidung mit `ifelse()`
+```{r}
+ifelse(werte > 1, werte * 2, 0)
+```
+:::
+
+Die Funktion `case_when()` erlaubt es, mehrere miteinander verbundene vektorisierte Unterscheidungen in einer Operation durchzuführen. Dazu werden logische Ausdrücke mit Ergebnisoperationen bzw. -Werten verknüpft. Eine Ergebnisoperation wird dann ausgeführt, wenn der zugehörige logische Ausdruck Wahr (`TRUE`) ergibt. Die logischen Ausdrücke werden in der angegebenen Reihenfolge geprüft, wobei die Operation abbricht, sobald ein logischer Ausdruck Wahr ergibt. 
+
+::: {#exm-case-when-default}
+## `case_when()` über einen Vektor
+```{r}
+case_when(
+    werte > 0 ~ "positiv",
+    werte == 0 ~ "null",
+    werte < 0 ~ "negativ" 
+)
+```
+:::
+
+Für den Fall, dass für einen Wert kein logischer Ausdruck Wahr ergibt, kann ein **Rückfallergebnis** angegeben werden. Dieses Rückfallergebnis muss mit `.default =` eingeleitet werden. 
+
+::: {#exm-case-when-default}
+## `case_when()` mit Rückfallergebnis
+```{r}
+case_when(
+    werte > 0 ~ "positiv",
+    werte < 0 ~ "negativ",
+    .default = "null"
+)
+```
+
+:::
+
+## Filtern
+
+Das Filtern von Werten in Vektoren und Stichproben ist ein zentrales Element von R. Dafür stehen viele Funktionen bereit. Es ist auch möglich über die Index-Operatoren zu filtern.
+
+In der Praxis wird meistens die Funktion `filter()` zum Auswählen von Datensätzen verwendet. Diese Funktion ermöglicht es, einen Datenrahmen mittels eines logischen Ausdrucks einzuschränken. Die Funktion `filter()` hat zwei Parameter: 
+
+1. Den Datenrahmen und
+2. Den logischen Ausdruck für die Auswahl der Datensätze. 
+
+Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (`TRUE`) ergibt.
+
+> ::: {#exm-filter}
+> ## Filtern
+> 
+> | | A | B | C |
+> | :---: | :---| :---: |  :---: | 
+> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
+> | **2** | Basel | deutsch | 173863| 
+> | **3** | Genf | französisch | 203856 | 
+> | **4** | Lugano | italienisch | 62315 | 
+> | **5** | Zug | deutsch | 30934 | 
+> | **6** | Zürich | deutsch | 421878 | 
+> 
+> Für diese Stichprobe möchten wir wissen, wie viele Einwohner in Städten mit mehr als 100000 Einwohnenden leben?
+> 
+> Diese Frage beantworten wir mit der folgenden Logik:
+> 
+> 1. Alle Städte mit mehr als 100000 Einwohner:innen filtern.  
+> 2. Die Einwohner:innen der gefilterten Städte zusammenzählen. 
+> 
+> Der logische Ausdruck zum Filtern ist `` `Einwohner:innen` > 100000 ``, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor `Einwohner:innen` der Wert grösser als `100000` ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor: 
+> 
+> | | A | B | C |
+> | :---: | :---| :---: |  :---: | 
+> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
+> | **2** | Basel | deutsch | 173863 | 
+> | **3** | Genf | französisch | 203856 | 
+> | **6** | Zürich | deutsch | 421878 | 
+> 
+> Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor `Einwohner:innen` gebildet werden. 
+> 
+> Daraus ergibt sich die folgende Funktionskette: 
+> 
+> ```{r, warnings=FALSE}
+> read_delim("daten/einwohnende.psv", # <1>
+>            delim = "|",  # <1>
+>            trim_ws = T,  # <1>
+>            show_col_types = F) |> # <1>
+>     filter(`Einwohner:innen` > 100000) |> # <2>
+>     summarise(
+>         Gesamteinwohnende = sum(`Einwohner:innen`)
+>     )
+> ```
+>
+> 1. `read_delim()` muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.
+> 2. Filter operation.
+> :::
+
+
+### `NA`-Werte filtern 
+
+Die Funktion `drop_na()` ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert `NA` vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (@exm-drop-na-all).
+
+::: {#exm-drop-na-all}
+## `drop_na()` ohne Effekt
+:::
+
+## Selektieren
+
+::: {.callout-tip}
+## Praxis
+
+Die `tidyverse` Bibliothek umfasst die [`tidyselect`-Funktionen](https://tidyselect.r-lib.org/reference/language.html). Dabei handelt es sich um eine Reihe von Hilfsfunktionen, die die Vektorenauswahl nachvollziehbarer macht. Auf der [`tidyselect`-Homepage](https://tidyselect.r-lib.org/) finden sich ausführliche Code-Beispiele. 
+:::
+
+In R können Vektoren mit der Funktion `select()` selektiert werden. Dieser Funktion werden Regeln übergeben, nach denen die Vektoren auswählt werden sollen. Die einfachste Regel ist die direkte Eingabe der Vektorennamen. Ein typischer Anwendungsfall ist die Datenbereinigung, damit die Funktion `drop_na()` nicht zu viele Datensätze löscht. Diese Situation kommt vor, wenn ein Datenrahmen viele fehlende Werte enthält, die ungleichmässig in den Vektoren vorkommen. Die Analyse muss deshalb auf die gewünschten Vektoren beschränkt werden. 
+
+Für die folgenden Beispiele verwenden wir die Daten der Befragung zum digitalen Umfeld, die mit der `read_csv()`-Funktion eingelesen wird. 
+
+```{r}
+stichprobe = read_csv("daten/befragung_digitales_umfeld/deviceuse.csv") 
+```
+
+### Vektoren direkt selektieren
+
+Wir wollen die Vektoren `q00_demo_gen` (Gender), `q00_demo_studyload` (Studienmodell) und `q01_mob_typ` (Mobile OS des Smartphones) auswählen. 
+
+::: {#exm-select-direkt}
+## Direktes selektieren
+```{r}
+stichprobe |>
+    select(q00_demo_gen, q00_demo_studyload, q01_mob_typ) |>
+    head()
+```
+:::
+
+Durch diesen Aufruf von `select()` wird der Datenrahmen auf die drei ausgewählten Vektoren reduziert. 
+
+### Alle ausser die benannten Vektoren selektieren
+
+Vektoren direkt zu benennen ist eine einfache direkte Methode. Wenn man sehr viele Vektoren auswählen möchte, dann ist es manchmal einfacher, nur die Vektoren anzugeben, die *nicht* in der Ergebnisstichprobe enthalten sein sollen. Mit `select()` erreichen wir das, indem wir ein `-` den ungewollten Vektoren voranstellen. 
+
+Das folgende Beispiel selektiert alle Vektoren ausser `q00_demo_gen` aus der Stichprobe. 
+
+::: {#exm-select-direkt-neg}
+## Selektieren durch Ausschliessen
+```R
+stichprobe |>
+    select(-q00_demo_gen) |>
+    head()
+```
+:::
+
+Wenn  mehrere Vektoren ausgeschlossen werden sollen, dann müssen diese zu einem Vektor zusammengefasst werden. 
+
+::: {#exm-select-direkt-neg-multi}
+## Selektieren durch mehrfaches Ausschliessen
+```R
+stichprobe |>
+    select(- c(q00_demo_gen, q00_demo_studyload)) |>
+    head()
+```
+:::
+
+Diese Vektorenauswahl wählt alle Vektoren ausser das Geschlecht und das Studienmodell. 
+
+### Vektoren mit ähnlichen Namen auswählen
+
+Drei leistungsfähige Hilfsfunktionen für `select()` sind: 
+
+- `starts_with()`,
+- `ends_with()` sowie
+- `contains()`
+
+Diesen Funktionen akzeptieren einen Teilnamen, über den mehrere Vektoren ausgewählt werden, in denen der angegebene Teil im Vektornamen vorkommt. 
+
+Diese Funktionen lassen sich mittels der `iris`-Stichprobe  veranschaulichen.
+
+::: {#exm-select-starts-with}
+## Selektieren mit `starts_with()`
+```{r}
+iris |>
+    select(starts_with("Sepal")) |>  # wählt die Vektoren Sepal.Width und Sepal.Length aus
+    head()
+```
+:::
+
+::: {#exm-select-ends-with}
+## Selektieren mit `ends_with()`
+
+```{r}
+iris |>
+    select(ends_with("Length")) |> # wählt die Vektoren Petal.Length und Sepal.Length aus
+    head()
+```
+:::
+
+### Alle Vektoren zwischen zwei benannten Vektoren auswählen
+
+Eine weitere Möglichkeit schneller viele Vektoren auszuwählen ist der `:`-Operator. Damit können wir alle Vektoren zwischen zwei Vektoren inklusive der benannten Vektoren auswählen.
+
+Der folgende Aufruf veranschaulicht dies: 
+::: {#exm-select-range}
+## Vektorenbereich selektieren
+```{r}
+stichprobe |>
+    select(q00_demo_gen:q01_mob_typ) |>
+    head()
+```
+:::
+
+Diese Vektorenauswahl wählt die Vektoren `q00_demo_gen`, `q00_demo_studyload` und `q01_mob_typ` für das Ergebnis aus.
+
+::: {.callout-warning}
+Die Reihenfolge von Vektoren kann durch andere Transformationen geändert werden. Deshalb sollte das Selektieren mit Vektorbereichen vermieden werden.
+:::
 
 ## Sortieren
+
+R erlaubt kein Sortieren über logische Ausdrücke. Es ist nur möglich, Werte nach vorgegebenen grösser-kleiner Beziehungen zu sortieren. Deshalb muss für komplexe Sortierungen ein numerischer Hilfsvektor erzeugt werden, der anschliessend sortiert werden kann.  
+
+Die Werte eines Vektors werden mit `sort()` sortiert. 
+
+::: {#exm-sort}
+## Vektorsortierung für zufällige Ganzzahlen
+```{r}
+set.seed(10)
+runif(10, min = 1, max = 10) |> trunc() |> sort()
+```
+::: 
+
+Die `sort()`-Funktion kann nur einzelne Vektoren sortieren. Das ist unpraktisch, wenn Daten in einem Datenrahmen vorliegen. In diesem Fall lassen sich die Datensätze mithilfe der Funktion `arrange()` sortieren. Der Funktion werden die Vektoren übergeben, über die eine neue Reihenfolge festgelegt werden soll. Standardmässig sortiert `arrange()` aufsteigend. Mit der Hilfsfunktion `desc()` (engl. descending = absteigen) werden Datensätze entsprechend der Werte im Sortiervektor absteigend sortiert.
+
+
+::: {#exm-sort}
+## Absteigende Datenrahmensortierung mit `arrange()`
+
+```{r}
+mtcars |>
+    as_tibble(rownames = "model") |> 
+    select(model, hp, disp, mpg, am) |> 
+    arrange(desc(hp)) |> 
+    head()
+```
+::: 
