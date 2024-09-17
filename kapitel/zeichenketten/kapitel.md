@@ -32,6 +32,10 @@ Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der `tidyver
 
 : Die wichtigsten Zeichenketten-Operationen {#tbl-zeichenketten-operationen}
 
+::: {.callout-warning}
+Die Funktion `str()` ist eine Hilfsfunktion, die Informationen über die interne Struktur einer Variablen bereitstellt. `str()` ist eine Abkürzung für *structure*. Es handelt sich dabei um **keine** Zeichenkettenfunktion.
+::: 
+
 In R verwenden wir dazu die Funktion `str_replace_all()`. Diese Funktion ersetzt einen Teil einer Zeichenkette durch eine andere Zeichenkette. Wir müssen daher R mitteilen, dass wir alle Teilzeichenketten löschen möchten, die nicht-druckbare Zeichen enthalten. Das erreichen wir durch den ***regulären Ausdruck*** ``"[\u01-\u07\u0E-\u1f\u80-\u9F]+"``. Dieses Suchmuster teilt R mit, welche nicht-druckbaren Zeichen entfernt werden müssen. Das Löschen erreichen wir dadurch, dass wir eine Teilzeichenkette mit der leeren Zeichenkette (s.u.) ersetzen. 
 
 ## Einzelne Symbole aus einer Zeichenkette extrahieren

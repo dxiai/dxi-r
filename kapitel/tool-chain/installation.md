@@ -35,7 +35,7 @@ xcode-select --install
 
 Anschliessend folgen mehrere Abgragen zur Installation der XCode-Command-Line Komponenten. Nach der Installation kann das Terminal und XCode wieder geschlossen werden.
 
-XCode wird regelmässig grösseren Änderungen unterzogen. Diese Änderungen erfolgen oft im April, Juni und September. Nach einem Update von XCode müssen die Command-Line Tools ebenfalls erneut installiert werden. Ausserdem ist es notwendig, dass die Lizensbedingungen erneut akzeptiert werden, sonst lassen sich R-Bibliotheken nicht mehr kompilieren. 
+XCode wird regelmässig grösseren Änderungen unterzogen. Diese Änderungen erfolgen oft im April, Juni und September. Nach einem Update von XCode müssen die Command-Line Tools ebenfalls erneut installiert werden. Ausserdem ist es notwendig, dass die Lizenzbedingungen erneut akzeptiert werden, sonst lassen sich R-Bibliotheken nicht mehr kompilieren. 
 :::
 
 ### Überprüfen der Installation
@@ -152,7 +152,7 @@ Die Grundkomponenten einer Entwicklungsumgebung sind immer gleich ([@fig-ide-com
 
 ![Komponenten einer datenzentrischen Entwicklungsumgebung am Beispiel von Visual Studio Code](figures/IDE-Components.png){#fig-ide-components with=100%}
 
-Neben diesen Komponenten existieren oft zustätzliche Werkzeuge und Ansichten. 
+Neben diesen Komponenten existieren oft zusätzliche Werkzeuge und Ansichten. 
 
 - Werkzeuge zur Versionierung von Code und Daten.
 - Dokumentation für R und ergänzende Bibliotheken.
