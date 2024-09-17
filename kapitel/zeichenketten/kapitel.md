@@ -30,7 +30,7 @@ Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der `tidyver
 | Teilkette extrahieren (mittig) |  `str_split()`/`str_sub()` |
 | Zeichenkette ersetzen | ``str_replace()``/``str_replace_all()`` |
 
-: Die wichtigsten Zeichenketten-Operationen {#tbl-zeichenketten-opeartionen}
+: Die wichtigsten Zeichenketten-Operationen {#tbl-zeichenketten-operationen}
 
 In R verwenden wir dazu die Funktion `str_replace_all()`. Diese Funktion ersetzt einen Teil einer Zeichenkette durch eine andere Zeichenkette. Wir müssen daher R mitteilen, dass wir alle Teilzeichenketten löschen möchten, die nicht-druckbare Zeichen enthalten. Das erreichen wir durch den ***regulären Ausdruck*** ``"[\u01-\u07\u0E-\u1f\u80-\u9F]+"``. Dieses Suchmuster teilt R mit, welche nicht-druckbaren Zeichen entfernt werden müssen. Das Löschen erreichen wir dadurch, dass wir eine Teilzeichenkette mit der leeren Zeichenkette (s.u.) ersetzen. 
 

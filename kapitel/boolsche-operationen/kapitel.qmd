@@ -17,7 +17,7 @@ knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
 library(tidyverse)
 ```
 
-In R stehen die logischen Operationen als *binäre* Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole'sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Opeartoren folgt der gleichen Regel wie die Arithmetik. 
+In R stehen die logischen Operationen als *binäre* Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole'sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Operatoren folgt der gleichen Regel wie die Arithmetik. 
 
 ::: {.callout-note}
 ## Merke
@@ -195,7 +195,7 @@ Die Funktion `ifelse()` hat drei Parameter und immer einen Vektor als Ergebnis. 
 
 1. Einen vektorisierten logischen Ausdruck.
 2. Eine Operation für den Fall, dass der logische Ausdruck Wahr (`TRUE`) ergibt.
-3. Eine Opearation für den Fall, dass der logische Ausdruck Falsch (`FALSE`) ergibt.
+3. Eine Operation für den Fall, dass der logische Ausdruck Falsch (`FALSE`) ergibt.
 
 Die Ergebnisse der beiden Operationen stehen im Ergebnisvektor an den Positionen, an denen der logische Ausdruck Wahr oder Falsch ergab. 
 
