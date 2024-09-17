@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 18&nbsp; Daten visualisieren</title>
+<title>18&nbsp; Daten visualisieren – Einführung in die Datenwissenschaft mit R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -90,13 +96,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "weitere Treffer in diesem Dokument",
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Abbrechen",
     "search-submit-button-title": "Abschicken",
     "search-label": "Suchen"
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -111,7 +118,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    });
 }}});
   </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -121,13 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-beschreiben/kapitel.html">Deskriptive Datenanalyse</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-visualisieren/kapitel.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-beschreiben/kapitel.html">Deskriptive Datenanalyse</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-visualisieren/kapitel.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -136,12 +170,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Einführung in die Datenwissenschaft mit R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/dxiai/dxi-r" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/dxiai/dxi-r" title="Quellcode" class="quarto-navigation-tool px-1" aria-label="Quellcode"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -184,9 +218,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Datenquellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -213,9 +247,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Mathematik der Daten</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -278,9 +312,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Deskriptive Datenanalyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -308,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -337,12 +371,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#torten-diagramme" id="toc-torten-diagramme" class="nav-link" data-scroll-target="#torten-diagramme"><span class="header-section-number">18.5.2</span> Torten-Diagramme</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/daten-beschreiben/kapitel.html">Deskriptive Datenanalyse</a></li><li class="breadcrumb-item"><a href="../../kapitel/daten-visualisieren/kapitel.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-chapter-daten-visualisieren" class="quarto-section-identifier"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Daten visualisieren</span></span></h1>
 </div>
@@ -357,7 +391,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>In R erstellen wir Plots mit Hilfe der <code>ggplot2</code>-Funktionen. Anders als in Excel werden mit diesen Funktionen Plots schrittweise aufgebaut und können auf diese Weise einheitlich reproduziert werden.</p>
 <p>Als Erstes laden wir wie immer die <code>tidyverse</code>-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.</p>
@@ -403,7 +439,11 @@ Achtung
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Length)) <span class="sc">+</span> </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="technischer-aufbau-von-visualisierungen" class="level2" data-number="18.1">
@@ -458,7 +498,11 @@ f2(x) \to 4x + 2
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Diesen Schritt können wir für die Funktion <code>f2</code> wiederholen.</p>
@@ -467,7 +511,11 @@ f2(x) \to 4x + 2
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Weil wir mit <code>ggplot</code> Darstellungen überlagern können, dürfen wir die beiden Funktionen selbstverständlich auch in einem Diagramm darstellen.</p>
@@ -477,7 +525,11 @@ f2(x) \to 4x + 2
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f1) <span class="sc">+</span> </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Wir wollen die beiden Graphen noch visuell hervorheben, damit wir wissen, welcher Graph zu welcher Funktion gehört. Dabei überlassen wir die Auswahl der Farben <code>ggplot</code>, womit wir sicherstellen, dass die Farben nicht zu ähnlich sind. Dazu verwenden wir den Trick, dass wir jeder Geometrie-Funktion ergänzende ästhetische Parameter übergeben dürfen.</p>
@@ -489,7 +541,11 @@ f2(x) \to 4x + 2
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">"function"</span>, <span class="at">fun =</span> f2, </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Die Legende für unser Diagramm hat keine schöne Überschrift. Das passen wir noch schnell mit der <code>labs()</code>-Funktion(für <em>labels</em> bzw. <em>Beschriftungen</em>) an. Dort geben wir für den ästhetischen Parameter die richtige Beschriftung an. In unserem Fall ist das <code>colour</code>.</p>
@@ -502,7 +558,11 @@ f2(x) \to 4x + 2
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">"f2(x) = 4 * x + 2"</span>)) <span class="sc">+</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"Funktion"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -519,7 +579,7 @@ f2(x) \to 4x + 2
 <section id="histogramm" class="level3" data-number="18.3.1">
 <h3 data-number="18.3.1" class="anchored" data-anchor-id="histogramm"><span class="header-section-number">18.3.1</span> Histogramm</h3>
 <div id="def-histogramm" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 18.1 </strong></span>Als <strong>Histogramm</strong> werden Balkendiagramme bezeichnet, die die <em>Häufigkeiten</em> von gemessenen Werte darstellen.</p>
+<p><span class="theorem-title"><strong>Definition 18.1</strong></span> Als <strong>Histogramm</strong> werden Balkendiagramme bezeichnet, die die <em>Häufigkeiten</em> von gemessenen Werte darstellen.</p>
 </div>
 <p>Das übliche Balkendiagramm erzeugen wir mit der Funktion <code>geom_bar()</code>. Diese Funktion verwenden wir immer, wenn unsere gemessenen Werte nur auf bestimmte Werte fallen (können). Die <code>geom_bar()</code>-Funktion zählt für jeden gemessenen Wert die Anzahl der Datensätze, in denen dieser Wert vorkommt.</p>
 <p>Gelegentlich sind unserer Werte so verteilt, dass nur selten zwei oder mehr Datensätze gleiche Werte haben. In solchen Fällen verwenden wir die Funktion <code>geom_histogram()</code>. Diese Funktion teilt den gesamten Wertebereich in gleichmässige Intervalle und zählt die Anzahl der Datensätze im jeweiligen Intervall.</p>
@@ -541,10 +601,14 @@ dbl (4): alter, tage, monate, digitalisiert
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-tage-barplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-tage-barplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.1: Tage-Histogram Diskrete Werte</figcaption>
+<div id="fig-tage-barplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tage-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-tage-barplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tage-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.1: Tage-Histogram Diskrete Werte
+</figcaption>
 </figure>
 </div>
 </div>
@@ -556,10 +620,14 @@ dbl (4): alter, tage, monate, digitalisiert
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_histogram</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-tage-histo" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-tage-histo-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.2: Tage-Histogram</figcaption>
+<div id="fig-tage-histo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tage-histo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-tage-histo-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tage-histo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.2: Tage-Histogram
+</figcaption>
 </figure>
 </div>
 </div>
@@ -586,7 +654,7 @@ Merke
 <section id="box-plot" class="level3" data-number="18.3.2">
 <h3 data-number="18.3.2" class="anchored" data-anchor-id="box-plot"><span class="header-section-number">18.3.2</span> Box-Plot</h3>
 <div id="def-boxplot" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 18.2 </strong></span>Ein Box-Plot stellt die Verteilung eines Stichprobenvektors mit Hilfe von Quartilen dar.</p>
+<p><span class="theorem-title"><strong>Definition 18.2</strong></span> Ein Box-Plot stellt die Verteilung eines Stichprobenvektors mit Hilfe von Quartilen dar.</p>
 </div>
 <p>Box-Plots werden mit der <code>geom_boxplot()</code> Funktion dargestellt.</p>
 <p>Beim Box-Plot wird der Median als dicke Linie dargestellt. Der Interquartilsabstand wird als Rechteck (<em>Box</em>) um den Median visualisiert (2. und 3. Quartil). Dabei liegt die Hälfte der aller gemessenen Werte innerhalb der dargestelltn Box. Der gesamte Umfang wird durch Linien links (1. Quartil) und rechts (4. Quartil) vom Interquartilsabstand dargestellt. Manchmal werden Punkte an den äusseren Rändern dargestellt. Diese Punkte stellen sog. Ausreisser dar.</p>
@@ -596,10 +664,14 @@ Merke
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tage)) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_boxplot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-tage-boxplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-tage-boxplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.3: Tage-Boxplot</figcaption>
+<div id="fig-tage-boxplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tage-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-tage-boxplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tage-boxplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.3: Tage-Boxplot
+</figcaption>
 </figure>
 </div>
 </div>
@@ -620,10 +692,14 @@ Merke
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-iris-points" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-iris-points-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.4: Punktdiagramm der <code>iris</code>-Daten</figcaption>
+<div id="fig-iris-points" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iris-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-iris-points-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.4: Punktdiagramm der <code>iris</code>-Daten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -638,10 +714,14 @@ Merke
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_7)) <span class="sc">+</span> </span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-attitude-point" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-attitude-point-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.5: Beispiel eines Punktdiagramms mit diskreten Daten</figcaption>
+<div id="fig-attitude-point" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attitude-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-attitude-point-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attitude-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.5: Beispiel eines Punktdiagramms mit diskreten Daten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -656,10 +736,14 @@ Merke
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> q18_7)) <span class="sc">+</span> </span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-attitude-jitter" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-attitude-jitter-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.6: Beispiel eines Jitter-Diagramms</figcaption>
+<div id="fig-attitude-jitter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attitude-jitter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-attitude-jitter-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attitude-jitter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.6: Beispiel eines Jitter-Diagramms
+</figcaption>
 </figure>
 </div>
 </div>
@@ -670,7 +754,7 @@ Merke
 <h3 data-number="18.3.4" class="anchored" data-anchor-id="ausgleichsgeraden"><span class="header-section-number">18.3.4</span> Ausgleichsgeraden</h3>
 <p>Im vorigen Abschnitt können wir eine Häufung entlang der nach rechts aufsteigenden Diagonalen erkennen. Solche Häufungen in Punktwolken deuten auf <em>Korrelationen</em> hin.</p>
 <div id="def-korrelation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 18.3 </strong></span>Eine <strong>Korrelation</strong> bezeichnet das wiederholte Auftreten von Wertepaaren in Stichproben. Korrelationen deuten auf Zusammenhänge zwischen zwei Vektoren hin.</p>
+<p><span class="theorem-title"><strong>Definition 18.3</strong></span> Eine <strong>Korrelation</strong> bezeichnet das wiederholte Auftreten von Wertepaaren in Stichproben. Korrelationen deuten auf Zusammenhänge zwischen zwei Vektoren hin.</p>
 </div>
 <p>Ähnlich wie beim Vergleichen mit Histogrammen ist es bei Punktwolken hilfreich, für die Wolke eine Referenz zur Orientierung zu haben. Das erreichen wir mit der <code>geom_smooth()</code>-Funktion. Die Methode <code>lm</code> steht für “lineares Modell”. In diesem Modell versteckt sich das Wort Linie und deshalb <em>erzeugt ein lineares Modell immer eine Ausgleichsgerade</em>. Der graue Bereich zeigt uns die Spanne des Fehlerbereichs für diese Gerade. Bei einer linearen Korrelation sollte diese Gerade den Häufungen in unserem Plot ungefähr folgen.</p>
 <div class="cell">
@@ -682,10 +766,14 @@ Merke
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-attitude-jitter-smooth" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.7: Beispiel eines Jitter-Diagramms mit Ausgleichsgerade</figcaption>
+<div id="fig-attitude-jitter-smooth" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attitude-jitter-smooth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attitude-jitter-smooth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.7: Beispiel eines Jitter-Diagramms mit Ausgleichsgerade
+</figcaption>
 </figure>
 </div>
 </div>
@@ -700,10 +788,14 @@ Merke
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-attitude-jitter-smooth2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth2-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.8: Beispiel eines Jitter-Diagramms mit flacher Ausgleichsgerade</figcaption>
+<div id="fig-attitude-jitter-smooth2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attitude-jitter-smooth2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-attitude-jitter-smooth2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attitude-jitter-smooth2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.8: Beispiel eines Jitter-Diagramms mit flacher Ausgleichsgerade
+</figcaption>
 </figure>
 </div>
 </div>
@@ -720,10 +812,14 @@ Merke
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-attitude-jitter-smooth-loess" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-loess-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.9: Beispiel eines Jitter-Diagramms mit nicht linearer Ausgleichslinie</figcaption>
+<div id="fig-attitude-jitter-smooth-loess" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attitude-jitter-smooth-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-attitude-jitter-smooth-loess-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attitude-jitter-smooth-loess-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.9: Beispiel eines Jitter-Diagramms mit nicht linearer Ausgleichslinie
+</figcaption>
 </figure>
 </div>
 </div>
@@ -763,10 +859,14 @@ Merke
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-iris-points-color" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-iris-points-color-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.10: Punktdiagramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+<div id="fig-iris-points-color" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iris-points-color-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-iris-points-color-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-points-color-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.10: Punktdiagramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -786,10 +886,14 @@ Merke
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-iris-histo-color" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-iris-histo-color-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.11: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+<div id="fig-iris-histo-color" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iris-histo-color-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-iris-histo-color-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-histo-color-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.11: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -825,10 +929,14 @@ Praxis
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-iris-histo-color-dodge" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-iris-histo-color-dodge-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.12: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten</figcaption>
+<div id="fig-iris-histo-color-dodge" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iris-histo-color-dodge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-iris-histo-color-dodge-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-histo-color-dodge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.12: Histogramm der <code>iris</code>-Daten mit farblich hervorgehobenen Spezieswerten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -857,10 +965,14 @@ Praxis
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-mfunc-line-colored" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-mfunc-line-colored-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.13: Angepasste Ästhetik mit Einzelwerten in Geometriefunktionen</figcaption>
+<div id="fig-mfunc-line-colored" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mfunc-line-colored-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-mfunc-line-colored-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mfunc-line-colored-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.13: Angepasste Ästhetik mit Einzelwerten in Geometriefunktionen
+</figcaption>
 </figure>
 </div>
 </div>
@@ -918,10 +1030,14 @@ Merke
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Männeranteil der ständigen Wohnbevölkerung"</span>) <span class="sc">+</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Manneranteil der nicht-ständigen Wohnbevölkerung"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-coding-points-size" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-coding-points-size-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.14: Grössenkodierung am Beispiel des Männeranteils in Schweizer Städten</figcaption>
+<div id="fig-coding-points-size" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coding-points-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-coding-points-size-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coding-points-size-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.14: Grössenkodierung am Beispiel des Männeranteils in Schweizer Städten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -990,10 +1106,14 @@ Merke
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-coding-points-shape" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-coding-points-shape-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.15: Anwendung von <code>facet_wrap()</code></figcaption>
+<div id="fig-coding-points-shape" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coding-points-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-coding-points-shape-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coding-points-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.15: Anwendung von <code>facet_wrap()</code>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1010,10 +1130,14 @@ Merke
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-linetrype" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-linetrype-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.16: Kodierung über Linienarten</figcaption>
+<div id="fig-linetrype" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linetrype-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-linetrype-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linetrype-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.16: Kodierung über Linienarten
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1026,10 +1150,14 @@ Merke
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Männeranteil der ständigen Wohnbevölkerung"</span>) <span class="sc">+</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"Manneranteil der nicht-ständigen Wohnbevölkerung"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-textlabel" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-textlabel-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.17: Textmarkierungen über den Männeranteil an der ständigen und nicht-ständigen Wohnbevölkerung Schweizer Städte</figcaption>
+<div id="fig-textlabel" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-textlabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-textlabel-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-textlabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.17: Textmarkierungen über den Männeranteil an der ständigen und nicht-ständigen Wohnbevölkerung Schweizer Städte
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1066,10 +1194,14 @@ Merke
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-visual-facets" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-visual-facets-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.18: Anwendung von <code>facet_wrap()</code></figcaption>
+<div id="fig-visual-facets" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-visual-facets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-visual-facets-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-visual-facets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.18: Anwendung von <code>facet_wrap()</code>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1089,10 +1221,14 @@ Merke
 </dl>
 </div>
 <div class="cell-output-display">
-<div id="fig-visual-facet-grid" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="kapitel_files/figure-html/fig-visual-facet-grid-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;18.19: Anwendung von <code>facet_grid()</code></figcaption>
+<div id="fig-visual-facet-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-visual-facet-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="kapitel_files/figure-html/fig-visual-facet-grid-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-visual-facet-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;18.19: Anwendung von <code>facet_grid()</code>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1190,7 +1326,11 @@ Wichtig
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> q00_demo_gen)) <span class="sc">+</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Mit diesem Plot können wir die Unterschiede in unserer Werteverteilung leichter erkennen.</p>
@@ -1200,7 +1340,11 @@ Wichtig
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>q00_demo_gen, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Für Histogramme verwenden wir normalerweise ein kartesisches Koordinatensystem. Wir können aber auch ein anderes Koordinatensystem wählen. Eine Variante sind <strong>polare Koordinaten</strong>. Mit einem polaren Koordinatensystem erreichen wir kreisförmige Darstellungen. Wir müssen dazu die Dimension, die auf das Zentrum des Diagramms zeigt, festlegen und als Parameter übergeben. In unserem Fall ist das die y-Dimension.</p>
@@ -1211,7 +1355,11 @@ Wichtig
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Unser Plot hat jetzt unschöne Beschriftungen. Die werden wir mit einem Formatierungsthema los. <code>ggplot</code> hat verschiedenen Formatierungen als Thema vordefiniert. Eines davon ist das Thema <code>void</code>. Diese Formatierung entfernt alle Hintergründe, Achsen und Beschriftungen ausser Legenden.</p>
@@ -1222,7 +1370,11 @@ Wichtig
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Das sieht doch gleich viel besser aus.</p>
@@ -1248,7 +1400,11 @@ Hinweis
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span><span class="st">""</span>, <span class="at">fill =</span> q00_demo_gen)) <span class="sc">+</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Mit der Funktion <code>coord_flip</code> werden die Achsen vertauscht und das Diagramm gedreht.</p>
@@ -1258,7 +1414,11 @@ Hinweis
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_flip</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Wir erkennen nun deutlich, dass <code>ggplot</code> immer versucht möglichst viel Fläche zu nutzen.</p>
@@ -1270,7 +1430,11 @@ Hinweis
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_polar</span>(<span class="st">"y"</span>) <span class="sc">+</span> </span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="kapitel_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="kapitel_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Auf diese Weise erzeugen wir Tortendiagramme.</p>
@@ -1315,18 +1479,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1358,11 +1511,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1372,8 +1564,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1385,7 +1586,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1429,6 +1753,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1454,6 +1779,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1515,12 +1866,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/daten-beschreiben/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/daten-beschreiben/kapitel.html" class="pagination-link" aria-label="Daten beschreiben">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Daten beschreiben</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../references.html" class="pagination-link">
+      <a href="../../references.html" class="pagination-link" aria-label="Referenzen">
         <span class="nav-page-text">Referenzen</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1529,4 +1880,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>

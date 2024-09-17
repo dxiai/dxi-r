@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 4&nbsp; R-Sprachelemente</title>
+<title>4&nbsp; R-Sprachelemente – Einführung in die Datenwissenschaft mit R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "weitere Treffer in diesem Dokument",
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Abbrechen",
     "search-submit-button-title": "Abschicken",
     "search-label": "Suchen"
@@ -105,13 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/language.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R-Sprachelemente</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/tool-chain/language.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R-Sprachelemente</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -120,12 +127,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Einführung in die Datenwissenschaft mit R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/dxiai/dxi-r" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/dxiai/dxi-r" title="Quellcode" class="quarto-navigation-tool px-1" aria-label="Quellcode"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -168,9 +175,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Datenquellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -197,9 +204,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Mathematik der Daten</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -262,9 +269,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Deskriptive Datenanalyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -292,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -311,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#blöcke" id="toc-blöcke" class="nav-link" data-scroll-target="#blöcke"><span class="header-section-number">4.2.2</span> Blöcke</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -331,7 +338,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Jede Programmiersprache besteht aus festgelegten <em>Symbolen</em> und <em>Operatoren</em>. Diese beiden Elemente bilden zusammen die <strong>Syntax</strong> einer Programmiersprache mit der <em>Operationen</em> erstellt werden können. Syntaktische Kern von R ist vergleichsweise kompakt und übersichtlich.</p>
 <section id="syntaktische-symbole" class="level2" data-number="4.1">
@@ -339,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Syntaktische <strong>Symbole</strong> sind alle Sprachelemente, die für sich allein stehen. Symbole können Werte, Schlüsselworte oder Bezeichner sein. Symbole werden durch Operatoren oder durch Leerzeichen voneinander getrennt.</p>
 <section id="werte" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="werte"><span class="header-section-number">4.1.1</span> Werte</h3>
-<p>Werte können direkt angegeben werden. Dabei legt der Datentyp eines Werts (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) fest, wie dieser eingegeben werden muss.</p>
+<p>Werte können direkt angegeben werden. Dabei legt der Datentyp eines Werts (<a href="../datentypen/kapitel.html" class="quarto-xref"><span>Kapitel 6</span></a>) fest, wie dieser eingegeben werden muss.</p>
 <ul>
 <li>Zahlen werden als Ziffernfolge direkt eingegeben (z.B. <code>123.45</code>).</li>
 <li>Wahrheitswerte werden in Grossbuchstaben eingegeben (z.B. <code>WAHR</code>).</li>
@@ -349,11 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="schlüsselworte" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="schlüsselworte"><span class="header-section-number">4.1.2</span> Schlüsselworte</h3>
 <p>R kennt verschiedene Schlüsselworte, die als eigene Symbole festgelegt sind und nicht verändert werden können. Jedes der folgenden Schlüsselworte hat eine Bedeutung für R und kann nur in dieser Bedeutung verwendet und nicht umdefiniert werden.</p>
-<p>Funktionen (<a href="../variablen/kapitel.html"><span>Kapitel&nbsp;8</span></a>)</p>
+<p>Funktionen (<a href="../variablen/kapitel.html" class="quarto-xref"><span>Kapitel 8</span></a>)</p>
 <ul>
 <li><code>function</code></li>
 </ul>
-<p>Entscheidungen (<a href="../boolsche-operationen/kapitel.html"><span>Kapitel&nbsp;11</span></a>) zur bedingten Ausführung von Operationen.</p>
+<p>Entscheidungen (<a href="../boolsche-operationen/kapitel.html" class="quarto-xref"><span>Kapitel 11</span></a>) zur bedingten Ausführung von Operationen.</p>
 <ul>
 <li><code>if</code></li>
 <li><code>else</code></li>
@@ -382,37 +391,37 @@ Keine Schleifen in der Paxis
 </section>
 <section id="bezeichner" class="level3" data-number="4.1.3">
 <h3 data-number="4.1.3" class="anchored" data-anchor-id="bezeichner"><span class="header-section-number">4.1.3</span> Bezeichner</h3>
-<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als <strong>Bezeichner</strong> behandelt. Ein Bezeichner ist ein Platzhalter für einen Wert (<a href="../datentypen/kapitel.html"><span>Kapitel&nbsp;6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
+<p>Ist ein Symbol kein Schlüsselwort und kein Wert, dann wird das Symbol als <strong>Bezeichner</strong> behandelt. Ein Bezeichner ist ein Platzhalter für einen Wert (<a href="../datentypen/kapitel.html" class="quarto-xref"><span>Kapitel 6</span></a>) und kann wie ein Wert in Operationen verwendet werden.</p>
 <p>Grundsätzlich können Bezeichner beliebige Zeichen enthalten. R erkennt einfache Bezeichner mit zwei Regeln.</p>
 <ul>
 <li>Beginnt mit einem ASCII-Buchstaben (A-Z, a-z) oder einem Unterstrich.</li>
 <li>Enthält nur ASCII-Buchstaben (A-Z, a-z), arabische Ziffern (0-9) und Unterstriche.</li>
 </ul>
-<p>Weicht ein Bezeichner von diesen Regeln ab, dann muss dieser als solcher durch Backticks (<code>`</code>) gekennzeichnet werden. <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> zeigt einen Bezeichner, der den deutschen Umlaut (<code>ü</code>) und ein Leerzeichen enthält. Weil <code>ü</code> kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss der ganze Bezeichner als Symbol markiert werden.</p>
+<p>Weicht ein Bezeichner von diesen Regeln ab, dann muss dieser als solcher durch Backticks (<code>`</code>) gekennzeichnet werden. <a href="#exm-gekennzeichneter-name" class="quarto-xref">Beispiel&nbsp;<span>4.1</span></a> zeigt einen Bezeichner, der den deutschen Umlaut (<code>ü</code>) und ein Leerzeichen enthält. Weil <code>ü</code> kein ASCII-Buchstabe ist und das Leerzeichen normalerweise Symbole trennt, muss der ganze Bezeichner als Symbol markiert werden.</p>
 <div id="exm-gekennzeichneter-name" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Bezeichner) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.1 (markierter Bezeichner)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">merkwürdiger Bezeichner</span><span class="st">`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wird der Bezeichner aus <a href="#exm-gekennzeichneter-name">Beispiel&nbsp;<span>4.1</span></a> nicht markiert, erzeugt R die Fehlermeldung <code>Fehler: unerwartetes Symbol in "merwürdiger Name"</code>.</p>
+<p>Wird der Bezeichner aus <a href="#exm-gekennzeichneter-name" class="quarto-xref">Beispiel&nbsp;<span>4.1</span></a> nicht markiert, erzeugt R die Fehlermeldung <code>Fehler: unerwartetes Symbol in "merkwürdiger Bezeichner"</code>.</p>
 </section>
 </section>
 <section id="operationen" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="operationen"><span class="header-section-number">4.2</span> Operationen</h2>
 <div id="def-opeartion" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.1 </strong></span>Eine <strong>Operation</strong> ist ein syntaktisches Konstrukt, das von einer Programmiersprache als ausgeführbar erkannt wird.</p>
+<p><span class="theorem-title"><strong>Definition 4.1</strong></span> Eine <strong>Operation</strong> ist ein syntaktisches Konstrukt, das von einer Programmiersprache als ausführbar erkannt wird.</p>
 </div>
 <p>Eine Operation kann sich als ein Satz in einer Sprache vorgestellt werden, wobei für Programmiersprachen nur <strong>ganze (vollständige) Sätze</strong> gültig sind und ausgeführt werden.</p>
 <p>R fügt Symbole und Operatoren solange zusammen, bis eine <strong>syntaktisch gültige</strong> Operation gefunden wird. Syntaktisch gültig heisst in diesem Zusammenhang, dass alle syntaktischen Elemente für eine Operation gefunden wurden. Erst dann versucht R diese Operation auszuführen. Bei der Ausführung kann festgestellt werden, dass eine Operation nicht ausführbar ist. In diesem Fall erzeugt R eine <strong>Fehlermeldung</strong>.</p>
 <p>Die einfachste R-Operation ist die Angabe eines einzelnen Symbols. Wird nur ein Symbol als Operation eingegeben, dann bedeutet das für R, dass die zum Symbol gehörenden Daten <strong>serialisiert</strong> werden sollen. Das bedeutet, dass die Daten des Symbols angezeigt werden. Ist das Symbol ein Wert, dann wird der Wert wiederholt.</p>
 <div id="exm-wertwiederholen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.2 (Wert direkt serialisieren) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.2 (Wert direkt serialisieren)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Daten und Information"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="#exm-wertwiederholen">Beispiel&nbsp;<span>4.2</span></a> zeigt die Operation, die die Zeichenkette <em>Daten und Information</em> als Ergebnis serialisiert.</p>
+<p><a href="#exm-wertwiederholen" class="quarto-xref">Beispiel&nbsp;<span>4.2</span></a> zeigt die Operation, die die Zeichenkette <em>Daten und Information</em> als Ergebnis serialisiert.</p>
 <section id="operatoren" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="operatoren"><span class="header-section-number">4.2.1</span> Operatoren</h3>
 <div id="def-operator" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.2 </strong></span>Ein <strong>Operator</strong> ist ein syntaktisches Element, das Symbole zu einer Operation <em>verknüpft</em>.</p>
+<p><span class="theorem-title"><strong>Definition 4.2</strong></span> Ein <strong>Operator</strong> ist ein syntaktisches Element, das Symbole zu einer Operation <em>verknüpft</em>.</p>
 </div>
 <p>Die bekanntesten Operatoren sind die arithmetischen Operatoren und die Vergleichsoperatoren.</p>
 <p>In R sind vier spezielle Operatoren wichtig:</p>
@@ -420,19 +429,19 @@ Keine Schleifen in der Paxis
 <li>Die drei Zuweisungsoperatoren (<code>&lt;-</code>, <code>=</code> und <code>-&gt;</code>).</li>
 <li>Der Funktionsaufrufoperator (<code>()</code>).</li>
 </ul>
-<p>Mit den <em>Zuweisungsoperatoren</em> können Werte Namen zugewiesen werden. Bei den Pfeil-Operatoren wird der Wert in Richtung des Pfeils zugewiesen. Beim Gleich-Operator erfolgt die Zuweisung von rechts nach links. (s. <a href="#exm-zuweisungsoperatoren">Beispiel&nbsp;<span>4.3</span></a>)</p>
+<p>Mit den <em>Zuweisungsoperatoren</em> können Werte Namen zugewiesen werden. Bei den Pfeil-Operatoren wird der Wert in Richtung des Pfeils zugewiesen. Beim Gleich-Operator erfolgt die Zuweisung von rechts nach links. (s. <a href="#exm-zuweisungsoperatoren" class="quarto-xref">Beispiel&nbsp;<span>4.3</span></a>)</p>
 <div id="def-deklaration" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.3 </strong></span>Eine <strong>Deklaration</strong> heisst die (erste) Zuweisung eines Werts an eine Variable.</p>
+<p><span class="theorem-title"><strong>Definition 4.3</strong></span> Eine <strong>Deklaration</strong> heisst die (erste) Zuweisung eines Werts an eine Variable.</p>
 </div>
 <div id="exm-zuweisungsoperatoren" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.3 (Zuweisung einer Zeichenkette) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.3 (Zuweisung einer Zeichenkette)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>buchtitel1 <span class="ot">=</span> <span class="st">"Daten und Information 1"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>buchtitel2 <span class="ot">&lt;-</span> <span class="st">"Daten und Information 2"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Daten und Information 3"</span> <span class="ot">-&gt;</span> buchtitel3 </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Es können auch Namen anderen Namen zugewiesen werden. In diesem Fall wird der zugehörige Wert für einen Namen ermittelt und dem neuen Namen zugewiesen (<a href="#exm-zuweisung-namen">Beispiel&nbsp;<span>4.4</span></a>).</p>
+<p>Es können auch Namen anderen Namen zugewiesen werden. In diesem Fall wird der zugehörige Wert für einen Namen ermittelt und dem neuen Namen zugewiesen (<a href="#exm-zuweisung-namen" class="quarto-xref">Beispiel&nbsp;<span>4.4</span></a>).</p>
 <div id="exm-zuweisung-namen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.4 (Zuweisung von Namen an einen anderen Namen.) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.4 (Zuweisung von Namen an einen anderen Namen.)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>buchtitel4 <span class="ot">=</span> buchttitel1 </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># buchtitel4 enthält "Daten und Information 1"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>buchtitel5 <span class="ot">&lt;-</span> buchtitel2 </span>
@@ -440,15 +449,15 @@ Keine Schleifen in der Paxis
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>buchtitel3 <span class="ot">-&gt;</span> buchtitel6 </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># buchtitel6 enthält "Daten und Information 3"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Der <em>Funktionsaufrufoperator</em> prüft ob der vorangehende Name eine Funktion ist und ruft diese auf. Zwischen den Klammern können Werte oder Namen als Parameter der Funktion übergeben werden. Die Parameter werden durch Kommas getrennt (<a href="#exm-funktionsaufruf">Beispiel&nbsp;<span>4.5</span></a>).</p>
+<p>Der <em>Funktionsaufrufoperator</em> prüft ob der vorangehende Name eine Funktion ist und ruft diese auf. Zwischen den Klammern können Werte oder Namen als Parameter der Funktion übergeben werden. Die Parameter werden durch Kommas getrennt (<a href="#exm-funktionsaufruf" class="quarto-xref">Beispiel&nbsp;<span>4.5</span></a>).</p>
 <div id="exm-funktionsaufruf" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.5 (Funktionsaufruf der Summefunktion mit Parametern) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.5 (Funktionsaufruf der Summefunktion mit Parametern)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="co"># 6</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Funktionsaufrufoperator darf nicht mit den aus der Mathematik bekannten Klammern verwechselt werden. Klammern fassen auch in R Teiloperationen zusammen und reihen diese gegenüber einer anderen Teiloperation vor. Der Funktionsaufrufoperator kommt nur zur Anwendung, wenn ein Name auf eine Funktion verweist.</p>
-<p>Wird der Funktionsaufrufoperator zusammen mit dem Schlüsselwort <code>function</code> verwendet, dann wird eine Funktion mit den angegebenen Parametern erstellt (s. <a href="#exm-funktionsdeklaration">Beispiel&nbsp;<span>4.6</span></a>). Diese Operation heisst <strong>Funktionsdeklaration</strong>. Eine deklarierte Funktion muss in R einem Namen zugewiesen werden.</p>
+<p>Wird der Funktionsaufrufoperator zusammen mit dem Schlüsselwort <code>function</code> verwendet, dann wird eine Funktion mit den angegebenen Parametern erstellt (s. <a href="#exm-funktionsdeklaration" class="quarto-xref">Beispiel&nbsp;<span>4.6</span></a>). Diese Operation heisst <strong>Funktionsdeklaration</strong>. Eine deklarierte Funktion muss in R einem Namen zugewiesen werden.</p>
 <div id="exm-funktionsdeklaration" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.6 (Funktionsdeklaration) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.6 (Funktionsdeklaration)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>add3 <span class="ot">&lt;-</span> <span class="cf">function</span> (eins, zwei, drei) </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(eins, zwei, drei)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -457,9 +466,9 @@ Keine Schleifen in der Paxis
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="blöcke"><span class="header-section-number">4.2.2</span> Blöcke</h3>
 <p>Mehrere Operationen lassen sich in R zu <em>Blöcken</em> zusammenfassen. Ein Block wird durch geschweifte Klammern (<code>{</code> und <code>}</code>) markiert. Geschweifte Klammern bilden also den <strong>Blockoperator</strong>.</p>
 <p>Ein Block wird von R als eine Operation behandelt. Damit die Operationen in einem Block von R ausgeführt werden können, müssen alle übergeordneten Blöcke geschlossen werden.</p>
-<p><a href="#exm-funktionsblock">Beispiel&nbsp;<span>4.7</span></a> zeigt die Deklaration einer Funktion, die aus zwei Operationen besteht. Damit beide Operationen zu einer Funktion zusammengefasst werden können, müssen diese in einen Block gefasst werden.</p>
+<p><a href="#exm-funktionsblock" class="quarto-xref">Beispiel&nbsp;<span>4.7</span></a> zeigt die Deklaration einer Funktion, die aus zwei Operationen besteht. Damit beide Operationen zu einer Funktion zusammengefasst werden können, müssen diese in einen Block gefasst werden.</p>
 <div id="exm-funktionsblock" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 4.7 (Funktionsdeklaration mit Block) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 4.7 (Funktionsdeklaration mit Block)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>add3mod6 <span class="ot">&lt;-</span> <span class="cf">function</span> (eins, zwei, drei) {</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(eins, zwei, drei) <span class="ot">-&gt;</span> sechs</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    sechs <span class="sc">%%</span> <span class="dv">6</span></span>
@@ -506,18 +515,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -549,11 +547,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -563,8 +600,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -576,7 +622,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -620,6 +789,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -645,6 +815,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -706,12 +902,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/tool-chain/hilfe.html" class="pagination-link">
+      <a href="../../kapitel/tool-chain/hilfe.html" class="pagination-link" aria-label="Hilfe bekommen">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hilfe bekommen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/daten-organisieren/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/daten-organisieren/kapitel.html" class="pagination-link" aria-label="Dokumentation">
         <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Dokumentation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -720,4 +916,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>

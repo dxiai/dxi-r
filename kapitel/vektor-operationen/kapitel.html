@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 12&nbsp; Vektoroperationen</title>
+<title>12&nbsp; Vektoroperationen – Einführung in die Datenwissenschaft mit R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -109,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "weitere Treffer in diesem Dokument",
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Abbrechen",
     "search-submit-button-title": "Abschicken",
     "search-label": "Suchen"
@@ -124,13 +132,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/vektor-operationen/kapitel.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/vektor-operationen/kapitel.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -139,12 +147,12 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Einführung in die Datenwissenschaft mit R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/dxiai/dxi-r" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/dxiai/dxi-r" title="Quellcode" class="quarto-navigation-tool px-1" aria-label="Quellcode"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -187,9 +195,9 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Datenquellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,9 +224,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Mathematik der Daten</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -281,9 +289,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Deskriptive Datenanalyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -311,7 +319,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -337,12 +345,12 @@ div.csl-indent {
   <li><a href="#zählen-durch-nummerieren" id="toc-zählen-durch-nummerieren" class="nav-link" data-scroll-target="#zählen-durch-nummerieren"><span class="header-section-number">12.8.3</span> Zählen durch Nummerieren</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/vektor-operationen/kapitel.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-chapter-vektoroperationen" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span></h1>
 </div>
@@ -357,7 +365,9 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -401,9 +411,9 @@ Merke
 </div>
 <section id="konkatenation" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="konkatenation"><span class="header-section-number">12.1</span> Konkatenation</h2>
-<p>Vektoren werden in R mit der Funktion <code>c()</code> erzeugt (<a href="#exm-vektor-erstellen">Beispiel&nbsp;<span>12.1</span></a>).</p>
+<p>Vektoren werden in R mit der Funktion <code>c()</code> erzeugt (<a href="#exm-vektor-erstellen" class="quarto-xref">Beispiel&nbsp;<span>12.1</span></a>).</p>
 <div id="exm-vektor-erstellen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.1 (Einen Vektor aus Skalaren erstellen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.1 (Einen Vektor aus Skalaren erstellen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -412,9 +422,9 @@ Merke
 </div>
 </div>
 </div>
-<p>Die Funktion <code>c()</code> dient nicht nur zum erzeugen von Vektoren, sondern auch zur Konkatenation von Vektoren (<a href="#exm-konkatenation">Beispiel&nbsp;<span>12.2</span></a>). Anders als mit der <code>list</code>-Funktion, können mit der <code>c()</code>-Funktion keine komplexen Datenstrukturen erzeugt werden.</p>
+<p>Die Funktion <code>c()</code> dient nicht nur zum erzeugen von Vektoren, sondern auch zur Konkatenation von Vektoren (<a href="#exm-konkatenation" class="quarto-xref">Beispiel&nbsp;<span>12.2</span></a>). Anders als mit der <code>list</code>-Funktion, können mit der <code>c()</code>-Funktion keine komplexen Datenstrukturen erzeugt werden.</p>
 <div id="exm-konkatenation" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.2 (Konkatenation von Vektoren) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.2 (Konkatenation von Vektoren)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(vektor, <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -438,9 +448,9 @@ Praxis
 </section>
 <section id="vektorlänge" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="vektorlänge"><span class="header-section-number">12.2</span> Vektorlänge</h2>
-<p>Die Länge eines R-Vektors wird mit der Funktion <code>length()</code> bestimmt. Diese Funktion liefert immer eine ganze Zahl mit der Anzahl der Vektorelemente (<a href="#exm-vektorlaenge">Beispiel&nbsp;<span>12.3</span></a>).</p>
+<p>Die Länge eines R-Vektors wird mit der Funktion <code>length()</code> bestimmt. Diese Funktion liefert immer eine ganze Zahl mit der Anzahl der Vektorelemente (<a href="#exm-vektorlaenge" class="quarto-xref">Beispiel&nbsp;<span>12.3</span></a>).</p>
 <div id="exm-vektorlaenge" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.3 (Vektorlänge bestimmen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.3 (Vektorlänge bestimmen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -448,9 +458,9 @@ Praxis
 </div>
 </div>
 </div>
-<p>R kennt den leeren Vektor. Dieser Vektor hat die Länge <code>0</code>. Er wird durch den argumentlosen Aufruf der Funktion <code>c()</code> erzeugt (<a href="#exm-vektorlaenge-zerovector">Beispiel&nbsp;<span>12.4</span></a>).</p>
+<p>R kennt den leeren Vektor. Dieser Vektor hat die Länge <code>0</code>. Er wird durch den argumentlosen Aufruf der Funktion <code>c()</code> erzeugt (<a href="#exm-vektorlaenge-zerovector" class="quarto-xref">Beispiel&nbsp;<span>12.4</span></a>).</p>
 <div id="exm-vektorlaenge-zerovector" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.4 (Vektorlänge des leeren Vektors) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.4 (Vektorlänge des leeren Vektors)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>() <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -472,7 +482,7 @@ Praxis
 <section id="indexreferenz" class="level3" data-number="12.3.1">
 <h3 data-number="12.3.1" class="anchored" data-anchor-id="indexreferenz"><span class="header-section-number">12.3.1</span> Indexreferenz</h3>
 <div id="exm-wertezugriff-einzeln" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.5 (Index eines Vektors) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.5 (Index eines Vektors)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="dv">2</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -495,7 +505,7 @@ Achtung
 </div>
 </div>
 <div id="exm-wertezugriff-vektor" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.6 (Vektorwerte über einen Indexvektor abfragen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.6 (Vektorwerte über einen Indexvektor abfragen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -505,7 +515,7 @@ Achtung
 </div>
 <p>Ein Indexvektor kann länger als der Wertevektor sein, ausserdem können Indexwerte wiederholt werden. Dadurch lassen sich Vektoren systematisch erzeugen.</p>
 <div id="exm-wertezugriff-vektor-wiederholung" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.7 (Vektorwerte über einen Indexvektor wiederholt abfragen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.7 (Vektorwerte über einen Indexvektor wiederholt abfragen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -544,7 +554,7 @@ Jargon
 </div>
 </div>
 <div id="exm-wertezugriff-negativindex" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.8 (Negative Indizes) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.8 (Negative Indizes)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -557,7 +567,7 @@ Jargon
 <h3 data-number="12.3.3" class="anchored" data-anchor-id="referenz-durch-wahrheitsvektoren"><span class="header-section-number">12.3.3</span> Referenz durch Wahrheitsvektoren</h3>
 <p>Die letzte Variante des Wertezugriffs ist der Zugriff mit einem Wahrheitsvektor. Ein Wahrheitsvektor zum Wertezugriff <strong>muss</strong> die gleiche Länge haben, wie der Wertevektor. Das Ergebnis dieser Operation ist ein Vektor, der nur Werte enthält, die an den Positionen stehen, an welchen im Wahrheitsvektor <code>TRUE</code> steht.</p>
 <div id="exm-wertezugriff-wahrheitsvektor" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.9 (Negative Indizes) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.9 (Negative Indizes)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vektor[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -565,7 +575,7 @@ Jargon
 </div>
 </div>
 </div>
-<p>Diese Art des Wertereferenzierung wird häufig mit einer Transformation (<a href="#sec-transformationen">Abschnitt&nbsp;<span>12.6</span></a>) als Teil eines logischen Ausdrucks kombiniert. <a href="#exm-ref-transform">Beispiel&nbsp;<span>12.10</span></a> referenziert nur die gereaden Werte in <code>vektor</code>.</p>
+<p>Diese Art des Wertereferenzierung wird häufig mit einer Transformation (<a href="#sec-transformationen" class="quarto-xref">Abschnitt&nbsp;<span>12.6</span></a>) als Teil eines logischen Ausdrucks kombiniert. <a href="#exm-ref-transform" class="quarto-xref">Beispiel&nbsp;<span>12.10</span></a> referenziert nur die gereaden Werte in <code>vektor</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -593,7 +603,7 @@ Praxis
 </div>
 </div>
 <div id="exm-ref-transform" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.10 (Gerade Werte aus einem Vektor auswählen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.10 (Gerade Werte aus einem Vektor auswählen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>vektor[vektor <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -617,7 +627,7 @@ Praxis
 <li><code>along.with</code>: Übernimmt die Länge der Sequenz der Länge des angegebenen Vektors.</li>
 </ul>
 <div id="exm-sequenzen-erstellen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.11 (Sequenzen erstellen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.11 (Sequenzen erstellen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">5</span>) <span class="co"># seq(length = 5)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -633,9 +643,9 @@ Praxis
 </div>
 </div>
 </div>
-<p>Neben der <code>seq()</code>-Funktion kennt R den Sequenzoperator <code>:</code>. Die Operanden des Squenzoperators sind der Initial- und Endwert, wobei eine Schrittweite von <code>1</code> angenommen wird (<a href="#exm-sequenzen-erstellen">Beispiel&nbsp;<span>12.12</span></a>).</p>
+<p>Neben der <code>seq()</code>-Funktion kennt R den Sequenzoperator <code>:</code>. Die Operanden des Squenzoperators sind der Initial- und Endwert, wobei eine Schrittweite von <code>1</code> angenommen wird (<a href="#exm-sequenzen-erstellen" class="quarto-xref">Beispiel&nbsp;<span>12.12</span></a>).</p>
 <div id="exm-sequenzen-erstellen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.12 (Sequenzoperator verwenden) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.12 (Sequenzoperator verwenden)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>  <span class="co"># identisch mit seq(from = 3, to = 8, by = 1)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -652,9 +662,9 @@ Praxis
 <li><code>x</code>: Der Wiederholungswert</li>
 <li><code>length</code>: Die Länge des Zielvektors</li>
 </ul>
-<p>Mit dieser Funktion lassen sich Vektoren wie der Nullvektor oder der Einsvektor leicht erzeugen (<a href="#exm-repeat-vektor-erzeugen">Beispiel&nbsp;<span>12.13</span></a>).</p>
+<p>Mit dieser Funktion lassen sich Vektoren wie der Nullvektor oder der Einsvektor leicht erzeugen (<a href="#exm-repeat-vektor-erzeugen" class="quarto-xref">Beispiel&nbsp;<span>12.13</span></a>).</p>
 <div id="exm-repeat-vektor-erzeugen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.13 (Null- und Einsvektor der Länge fünf erzeugen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.13 (Null- und Einsvektor der Länge fünf erzeugen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -666,9 +676,9 @@ Praxis
 </div>
 </div>
 </div>
-<p>Weil die Datengrundstruktur in R Vektoren sind, können Vektoren mit der <code>rep()</code>-Funktion vervielfacht werden. So lassen sich Vektoren mit Wertemustern erzeugen (<a href="#exm-repeat-vektor">Beispiel&nbsp;<span>12.14</span></a>).</p>
+<p>Weil die Datengrundstruktur in R Vektoren sind, können Vektoren mit der <code>rep()</code>-Funktion vervielfacht werden. So lassen sich Vektoren mit Wertemustern erzeugen (<a href="#exm-repeat-vektor" class="quarto-xref">Beispiel&nbsp;<span>12.14</span></a>).</p>
 <div id="exm-repeat-vektor" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.14 (Mustervektor erzeugen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.14 (Mustervektor erzeugen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -679,9 +689,9 @@ Praxis
 </section>
 <section id="sec-transformationen" class="level2" data-number="12.6">
 <h2 data-number="12.6" class="anchored" data-anchor-id="sec-transformationen"><span class="header-section-number">12.6</span> Transformationen</h2>
-<p>Vektortransformationen bedeuten in R das wiederholte Ausführen einer Funktion für jeden Wert eines Vektors. Alle arithmetischen, logischen und Vergleichsoperatoren sind automatisch Vektortransformationen (<a href="#exm-vector-transform">Beispiel&nbsp;<span>12.15</span></a>).</p>
+<p>Vektortransformationen bedeuten in R das wiederholte Ausführen einer Funktion für jeden Wert eines Vektors. Alle arithmetischen, logischen und Vergleichsoperatoren sind automatisch Vektortransformationen (<a href="#exm-vector-transform" class="quarto-xref">Beispiel&nbsp;<span>12.15</span></a>).</p>
 <div id="exm-vector-transform" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.15 (Einfache Vektortransformationen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.15 (Einfache Vektortransformationen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arithmetische Operationen</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">+</span> <span class="dv">4</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -703,9 +713,9 @@ Praxis
 </div>
 </div>
 </div>
-<p>Eine Besonderheit von R ist die Verallgemeinerung von Skalaroperationen auf Vektoren mit <em>unterschiedlicher</em> Länge. Dabei wird der kürzere Vektor auf die Länge des längeren Vektors durch Wiederholung erweitert, so dass eine Vektortransforamtion möglich wird (<a href="#exm-vector-vector-transform">Beispiel&nbsp;<span>12.16</span></a>). Bei einer Vektortransformation werden die Werte an den gleichen Positionen aus zwei Vektoren paarweise miteinander verknüpft.</p>
+<p>Eine Besonderheit von R ist die Verallgemeinerung von Skalaroperationen auf Vektoren mit <em>unterschiedlicher</em> Länge. Dabei wird der kürzere Vektor auf die Länge des längeren Vektors durch Wiederholung erweitert, so dass eine Vektortransforamtion möglich wird (<a href="#exm-vector-vector-transform" class="quarto-xref">Beispiel&nbsp;<span>12.16</span></a>). Bei einer Vektortransformation werden die Werte an den gleichen Positionen aus zwei Vektoren paarweise miteinander verknüpft.</p>
 <div id="exm-vector-vector-transform" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.16 (Erweiterte Vektortransformationen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.16 (Erweiterte Vektortransformationen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -721,9 +731,9 @@ Praxis
 </div>
 </div>
 </div>
-<p>Im <a href="#exm-vector-vector-transform">Beispiel&nbsp;<span>12.16</span></a> werden Vektoren mit Längen, die Vielfache des kürzesten Vektors sind. Dadurch ist sichergestellt, dass keine überzähligen Werte bleiben. Die Wiederholung des kürzeren Vektors wird auch dann ausgeführt, wenn die Vektorenlängen keine Vielfachen voneinander sind. Dabei wird die Operation nur für alle die Werte im ursprünglich längsten Vektor ausgeführt. Dadurch bleiben nicht verwendete Werte im wiederholten Vektor. Diese überbleibenden Werte erzeugen eine Warnmeldung (<a href="#exm-vector-vector-transform-incomplete">Beispiel&nbsp;<span>12.17</span></a>).</p>
+<p>Im <a href="#exm-vector-vector-transform" class="quarto-xref">Beispiel&nbsp;<span>12.16</span></a> werden Vektoren mit Längen, die Vielfache des kürzesten Vektors sind. Dadurch ist sichergestellt, dass keine überzähligen Werte bleiben. Die Wiederholung des kürzeren Vektors wird auch dann ausgeführt, wenn die Vektorenlängen keine Vielfachen voneinander sind. Dabei wird die Operation nur für alle die Werte im ursprünglich längsten Vektor ausgeführt. Dadurch bleiben nicht verwendete Werte im wiederholten Vektor. Diese überbleibenden Werte erzeugen eine Warnmeldung (<a href="#exm-vector-vector-transform-incomplete" class="quarto-xref">Beispiel&nbsp;<span>12.17</span></a>).</p>
 <div id="exm-vector-vector-transform-incomplete" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.17 (Unvollständige Vektortransformationen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.17 (Unvollständige Vektortransformationen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>vektor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -753,7 +763,7 @@ Merke
 <p>Beliebige Transformationen lassen sich mit <code>map()</code> aus der Bibliothek <code>purrr()</code> umsetzen.</p>
 </div>
 </div>
-<p>Die <code>map()</code>-Funktion hat immer eine Liste als Ergebnis einer Vektortransforamtion. Der eigentliche Vektor ist in dieser Liste geschachtelt und muss mit <code>unlist()</code> extrahiert werden (<a href="../variablen/kapitel.html#exm-map">Beispiel&nbsp;<span>8.22</span></a>).</p>
+<p>Die <code>map()</code>-Funktion hat immer eine Liste als Ergebnis einer Vektortransforamtion. Der eigentliche Vektor ist in dieser Liste geschachtelt und muss mit <code>unlist()</code> extrahiert werden (<a href="../variablen/kapitel.html#exm-map" class="quarto-xref">Beispiel&nbsp;<span>8.22</span></a>).</p>
 </section>
 <section id="aggregationen" class="level2" data-number="12.7">
 <h2 data-number="12.7" class="anchored" data-anchor-id="aggregationen"><span class="header-section-number">12.7</span> Aggregationen</h2>
@@ -765,7 +775,7 @@ Merke
 <li><code>max()</code>, zum Finden des grössten Werts eines numerischen Vektors</li>
 <li><code>min()</code>, zum Finden des kleinsten Werts eines numerischen Vektors</li>
 </ul>
-<p>Das Filtern ist eine spezielle Aggregation, die zu einem neuen und oft kürzeren Vektor führt. Das Filtern von Werten eines einzelnen Vektors erfolgt über die Wertereferenzierung mit einem logischen Ausdruck (<a href="#exm-ref-transform">Beispiel&nbsp;<span>12.10</span></a>).</p>
+<p>Das Filtern ist eine spezielle Aggregation, die zu einem neuen und oft kürzeren Vektor führt. Das Filtern von Werten eines einzelnen Vektors erfolgt über die Wertereferenzierung mit einem logischen Ausdruck (<a href="#exm-ref-transform" class="quarto-xref">Beispiel&nbsp;<span>12.10</span></a>).</p>
 <p>Für häufig verwendete Aggregationen finden sich in R eigene Funktionen. Sollte eine spezielle Aggregation ausnahmsweise nicht existieren, dann kann eine spezieller Aggregator implementiert werden.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -796,7 +806,7 @@ Wichtig
 <p>Beim Reduzieren wird eine Reduktionsfunktion nacheinander auf die Werte eines Vektors ausgeführt, wobei das Zwischenergebnis im nächsten Schritt als Argument verwendet wird.</p>
 <p>Die <code>reduce()</code>-Funktion erwartet einen Vektor <code>.x</code> und eine Reduktionsfunktion <code>.f</code> als Parameter. Die Reduktionsfunktion ist eine zwei-parametrige Funktion (bzw. Operator), wobei der erste Parameter als <strong>Akkumulator</strong> bezeichnet wird und das Zwischenergebnis des vorangegangenen Reduktionsschritts enthält.</p>
 <div id="exm-sum-als-reduktion" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.18 (Summe als Reduktion) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.18 (Summe als Reduktion)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">|&gt;</span> <span class="fu">reduce</span>(<span class="cf">function</span>(acc, wert) { acc <span class="sc">+</span> wert }) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -820,7 +830,7 @@ Wichtig
 </ul>
 <p>Eine spezielle Form der Reduktion steht mit der <code>purrr</code>-Funktion <code>accumulate()</code>. Während <code>reduce()</code> nur das Endergebnis der Reduktion liefert, gibt <code>accumulate()</code> auch die Zwischenergebnisse. Das Ergebnis der <code>accumulate()</code> Funktion ist immer ein Vektor mit der gleichen Länge wie der ursprüngliche Vektor.</p>
 <div id="exm-sum-als-reduktion" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 12.19 (Laufende Summe als Reduktion mit <code>accumulate()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 12.19 (Laufende Summe als Reduktion mit <code>accumulate()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>vektor <span class="sc">|&gt;</span> <span class="fu">accumulate</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -892,7 +902,7 @@ Praxis
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-r_core_team_introduction_2023" class="csl-entry" role="listitem">
 Team, R. C., Maechler, M., Gentleman, R., Ihaka, R., Venables, W. N., &amp; Smith, D. M. (2023). <em>An Introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/R-intro.html">https://cran.r-project.org/doc/manuals/R-intro.html</a>
 </div>
@@ -936,18 +946,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -979,11 +978,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -993,8 +1031,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1006,7 +1053,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1050,6 +1220,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1075,6 +1246,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1136,12 +1333,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/boolsche-operationen/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/boolsche-operationen/kapitel.html" class="pagination-link" aria-label="Boole'sche Operationen">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/matrix-operationen/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/matrix-operationen/kapitel.html" class="pagination-link" aria-label="Matrix-Operationen">
         <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Matrix-Operationen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1150,4 +1347,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 11&nbsp; Boole’sche Operationen</title>
+<title>11&nbsp; Boole’sche Operationen – Einführung in die Datenwissenschaft mit R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -90,13 +96,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "weitere Treffer in diesem Dokument",
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Abbrechen",
     "search-submit-button-title": "Abschicken",
     "search-label": "Suchen"
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -111,7 +118,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    });
 }}});
   </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -121,13 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/boolsche-operationen/kapitel.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole'sche Operationen</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/boolsche-operationen/kapitel.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -136,12 +170,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Einführung in die Datenwissenschaft mit R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/dxiai/dxi-r" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/dxiai/dxi-r" title="Quellcode" class="quarto-navigation-tool px-1" aria-label="Quellcode"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -184,9 +218,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Datenquellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -213,9 +247,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Mathematik der Daten</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -278,9 +312,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Deskriptive Datenanalyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -308,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -338,12 +372,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#sortieren" id="toc-sortieren" class="nav-link" data-scroll-target="#sortieren"><span class="header-section-number">11.6</span> Sortieren</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/boolsche-operationen/kapitel.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-chapter-booleans" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Boole’sche Operationen</span></span></h1>
 </div>
@@ -358,9 +392,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
-<p>In R stehen die logischen Operationen als <em>binäre</em> Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole’sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Opeartoren folgt der gleichen Regel wie die Arithmetik.</p>
+
+<p>In R stehen die logischen Operationen als <em>binäre</em> Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole’sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Operatoren folgt der gleichen Regel wie die Arithmetik.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -378,10 +414,14 @@ Merke
 </div>
 </div>
 <p>Daraus folgt, dass immer zuerst das logische Und und erst danach das logische Oder ausgewertet wird. Dieser Regel folgt auch R.</p>
-<p>Die <a href="#tbl-logische-operatoren">Tabelle&nbsp;<span>11.1</span></a> stellt die logischen Operationen und die verschiedenen Schreibweisen gegenüber.</p>
-<div id="tbl-logische-operatoren" class="anchored">
-<table class="table">
-<caption>Tabelle&nbsp;11.1: Die wichtigsten logischen Operatoren und ihre Entsprechung in R</caption>
+<p>Die <a href="#tbl-logische-operatoren" class="quarto-xref">Tabelle&nbsp;<span>11.1</span></a> stellt die logischen Operationen und die verschiedenen Schreibweisen gegenüber.</p>
+<div id="tbl-logische-operatoren" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-logische-operatoren-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;11.1: Die wichtigsten logischen Operatoren und ihre Entsprechung in R
+</figcaption>
+<div aria-describedby="tbl-logische-operatoren-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 18%">
 <col style="width: 18%">
@@ -430,6 +470,8 @@ Merke
 </tbody>
 </table>
 </div>
+</figure>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -445,7 +487,7 @@ Achtung
 </div>
 <p>Das <strong>Logisches Nicht</strong> wird in R durch den Nicht-Operator (<code>!</code>) ausgedrückt. Dieser Operator wird auf jeden Wert eines Vektors einzeln angewandt.</p>
 <div id="exm-logisches-nicht" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.1 (Logisches Nicht) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.1 (Logisches Nicht)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>logischer_vektor <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -461,7 +503,7 @@ Achtung
 <li><code>TRUE</code> entspricht <em>ungleich</em> <code>0</code></li>
 </ul>
 <div id="exm-autoconvert-not" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.2 </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.2</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">0</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -496,7 +538,7 @@ Merke
 </div>
 </div>
 <div id="exm-logical-reduce" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.3 (Aggregation logischer Vektoren) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.3 (Aggregation logischer Vektoren)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beispielWerte <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -557,9 +599,9 @@ Warnung
 <p>Bei Zeichenketten wertet R die alphabetische Reihenfolge der Symbole vom Beginn einer Zeichenkette aus, um grösser oder kleiner Vergleiche durchzuführen.</p>
 <section id="die-existenz-eines-werts-in-einem-vektor-überprüfen" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="die-existenz-eines-werts-in-einem-vektor-überprüfen"><span class="header-section-number">11.2.1</span> Die Existenz eines Werts in einem Vektor überprüfen</h3>
-<p>Häufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von <a href="#exm-check-without-in">Beispiel&nbsp;<span>11.4</span></a> schreiben.</p>
+<p>Häufig müssen Sie überprüfen, ob ein Wert in einer Liste vorkommt. Grundsätzlich können Sie das mit komplizierten logischen Verknüpfungen in der Art von <a href="#exm-check-without-in" class="quarto-xref">Beispiel&nbsp;<span>11.4</span></a> schreiben.</p>
 <div id="exm-check-without-in" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.4 (Existstenzprüfung ohne <code>%in%</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.4 (Existstenzprüfung ohne <code>%in%</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
@@ -570,9 +612,9 @@ Warnung
 </div>
 </div>
 </div>
-<p>Einfacher ist aber ein sogenannter <em>Existenztest</em>. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in <a href="#exm-check-with-in">Beispiel&nbsp;<span>11.5</span></a> schreiben:</p>
+<p>Einfacher ist aber ein sogenannter <em>Existenztest</em>. Dabei wird überprüft, ob ein Wert in einem Vektor vorkommt. Ein solcher Test lässt sich wie in <a href="#exm-check-with-in" class="quarto-xref">Beispiel&nbsp;<span>11.5</span></a> schreiben:</p>
 <div id="exm-check-with-in" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.5 (Existstenzprüfung mit <code>%in%</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.5 (Existstenzprüfung mit <code>%in%</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>meinWert <span class="ot">=</span> <span class="dv">3</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>wertVektor <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
@@ -593,7 +635,7 @@ Warnung
 <p>R kennt die beiden Schlüsselworte <code>if</code> und <code>else</code>, um die Ausführung Operationsblöcken an Bedingungen zu knüpfen. Das Schlüsselwort <code>if</code> erwartet einen logischen Ausdruck, der <strong>genau</strong> einen Wahrheitswert zurückgibt. Logische Ausdrücke mit Vektoren sind damit nicht möglich.</p>
 <p>Soll sowohl die Bedingung als auch die Alternative behandelt werden, dann muss das Schlüsselwort <code>else</code> in der gleichen Zeile stehen, wie das Ende des Blocks für die Bedingung.</p>
 <div id="exm-ungueltiges-if" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.6 (Ungültige Vektorbedingung mit <code>if</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.6 (Ungültige Vektorbedingung mit <code>if</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>werte <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -621,7 +663,7 @@ Praxis
 </div>
 </div>
 <div id="exm-datentyppruefung-if" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.7 (Datentypprüfung mit <code>if</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.7 (Datentypprüfung mit <code>if</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.list</span>(werte)) {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Variable enthält keine Liste"</span>)</span>
@@ -643,11 +685,11 @@ Praxis
 <ol type="1">
 <li>Einen vektorisierten logischen Ausdruck.</li>
 <li>Eine Operation für den Fall, dass der logische Ausdruck Wahr (<code>TRUE</code>) ergibt.</li>
-<li>Eine Opearation für den Fall, dass der logische Ausdruck Falsch (<code>FALSE</code>) ergibt.</li>
+<li>Eine Operation für den Fall, dass der logische Ausdruck Falsch (<code>FALSE</code>) ergibt.</li>
 </ol>
 <p>Die Ergebnisse der beiden Operationen stehen im Ergebnisvektor an den Positionen, an denen der logische Ausdruck Wahr oder Falsch ergab.</p>
 <div id="exm-ifelse" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.8 (Vektorisierte Unterscheidung mit <code>ifelse()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.8 (Vektorisierte Unterscheidung mit <code>ifelse()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(werte <span class="sc">&gt;</span> <span class="dv">1</span>, werte <span class="sc">*</span> <span class="dv">2</span>, <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -657,7 +699,7 @@ Praxis
 </div>
 <p>Die Funktion <code>case_when()</code> erlaubt es, mehrere miteinander verbundene vektorisierte Unterscheidungen in einer Operation durchzuführen. Dazu werden logische Ausdrücke mit Ergebnisoperationen bzw. -Werten verknüpft. Eine Ergebnisoperation wird dann ausgeführt, wenn der zugehörige logische Ausdruck Wahr (<code>TRUE</code>) ergibt. Die logischen Ausdrücke werden in der angegebenen Reihenfolge geprüft, wobei die Operation abbricht, sobald ein logischer Ausdruck Wahr ergibt.</p>
 <div id="exm-case-when-default" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.9 (<code>case_when()</code> über einen Vektor) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.9 (<code>case_when()</code> über einen Vektor)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"positiv"</span>,</span>
@@ -671,7 +713,7 @@ Praxis
 </div>
 <p>Für den Fall, dass für einen Wert kein logischer Ausdruck Wahr ergibt, kann ein <strong>Rückfallergebnis</strong> angegeben werden. Dieses Rückfallergebnis muss mit <code>.default =</code> eingeleitet werden.</p>
 <div id="exm-case-when-default" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.10 (<code>case_when()</code> mit Rückfallergebnis) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.10 (<code>case_when()</code> mit Rückfallergebnis)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    werte <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"positiv"</span>,</span>
@@ -696,8 +738,8 @@ Praxis
 <p>Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (<code>TRUE</code>) ergibt.</p>
 <blockquote class="blockquote">
 <div id="exm-filter" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.11 (Filtern) </strong></span>&nbsp;</p>
-<table class="table">
+<p><span class="theorem-title"><strong>Beispiel 11.11 (Filtern)</strong></span> &nbsp;</p>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: center;"></th>
@@ -753,7 +795,7 @@ Praxis
 <li>Die Einwohner:innen der gefilterten Städte zusammenzählen.</li>
 </ol>
 <p>Der logische Ausdruck zum Filtern ist <code>`Einwohner:innen` &gt; 100000</code>, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor <code>Einwohner:innen</code> der Wert grösser als <code>100000</code> ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor:</p>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: center;"></th>
@@ -792,23 +834,23 @@ Praxis
 <p>Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor <code>Einwohner:innen</code> gebildet werden.</p>
 <p>Daraus ergibt sich die folgende Funktionskette:</p>
 <div class="cell" data-warnings="false">
-<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"daten/einwohnende.psv"</span>,</span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">delim =</span> <span class="st">"|"</span>,</span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">trim_ws =</span> T,</span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show_col_types =</span> F) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">100000</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Gesamteinwohnende =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span>)</span>
-<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>    )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-1" class="code-annotation-target"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"daten/einwohnende.psv"</span>,</span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">delim =</span> <span class="st">"|"</span>,</span>
+<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">trim_ws =</span> T,</span>
+<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show_col_types =</span> F) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-5" class="code-annotation-target"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">100000</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-29-6"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="annotated-cell-29-7"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Gesamteinwohnende =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span>)</span>
+<span id="annotated-cell-29-8"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a>    )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-annotation="1" data-code-lines="1,2,3,4"><code>read_delim()</code> muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="1,2,3,4" data-code-annotation="1"><code>read_delim()</code> muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-annotation="2" data-code-lines="5">Filter operation.</span>
+<span data-code-cell="annotated-cell-29" data-code-lines="5" data-code-annotation="2">Filter operation.</span>
 </dd>
 </dl>
 </div>
@@ -823,9 +865,9 @@ Praxis
 </blockquote>
 <section id="na-werte-filtern" class="level3" data-number="11.4.1">
 <h3 data-number="11.4.1" class="anchored" data-anchor-id="na-werte-filtern"><span class="header-section-number">11.4.1</span> <code>NA</code>-Werte filtern</h3>
-<p>Die Funktion <code>drop_na()</code> ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert <code>NA</code> vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (<a href="#exm-drop-na-all">Beispiel&nbsp;<span>11.12</span></a>).</p>
+<p>Die Funktion <code>drop_na()</code> ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert <code>NA</code> vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (<a href="#exm-drop-na-all" class="quarto-xref">Beispiel&nbsp;<span>11.12</span></a>).</p>
 <div id="exm-drop-na-all" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.12 (<code>drop_na()</code> ohne Effekt) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.12 (<code>drop_na()</code> ohne Effekt)</strong></span> &nbsp;</p>
 </div>
 </section>
 </section>
@@ -862,7 +904,7 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 <h3 data-number="11.5.1" class="anchored" data-anchor-id="vektoren-direkt-selektieren"><span class="header-section-number">11.5.1</span> Vektoren direkt selektieren</h3>
 <p>Wir wollen die Vektoren <code>q00_demo_gen</code> (Gender), <code>q00_demo_studyload</code> (Studienmodell) und <code>q01_mob_typ</code> (Mobile OS des Smartphones) auswählen.</p>
 <div id="exm-select-direkt" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.13 (Direktes selektieren) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.13 (Direktes selektieren)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_demo_gen, q00_demo_studyload, q01_mob_typ) <span class="sc">|&gt;</span></span>
@@ -887,14 +929,14 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 <p>Vektoren direkt zu benennen ist eine einfache direkte Methode. Wenn man sehr viele Vektoren auswählen möchte, dann ist es manchmal einfacher, nur die Vektoren anzugeben, die <em>nicht</em> in der Ergebnisstichprobe enthalten sein sollen. Mit <code>select()</code> erreichen wir das, indem wir ein <code>-</code> den ungewollten Vektoren voranstellen.</p>
 <p>Das folgende Beispiel selektiert alle Vektoren ausser <code>q00_demo_gen</code> aus der Stichprobe.</p>
 <div id="exm-select-direkt-neg" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.14 (Selektieren durch Ausschliessen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.14 (Selektieren durch Ausschliessen)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>q00_demo_gen) <span class="sc">|&gt;</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wenn mehrere Vektoren ausgeschlossen werden sollen, dann müssen diese zu einem Vektor zusammengefasst werden.</p>
 <div id="exm-select-direkt-neg-multi" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.15 (Selektieren durch mehrfaches Ausschliessen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.15 (Selektieren durch mehrfaches Ausschliessen)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span> <span class="fu">c</span>(q00_demo_gen, q00_demo_studyload)) <span class="sc">|&gt;</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -912,7 +954,7 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 <p>Diesen Funktionen akzeptieren einen Teilnamen, über den mehrere Vektoren ausgewählt werden, in denen der angegebene Teil im Vektornamen vorkommt.</p>
 <p>Diese Funktionen lassen sich mittels der <code>iris</code>-Stichprobe veranschaulichen.</p>
 <div id="exm-select-starts-with" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.16 (Selektieren mit <code>starts_with()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.16 (Selektieren mit <code>starts_with()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>)) <span class="sc">|&gt;</span>  <span class="co"># wählt die Vektoren Sepal.Width und Sepal.Length aus</span></span>
@@ -929,7 +971,7 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 </div>
 </div>
 <div id="exm-select-ends-with" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.17 (Selektieren mit <code>ends_with()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.17 (Selektieren mit <code>ends_with()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"Length"</span>)) <span class="sc">|&gt;</span> <span class="co"># wählt die Vektoren Petal.Length und Sepal.Length aus</span></span>
@@ -988,7 +1030,7 @@ Warnung
 <p>R erlaubt kein Sortieren über logische Ausdrücke. Es ist nur möglich, Werte nach vorgegebenen grösser-kleiner Beziehungen zu sortieren. Deshalb muss für komplexe Sortierungen ein numerischer Hilfsvektor erzeugt werden, der anschliessend sortiert werden kann.</p>
 <p>Die Werte eines Vektors werden mit <code>sort()</code> sortiert.</p>
 <div id="exm-sort" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.18 (Vektorsortierung für zufällige Ganzzahlen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.18 (Vektorsortierung für zufällige Ganzzahlen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">10</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">trunc</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -999,7 +1041,7 @@ Warnung
 </div>
 <p>Die <code>sort()</code>-Funktion kann nur einzelne Vektoren sortieren. Das ist unpraktisch, wenn Daten in einem Datenrahmen vorliegen. In diesem Fall lassen sich die Datensätze mithilfe der Funktion <code>arrange()</code> sortieren. Der Funktion werden die Vektoren übergeben, über die eine neue Reihenfolge festgelegt werden soll. Standardmässig sortiert <code>arrange()</code> aufsteigend. Mit der Hilfsfunktion <code>desc()</code> (engl. descending = absteigen) werden Datensätze entsprechend der Werte im Sortiervektor absteigend sortiert.</p>
 <div id="exm-sort" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.19 (Absteigende Datenrahmensortierung mit <code>arrange()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.19 (Absteigende Datenrahmensortierung mit <code>arrange()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>) <span class="sc">|&gt;</span> </span>
@@ -1059,18 +1101,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1102,11 +1133,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1116,8 +1186,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1129,7 +1208,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1173,6 +1375,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1198,6 +1401,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1259,12 +1488,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/faktoren/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/faktoren/kapitel.html" class="pagination-link" aria-label="Faktoren">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Faktoren</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/vektor-operationen/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/vektor-operationen/kapitel.html" class="pagination-link" aria-label="Vektoroperationen">
         <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Vektoroperationen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1273,4 +1502,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>

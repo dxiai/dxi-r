@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Einführung in die Datenwissenschaft mit R - 9&nbsp; Zeichenketten</title>
+<title>9&nbsp; Zeichenketten – Einführung in die Datenwissenschaft mit R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -109,13 +116,14 @@ div.csl-indent {
     "search-more-match-text": "weitere Treffer in diesem Dokument",
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Abbrechen",
     "search-submit-button-title": "Abschicken",
     "search-label": "Suchen"
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -130,7 +138,34 @@ div.csl-indent {
    });
 }}});
   </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -140,13 +175,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/zeichenketten/kapitel.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Zeichenketten</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/zeichenketten/kapitel.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Zeichenketten</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -155,12 +190,12 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Einführung in die Datenwissenschaft mit R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/dxiai/dxi-r" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/dxiai/dxi-r" title="Quellcode" class="quarto-navigation-tool px-1" aria-label="Quellcode"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -203,9 +238,9 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Datenquellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -232,9 +267,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Mathematik der Daten</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -297,9 +332,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Deskriptive Datenanalyse</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -327,7 +362,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -367,12 +402,12 @@ div.csl-indent {
   <li><a href="#kodierte-daten-aus-mehreren-word-dateien-einlesen." id="toc-kodierte-daten-aus-mehreren-word-dateien-einlesen." class="nav-link" data-scroll-target="#kodierte-daten-aus-mehreren-word-dateien-einlesen."><span class="header-section-number">9.9.3</span> Kodierte Daten aus mehreren Word-Dateien einlesen.</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action">Problem melden</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../kapitel/variablen/kapitel.html">Mathematik der Daten</a></li><li class="breadcrumb-item"><a href="../../kapitel/zeichenketten/kapitel.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Zeichenketten</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-chapter-zeichenketten" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Zeichenketten</span></span></h1>
 </div>
@@ -387,15 +422,21 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <p>Bisher haben wir Zeichenketten als atomare Werte behandelt. In diesem Kapitel geht es die Operationen für Zeichenketten.</p>
 <p>Eine Zeichenkette hat eine Länge, die der Anzahl der Symbole in der Zeichenkette entspricht und jedes Symbol in einer Zeichenkette kann über dessen Position identifiziert werden.</p>
 <p>Wenn Daten als Zeichenketten vorliegen, dann handelt es sich immer um <strong>diskrete Daten</strong>.</p>
 <p>Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der <code>tidyverse</code>-Bibliothek <code>stringr</code> <span class="citation" data-cites="wickham_stringr_2023">(<a href="../../references.html#ref-wickham_stringr_2023" role="doc-biblioref">Wickham, 2023</a>)</span> bearbeiten.</p>
-<div id="tbl-zeichenketten-opeartionen" class="anchored">
-<table class="table">
-<caption>Tabelle&nbsp;9.1: Die wichtigsten Zeichenketten-Operationen</caption>
+<div id="tbl-zeichenketten-operationen" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-zeichenketten-operationen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;9.1: Die wichtigsten Zeichenketten-Operationen
+</figcaption>
+<div aria-describedby="tbl-zeichenketten-operationen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
@@ -462,6 +503,21 @@ div.csl-indent {
 </tbody>
 </table>
 </div>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Funktion <code>str()</code> ist eine Hilfsfunktion, die Informationen über die interne Struktur einer Variablen bereitstellt. <code>str()</code> ist eine Abkürzung für <em>structure</em>. Es handelt sich dabei um <strong>keine</strong> Zeichenkettenfunktion.</p>
+</div>
+</div>
 <p>In R verwenden wir dazu die Funktion <code>str_replace_all()</code>. Diese Funktion ersetzt einen Teil einer Zeichenkette durch eine andere Zeichenkette. Wir müssen daher R mitteilen, dass wir alle Teilzeichenketten löschen möchten, die nicht-druckbare Zeichen enthalten. Das erreichen wir durch den <strong><em>regulären Ausdruck</em></strong> <code>"[\u01-\u07\u0E-\u1f\u80-\u9F]+"</code>. Dieses Suchmuster teilt R mit, welche nicht-druckbaren Zeichen entfernt werden müssen. Das Löschen erreichen wir dadurch, dass wir eine Teilzeichenkette mit der leeren Zeichenkette (s.u.) ersetzen.</p>
 <section id="einzelne-symbole-aus-einer-zeichenkette-extrahieren" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="einzelne-symbole-aus-einer-zeichenkette-extrahieren"><span class="header-section-number">9.1</span> Einzelne Symbole aus einer Zeichenkette extrahieren</h2>
@@ -481,13 +537,13 @@ Warnung
 </div>
 </div>
 <div id="exm-zeichenketten-zerlegen" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.1 (Zeichenkettenvektor in die einzelnen Symbole zerlegen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 9.1 (Zeichenkettenvektor in die einzelnen Symbole zerlegen)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">zeichenkette =</span> <span class="fu">c</span>(<span class="st">"Daten"</span>, <span class="st">"und"</span>, <span class="st">"Information"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">symbol =</span> zeichenkette <span class="sc">|&gt;</span> <span class="fu">str_extract_all</span>(<span class="st">""</span>) </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(symbol)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>zeichenkette<br> &lt;chr&gt;</th>
@@ -579,7 +635,7 @@ Warnung
 <section id="nicht-druckbare-zeichen" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="nicht-druckbare-zeichen"><span class="header-section-number">9.2</span> Nicht-druckbare Zeichen</h2>
 <div id="def-nicht-druckbare-zeichen" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 9.1 </strong></span>Als <strong>nicht-druckbare Zeichen</strong> werden Symbole bezeichnet, die bei der Darstellung einer Zeichenkette nicht angezeigt werden. Die nicht-druckbaren Zeichen zählen zur Länge einer Zeichenkette und verändern den Inhalt einer Zeichenkette.</p>
+<p><span class="theorem-title"><strong>Definition 9.1</strong></span> Als <strong>nicht-druckbare Zeichen</strong> werden Symbole bezeichnet, die bei der Darstellung einer Zeichenkette nicht angezeigt werden. Die nicht-druckbaren Zeichen zählen zur Länge einer Zeichenkette und verändern den Inhalt einer Zeichenkette.</p>
 </div>
 <p>Beispiel: Die Zeichenkette <code>Hallo</code> unterscheidet sich von der Zeichenkette <code>Hal&lt;0x08&gt;lo</code>.</p>
 <p>Excel und R behandeln nicht-druckbare Zeichen unterschiedlich. In Excel werden die nicht-druckbaren Zeichen für die Darstellung und für Vergleiche entfernt, jedoch werden die nicht-druckbaren Zeichen bei der Länge und beim Extrahieren berücksichtigt. In R werden nicht-druckbare Zeichen bei der Darstellung und bei Vergleichen berücksichtigt. In Excel können wir mit der <code>IDENTISCH()</code>-Funktion zwei Zeichenketten nach den gleichen Regeln wie in R vergleichen.</p>
@@ -610,7 +666,7 @@ Hinweis
 </div>
 </div>
 <div id="exm-leere-zeichenkette" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.2 (Die leere Zeichenkette) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 9.2 (Die leere Zeichenkette)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>leereZeichenkette <span class="ot">=</span> <span class="st">""</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="schreibweise-ändern" class="level3" data-number="9.3.1">
@@ -635,7 +691,7 @@ Hinweis
 </div>
 <p>Natürlich wäre es toll, wenn wir <code>str_split()</code> zum Umformen einer Stichprobe verwenden könnten. Allerdings führt das Ergebnis zu <em>Listenvektoren</em>, mit denen wir nicht leicht arbeiten können. Das illustriert das folgende Beispiel. In diesem Beispiel trennen wir die Zeichenketten im Vektor <code>text</code> an den Leerzeichen, sodass wir einzelne Worte erhalten.</p>
 <div id="exm-str_split" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.3 (Zeichenketten mit <code>str_split()</code> trennen) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 9.3 (Zeichenketten mit <code>str_split()</code> trennen)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>texte <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"Daten und Information"</span>, <span class="st">"Klimatologie Informatik"</span>))</span>
@@ -644,7 +700,7 @@ Hinweis
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>text <br> <code>&lt;chr&gt;</code></th>
@@ -665,11 +721,11 @@ Hinweis
 </div>
 <p>Im Vektor <code>getrennter_text</code> stehen nun Listen mit unterschiedlicher Länge. Wären diese Listen Vektoren, dann könnten wir mit der Funktion <code>pivot_longer()</code> die Werte transponieren. Das funktioniert mit eingebetteten Listen leider nicht, weil die Werte nicht über mehrere Vektoren verteilt sind, sondern alle im gleichen Vektor stehen.</p>
 <div id="def-eingebettete-werte" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 9.2 </strong></span>Enthält ein Vektor Listen mit Werten, dann werden die Listenwerte als <strong>eingebettete</strong> (engl. <em>nested</em>) <strong>Werte</strong> bezeichnet.</p>
+<p><span class="theorem-title"><strong>Definition 9.2</strong></span> Enthält ein Vektor Listen mit Werten, dann werden die Listenwerte als <strong>eingebettete</strong> (engl. <em>nested</em>) <strong>Werte</strong> bezeichnet.</p>
 </div>
 <p>Um an eingebettete Werte zu gelangen, müssen wir sie zuerst “ausbetten”. Dazu verwenden wir die Funktion <code>unnest()</code>. Mit dieser Funktion werden eingebette Listen in einen Vektor entpackt.</p>
 <div id="exm-trennung-entpacken" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.4 (Entpacken von getrennten Zeichenketten mit <code>unnest()</code>) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 9.4 (Entpacken von getrennten Zeichenketten mit <code>unnest()</code>)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>texte <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">getrennter_text =</span> text <span class="sc">|&gt;</span> <span class="fu">str_split</span>(<span class="st">" "</span>)</span>
@@ -677,7 +733,7 @@ Hinweis
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(getrennter_text) <span class="ot">-&gt;</span> texte_getrennt</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>texte_getrennt</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>text <br> <code>&lt;chr&gt;</code></th>
@@ -720,15 +776,15 @@ Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Die Umkehrfunktion von <code>unnest()</code> ist die Funktion <code>nest()</code>. Beide Funktionen werden ausführlich in <a href="../daten-formen/kapitel.html"><span>Kapitel&nbsp;16</span></a> behandelt.</p>
+<p>Die Umkehrfunktion von <code>unnest()</code> ist die Funktion <code>nest()</code>. Beide Funktionen werden ausführlich in <a href="../daten-formen/kapitel.html" class="quarto-xref"><span>Kapitel 16</span></a> behandelt.</p>
 </div>
 </div>
-<p>Das <a href="#exm-trennung-entpacken">Beispiel&nbsp;<span>9.4</span></a> können wir mit der folgenden Operation zurück in die Listenform bringen. Dabei beachten wir, dass wir den neuen Vektor benennen und diesem die Werte aus dem Ursprungsvektor übergeben müssen.</p>
+<p>Das <a href="#exm-trennung-entpacken" class="quarto-xref">Beispiel&nbsp;<span>9.4</span></a> können wir mit der folgenden Operation zurück in die Listenform bringen. Dabei beachten wir, dass wir den neuen Vektor benennen und diesem die Werte aus dem Ursprungsvektor übergeben müssen.</p>
 <div id="exm-renesting-zeichenketten" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.5 (Zeichenketten einbetten) </strong></span>&nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 9.5 (Zeichenketten einbetten)</strong></span> &nbsp;</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>texte_getrennt <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>(<span class="at">getrennter_text =</span> getrennter_text)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>text <br> <code>&lt;chr&gt;</code></th>
@@ -763,7 +819,7 @@ Hinweis
 <section id="mustererkennung" class="level2" data-number="9.7">
 <h2 data-number="9.7" class="anchored" data-anchor-id="mustererkennung"><span class="header-section-number">9.7</span> Mustererkennung</h2>
 <div id="def-reguaerer-ausdruck" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 9.3 </strong></span><strong>Reguläre Ausdrücke</strong> sind Zeichenketten, mit denen <em>komplexe Suchmuster</em> für Zeichenketten beschrieben werden.</p>
+<p><span class="theorem-title"><strong>Definition 9.3</strong></span> <strong>Reguläre Ausdrücke</strong> sind Zeichenketten, mit denen <em>komplexe Suchmuster</em> für Zeichenketten beschrieben werden.</p>
 </div>
 <p>Ein regulärer Ausdruck beschreibt die Struktur einer gesuchten Zeichenkette. Reguläre Ausdrücke sind eine Standardtechnik zum Suchen-und-Ersetzen.</p>
 <p>R verfügt mit regulären Ausdrücken über eine leistungsfähige Mustererkennung für Zeichenketten. Diese Mustererkennung steuern wir über <em>reguläre Ausdrücke</em>(<a href="https://stringr.tidyverse.org/articles/regular-expressions.html">Vignette regex</a>) oder <em>Regulärausdruck</em> (Sauer, 2019). Reguläre Ausdrücke erlauben es, Muster in Zeichenketten zu finden und diese Muster durch etwas anderes auszutauschen. In R schreiben wir reguläre Ausdrücke als Zeichenketten mit einer besonderen Musterbeschreibungssprache. Wir können an viele Zeichenkettenfunktionen solche regulären Ausdrücke als Parameter übergeben.</p>
@@ -833,7 +889,7 @@ Hinweis
 <p>Gelegentlich wollen wir ein Muster bis zu einem bestimmten Symbol in unserer Zeichenkette finden. In diesem Fall können wir einen negierten Symbolbereich angeben.</p>
 <blockquote class="blockquote">
 <div id="exm-regex-finden" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 9.6 </strong></span>Gegeben ist die folgende Zeichenkette:</p>
+<p><span class="theorem-title"><strong>Beispiel 9.6</strong></span> Gegeben ist die folgende Zeichenkette:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>aquaponics <span class="ot">=</span> <span class="st">"</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">   The term aquaponics [7] is coined by combining </span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">    two words: aquaculture, which refers to fish </span></span>
@@ -848,7 +904,7 @@ Hinweis
 <p>Das Ergebnis eines regulären Ausdrucks ist normalerweise immer nur der erste Treffer.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="st">"term aquaponics ["</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Um alle Treffer eines Musters zu erhalten, muss für die entsprechende <code>_all</code>-Variante der Funktion verwendet werden. Die folgenden Funktionen haben eine solche Funktionsvariante:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 52%">
 <col style="width: 23%">
@@ -911,7 +967,7 @@ Hinweis
 <div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext)  <span class="sc">|&gt;</span> </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>worte<br>&lt;chr&gt;</th>
@@ -945,7 +1001,7 @@ Hinweis
 <div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(worte, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>worte<br>&lt;chr&gt;</th>
@@ -978,7 +1034,7 @@ Hinweis
 <p>Wenn wir Texte in Sätze zerlegen wollen, dann verwenden wir die Funktion <code>unnest_sentences()</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_sentences</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 100%">
 </colgroup>
@@ -1059,7 +1115,7 @@ Warnung
 <div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Rohdaten <span class="sc">|&gt;</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>ngram<br>&lt;chr&gt;</th>
@@ -1109,7 +1165,7 @@ Praxis
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_sentences</span>(saetze, rohtext, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_ngrams</span>(ngram, saetze, <span class="at">to_lower =</span> <span class="cn">FALSE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>ngram<br>&lt;chr&gt;</th>
@@ -1213,7 +1269,7 @@ Wichtig
 <h4 data-number="9.9.1.3" class="anchored" data-anchor-id="schritt-3-kategorien-organisieren"><span class="header-section-number">9.9.1.3</span> Schritt 3: Kategorien organisieren</h4>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(kategorie)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>kategorie</th>
@@ -1313,7 +1369,7 @@ Wichtig
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">|&gt;</span> </span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span> </span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>word</th>
@@ -1455,7 +1511,7 @@ Warnung
 <h4 data-number="9.9.2.3" class="anchored" data-anchor-id="schritt-3-kategorien-organisieren-1"><span class="header-section-number">9.9.2.3</span> Schritt 3: Kategorien organisieren</h4>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kodierteDaten2 <span class="sc">|&gt;</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(kategorie)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>kategorie</th>
@@ -1554,7 +1610,7 @@ Warnung
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, kategorie, gender) <span class="sc">|&gt;</span> </span>
 <span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span> </span>
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>word</th>
@@ -1709,7 +1765,7 @@ Warnung
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> eingeleseneTexte</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-wickham_stringr_2023" class="csl-entry" role="listitem">
 Wickham, H. (2023). <em>stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://stringr.tidyverse.org">https://stringr.tidyverse.org</a>
 </div>
@@ -1754,18 +1810,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1797,11 +1842,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1811,8 +1895,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1824,7 +1917,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1868,6 +2084,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1893,6 +2110,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1954,12 +2197,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../kapitel/variablen/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/variablen/kapitel.html" class="pagination-link" aria-label="Variablen, Funktionen und Operatoren">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Variablen, Funktionen und Operatoren</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../kapitel/faktoren/kapitel.html" class="pagination-link">
+      <a href="../../kapitel/faktoren/kapitel.html" class="pagination-link" aria-label="Faktoren">
         <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Faktoren</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1968,4 +2211,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/dxiai/dxi-r/issues/new" class="toc-action"><i class="bi bi-github"></i>Problem melden</a></li></ul></div></div></div></footer></body></html>
