@@ -64,8 +64,8 @@ Wird der Bezeichner aus @exm-gekennzeichneter-name nicht markiert, erzeugt R die
 
 ## Operationen
 
-::: {#def-operation}
-Eine **Operation** ist ein syntaktisches Konstrukt, das von einer Programmiersprache als ausgeführbar erkannt wird.
+::: {#def-opeartion}
+Eine **Operation** ist ein syntaktisches Konstrukt, das von einer Programmiersprache als ausführbar erkannt wird.
 ::: 
 
 Eine Operation kann sich als ein Satz in einer Sprache vorgestellt werden, wobei für Programmiersprachen nur **ganze (vollständige) Sätze** gültig sind und ausgeführt werden. 
