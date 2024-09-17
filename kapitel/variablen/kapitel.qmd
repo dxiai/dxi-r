@@ -66,7 +66,7 @@ c(1, 9 , 7, 3, 5) * 2
 ```
 :::
 
-Eine besondere Gruppe innerhalb der Transformationen sind die Matrizen-Produkte (@sec-chapter-matrix-operationen) sowie das Umformen von Vektoren (@sec-chapter-daten-formen). Diese Transformationen erzeugen aus mehreren Vektoren *Vektorfelder*, wobei die urspünglichen Werte erhalten bleiben bzw. durch eine Multiplikation umgeformt werden. 
+Eine besondere Gruppe innerhalb der Transformationen sind die Matrizen-Produkte (@sec-chapter-matrix-operationen) sowie das Umformen von Vektoren (@sec-chapter-daten-formen). Diese Transformationen erzeugen aus mehreren Vektoren *Vektorfelder*, wobei die ursprünglichen Werte erhalten bleiben bzw. durch eine Multiplikation umgeformt werden. 
 
 ### Aggregatoren
 
