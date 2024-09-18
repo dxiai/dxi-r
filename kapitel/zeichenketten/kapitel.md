@@ -33,7 +33,7 @@ Am leichtesten und am einheitlichsten lassen sich Zeichenketten mit der `tidyver
 : Die wichtigsten Zeichenketten-Operationen {#tbl-zeichenketten-operationen}
 
 ::: {.callout-warning}
-Die Funktion `str()` ist eine Hilfsfunktion, die Informationen über die interne Struktur einer Variablen bereitstellt. `str()` ist eine Abkürzung für *structure*. Es handelt sich dabei um **keine** Zeichenkettenfunktion.
+Die Funktion `str()` ist eine Hilfsfunktion, die Information über die interne Struktur einer Variablen bereitstellt. `str()` ist eine Abkürzung für *structure*. Es handelt sich dabei um **keine** Zeichenkettenfunktion.
 ::: 
 
 In R verwenden wir dazu die Funktion `str_replace_all()`. Diese Funktion ersetzt einen Teil einer Zeichenkette durch eine andere Zeichenkette. Wir müssen daher R mitteilen, dass wir alle Teilzeichenketten löschen möchten, die nicht-druckbare Zeichen enthalten. Das erreichen wir durch den ***regulären Ausdruck*** ``"[\u01-\u07\u0E-\u1f\u80-\u9F]+"``. Dieses Suchmuster teilt R mit, welche nicht-druckbaren Zeichen entfernt werden müssen. Das Löschen erreichen wir dadurch, dass wir eine Teilzeichenkette mit der leeren Zeichenkette (s.u.) ersetzen. 
@@ -890,7 +890,7 @@ dateinamen |>
 Beachten Sie, dass Sie mit dem Parameter ``include_text = TRUE`` nicht nur die Kodierung einlesen, sondern auch den Text, der beim Kodieren markiert wurde. 
 :::
 
-Mit dieser Operation lesen wir jede einzelne Datei ein. In der Variablen `alleCodes` liegen nun alle vorgenommenen Kodierungen mit den relevanten Zusatzinformationen. Weil die Dateinamen Teil der Stichprobe ist, kann jeder Code und jeder markierte Text der Ursprungsdatei zugeordnet werden. 
+Mit dieser Operation lesen wir jede einzelne Datei ein. In der Variablen `alleCodes` liegen nun alle vorgenommenen Kodierungen mit den relevanten ZusatzInformation. Weil die Dateinamen Teil der Stichprobe ist, kann jeder Code und jeder markierte Text der Ursprungsdatei zugeordnet werden. 
 
 #### Lösung für normale Textdateien
 

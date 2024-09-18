@@ -58,7 +58,7 @@ RSCRIPT.EXE -e 'sessionInfo()'
 ```
 :::
 
-Bei erfolgreicher Installation erscheint eine Meldung im Terminal, die der folgen Meldung ähnelt. Die Funktion `sessionInfo()` zeigt die Versionsinformationen der aktuellen R-Installation an.
+Bei erfolgreicher Installation erscheint eine Meldung im Terminal, die der folgen Meldung ähnelt. Die Funktion `sessionInfo()` zeigt die VersionsInformation der aktuellen R-Installation an.
 
 ```
 R version 4.3.1 (2023-06-16)
