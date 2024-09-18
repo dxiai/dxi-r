@@ -890,7 +890,7 @@ dateinamen |>
 Beachten Sie, dass Sie mit dem Parameter ``include_text = TRUE`` nicht nur die Kodierung einlesen, sondern auch den Text, der beim Kodieren markiert wurde. 
 :::
 
-Mit dieser Operation lesen wir jede einzelne Datei ein. In der Variablen `alleCodes` liegen nun alle vorgenommenen Kodierungen mit den relevanten ZusatzInformation. Weil die Dateinamen Teil der Stichprobe ist, kann jeder Code und jeder markierte Text der Ursprungsdatei zugeordnet werden. 
+Mit dieser Operation lesen wir jede einzelne Datei ein. In der Variablen `alleCodes` liegen nun alle vorgenommenen Kodierungen mit den relevanten Zusatzinformation. Weil die Dateinamen Teil der Stichprobe ist, kann jeder Code und jeder markierte Text der Ursprungsdatei zugeordnet werden. 
 
 #### Lösung für normale Textdateien
 
