@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ed6da6eef3892af8a4b5ed59bfb951f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -834,23 +834,23 @@ Praxis
 <p>Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor <code>Einwohner:innen</code> gebildet werden.</p>
 <p>Daraus ergibt sich die folgende Funktionskette:</p>
 <div class="cell" data-warnings="false">
-<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-1" class="code-annotation-target"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"daten/einwohnende.psv"</span>,</span>
-<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">delim =</span> <span class="st">"|"</span>,</span>
-<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">trim_ws =</span> T,</span>
-<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show_col_types =</span> F) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-29-5" class="code-annotation-target"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">100000</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-29-6"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
-<span id="annotated-cell-29-7"><a href="#annotated-cell-29-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Gesamteinwohnende =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span>)</span>
-<span id="annotated-cell-29-8"><a href="#annotated-cell-29-8" aria-hidden="true" tabindex="-1"></a>    )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-28-1" class="code-annotation-target"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_delim</span>(<span class="st">"daten/einwohnende.psv"</span>,</span>
+<span id="annotated-cell-28-2"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">delim =</span> <span class="st">"|"</span>,</span>
+<span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">trim_ws =</span> T,</span>
+<span id="annotated-cell-28-4"><a href="#annotated-cell-28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show_col_types =</span> F) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-28-5" class="code-annotation-target"><a href="#annotated-cell-28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">100000</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-28-6"><a href="#annotated-cell-28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Gesamteinwohnende =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Einwohner:innen</span><span class="st">`</span>)</span>
+<span id="annotated-cell-28-8"><a href="#annotated-cell-28-8" aria-hidden="true" tabindex="-1"></a>    )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="1,2,3,4" data-code-annotation="1"><code>read_delim()</code> muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.</span>
+<span data-code-cell="annotated-cell-28" data-code-lines="1,2,3,4" data-code-annotation="1"><code>read_delim()</code> muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.</span>
 </dd>
-<dt data-target-cell="annotated-cell-29" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-29" data-code-lines="5" data-code-annotation="2">Filter operation.</span>
+<span data-code-cell="annotated-cell-28" data-code-lines="5" data-code-annotation="2">Filter operation.</span>
 </dd>
 </dl>
 </div>
@@ -991,7 +991,9 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 <section id="alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen" class="level3" data-number="11.5.4">
 <h3 data-number="11.5.4" class="anchored" data-anchor-id="alle-vektoren-zwischen-zwei-benannten-vektoren-auswählen"><span class="header-section-number">11.5.4</span> Alle Vektoren zwischen zwei benannten Vektoren auswählen</h3>
 <p>Eine weitere Möglichkeit schneller viele Vektoren auszuwählen ist der <code>:</code>-Operator. Damit können wir alle Vektoren zwischen zwei Vektoren inklusive der benannten Vektoren auswählen.</p>
-<p>Der folgende Aufruf veranschaulicht dies: ::: {#exm-select-range} ## Vektorenbereich selektieren</p>
+<p>Der folgende Aufruf veranschaulicht dies:</p>
+<div id="exm-select-range" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 11.18 (Vektorenbereich selektieren)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(q00_demo_gen<span class="sc">:</span>q01_mob_typ) <span class="sc">|&gt;</span></span>
@@ -1008,7 +1010,7 @@ chr (4): q00_demo_gen, q00_demo_studyload, q01_mob_typ, q12_fav_apps
 6 Weiblich     Vollzeit           iPhone            </code></pre>
 </div>
 </div>
-<p>:::</p>
+</div>
 <p>Diese Vektorenauswahl wählt die Vektoren <code>q00_demo_gen</code>, <code>q00_demo_studyload</code> und <code>q01_mob_typ</code> für das Ergebnis aus.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1030,7 +1032,7 @@ Warnung
 <p>R erlaubt kein Sortieren über logische Ausdrücke. Es ist nur möglich, Werte nach vorgegebenen grösser-kleiner Beziehungen zu sortieren. Deshalb muss für komplexe Sortierungen ein numerischer Hilfsvektor erzeugt werden, der anschliessend sortiert werden kann.</p>
 <p>Die Werte eines Vektors werden mit <code>sort()</code> sortiert.</p>
 <div id="exm-sort" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.18 (Vektorsortierung für zufällige Ganzzahlen)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.19 (Vektorsortierung für zufällige Ganzzahlen)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">10</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="fu">trunc</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1041,7 +1043,7 @@ Warnung
 </div>
 <p>Die <code>sort()</code>-Funktion kann nur einzelne Vektoren sortieren. Das ist unpraktisch, wenn Daten in einem Datenrahmen vorliegen. In diesem Fall lassen sich die Datensätze mithilfe der Funktion <code>arrange()</code> sortieren. Der Funktion werden die Vektoren übergeben, über die eine neue Reihenfolge festgelegt werden soll. Standardmässig sortiert <code>arrange()</code> aufsteigend. Mit der Hilfsfunktion <code>desc()</code> (engl. descending = absteigen) werden Datensätze entsprechend der Werte im Sortiervektor absteigend sortiert.</p>
 <div id="exm-sort" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 11.19 (Absteigende Datenrahmensortierung mit <code>arrange()</code>)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Beispiel 11.20 (Absteigende Datenrahmensortierung mit <code>arrange()</code>)</strong></span> &nbsp;</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"model"</span>) <span class="sc">|&gt;</span> </span>
