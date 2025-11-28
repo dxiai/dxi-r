@@ -4,10 +4,6 @@ abstract: ""
 
 # Transponieren: Daten formen {#sec-chapter-daten-formen}
 
-::: {.callout-warning}
-## Work in Progress
-:::
-
 ```{r, setup, include=FALSE}
 knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
 ```
