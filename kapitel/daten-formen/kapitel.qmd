@@ -1,5 +1,7 @@
 ---
-abstract: ""
+abstract: |
+    Beim Datenformen werden zusammenhängende Daten in unterschiedliche Formen gebracht. Diese Operationen werden allgemein unter dem Begriff des Transponierens zusammengefasst. Dabei werden zwei Varianten unterschieden: Das eigentliche Transponieren und das Hierarchisieren. Während das Transponieren im engeren Sinn nur das Umstellen von tabellarischen Werten umfasst, wird beim Hierarchisieren auch die Datenstruktur von einer tabellarische in eine Baumstruktur bzw. umgekehrt verändert. Neben diesen beiden Techniken fällt auch das Transponieren aus und in Zeichenketten in diese Katergorie. Dabei werden Zeichenketten als Wertelisten betrachtet, die zur weiteren Verarbeitung aufgelöst bzw. zusammengeführt werden.
+
 ---
 
 # Transponieren: Daten formen {#sec-chapter-daten-formen}
