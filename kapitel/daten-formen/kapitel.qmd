@@ -2,7 +2,7 @@
 abstract: ""
 ---
 
-# Daten formen {#sec-chapter-daten-formen}
+# Transponieren: Daten formen {#sec-chapter-daten-formen}
 
 ::: {.callout-warning}
 ## Work in Progress
@@ -189,15 +189,15 @@ In der Lösung werden drei besondere Parameter eingesetzt:
 2. Der Parameter `values_from` zeigt an, in welchem Vektor die zu transponierenden Werte stehen. 
 3. der Parameter `values_fill` kommt zur Anwendung, wenn für eine Position kein Wert bereitsteht. Für die Zählung bedeutet das, dass nichts gezählt wurde. Deshalb wurde der Wert im Beispiel auf den Wert `0` gesetzt.
 
-## Hierarchisieren 
+## Hierarchisieren {#sec-hierarchisieren}
 
-Beim Hierarchisieren werden ausgewählte Vektoren eines Datenrahmens entlang eines Sekundärinzes zu separaten Datenrahmen organisiert und in den ursprünglichen Datenrahmen eingebettet. Über solche eingebettete Datenrahmen lassen sich hierarchische Datenstrukturen erzeugen, die beispielsweise in einem JSON- oder YAML-Dokument (s. @sec-chapter-daten-importieren) gespeichert werden können. In R übernimmt diese Aufgabe die Funktion `nest()`.
+Beim Hierarchisieren werden ausgewählte Vektoren eines Datenrahmens entlang eines Sekundärinzes zu separaten Datenrahmen organisiert und in den ursprünglichen Datenrahmen eingebettet. Über solche eingebettete Datenrahmen lassen sich hierarchische Datenstrukturen erzeugen, die beispielsweise in einem JSON- oder YAML-Dokument (s. @sec-chapter-daten-importieren) gespeichert werden können. In R übernimmt diese Aufgabe die Funktion `nest()` (auf deutsch "einbetten"). 
 
-Weil R jedoch keine Vektoren mit Datenrahmen erlaubt, müssen diese Datenrahmen zusätzlich in eine Liste geschachtelt werden. Diese Liste dient nur zur Ablage in einem Vektor und besteht immer nur aus einem Element, nämlich dem eingebetteten Datenrahmen.
+Das Einbetten kann als eine besondere Form des Transponierens verstanden werden, bei dem mehere Vektoren in einen Vektor "gekippt" werden. Weil R jedoch keine Vektoren mit Datenrahmen erlaubt, müssen diese Datenrahmen zusätzlich in eine Liste geschachtelt werden. Diese Liste dient nur zur Ablage in einem Vektor und besteht immer nur aus einem Element, nämlich dem eingebetteten Datenrahmen.
 
-Mit der Funktion `unnest()` lassen sich eingebettete Datenrahmen wieder ausbetten. Diese Operation funktioniert jedoch nur dann zuverlässig, wenn alle eingebetteten Datenrahmen einheitliche Vektoren haben. Ist diese Bedingung nicht gegeben, dann erzeugt R zusätzliche Vektoren mit `NA` für alle Datensätze, die die Vektoren ursprünglich nicht enthielten. Die Funktion `unnest()` führt mehrere Spaltenkonkatenationen aus und ähnelt damit im Ergebnis der Funktion `bind_rows()`.
+Mit der Funktion `unnest()` lassen sich eingebettete Datenrahmen wieder ausbetten. Diese Operation funktioniert jedoch nur dann zuverlässig, wenn alle eingebetteten Datenrahmen einheitliche Vektoren haben. Das bedeutet, dass alle Listen im Vektor die gleiche Länge haben müssen. Ist diese Bedingung nicht gegeben, dann erzeugt R zusätzliche Vektoren mit `NA` für alle Datensätze, die die Vektoren ursprünglich nicht enthielten. Die Funktion `unnest()` führt mehrere Spaltenkonkatenationen aus und ähnelt damit im Ergebnis der Funktion `bind_rows()`. Konzeptionell ist es allerdings besser, wenn man sich `unnest()` als eine Variante von `pivot_longer()` vorstellt. 
 
-Die beiden Funktionen `nest()` und `unnest()` sind speziell zur Erzeugung bzw. zum Auflösen von eingebetteten Datenrahmen gedacht. Gelegentlich enthält ein Datenrahmen einen Vektor mit einfachen Listen oder benannten Listen. Solche Vektoren sind vom Typ `list` und sollten mit den Funktionn `unnest_longer()` für einfache Listen sowie `unnest_wider()` für einheitlich benannte Listen [@wickham_tidyr_2023]. 
+Der zentrale Unterschied zum regulären Transponieren ist, dass durch Listenvektoren komplexe geschachtelte Strukturen entstehen. Die beiden Funktionen `nest()` und `unnest()` sind speziell zur Erzeugung bzw. zum Auflösen von eingebetteten Datenrahmen gedacht. Gelegentlich enthält ein Datenrahmen einen Vektor mit einfachen Listen oder benannten Listen. Solche Vektoren sind vom Typ `list` und sollten mit der Funktion `unnest_longer()` ausgebettet werden, wenn der Vektor unbenannte Wertelisten vom gleichen Datentyp enthäl [@wickham_tidyr_2023]. Die Funktion `unnest_longer()` entspricht im Ergebnis dem transponieren mit `pivot_longer()`. Um einheitlich benannte Listen auszubetten, verwendet man `unnest_wider()` [@wickham_tidyr_2023]. Mit einheitlich benannt ist gemeint, dass alle Listen im Listenvektor die gleichen Benennungen enthalten.
 
 ## Transponieren mit Zeichenketten
 
@@ -208,7 +208,23 @@ Wie beim Transponieren kann ein Vektor in die Lang- oder die Breitform getrennt 
 - `separate_longer_delim()`
 - `separate_wider_delim()`
 
-Gelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als *regulärer Ausdruck* der Funktion `separate_longer_regex()` bzw. `separate_wider_regex()` übergeben werden.
+Gelegentlich sind die Daten in einer Zeichenkette nicht über ein eindeutiges Trennzeichen, sondern über ein Trennmuster kodiert. In diesem Fall kann das Trennmuster als *regulärer Ausdruck* ([@sec-regular-expressions]) der Funktion `separate_longer_delim()` bzw. `separate_wider_delim()` übergeben werden. Dazu muss der reguläre Ausdruck zuerst der `regex()` Funktion übergeben werden. 
+
+:::{#exm-separate-longer-regex}
+## Transponieren mit Zeichenketten mittels regulärer Ausdrücke
+
+```{r}
+read_csv("befragung_digitales_umfeld/deviceuse.csv") |>
+    # Nur die ersten drei Einträge auswählen
+    head(3) |> 
+    # Primärindex für die ursprünglichen Datensätze
+    mutate( nr = row_number()) |>
+    # Transponieren
+    separate_longer_delim(q12_fav_apps, delim = regex("\\s+")) |>
+    # nicht benötigte Vektoren aus dem Ergebnis entfernen
+    select(nr, fav_apps = q12_fav_apps)
+```
+:::
 
 Für festkodierte Werte stehen die beiden Funktionen `separate_longer_position()` und `separate_wider_position()` zur Verfügung. Diese Funktionen erwarten einen Vektor mit den Feldbreiten, um die Werte trennen zu können. 
 

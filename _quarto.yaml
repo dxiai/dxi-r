@@ -48,7 +48,7 @@ book:
   - part: "Mathematik der Daten"
     chapters:
     - kapitel/variablen/kapitel.qmd
-    - kapitel/zeichenketten/kapitel.md
+    - kapitel/zeichenketten/kapitel.qmd
     - kapitel/faktoren/kapitel.qmd
     - kapitel/boolsche-operationen/kapitel.qmd
     - kapitel/vektor-operationen/kapitel.qmd
