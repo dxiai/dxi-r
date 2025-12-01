@@ -196,7 +196,9 @@ install.packages(package_name)
 In diesem Buch werden neben den R-Basisfunktionen fast ausschliesslich die Funktionen der `tidyverse`-Bibliothek behandelt. Die `tidyverse`-Bibliothek erweitert die R-Syntax um moderne Sprachkonzepte und vereinheitlicht viele Funktionen für Standardaufgaben. 
 
 ::: {.callout-note}
-Streng genommen ist die `tidyverse`-Bibliothek eine R-Bibliothek im engeren Sinn. Vielmehr vereint sie die häufig zusammen eingesetzten Biblliotheken `ggplot2` ([@sec-chapter-daten-visualisieren]), `dplyr` ([@sec-chapter-indizieren-gruppieren]), `tidyr` ([@sec-chapter-daten-formen]), `readr` ([@sec-chapter-daten-importieren]), `stringr` ([@sec-chapter-zeichenketten]), `forcats` ([@sec-chapter-faktoren]), `lubridate` und `purrr` ([@sec-chapter-variablen]) sowie etliche weitere Module für die tägliche Arbeit mit Daten.
+Streng genommen ist die `tidyverse`-Bibliothek keine R-Bibliothek im engeren Sinn. Vielmehr vereint sie die häufig gemeinsam verwendeten Bibliotheken `ggplot2` ([@sec-chapter-daten-visualisieren]), `dplyr` ([@sec-chapter-indizieren-gruppieren]), `tidyr` ([@sec-chapter-daten-formen]), `readr` ([@sec-chapter-daten-importieren]), `stringr` ([@sec-chapter-zeichenketten]), `forcats` ([@sec-chapter-faktoren]), `lubridate` und `purrr` ([@sec-chapter-variablen]) sowie etliche weitere Module für die tägliche Arbeit. 
+
+Wenn tidyverse mit `library("tidyverse")` geladen wird, dann werden nicht alle tidyverse-Teilbibliotheken geladen. Bestimmte Bibliotheken müssen explizit geladen werden (z.B. `readxl`).
 :::
 
 Weil die `tidyverse`-Bibliothek eine zentrale Bedeutung im R-Umfeld hat, ist es an dieser Stelle sinnvoll, die `tidyverse`-Bibliothek mithilfe von `Rscript` zu installieren.
