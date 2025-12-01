@@ -336,26 +336,26 @@ Beispiele:
 
 Gelegentlich wollen wir ein Muster bis zu einem bestimmten Symbol in unserer Zeichenkette finden. In diesem Fall können wir einen negierten Symbolbereich angeben.
 
-> ::: {#exm-regex-finden}
-> Gegeben ist die folgende Zeichenkette: 
-> 
-> ```r
-> aquaponics = "
->    The term aquaponics [7] is coined by combining 
->     two words: aquaculture, which refers to fish 
->     farming, and hydroponics—the technique of growing 
->     plants without soil.[16]"
-> ```
->
-> Wir möchten nun die Zeichenkette ab dem Wort `term` und der öffnenden eckigen Klammer der Referenz markieren. D.h. wir wollen nicht ein beliebiges Zeichen und wollen nicht alle Symbole bis auf die öffnende Klammer explizit ausschliessen. Stattdessen können wir einen *negierten* Symbolbereich angeben. In unserem Fall erlauben wir jedes Zeichen, ausser die öffnende eckige Klammer. Weil die eckige Klammer eine besondere Bedeutung für reguläre Ausdrücke hat, müssen wir sie entsprechend mit Backslash "escapen". Unser regulärer Ausdruck muss entsprechend `"termn [^\\[]+\\["`. Der Teil `[^\\[]+` bedeutet dabei, "*alle Symbole ausser der öffnenden eckigen Klammer `[`*". Die beiden Backslashes sind dabei die notwendige Escape-Sequenz, um die Klammer vom Symbolbereich zu unterscheiden. 
-> 
-> Der folgende Code demonstriert diesen regulären Ausdruck.
-> 
-> ```r
-> aquaponics |>
->     str_match("term [^\\[]+\\[")
-> ```
-> :::
+::: {#exm-regex-finden}
+Gegeben ist die folgende Zeichenkette: 
+ 
+```r
+aquaponics = "
+   The term aquaponics [7] is coined by combining 
+   two words: aquaculture, which refers to fish 
+   farming, and hydroponics—the technique of growing 
+   plants without soil.[16]"
+```
+
+Wir möchten nun die Zeichenkette ab dem Wort `term` und der öffnenden eckigen Klammer der Referenz markieren. D.h. wir wollen nicht ein beliebiges Zeichen und wollen nicht alle Symbole bis auf die öffnende Klammer explizit ausschliessen. Stattdessen können wir einen *negierten* Symbolbereich angeben. In unserem Fall erlauben wir jedes Zeichen, ausser die öffnende eckige Klammer. Weil die eckige Klammer eine besondere Bedeutung für reguläre Ausdrücke hat, müssen wir sie entsprechend mit Backslash "escapen". Unser regulärer Ausdruck muss entsprechend `"termn [^\\[]+\\["`. Der Teil `[^\\[]+` bedeutet dabei, "*alle Symbole ausser der öffnenden eckigen Klammer `[`*". Die beiden Backslashes sind dabei die notwendige Escape-Sequenz, um die Klammer vom Symbolbereich zu unterscheiden. 
+ 
+Der folgende Code demonstriert diesen regulären Ausdruck.
+ 
+```r
+aquaponics |>
+    str_match("term [^\\[]+\\[")
+```
+:::
 
 Das Ergebnis eines regulären Ausdrucks ist normalerweise immer nur der erste Treffer. 
 

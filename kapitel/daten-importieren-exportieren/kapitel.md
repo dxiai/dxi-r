@@ -69,15 +69,15 @@ Für Spalten mit Zeichenketten oder Ganzzahlen wird immer die Funktion `read_csv
 
 Für Gleitkommazahlen erfolgt die Auswahl auf Grundlage des verwendeten Dezimaltrennzeichens. Wird der Dezimalpunkt verwendet, dann **muss** die Funktion `read_csv()` benutzt werden. Wird das Dezimalkomma verwendet, dann **muss** die Funktion `read_csv2()` eingesetzt werden.
 
-> ::: {#exm-import-single-col}
-> ## Datei mit einer Spalte importieren
->
-> Mit dem Aufruf `read_csv("beispieldaten.csv")` werden Daten mit einem Komma als Trennzeichen und mit Dezimalpunkt eingelesen. 
-> 
-> Mit dem Aufruf `read_csv2("beispieldaten.csv")` werden Daten mit einem Semikolon als Trennzeichen und mit Dezimalkomma eingelesen. 
->
-> In beiden Fällen nutzen wir dieses Verhalten aus, um eine Stichprobe mit nur einer Spalte einzulesen. 
-> :::
+::: {#exm-import-single-col}
+## Datei mit einer Spalte importieren
+
+Mit dem Aufruf `read_csv("beispieldaten.csv")` werden Daten mit einem Komma als Trennzeichen und mit Dezimalpunkt eingelesen. 
+ 
+Mit dem Aufruf `read_csv2("beispieldaten.csv")` werden Daten mit einem Semikolon als Trennzeichen und mit Dezimalkomma eingelesen. 
+
+In beiden Fällen nutzen wir dieses Verhalten aus, um eine Stichprobe mit nur einer Spalte einzulesen. 
+:::
 
 ### Excel Arbeitsmappen
 

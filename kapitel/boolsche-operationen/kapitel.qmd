@@ -244,52 +244,52 @@ In der Praxis wird meistens die Funktion `filter()` zum Auswählen von Datensät
 
 Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (`TRUE`) ergibt.
 
-> ::: {#exm-filter}
-> ## Filtern
-> 
-> | | A | B | C |
-> | :---: | :---| :---: |  :---: | 
-> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
-> | **2** | Basel | deutsch | 173863| 
-> | **3** | Genf | französisch | 203856 | 
-> | **4** | Lugano | italienisch | 62315 | 
-> | **5** | Zug | deutsch | 30934 | 
-> | **6** | Zürich | deutsch | 421878 | 
-> 
-> Für diese Stichprobe möchten wir wissen, wie viele Einwohner in Städten mit mehr als 100000 Einwohnenden leben?
-> 
-> Diese Frage beantworten wir mit der folgenden Logik:
-> 
-> 1. Alle Städte mit mehr als 100000 Einwohner:innen filtern.  
-> 2. Die Einwohner:innen der gefilterten Städte zusammenzählen. 
-> 
-> Der logische Ausdruck zum Filtern ist `` `Einwohner:innen` > 100000 ``, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor `Einwohner:innen` der Wert grösser als `100000` ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor: 
-> 
-> | | A | B | C |
-> | :---: | :---| :---: |  :---: | 
-> | **1** | *Name* | *Sprache* | *Einwohner:innen* |
-> | **2** | Basel | deutsch | 173863 | 
-> | **3** | Genf | französisch | 203856 | 
-> | **6** | Zürich | deutsch | 421878 | 
-> 
-> Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor `Einwohner:innen` gebildet werden. 
-> 
-> Daraus ergibt sich die folgende Funktionskette: 
-> 
-> ```{r, warnings=FALSE}
-> read_delim("daten/einwohnende.psv", # <1>
->            delim = "|",  # <1>
->            trim_ws = T,  # <1>
->            show_col_types = F) |> # <1>
->     filter(`Einwohner:innen` > 100000) |> # <2>
->     summarise(
->         Gesamteinwohnende = sum(`Einwohner:innen`)
->     )
-> ```
->
-> 1. `read_delim()` muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.
-> 2. Filter operation.
-> :::
+::: {#exm-filter}
+## Filtern
+
+| A | B | C |
+| :---: | :---| :---: |  :---: | 
+| **1** | *Name* | *Sprache* | *Einwohner:innen* |
+| **2** | Basel | deutsch | 173863| 
+| **3** | Genf | französisch | 203856 | 
+| **4** | Lugano | italienisch | 62315 | 
+| **5** | Zug | deutsch | 30934 | 
+| **6** | Zürich | deutsch | 421878 | 
+
+Für diese Stichprobe möchten wir wissen, wie viele Einwohner in Städten mit mehr als 100000 Einwohnenden leben?
+
+Diese Frage beantworten wir mit der folgenden Logik:
+
+1. Alle Städte mit mehr als 100000 Einwohner:innen filtern.  
+2. Die Einwohner:innen der gefilterten Städte zusammenzählen. 
+
+Der logische Ausdruck zum Filtern ist `` `Einwohner:innen` > 100000 ``, weil dieser Ausdruck nur für die Datensätze Wahr wird, wenn im Vektor `Einwohner:innen` der Wert grösser als `100000` ist. Nach dem Filtern im ersten Schritt liegt nur noch die folgende Stichprobe vor: 
+
+| A | B | C |
+| :---: | :---| :---: |  :---: | 
+| **1** | *Name* | *Sprache* | *Einwohner:innen* |
+| **2** | Basel | deutsch | 173863 | 
+| **3** | Genf | französisch | 203856 | 
+| **6** | Zürich | deutsch | 421878 | 
+
+Für diese Teilstichprobe muss im zweiten Schritt nur noch die Summe über den Vektor `Einwohner:innen` gebildet werden. 
+
+Daraus ergibt sich die folgende Funktionskette: 
+
+```{r, warnings=FALSE}
+read_delim("daten/einwohnende.psv", # <1>
+           delim = "|",  # <1>
+           trim_ws = T,  # <1>
+           show_col_types = F) |> # <1>
+    filter(`Einwohner:innen` > 100000) |> # <2>
+    summarise(
+        Gesamteinwohnende = sum(`Einwohner:innen`)
+    )
+```
+
+1. `read_delim()` muss verwendet werden, weil ein besonderes Trennzeichen benutzt wird.
+2. Filter operation.
+:::
 
 
 ### `NA`-Werte filtern 
