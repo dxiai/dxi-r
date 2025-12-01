@@ -14,7 +14,7 @@ knitr::opts_knit$set(root.dir = "../../../dxi-beispiele")
 #| echo: false
 #| warning: false
 
-library(tidyverse)
+library("tidyverse")
 ```
 
 In R stehen die logischen Operationen als *binäre* Operatoren zur Verfügung, bzw. als Funktionen mit genau zwei Parametern. Diese logischen Operatoren sind vektorisiert. Es ist deshalb unnötig, logische Ausdrücke durch die Boole'sche Arithmetik zu ersetzen. Lediglich die Reihenfolge der Ausführung dieser Operatoren folgt der gleichen Regel wie die Arithmetik. 
