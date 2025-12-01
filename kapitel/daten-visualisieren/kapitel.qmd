@@ -17,7 +17,10 @@ In R erstellen wir Plots mit Hilfe der `ggplot2`-Funktionen. Anders als in Excel
 Als Erstes laden wir wie immer die `tidyverse`-Bibliothek, damit wir die ggplot-Funktionen und die Funktionsverkettung verwenden können.
 
 ```{r}
-library(tidyverse)
+#| echo: false
+#| warning: false
+
+library("tidyverse")
 ```
 
 <!-- 

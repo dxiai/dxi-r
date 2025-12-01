@@ -7,9 +7,11 @@ abstract: ""
 ## Work in Progress
 :::
 
-```{r, include=FALSE}
+```{r}
 #| echo: false
-library(tidyverse)
+#| warning: false
+
+library("tidyverse")
 ```
 
 **Vektoren** sind zusammengesetzte Datenstrukturen, die Werte vom gleichen Datentyp enthalten. In R bilden Vektoren die Basisstruktur für *alle Daten*. R unterscheidet zwischen Listen und Vektoren, wobei für Vektoren immer sichergestellt wird, dass alle Werte vom gleichen Datentyp sind.

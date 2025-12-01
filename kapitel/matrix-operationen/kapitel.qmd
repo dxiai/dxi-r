@@ -4,8 +4,11 @@ abstract: ""
 
 # Matrix-Operationen {#sec-chapter-matrix-operationen}
 
-```{r, include=FALSE}
-library(tidyverse)
+```{r}
+#| echo: false
+#| warning: false
+
+library("tidyverse")
 ```
 
 Matrizen sind in R 2-dimensionale *numerische* Vektoren, die aus Zeilen und Spalten bestehen. Die Anzahl der Zeilen und Spalten gibt die *Dimensionalität* der Matrix an. Allgemein wird von einer $m \times n$-Matrix gesprochen, wobei $m$ für die Anzahl der Zeilen und $n$ für die Anzahl der Spalten steht. 

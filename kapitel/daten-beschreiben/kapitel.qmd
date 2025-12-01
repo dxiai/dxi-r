@@ -20,8 +20,11 @@ ie Funktionen zur Ermittlung der Kennzahlen von Datenrahmen werden durch die Bib
 ::: 
 
 ```{r}
-library(tidyverse)
-library(rstatix)
+#| echo: false
+#| warning: false
+
+library("tidyverse")
+library("rstatix")
 ```
 
 ## Universelle Kennwerte

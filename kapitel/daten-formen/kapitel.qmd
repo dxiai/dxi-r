@@ -13,7 +13,10 @@ knitr::opts_knit$set(root.dir = "../../../dxi-beispiele/daten")
 Die Funktionen zum Formen von Datenrahmen werden durch die `tidyverse`-Bibliothek `tidyr` bereitgestellt. 
 
 ```{r}
-library(tidyverse)
+#| echo: false
+#| warning: false
+
+library("tidyverse")
 ```
 
 ## Transponieren
