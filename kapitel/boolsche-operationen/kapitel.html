@@ -647,7 +647,7 @@ Warnung
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    werte <span class="ot">=</span> <span class="dv">0</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in if (werte &gt; 1) {: Bedingung hat Länge &gt; 1</code></pre>
+<pre><code>Error in if (werte &gt; 1) {: the condition has length &gt; 1</code></pre>
 </div>
 </div>
 </div>
@@ -671,7 +671,7 @@ Praxis
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Variable enthält keine Liste"</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Variable enthält keine Liste</code></pre>
+<pre><code>Error: Variable enthält keine Liste</code></pre>
 </div>
 </div>
 </div>
@@ -738,16 +738,15 @@ Praxis
 <li>Den logischen Ausdruck für die Auswahl der Datensätze.</li>
 </ol>
 <p>Das Ergebnis ist ein Datenrahmen, der nur Datensätze enthält, für die der logische Ausdruck Wahr (<code>TRUE</code>) ergibt.</p>
-<blockquote class="blockquote">
 <div id="exm-filter" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 11.11 (Filtern)</strong></span> &nbsp;</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: left;">A</th>
-<th style="text-align: center;">B</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: left;">B</th>
 <th style="text-align: center;">C</th>
+<th style="text-align: center;"></th>
 </tr>
 </thead>
 <tbody>
@@ -800,10 +799,10 @@ Praxis
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: left;">A</th>
-<th style="text-align: center;">B</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: left;">B</th>
 <th style="text-align: center;">C</th>
+<th style="text-align: center;"></th>
 </tr>
 </thead>
 <tbody>
@@ -864,7 +863,6 @@ Praxis
 </div>
 </div>
 </div>
-</blockquote>
 <section id="na-werte-filtern" class="level3" data-number="11.4.1">
 <h3 data-number="11.4.1" class="anchored" data-anchor-id="na-werte-filtern"><span class="header-section-number">11.4.1</span> <code>NA</code>-Werte filtern</h3>
 <p>Die Funktion <code>drop_na()</code> ist eine spezielle Filterfunktion, deren Ergebnis nur Datensätze enthält, in denen bei keinem Vektor den Wert <code>NA</code> vorkommt. Die Funktion hat keinen Effekt, wenn ein Datenrahmen nur gültige Werte enthält (<a href="#exm-drop-na-all" class="quarto-xref">Beispiel&nbsp;<span>11.12</span></a>).</p>

@@ -434,13 +434,11 @@ Achtung
 <p><strong>CSV</strong>-Dateien können mit Komma oder Semikolon als Trennzeichen erstellt werden. Falls eine Datei mit nur <strong>einem</strong> <em>Datenvektor</em> importiert werden muss, dann kann R das Spaltentrennzeichen nicht finden. In solchen Fälle <strong>muss</strong> die Datei mit der <code>read_csv()</code> oder <code>read_csv2()</code>-Funktion noch einmal eingelesen werden.</p>
 <p>Für Spalten mit Zeichenketten oder Ganzzahlen wird immer die Funktion <code>read_csv()</code> verwendet.</p>
 <p>Für Gleitkommazahlen erfolgt die Auswahl auf Grundlage des verwendeten Dezimaltrennzeichens. Wird der Dezimalpunkt verwendet, dann <strong>muss</strong> die Funktion <code>read_csv()</code> benutzt werden. Wird das Dezimalkomma verwendet, dann <strong>muss</strong> die Funktion <code>read_csv2()</code> eingesetzt werden.</p>
-<blockquote class="blockquote">
 <div id="exm-import-single-col" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 7.1 (Datei mit einer Spalte importieren)</strong></span> Mit dem Aufruf <code>read_csv("beispieldaten.csv")</code> werden Daten mit einem Komma als Trennzeichen und mit Dezimalpunkt eingelesen.</p>
 <p>Mit dem Aufruf <code>read_csv2("beispieldaten.csv")</code> werden Daten mit einem Semikolon als Trennzeichen und mit Dezimalkomma eingelesen.</p>
 <p>In beiden Fällen nutzen wir dieses Verhalten aus, um eine Stichprobe mit nur einer Spalte einzulesen.</p>
 </div>
-</blockquote>
 </section>
 <section id="excel-arbeitsmappen" class="level3" data-number="7.1.3">
 <h3 data-number="7.1.3" class="anchored" data-anchor-id="excel-arbeitsmappen"><span class="header-section-number">7.1.3</span> Excel Arbeitsmappen</h3>
