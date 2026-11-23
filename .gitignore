@@ -79,3 +79,4 @@ _freeze/
 **/*.toc
 
 site_libs/
+**/*.quarto_ipynb
