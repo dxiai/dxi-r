@@ -329,9 +329,9 @@ all.equal(matrixA, matrixB)[1] == TRUE
 ```
 :::
 
-## Kreuzprodukt
+## Matrixmultiplikation
 
-Das Kreuzprodukt (oder Matrixmultiplikation) ist eine Erweiterung der bekannten Multiplikation für Matrizen. Beim Kreuzprodukt muss die linke Matrix genausoviele Spalten haben, wie Zeilenanzahl der rechten Matrix. Das Kreuzprodukt ist dann wie folgt definiert: 
+Die Matrixmultiplikation ist eine Erweiterung der bekannten Multiplikation für Matrizen. Bei der Matrixmultiplikation muss die linke Matrix genausoviele Spalten haben, wie Zeilenanzahl der rechten Matrix. Die Matrixmultiplikation ist dann wie folgt definiert: 
 
 $$
 \begin{aligned}
@@ -358,7 +358,7 @@ b_{n1} & b_{n2} & \cdots & b_{np} \\
 \end{aligned}
 $$
 
-In R wird das Kreuzprodukt mit dem `%*%`-Operator durchgeführt.  
+In R wird die Matrixmultiplikation mit dem `%*%`-Operator durchgeführt.  
 
 ```{r}
 matrixA 
@@ -382,7 +382,7 @@ Werden mehrere Matrizen nacheinander multipliziert, so können bekannte Matrizen
 
 ### Zeilen- und Spaltensummen
 
-Für die Zeilensumme ist ein Spaltenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixspalten**. Wegen der Regeln für das Kreuzprodukt muss der Einsvektor der rechte Operand des Kreuzprodukts sein (@exm-matrix-zeilensumme). 
+Für die Zeilensumme ist ein Spaltenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixspalten**. Wegen der Regeln für die Matrixmultiplikation muss der Einsvektor der rechte Operand der Matrixmultiplikation sein (@exm-matrix-zeilensumme). 
 
 ::: {#exm-matrix-zeilensumme}
 ## Zeilensumme
@@ -392,7 +392,7 @@ matrixA %*% rep(1, ncol(matrixA))
 ```
 :::
 
-Für die Spaltensumme ist ein Zeilenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixzeilen**. Weil R-Vektoren keine Orientierung haben, sondern immer als Spaltenvektoren behandelt werden, muss der Vektor noch transponiert werden. Bei der Zeilensumme ist ausserdem zu beachten, dass der Einsvektor der linke Operand des Kreuzprodukts sein muss (@exm-matrix-spaltensumme). 
+Für die Spaltensumme ist ein Zeilenvektor notwendig. Dieser Vektor ist ein Einsvektor mit der Länge von der Anzahl der **Matrixzeilen**. Weil R-Vektoren keine Orientierung haben, sondern immer als Spaltenvektoren behandelt werden, muss der Vektor noch transponiert werden. Bei der Zeilensumme ist ausserdem zu beachten, dass der Einsvektor der linke Operand der Matrixmultiplikation sein muss (@exm-matrix-spaltensumme). 
 
 ::: {#exm-matrix-spaltensumme}
 ## Zeilensumme
@@ -404,7 +404,7 @@ t(rep(1, nrow(matrixA))) %*% matrixA
 
 ## Äusseres Vektorprodukt
 
-Das äussere Vektorprodukt erlaubt es Matrizen aus den Werte von zwei Vektoren mit einem *beliebigen Operators* zu erzeugen. Im Gegensatz zum Kreuzprodukt ist die Orientierung der beiden Vektoren durch das äussere Produkt vorgegeben: Der zweite Vektor wird immer als Zeilenvektor angenommen. 
+Das äussere Vektorprodukt erlaubt es Matrizen aus den Werte von zwei Vektoren mit einem *beliebigen Operators* zu erzeugen. Im Gegensatz zur Matrixmultiplikation ist die Orientierung der beiden Vektoren durch das äussere Produkt vorgegeben: Der zweite Vektor wird immer als Zeilenvektor angenommen. 
 
 Der Operator des äusseren Produkts ist `%o%`, wobei als Verknüpfung die Multiplikation verwendet wird. Mit der Funktion `outer()` können beliebige Operatoren (d.h. Funktionen mit zwei Operatoren) angegeben werden.
 
@@ -517,9 +517,9 @@ solve(matrixQ)
 
 ## `Matrix`-Bibliothek {#sec-matrix-bibliothek}
 
-Das Kreuzprodukt, das äussere Produkt und das Transponieren werden durch R automatisch bereitgestellt. Für komplexere Aufgaben oder sehr grossere Matrizen dient die Bibliothek `Matrix` [@bates_r_2023]. Diese Bibliothek gehört zur R-Standardinstallation und ist auf jedem System vorhanden. Die Bibliothek stellt alle relevanten Funktionen für Matrix-Operationen, die für mathematische Matrix-Operationen benötigt werden. 
+Die Matrixmultiplikation, das äussere Produkt und das Transponieren werden durch R automatisch bereitgestellt. Für komplexere Aufgaben oder sehr grossere Matrizen dient die Bibliothek `Matrix` [@bates_r_2023]. Diese Bibliothek gehört zur R-Standardinstallation und ist auf jedem System vorhanden. Die Bibliothek stellt alle relevanten Funktionen für Matrix-Operationen, die für mathematische Matrix-Operationen benötigt werden. 
 
-Diese Bibliothek sollte immer geladen werden, wenn sehr grosse Matrizen oder Matrizen mit vielen `0`-Werten verwendet werden. Besonders für den zweiten Fall ist die sog. **Sparse Matrix** (deutsch "dünnbesetzte Matrix") von besonderer Bedeutung. Eine dünnbesetzte Matrix ist eine Matrix mit vielen `0`-Werten, wobei *viel* "mehr als ein Drittel der Positionen" bedeutet. In solchen Matrizen lässt R die `0`-Werte weg, so dass diese Werte keinen Speicher benötigen und keine Berechnungen für die entsprechenden Operationen (insbesondere beim Kreuzprodukt) durchgeführt werden. Abgesehen von dieser speziellen Behandlung der `0`-Werte unterscheiden sich dünnbesetzte Matrizen in R nicht von anderen Matrizen.
+Diese Bibliothek sollte immer geladen werden, wenn sehr grosse Matrizen oder Matrizen mit vielen `0`-Werten verwendet werden. Besonders für den zweiten Fall ist die sog. **Sparse Matrix** (deutsch "dünnbesetzte Matrix") von besonderer Bedeutung. Eine dünnbesetzte Matrix ist eine Matrix mit vielen `0`-Werten, wobei *viel* "mehr als ein Drittel der Positionen" bedeutet. In solchen Matrizen lässt R die `0`-Werte weg, so dass diese Werte keinen Speicher benötigen und keine Berechnungen für die entsprechenden Operationen (insbesondere bei der Matrixmultiplikation) durchgeführt werden. Abgesehen von dieser speziellen Behandlung der `0`-Werte unterscheiden sich dünnbesetzte Matrizen in R nicht von anderen Matrizen.
 
 ::: {#exm-sparsematrix-erzeugen}
 ## Dünnbesetzte Matrix erzeugen 
